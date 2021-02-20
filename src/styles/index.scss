@@ -1,0 +1,71 @@
+@import "./base.scss";
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.bd-grid {
+  max-width: 117rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+.section {
+  padding: 4rem 0 3.2rem;
+
+  &-title {
+    text-align: center;
+    margin-bottom: 3.2rem;
+    letter-spacing: 0.16rem;
+  }
+}
+
+// Media Queries
+@include smallerMobiles {
+  // < 767
+  .bd-grid {
+    max-width: 60rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .row {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+
+@include mediumTablets {
+  // > 720
+  .bd-grid {
+    max-width: 76rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .row {
+    margin-left: -2rem;
+    margin-right: -2rem;
+  }
+}
+
+@include mediumTabletsLand {
+  // > 960
+  .bd-grid {
+    max-width: 98rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@include largeDesktop {
+  // > 1024
+  .bd-grid {
+    max-width: 1200px;
+  }
+}

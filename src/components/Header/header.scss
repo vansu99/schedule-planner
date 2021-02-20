@@ -1,0 +1,105 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.l-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.nav {
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__toggle {
+    font-size: 2.2rem;
+    cursor: pointer;
+  }
+
+  &__logo {
+    position: relative;
+    display: inline-block;
+    font-weight: $font-semi-bold;
+    font-size: $big-font-size;
+    color: #088cfb;
+  }
+
+  &__login {
+    display: inline-block;
+    background-color: #088cfb;
+    color: $white-color;
+    padding: 0.5rem 1.4rem;
+    text-align: center;
+    margin-left: 3rem;
+    border-radius: 0.8rem;
+  }
+
+  @include smallerMobiles {
+    &__menu {
+      position: fixed;
+      top: 6rem;
+      left: -100%;
+      width: 70%;
+      height: 100vh;
+      padding: 3.2rem;
+      background-color: $white-color;
+      transition: left ease 0.5s;
+
+      &.show {
+        left: 0;
+      }
+    }
+
+    &__item {
+      margin-bottom: 3rem;
+    }
+
+    &__logo {
+      left: 1.5rem;
+    }
+
+    &__login {
+      font-size: 1.4rem;
+      background-color: $white-color;
+      color: $dark-color;
+      padding: 0.4rem 1.2rem;
+      border: 1px solid #d2d2d2;
+      margin-left: 0;
+    }
+  }
+
+  &__item {
+    margin-bottom: 2rem;
+  }
+
+  @include mediumTabletsLand {
+    &__menu {
+      margin-left: auto;
+    }
+
+    &__list {
+      display: flex;
+    }
+
+    &__item {
+      margin-left: 3rem;
+      margin-bottom: 0;
+      font-weight: 400;
+
+      .divider {
+        width: 1px;
+        background-color: #e3e3e3;
+        display: block;
+        height: 100%;
+      }
+    }
+
+    &__toggle {
+      display: none;
+    }
+  }
+}
