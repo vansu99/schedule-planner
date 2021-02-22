@@ -1,0 +1,51 @@
+@import "../../../styles/variables.scss";
+
+.todoForm {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+  }
+
+  &__input {
+    outline: none;
+    border: none;
+    resize: none;
+    border-radius: 4px;
+    font-family: $body-font-family;
+    padding-top: 1rem;
+    padding-left: 0.8rem;
+
+    &::-webkit-input-placeholder {
+      padding: 0rem 0.8rem;
+    }
+  }
+
+  &__confirm {
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    outline: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 4px;
+
+    &--ok {
+      background-color: #5aac44;
+      color: #fff;
+    }
+
+    &-icon {
+      font-size: 1.8rem;
+      color: #e94848;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

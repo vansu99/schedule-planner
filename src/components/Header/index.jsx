@@ -1,11 +1,16 @@
+import { pathName } from '../../configs';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import "./header.scss";
 
 export default function Header() {
   const [isShow, setIsShow] = useState(false);
+  const loggedInUser = useSelector(state => state.user.currentUser);
+  const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
 
   const handleShowDrawler = () => {
-    setIsShow(!isShow)
+    setIsShow(!isShow);
   }
 
   return (
@@ -31,7 +36,10 @@ export default function Header() {
             </li>
           </ul>
         </div>
-        <a href="#!" className="nav__login">Login</a>
+        {!isLoggedIn && (<Link to={pathName.LOGIN} className="nav__login">Login</Link>)}
+        {isLoggedIn && (<div className="nav__account">
+          <i className='bx bxs-user-circle'></i>
+        </div>)}
       </nav>
     </header>
   )

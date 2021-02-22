@@ -10,6 +10,9 @@ const userApis = {
   logout: () => {
     return axiosClient.post("/api/auth/logout");
   },
+  getMe: () => {
+    return axiosClient.post("/api/auth/me");
+  },
 };
 
 export default userApis;

@@ -1,3 +1,5 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-export const accessTokenSelector = createSelector()
+const getUser = (state) => state.user;
+
+export const getUserInAuthenticated = createSelector([getUser], (user) => user.isAuthenticated);

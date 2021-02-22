@@ -7,18 +7,21 @@ import MainLayout from "../layout/MainLayout";
 const Error404View = lazy(() => import("../components/404"));
 const Login = lazy(() => import("../features/Login"));
 const Register = lazy(() => import("../features/Register"));
+const Todos = lazy(() => import("../features/Todos"));
 
 const routesConfig = [
   {
     exact: true,
     guard: GuestGuard,
     path: pathName.LOGIN,
+    layout: MainLayout,
     component: Login,
   },
   {
     exact: true,
     guard: GuestGuard,
     path: pathName.REGISTER,
+    layout: MainLayout,
     component: Register,
   },
   {
@@ -33,8 +36,13 @@ const routesConfig = [
     routes: [
       {
         exact: true,
-        path: pathName.CLIMATE_LIST,
+        path: pathName.ERROR_404,
         component: Error404View,
+      },
+      {
+        exact: true,
+        path: pathName.TODO_LIST,
+        component: Todos,
       },
       {
         component: () => <Redirect to={pathName.ERROR_404} />,

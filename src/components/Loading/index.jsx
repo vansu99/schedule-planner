@@ -3,6 +3,6 @@ import "./loading.scss";
 
 export default function Loading() {
   return (
-    <div class="dashed-loading"></div>
+    <div className="dashed-loading"></div>
   )
 }

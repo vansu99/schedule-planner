@@ -1,10 +1,10 @@
 import React from "react";
-import "./styles/index.scss";
-import "react-toastify/dist/ReactToastify.css";
 import { Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import history from "./helpers/history";
 import Routes from "./routes/routes";
+import "./styles/index.scss";
 
 function App() {
   return (

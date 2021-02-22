@@ -1,9 +1,9 @@
 import axios from "axios";
 import queryString from "query-string";
-import { pathName } from "../configs";
+import { pathName, StorageKeys } from "../configs";
 import history from "../helpers/history";
 
-const API_URL = "https://projectclimate.herokuapp.com";
+const API_URL = "http://localhost:3001";
 
 const axiosClient = axios.create({
   baseURL: API_URL,
@@ -17,7 +17,7 @@ const axiosClient = axios.create({
 // Request Interceptors
 axiosClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("access_Token");
+    const token = localStorage.getItem(StorageKeys.TOKEN);
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },

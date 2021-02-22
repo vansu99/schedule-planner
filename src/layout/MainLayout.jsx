@@ -1,7 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 MainLayout.propTypes = {
   children: PropTypes.any,
@@ -19,7 +18,7 @@ function MainLayout({ children }) {
       <main>
         {children}
       </main>
-      <Footer />
+
     </div>
   )
 }

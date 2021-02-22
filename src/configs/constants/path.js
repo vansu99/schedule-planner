@@ -8,6 +8,7 @@ const pathName = {
   USER_DETAIL: "/users/:id",
   USERS_ROLE: "/users/role/:id",
   USERS_ADD: "/users/add",
+  TODO_LIST: "/todos",
 };
 
 export default pathName;

@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
 
 .login {
   display: grid;
@@ -85,6 +85,7 @@
 
   &__button {
     display: block;
+    width: 100%;
     padding: 1rem;
     margin: 2rem 0;
     color: $white-color;
@@ -92,6 +93,8 @@
     text-align: center;
     border-radius: 0.5rem;
     transition: all 0.3s;
+    border: 0;
+    outline: none;
   }
 
   &__account,
