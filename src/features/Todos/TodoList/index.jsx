@@ -1,28 +1,57 @@
-import { Paper } from '@material-ui/core';
 import React, { useState } from 'react';
-import useStyles from './theme.TodoList';
-import Title from './titleCpt.jsx';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TodoCard from '../TodoCard';
+import "./todoList.scss";
 import TodoFormContainer from '../TodoForm/TodoFormContainer';
+import Title from './titleCpt.jsx';
 
-export default function TodoList({ listId, title, cards }) {
-  console.log(cards);
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+export default function TodoList({ listId, title, cards, index }) {
+  const [isEditing, setEditing] = useState(false);
+
+  const handleEditTitleList = () => {}
+
+  const handleRemoveList = () => {}
 
   return (
-    <Paper className={classes.root}>
-      <Title title={title} open={open} setOpen={setOpen} />
-      { cards.map(card => (
-        <TodoCard
-          cardId={card.id}
-          title={card.title}
-          key={card.id}
-          member={card.member}
-          listId={listId}
-        />
-      )) }
-      <TodoFormContainer />
-    </Paper>
+    <Draggable draggableId={String(listId)} index={index}>
+      {
+        (provided) => (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            className="todoList"
+          >
+            <Droppable droppableId={String(listId)} type="CARD">
+              {
+                (providedDrop) => (
+                  <>
+                    <Title title={title} open={isEditing} setOpen={setEditing} />
+                    <div
+                      {...providedDrop.droppableProps}
+                      ref={providedDrop.innerRef}
+                      className="todoList__content"
+                    >
+                      { cards.map((card, idx) => (
+                        <TodoCard
+                          cardId={card.id}
+                          title={card.title}
+                          key={card.id}
+                          member={card.member}
+                          listId={listId}
+                          index={idx}
+                        />
+                      )) }
+                      <TodoFormContainer listId={listId} />
+                      {providedDrop.placeholder}
+                    </div>
+                  </>
+                )
+              }
+            </Droppable>
+          </div>
+        )
+      }
+    </Draggable>
   )
 }

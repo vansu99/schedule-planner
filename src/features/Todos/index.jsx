@@ -1,6 +1,7 @@
 import React from 'react';
+import "./todos.scss";
 import TodoList from './TodoList';
-import { data } from '../../store/data';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCards, getColumns, getLists } from '../../selectors/todos.selector';
 
@@ -11,26 +12,43 @@ export default function Todos() {
   const cardSelector = useSelector(getCards);
 
   return (
-    <div style={{ display: 'flex' }}>
-      {
-        columnSelector.length > 0 ? (
-          <>
-            {columnSelector.map((column, idx) => {
-              const lists = listsSelector[column];
-              const cards = lists.cards.map(card => cardSelector[card])
+    <div className="todos">
+      <DragDropContext>
+        <Droppable>
+          {
+            (provided) => {
               return (
-                <TodoList
-                  key={lists.id}
-                  listId={lists.id}
-                  title={lists.title}
-                  cards={cards}
-                  index={idx}
-                />
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="todos__container"
+                >
+                  {
+                    columnSelector.length > 0 ? (
+                      <>
+                        {columnSelector.map((column, idx) => {
+                          const lists = listsSelector[column];
+                          const cards = lists.cards.map(card => cardSelector[card])
+                          return (
+                            <TodoList
+                              key={lists.id}
+                              listId={lists.id}
+                              title={lists.title}
+                              cards={cards}
+                              index={idx}
+                            />
+                          )
+                        })}
+                      </>
+                    ) : null
+                  }
+                  {provided.placeholder}
+                </div>
               )
-            })}
-          </>
-        ) : null
-      }
+            }
+          }
+        </Droppable>
+      </DragDropContext>
     </div>
   )
 }

@@ -1,7 +1,20 @@
 .todoCard {
+  width: 100%;
   background-color: #fff;
   overflow: hidden;
   padding: 0.8rem;
-  margin: 1rem;
+  margin-bottom: 1rem;
   border-radius: 4px;
+
+  &__member {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    img {
+      & + img {
+        margin-left: 0.7rem;
+      }
+    }
+  }
 }

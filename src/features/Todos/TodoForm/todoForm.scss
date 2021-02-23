@@ -4,7 +4,6 @@
   &__list {
     display: flex;
     flex-direction: column;
-    margin: 0 1rem;
   }
 
   &__input {
@@ -33,14 +32,19 @@
     padding: 0.5rem 1rem;
     display: block;
     border-radius: 4px;
+    background-color: transparent;
 
     &--ok {
       background-color: #5aac44;
       color: #fff;
     }
 
+    & + button {
+      margin-left: 0.8rem;
+    }
+
     &-icon {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #e94848;
     }
 

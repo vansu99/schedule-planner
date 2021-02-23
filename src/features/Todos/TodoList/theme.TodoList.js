@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
   input: {
-    margin: theme.spacing(1),
+    margin: "1rem 0.5rem",
     paddingLeft: "1rem",
     borderRadius: "4px",
     fontSize: "1.6rem",

@@ -1,0 +1,18 @@
+.featureSup {
+  background-color: bisque;
+  height: 3rem;
+
+  &__container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__item {
+    background-color: lightblue;
+    padding: 0 1.5rem;
+    border-radius: 0.6rem;
+  }
+}

@@ -27,19 +27,25 @@ const initialState = {
       id: "card-1-2",
       list: "list-1",
       title: "react",
-      member: ["./assets/images/avatar.png"],
+      member: ["https://variety.com/wp-content/uploads/2015/07/naruto_movie-lionsgate.jpg?w=681&h=383&crop=1"],
     },
     "card-2-1": {
       id: "card-2-1",
       list: "list-2",
       title: "angular",
-      member: ["./assets/images/avatar4.jpg", "./assets/images/avatar5.jpg"],
+      member: [
+        "https://static.wikia.nocookie.net/villains/images/0/02/Koji_Kashin.png/revision/latest?cb=20180809071822",
+        "https://mymangareviewer.files.wordpress.com/2015/10/droopy-eyed-kakashi.jpg",
+      ],
     },
     "card-2-2": {
       id: "card-2-2",
       list: "list-2",
       title: "vue",
-      member: ["./assets/images/avatar6.jpg", "./assets/images/avatar7.jpg"],
+      member: [
+        "https://i.pinimg.com/originals/b2/e3/13/b2e3130cbdca617086dfda5886f6829d.jpg",
+        "https://cdn140.picsart.com/315343046161201.jpg?type=webp&to=min&r=640",
+      ],
     },
   },
   columns: ["list-1", "list-2"],
@@ -67,6 +73,31 @@ export function todosReducer(state = initialState, { type, payload }) {
         columns: newColumns,
         lists: newList,
       };
+
+    case todoActions.ADD_CARD:
+      // update lại lists, cards
+      const { listID, card } = payload;
+      const newListss = {
+        ...state.lists,
+        [listID]: {
+          ...state.lists[listID],
+          cards: [...state.lists[listID].cards, card.id],
+        },
+      };
+      return {
+        ...state,
+        lists: newListss,
+        cards: { ...state.cards, [card.id]: card },
+      };
+
+    case todoActions.EDIT_CARD:
+      const { cardId, cardContent } = payload;
+      const newCard = state.cards[cardId];
+      newCard.title = cardContent
+      return {
+        ...state,
+        cards: { ...state.cards, [cardId]: newCard }
+      }
 
     default:
       return state;

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Header from '../components/Header';
+import FeatureSub from '../components/FeatureSup';
 
 MainLayout.propTypes = {
   children: PropTypes.any,
@@ -15,7 +16,8 @@ function MainLayout({ children }) {
   return (
     <div className="wrapper">
       <Header />
-      <main>
+      <FeatureSub />
+      <main style={{ paddingTop: '3rem' }}>
         {children}
       </main>
 

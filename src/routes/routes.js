@@ -36,13 +36,13 @@ const routesConfig = [
     routes: [
       {
         exact: true,
-        path: pathName.ERROR_404,
-        component: Error404View,
+        path: pathName.TODO_LIST,
+        component: Todos,
       },
       {
         exact: true,
-        path: pathName.TODO_LIST,
-        component: Todos,
+        path: pathName.ERROR_404,
+        component: Error404View,
       },
       {
         component: () => <Redirect to={pathName.ERROR_404} />,

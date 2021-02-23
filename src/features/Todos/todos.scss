@@ -1,0 +1,12 @@
+.todos {
+  width: 100%;
+  position: relative;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    white-space: nowrap;
+    height: 100%;
+  }
+}

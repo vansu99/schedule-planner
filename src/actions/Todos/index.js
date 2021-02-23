@@ -1,14 +1,22 @@
 import { todoActions } from "../../configs";
 
-const actAddTodoCard = (listId, card) => {
+const actAddTodoCard = (listID, card) => {
   return {
     type: todoActions.ADD_CARD,
-    payload: { listId, card },
+    payload: { listID, card },
   };
 };
 
 const asyncAddTodoCard = (todo) => {
-  return async (dispatch) => {};
+  return async (dispatch) => {
+    try {
+      //console.log("test action ", todo);
+      const { list } = todo;
+      dispatch(actAddTodoCard(list, todo));
+    } catch (error) {
+      console.log("error action: ", error);
+    }
+  };
 };
 
 const actRemoveTodoCard = (listId, cardId) => {
@@ -22,15 +30,21 @@ const asyncRemoveTodoCard = (todo) => {
   return async (dispatch) => {};
 };
 
-const actEditTodoCard = (cardId, cardText) => {
+const actEditTodoCard = (cardId, cardContent) => {
   return {
     type: todoActions.EDIT_CARD,
-    payload: { cardId, cardText },
+    payload: { cardId, cardContent },
   };
 };
 
-const asyncEditTodoCard = (todo) => {
-  return async (dispatch) => {};
+const asyncEditTodoCard = (cardId, todo) => {
+  return async (dispatch) => {
+    try {
+      console.log(todo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 export const todosActions = {

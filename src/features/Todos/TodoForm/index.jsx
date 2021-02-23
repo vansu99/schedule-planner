@@ -1,27 +1,19 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import "./todoForm.scss";
 
-function TodoForm({ setOpen }) {
-  const [title, setTitle] = useState("");
-
-  const handleChange = (e) => {
-    setTitle(e.target.value);
-  }
+function TodoForm({ setOpen, text, handleChange, children  }) {
 
   return (
     <div className="todoForm__list">
       <textarea
         className="todoForm__input"
-        value={title}
+        value={text}
         onChange={handleChange}
         placeholder="Enter a title of this card..."
         rows="4"
-        onBlur={() => setOpen(false)}
       />
       <div className="todoForm__confirm">
-        <button type="submit" className="todoForm__button todoForm__button--ok">
-          Add Card
-        </button>
+        {children}
         <button className="todoForm__button" onClick={() => setOpen(false)}>
           <i className='bx bx-x todoForm__button-icon'></i>
         </button>
