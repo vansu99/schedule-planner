@@ -2,8 +2,20 @@ import React from "react";
 import { Typography, InputBase } from "@material-ui/core";
 import useStyles from "./theme.TodoList";
 
-export default function TitleCpt({ title, open, setOpen }) {
+export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveList, handleEditTitleList }) {
   const classes = useStyles();
+
+  const editTitleList = (e) => {
+    if(handleEditTitleList && e.keyCode === 13) {
+      handleEditTitleList();
+    }
+  }
+
+  const removeList = () => {
+    if(handleRemoveList) {
+      handleRemoveList();
+    }
+  }
 
   return (
     <React.Fragment>
@@ -12,12 +24,14 @@ export default function TitleCpt({ title, open, setOpen }) {
         <div>
           <InputBase
             autoFocus
-            value="Todo ..."
+            value={title}
             inputProps={{
               className: classes.input
             }}
             fullWidth
+            onChange={onChange}
             onBlur={() => setOpen(!open)}
+            onKeyDown={editTitleList}
           />
         </div>
         :
@@ -28,7 +42,9 @@ export default function TitleCpt({ title, open, setOpen }) {
           >
             {title}
           </Typography>
-          <i className='bx bx-dots-horizontal-rounded'></i>
+          <button className="todoList__button" onClick={removeList}>
+            <i className='bx bx-trash'></i>
+          </button>
         </div>
       }
     </React.Fragment>

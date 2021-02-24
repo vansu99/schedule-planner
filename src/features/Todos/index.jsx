@@ -1,9 +1,11 @@
 import React from 'react';
 import "./todos.scss";
 import TodoList from './TodoList';
+import { todosActions } from '../../actions/Todos';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCards, getColumns, getLists } from '../../selectors/todos.selector';
+import TodoFormContainer from './TodoForm/TodoFormContainer';
 
 export default function Todos() {
   const dispatch = useDispatch();
@@ -11,10 +13,23 @@ export default function Todos() {
   const listsSelector = useSelector(getLists);
   const cardSelector = useSelector(getCards);
 
+  const onDragEnd = (result) => {
+    const { type } = result;
+    if (type === 'LIST') {
+      dispatch(todosActions.asyncDragEndList(result));
+      return false;
+    }
+
+    if (type === 'CARD') {
+      dispatch(todosActions.asyncDragEndCard(result));
+      return false;
+    }
+  }
+
   return (
     <div className="todos">
-      <DragDropContext>
-        <Droppable>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="all-lists" direction="horizontal"  type="LIST">
           {
             (provided) => {
               return (
@@ -43,6 +58,7 @@ export default function Todos() {
                     ) : null
                   }
                   {provided.placeholder}
+                  <TodoFormContainer isLists />
                 </div>
               )
             }

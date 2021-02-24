@@ -2,9 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "30rem",
+    maxWidth: "30rem",
     backgroundColor: "#EBECF0",
     marginLeft: theme.spacing(2),
+    paddingLeft: "0.5rem",
+    paddingRight: "0.5rem",
   },
   editTitleContainer: {
     padding: theme.spacing(1),

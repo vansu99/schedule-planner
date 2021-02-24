@@ -8,7 +8,7 @@
 
   &__input {
     outline: none;
-    border: none;
+    border: 1px solid #eee;
     resize: none;
     border-radius: 4px;
     font-family: $body-font-family;
@@ -17,6 +17,10 @@
 
     &::-webkit-input-placeholder {
       padding: 0rem 0.8rem;
+    }
+
+    &:focus {
+      border-color: lightblue;
     }
   }
 
@@ -50,6 +54,24 @@
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+
+  &__createButton {
+    cursor: pointer;
+    width: 100%;
+    outline: none;
+    padding: 1rem 3rem 1rem 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    background-color: #ebecf0;
+    border: 0;
+    border-radius: 0.3rem;
+    transition: all ease 0.4s;
+
+    &:hover {
+      background-color: rgba(230, 224, 224, 0.808);
     }
   }
 }

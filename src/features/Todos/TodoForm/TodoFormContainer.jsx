@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { Collapse, Paper, Typography } from '@material-ui/core';
+import { Collapse } from '@material-ui/core';
 import { fade, makeStyles } from "@material-ui/core/styles";
-import TodoForm from './index';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { todosActions } from '../../../actions/Todos';
-import { v4 as uuidv4  } from 'uuid';
+import TodoForm from './index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(1)
+    maxWidth: "30rem",
+    maxHeight: "100%",
+    padding: "0 0.5rem"
   },
   addCard: {
     padding: theme.spacing(1,1,1,2),
@@ -26,21 +28,30 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function TodoFormContainer({ listId }) {
+export default function TodoFormContainer({ isLists, listId }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const label = isLists ? 'Thêm danh sách khác' : 'Thêm thẻ khác';
+  const placeholder = isLists ? 'Nhập tiêu đề danh sách' : 'Enter a title for this card...';
 
   const onChange = (e) => {
     setTitle(e.target.value);
   }
 
+  const handleCloseForm = () => {
+    setOpen(false);
+  }
+
   const handleAddList = () => {
     if(title === "") return;
-    const listID = `list-${uuidv4()}`;
-    const newList = { listID, title, cards: [] };
+    const id = `list-${uuidv4()}`;
+    const newList = { id, title, cards: [] };
+
+    dispatch(todosActions.asyncAddTodoList(newList));
     setTitle("");
+    setOpen(false);
   }
 
   const handleAddCard = () => {
@@ -55,29 +66,36 @@ export default function TodoFormContainer({ listId }) {
     };
     dispatch(todosActions.asyncAddTodoCard(newCards));
     setTitle('');
+    setOpen(false);
   }
 
   return (
     <div className={classes.root}>
       <Collapse in={open}>
         <TodoForm
-          setOpen={setOpen}
+          handleCloseForm={handleCloseForm}
           text={title}
+          isLists={isLists}
+          placeholder={placeholder}
           handleChange={onChange}
         >
           <button
             type="submit"
             className="todoForm__button todoForm__button--ok"
-            onClick={handleAddCard}
+            onClick={isLists ? handleAddList : handleAddCard}
           >
             Save
           </button>
         </TodoForm>
       </Collapse>
       <Collapse in={!open}>
-        <Paper className={classes.addCard} elevation={0} onClick={() => setOpen(!open)}>
-          <Typography className={classes.btnAddCard}>+ Add to card</Typography>
-        </Paper>
+        <button
+          className="todoForm__createButton"
+          onClick={() => setOpen(!open)}
+        >
+          <i className='bx bx-plus'></i>
+          {label}
+        </button>
       </Collapse>
     </div>
   )

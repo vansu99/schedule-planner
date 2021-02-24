@@ -58,16 +58,25 @@ export function todosReducer(state = initialState, { type, payload }) {
       const newLists = { id, title, cards };
       return {
         ...state,
-        colums: [...state.colums, id],
+        columns: [...state.columns, id],
         lists: { ...state.lists, [id]: newLists },
+      };
+
+    case todoActions.CHANGE_TITLE_LIST:
+      const newTitleList = state.lists[payload.listId];
+      newTitleList.title = payload.title;
+
+      return {
+        ...state,
+        lists: { ...state.lists, [payload.listId]: newTitleList },
       };
 
     case todoActions.REMOVE_LIST:
       // update lại lists, columns
       const { listId } = payload;
       const newList = state.lists;
-      delete newLists[listId];
-      const newColumns = state.colums.filter((column) => column !== listId);
+      delete newList[listId];
+      const newColumns = state.columns.filter((column) => column !== listId);
       return {
         ...state,
         columns: newColumns,
@@ -93,11 +102,99 @@ export function todosReducer(state = initialState, { type, payload }) {
     case todoActions.EDIT_CARD:
       const { cardId, cardContent } = payload;
       const newCard = state.cards[cardId];
-      newCard.title = cardContent
+      newCard.title = cardContent;
       return {
         ...state,
-        cards: { ...state.cards, [cardId]: newCard }
+        cards: { ...state.cards, [cardId]: newCard },
+      };
+
+    case todoActions.REMOVE_CARD:
+      const newCards = state.cards;
+      delete newCards[payload.cardId];
+      const newListsss = {
+        ...state.lists,
+        [payload.listId]: {
+          ...state.lists[payload.listId],
+          cards: state.lists[payload.listId].cards.filter((card) => card !== payload.cardId),
+        },
+      };
+
+      return {
+        ...state,
+        lists: newListsss,
+        cards: newCards,
+      };
+
+    case todoActions.DRAG_END_LIST:
+      const { destination, source } = payload;
+      if (destination === null) return state;
+
+      const newColumnss = [...state.columns];
+      const listSpliced = newColumnss.splice(source.index, 1)[0];
+      newColumnss.splice(destination.index, 0, listSpliced);
+
+      return {
+        ...state,
+        columns: newColumnss,
+      };
+
+    case todoActions.DRAG_END_CARD: {
+      const { destination, source } = payload;
+      if (destination === null) return state;
+
+      // in the same list
+      if (source.droppableId === destination.droppableId) {
+        const droppedIdStart = source.droppableId;
+        const lists = state.lists[droppedIdStart];
+        const newCards = [...lists.cards];
+        [newCards[source.index], newCards[destination.index]] = [newCards[destination.index], newCards[source.index]];
+
+        return {
+          ...state,
+          lists: {
+            ...state.lists,
+            [droppedIdStart]: {
+              ...lists,
+              cards: newCards,
+            },
+          },
+        };
       }
+
+      // other list
+      if (source.droppableId !== destination.droppableId) {
+        const droppedIdStart = source.droppableId;
+        const droppedIdEnd = destination.droppableId;
+        const listStart = state.lists[droppedIdStart];
+        const listEnd = state.lists[droppedIdEnd];
+        const newCardsStart = [...listStart.cards];
+        const newCardsEnd = [...listEnd.cards];
+
+        // cut card in list start
+        const cardSpliced = newCardsStart.splice(source.index, 1)[0];
+        // add card spliced in list end
+        newCardsEnd.splice(destination.index, 0, cardSpliced);
+
+        return {
+          ...state,
+          lists: {
+            ...state.lists,
+            [droppedIdStart]: {
+              ...listStart,
+              cards: newCardsStart,
+            },
+            [droppedIdEnd]: {
+              ...listEnd,
+              cards: newCardsEnd,
+            },
+          },
+        };
+      }
+
+      return {
+        ...state,
+      };
+    }
 
     default:
       return state;

@@ -6,7 +6,7 @@ import TodoForm from '../TodoForm';
 import { todosActions } from '../../../actions/Todos';
 import "./todoCard.scss";
 
-export default function TodoCard({ title, cardId, member, index }) {
+export default function TodoCard({ title, cardId, member, index, listId }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [cardContent, setCardContent] = useState(title);
@@ -16,11 +16,13 @@ export default function TodoCard({ title, cardId, member, index }) {
   }
 
   const handleEditCard = () => {
-    console.log("change card content: ", cardContent);
     dispatch(todosActions.asyncEditTodoCard(cardId, cardContent));
+    setIsEditing(false);
   }
 
-  const handleRemoveCard = () => {}
+  const handleRemoveCard = () => {
+    dispatch(todosActions.asyncRemoveTodoCard(listId, cardId));
+  }
 
   const onChange = (e) => {
     setCardContent(e.target.value);
@@ -36,23 +38,39 @@ export default function TodoCard({ title, cardId, member, index }) {
         type="submit"
         className="todoForm__button todoForm__button--ok"
         onClick={handleEditCard}>
-        Save Card
+        Save Edit Card
       </button>
     </TodoForm>
   )
 
   const renderCard = () => (
     <div className="todoCard">
-        <div className="todoCard__title">
-          <p>{title}</p>
+      <div className="todoCard-label">
+        <div className="todoCard-label__item todoCard-label__item--primary">
+          <span className="todoCard-label__desc">Chấm</span>
         </div>
-        <div className="todoCard__member">
-          {
-            member.length > 0 && member.map((value, index)=> (
-              <Avatar src={value} key={index} />
-            ))
-          }
+        <div className="todoCard-label__item todoCard-label__item--secondary">
+          <span className="todoCard-label__desc">Viết bài</span>
         </div>
+      </div>
+      <div className="todoCard__title">
+        <p>{title}</p>
+      </div>
+      <div className="todoCard__buttons">
+        <button type="submit" onClick={() => setIsEditing(true)}>
+          <i className='bx bx-pencil' alt="Chỉnh sửa nhãn"></i>
+        </button>
+        <button type="submit" onClick={handleRemoveCard}>
+          <i className='bx bx-trash'></i>
+        </button>
+      </div>
+      <div className="todoCard__member">
+        {
+          member.length > 0 && member.map((value, index)=> (
+            <Avatar src={value} key={index} />
+          ))
+        }
+      </div>
     </div>
   )
 
@@ -65,7 +83,7 @@ export default function TodoCard({ title, cardId, member, index }) {
               {...provided.dragHandleProps}
               {...provided.draggableProps}
               ref={provided.innerRef}
-              onDoubleClick={() => setIsEditing(true)}
+              //onDoubleClick={() => setIsEditing(true)}
               className="todoCard__container"
             >
               { isEditing ? renderTextarea() : renderCard() }
