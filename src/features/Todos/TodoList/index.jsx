@@ -58,6 +58,7 @@ export default function TodoList({ listId, title, cards, index }) {
                           title={card.title}
                           key={card.id}
                           member={card.member}
+                          desc={card.description}
                           listId={listId}
                           index={idx}
                         />

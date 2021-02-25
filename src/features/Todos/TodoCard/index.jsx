@@ -1,18 +1,25 @@
+import TextArea from 'components/FormControls/TextArea';
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import Avatar from '../../../components/Avatar';
-import TodoForm from '../TodoForm';
 import { todosActions } from '../../../actions/Todos';
+import Avatar from '../../../components/Avatar';
+import ReactModal from '../../../components/Modal';
+import TodoForm from '../TodoForm';
 import "./todoCard.scss";
 
-export default function TodoCard({ title, cardId, member, index, listId }) {
+export default function TodoCard({ title, cardId, member, index, listId, desc }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [cardContent, setCardContent] = useState(title);
 
   const handleCloseForm = () => {
     setIsEditing(false);
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   const handleEditCard = () => {
@@ -64,6 +71,13 @@ export default function TodoCard({ title, cardId, member, index, listId }) {
           <i className='bx bx-trash'></i>
         </button>
       </div>
+      {
+        desc.length > 0 ?
+        (<span className="todoCard__detail-icon" onClick={() => setShowModal(true)}>
+          <i className='bx bx-detail'></i>
+        </span>)
+        : null
+      }
       <div className="todoCard__member">
         {
           member.length > 0 && member.map((value, index)=> (
@@ -72,6 +86,80 @@ export default function TodoCard({ title, cardId, member, index, listId }) {
         }
       </div>
     </div>
+  )
+
+  const renderModalWithDescCard = () => (
+    <ReactModal isOpen={showModal} handleCloseModal={handleCloseModal}>
+      <div className="todoCard-details">
+                  <div className="todoCard-details__title">
+                    <h3><i className='bx bx-layout'></i> Nội dung: {title}</h3>
+                    <span>trong danh sách X</span>
+                  </div>
+                  <div className="todoCard-details__container">
+                    <div className="todoCard-details__left">
+                      <h3 className="todoCard-details__label">
+                        <i className='bx bx-menu-alt-left'></i> Mô tả chi tiết
+                      </h3>
+                      <div className="todoCard-details__edit">
+                        <p>{desc}</p>
+                      </div>
+                    </div>
+                    <div className="todoCard-details__right">
+                      <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
+                      <ul className="todoCard-details__options">
+                        <li className="todoCard-details__item">
+                          <i className='bx bx-user'></i> Thành viên
+                        </li>
+                        <li className="todoCard-details__item">
+                          <i className='bx bx-label' ></i> Nhãn
+                        </li>
+                        <li className="todoCard-details__item">
+                          <i className='bx bx-time' ></i> Ngày hết hạn
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+      </div>
+    </ReactModal>
+  )
+
+  const renderContentModal = () => (
+    <ReactModal isOpen={showModal} handleCloseModal={handleCloseModal}>
+                <div className="todoCard-details">
+                  <div className="todoCard-details__title">
+                    <h3><i className='bx bx-layout'></i> Nội dung: {title}</h3>
+                    <span>trong danh sách X</span>
+                  </div>
+                  <div className="todoCard-details__container">
+                    <div className="todoCard-details__left">
+                      <h3 className="todoCard-details__label">
+                        <i className='bx bx-menu-alt-left'></i> Mô tả chi tiết
+                      </h3>
+                      <div className="todoCard-details__edit">
+                        <TextArea placeholder="Thêm mô tả chi tiết" />
+                        <button className="button-success">Lưu</button>
+                        <button className="button-danger">
+                          <i className='bx bx-x'></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="todoCard-details__right">
+                      <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
+                      <ul className="todoCard-details__options">
+                        <li className="todoCard-details__item">
+                          <i className='bx bx-user'></i> Thành viên
+                        </li>
+                        <li className="todoCard-details__item">
+                          <i className='bx bx-label' ></i> Nhãn
+                        </li>
+                        <li className="todoCard-details__item">
+                          <i className='bx bx-time' ></i> Ngày hết hạn
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ReactModal>
   )
 
   return (
@@ -83,10 +171,12 @@ export default function TodoCard({ title, cardId, member, index, listId }) {
               {...provided.dragHandleProps}
               {...provided.draggableProps}
               ref={provided.innerRef}
-              //onDoubleClick={() => setIsEditing(true)}
+              onDoubleClick={() => setShowModal(true)}
               className="todoCard__container"
             >
               { isEditing ? renderTextarea() : renderCard() }
+              { desc.length > 0 ? renderModalWithDescCard() :  renderContentModal()}
+
             </div>
           )
         }

@@ -1,0 +1,20 @@
+.modal {
+  width: 100%;
+  max-width: 65rem;
+  min-height: 45rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -60%);
+  background-color: #e4e4e4;
+  padding: 2rem 1.5rem;
+  border: 0;
+  outline: none;
+  border-radius: 6px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.65);
+}

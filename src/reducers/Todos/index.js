@@ -18,6 +18,7 @@ const initialState = {
       id: "card-1-1",
       list: "list-1",
       title: "javascript ",
+      description: "",
       member: [
         "https://static.wikia.nocookie.net/boruto/images/5/51/Himawari_Uzumaki.png/revision/latest?cb=20170924165734",
         "https://i.imgur.com/kBAdIyyh.jpg",
@@ -27,12 +28,15 @@ const initialState = {
       id: "card-1-2",
       list: "list-1",
       title: "react",
+      description: "",
       member: ["https://variety.com/wp-content/uploads/2015/07/naruto_movie-lionsgate.jpg?w=681&h=383&crop=1"],
     },
     "card-2-1": {
       id: "card-2-1",
       list: "list-2",
       title: "angular",
+      description:
+        "Learn one way to build applications with Angular and reuse your code and abilities to build apps for any deployment target. For web, mobile web, native mobile and native desktop.",
       member: [
         "https://static.wikia.nocookie.net/villains/images/0/02/Koji_Kashin.png/revision/latest?cb=20180809071822",
         "https://mymangareviewer.files.wordpress.com/2015/10/droopy-eyed-kakashi.jpg",
@@ -42,6 +46,8 @@ const initialState = {
       id: "card-2-2",
       list: "list-2",
       title: "vue",
+      description:
+        "Already know HTML, CSS and JavaScript? Read the guide and start building things in no time! An incrementally adoptable ecosystem that scales between a library and a full-featured framework.",
       member: [
         "https://i.pinimg.com/originals/b2/e3/13/b2e3130cbdca617086dfda5886f6829d.jpg",
         "https://cdn140.picsart.com/315343046161201.jpg?type=webp&to=min&r=640",
