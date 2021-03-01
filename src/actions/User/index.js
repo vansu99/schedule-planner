@@ -29,10 +29,10 @@ const asyncGetMe = () => {
 };
 
 // LOGIN
-const actLoginSuccess = (token) => {
+const actLoginSuccess = (token, userInfo) => {
   return {
     type: UserActionTypes.ACTION_LOGIN_SUCCESS,
-    token,
+    payload: { token, userInfo },
   };
 };
 
@@ -49,16 +49,23 @@ const asyncLogin = (user) => {
       const response = await userApis.login(user);
       const token = response.data?.token;
       const userInfo = response.data?.user;
-      dispatch(actLoginSuccess(token));
+      dispatch(actLoginSuccess(token, userInfo));
       localStorage.setItem(StorageKeys.USER, JSON.stringify(userInfo));
-      history.push({ pathname: pathName.TODO_LIST, state: 200 });
+      history.push({ pathname: pathName.ROOT, state: 200 });
     } catch (error) {
       console.log(error);
     }
   };
 };
 
+const actLogout = () => {
+  return {
+    type: UserActionTypes.ACTION_USER_LOGOUT,
+  };
+};
+
 export const userActions = {
   asyncLogin,
   asyncGetMe,
+  actLogout,
 };

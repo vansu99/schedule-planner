@@ -9,19 +9,22 @@ const initialState = {
 export function userReducer(state = initialState, action) {
   switch (action.type) {
     case UserActionTypes.ACTION_LOGIN_SUCCESS:
-      localStorage.setItem(StorageKeys.TOKEN, action.token);
+      const { token, userInfo } = action.payload;
+      localStorage.setItem(StorageKeys.TOKEN, token);
       return {
         ...state,
         isAuthenticated: true,
+        currentUser: userInfo,
       };
 
     case UserActionTypes.ACTION_USER_LOGOUT:
       localStorage.removeItem(StorageKeys.TOKEN);
       localStorage.removeItem(StorageKeys.REFRESH_TOKEN);
+      localStorage.removeItem(StorageKeys.USER);
       return {
         ...state,
         isAuthenticated: false,
-        currentUser: null,
+        currentUser: {},
         error: null,
       };
 

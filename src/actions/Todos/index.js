@@ -1,6 +1,29 @@
 import { todoActions } from "../../configs";
+import { listsApis, columnsApis, todosApis } from "../../apis";
 
 // CARDS
+const actGetALlCardTodo = (cardss) => {
+  return {
+    type: todoActions.GET_CARDS,
+    payload: { cardss },
+  };
+};
+
+const asyncGetAllCardTodo = () => {
+  return async (dispatch) => {
+    try {
+      const result = await todosApis.getAllCardTodo();
+      const response = result.data?.cards.reduce((acc, cur) => {
+        acc[cur._id] = cur;
+        return acc;
+      }, {});
+      if (result.status === 200) dispatch(actGetALlCardTodo(response));
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
 const actAddTodoCard = (listID, card) => {
   return {
     type: todoActions.ADD_CARD,
@@ -140,9 +163,56 @@ const asyncRemoveTodoList = (listId) => {
   };
 };
 
+const actGetAllTodoList = (lists) => {
+  return {
+    type: todoActions.GET_LISTS,
+    payload: { lists },
+  };
+};
+
+const asyncGetAllTodoList = () => {
+  return async (dispatch) => {
+    try {
+      const result = await listsApis.getAllListsTodo();
+      const response = result.data?.lists.reduce((acc, cur) => {
+        acc[cur._id] = cur;
+        return acc;
+      }, {});
+      if (result.status === 200) dispatch(actGetAllTodoList(response));
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+const actGetAllColumns = (columns) => {
+  return {
+    type: todoActions.GET_COLUMNS,
+    payload: { columns },
+  };
+};
+
+const asyncGetAllColumns = () => {
+  return async (dispatch) => {
+    try {
+      const result = await columnsApis.getAllColumnListTodo();
+      const response = result.data?.columns.reduce((acc, curr) => {
+        acc.push(curr.listId);
+        return acc;
+      }, []);
+      if (result.status === 200) dispatch(actGetAllColumns(response));
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
 export const todosActions = {
+  asyncGetAllColumns,
   asyncAddTodoList,
+  asyncGetAllTodoList,
   asyncEditTitleTodoList,
+  asyncGetAllCardTodo,
   asyncRemoveTodoList,
   asyncAddTodoCard,
   asyncDragEndList,

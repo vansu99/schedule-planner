@@ -8,6 +8,7 @@ const Error404View = lazy(() => import("../components/404"));
 const Login = lazy(() => import("../features/Login"));
 const Register = lazy(() => import("../features/Register"));
 const Todos = lazy(() => import("../features/Todos"));
+const Home = lazy(() => import("../features/Home"));
 
 const routesConfig = [
   {
@@ -34,6 +35,11 @@ const routesConfig = [
     guard: AuthGuard,
     layout: MainLayout,
     routes: [
+      {
+        exact: true,
+        path: pathName.ROOT,
+        component: Home,
+      },
       {
         exact: true,
         path: pathName.TODO_LIST,
