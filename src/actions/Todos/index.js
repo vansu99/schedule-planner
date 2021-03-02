@@ -73,8 +73,10 @@ const actEditTodoCard = (cardId, cardContent) => {
 };
 
 const asyncEditTodoCard = (cardId, todo) => {
+  console.log({ todo });
   return async (dispatch) => {
     try {
+      const result = await todosApis.updateSingleCardTodo(cardId, todo);
       dispatch(actEditTodoCard(cardId, todo));
     } catch (error) {
       console.log(error);
@@ -144,7 +146,8 @@ const actEditTitleList = (listId, title) => {
 const asyncEditTitleTodoList = (listId, title) => {
   return async (dispatch) => {
     try {
-      dispatch(actEditTitleList(listId, title));
+      const result = await listsApis.changeTitleListTodo(listId, { title });
+      if (result.status === 200) dispatch(actEditTitleList(listId, title));
     } catch (error) {
       console.log(error);
     }

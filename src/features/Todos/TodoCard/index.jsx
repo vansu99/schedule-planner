@@ -21,7 +21,6 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
     name: "",
     color: "",
   });
-  console.log({ infoLabel });
 
   const handleCloseForm = () => {
     setIsEditing(false);

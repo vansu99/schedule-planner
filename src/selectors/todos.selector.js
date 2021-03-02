@@ -1,16 +1,9 @@
 import { createSelector } from "reselect";
 
-export const getColumns = createSelector(
-  (state) => state.todo,
-  (todo) => todo.columns
-);
+const selectorGetColumn = (state) => state.todo.columns;
+const selectorGetLists = (state) => state.todo.lists;
+const selectorGetCards = (state) => state.todo.cards;
 
-export const getLists = createSelector(
-  (state) => state.todo,
-  (todo) => todo.lists
-);
-
-export const getCards = createSelector(
-  (state) => state.todo,
-  (todo) => todo.cards
-);
+export const getColumns = createSelector(selectorGetColumn, (columns) => columns);
+export const getLists = createSelector(selectorGetLists, (list) => list);
+export const getCards = createSelector(selectorGetCards, (card) => card);
