@@ -1,4 +1,5 @@
 import { todoActions } from "../../configs";
+import { actShowLoading, actHideLoading } from "../Global";
 import { listsApis, columnsApis, todosApis } from "../../apis";
 
 // CARDS
@@ -12,12 +13,16 @@ const actGetALlCardTodo = (cardss) => {
 const asyncGetAllCardTodo = () => {
   return async (dispatch) => {
     try {
+      dispatch(actShowLoading());
       const result = await todosApis.getAllCardTodo();
       const response = result.data?.cards.reduce((acc, cur) => {
         acc[cur._id] = cur;
         return acc;
       }, {});
-      if (result.status === 200) dispatch(actGetALlCardTodo(response));
+      if (result.status === 200) {
+        dispatch(actGetALlCardTodo(response));
+        dispatch(actHideLoading());
+      }
     } catch (error) {
       throw error;
     }
@@ -173,12 +178,16 @@ const actGetAllTodoList = (lists) => {
 const asyncGetAllTodoList = () => {
   return async (dispatch) => {
     try {
+      dispatch(actShowLoading());
       const result = await listsApis.getAllListsTodo();
       const response = result.data?.lists.reduce((acc, cur) => {
         acc[cur._id] = cur;
         return acc;
       }, {});
-      if (result.status === 200) dispatch(actGetAllTodoList(response));
+      if (result.status === 200) {
+        dispatch(actGetAllTodoList(response));
+        dispatch(actHideLoading());
+      }
     } catch (error) {
       throw error;
     }
@@ -195,12 +204,16 @@ const actGetAllColumns = (columns) => {
 const asyncGetAllColumns = () => {
   return async (dispatch) => {
     try {
+      dispatch(actShowLoading());
       const result = await columnsApis.getAllColumnListTodo();
       const response = result.data?.columns.reduce((acc, curr) => {
         acc.push(curr.listId);
         return acc;
       }, []);
-      if (result.status === 200) dispatch(actGetAllColumns(response));
+      if (result.status === 200) {
+        dispatch(actGetAllColumns(response));
+        dispatch(actHideLoading());
+      }
     } catch (error) {
       throw error;
     }

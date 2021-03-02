@@ -46,8 +46,8 @@ export default function TodoFormContainer({ isLists, listId }) {
 
   const handleAddList = () => {
     if (title === "") return;
-    const id = `list-${uuidv4()}`;
-    const newList = { id, title, cards: [] };
+    const _id = `list-${uuidv4()}`;
+    const newList = { _id, title, cards: [] };
 
     dispatch(todosActions.asyncAddTodoList(newList));
     setTitle("");
@@ -57,9 +57,9 @@ export default function TodoFormContainer({ isLists, listId }) {
   const handleAddCard = () => {
     if (title === "") return;
 
-    const id = `card-${uuidv4()}`;
+    const _id = `card-${uuidv4()}`;
     const newCards = {
-      id,
+      _id,
       title,
       list: listId,
       member: [],

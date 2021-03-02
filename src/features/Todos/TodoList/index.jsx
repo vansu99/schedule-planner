@@ -48,6 +48,7 @@ function TodoList({ listId, title, cards, index }) {
                       key={card?._id}
                       member={card?.member}
                       desc={card?.description}
+                      label={card?.label}
                       listId={listId}
                       index={idx}
                     />

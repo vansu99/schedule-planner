@@ -1,10 +1,10 @@
-import React, { useEffect, memo } from "react";
-import "./todos.scss";
-import TodoList from "./TodoList";
-import { todosActions } from "../../actions/Todos";
+import React, { memo, useEffect } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
+import { todosActions } from "../../actions/Todos";
 import TodoFormContainer from "./TodoForm/TodoFormContainer";
+import TodoList from "./TodoList";
+import "./todos.scss";
 
 function Todos() {
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ function Todos() {
 
   useEffect(() => {
     dispatch(todosActions.asyncGetAllCardTodo());
-    dispatch(todosActions.asyncGetAllColumns());
     dispatch(todosActions.asyncGetAllTodoList());
+    dispatch(todosActions.asyncGetAllColumns());
   }, [dispatch]);
 
   return (
@@ -43,7 +43,7 @@ function Todos() {
                     {columnSelector.map((column, index) => {
                       const lists = listsSelector[column];
                       if (lists) {
-                        const cards = lists?.cards.map((card) => cardSelector[card]);
+                        const cards = lists?.cards.map((card) => cardSelector && cardSelector[card]);
                         return (
                           <TodoList
                             key={lists?._id}

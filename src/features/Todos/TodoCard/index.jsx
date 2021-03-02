@@ -2,17 +2,26 @@ import TextArea from "components/FormControls/TextArea";
 import React, { memo, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
+import { labelColors } from "../../../configs/fakeLabel";
 import { todosActions } from "../../../actions/Todos";
 import Avatar from "../../../components/Avatar";
+import DatePicker from "react-datepicker";
 import ReactModal from "../../../components/Modal";
 import TodoForm from "../TodoForm";
 import "./todoCard.scss";
+import "react-datepicker/dist/react-datepicker.css";
 
-function TodoCard({ title, cardId, member, index, listId, desc }) {
+function TodoCard({ title, cardId, member, index, listId, desc, label }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [cardContent, setCardContent] = useState(title);
+  const [startDate, setStartDate] = useState(new Date());
+  const [infoLabel, setInfoLabel] = useState({
+    name: "",
+    color: "",
+  });
+  console.log({ infoLabel });
 
   const handleCloseForm = () => {
     setIsEditing(false);
@@ -45,14 +54,15 @@ function TodoCard({ title, cardId, member, index, listId, desc }) {
 
   const renderCard = () => (
     <div className="todoCard">
-      <div className="todoCard-label">
-        <div className="todoCard-label__item todoCard-label__item--primary">
-          <span className="todoCard-label__desc">Chấm</span>
+      {label?.cardId === cardId ? (
+        <div className="todoCard-label">
+          {label?.colors?.map((value, index) => (
+            <div key={index} className="todoCard-label__item" style={{ backgroundColor: `${value.color}` }}>
+              <span className="todoCard-label__desc">{value?.name}</span>
+            </div>
+          ))}
         </div>
-        <div className="todoCard-label__item todoCard-label__item--secondary">
-          <span className="todoCard-label__desc">Viết bài</span>
-        </div>
-      </div>
+      ) : null}
       <div className="todoCard__title">
         <p>{title}</p>
       </div>
@@ -97,13 +107,79 @@ function TodoCard({ title, cardId, member, index, listId, desc }) {
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
             <ul className="todoCard-details__options">
               <li className="todoCard-details__item">
-                <i className="bx bx-user"></i> Thành viên
+                <input type="checkbox" name="chk0" id="chk0" />
+                <label htmlFor="chk0" className="todoCard-details__item-label">
+                  <i className="bx bx-user"></i> Thành viên
+                </label>
+                <div className="todoCard-details__item-content">
+                  <input type="text" placeholder="Note label todo" />
+                  {labelColors.map((value, index) => (
+                    <div key={index}>
+                      <input key={index} type="radio" name="labelcolor" value={value} />
+                      <span
+                        style={{
+                          width: "100%",
+                          height: "2rem",
+                          backgroundColor: `${value}`,
+                          display: "inline-block",
+                          marginLeft: ".9rem",
+                          borderRadius: "4px",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </li>
               <li className="todoCard-details__item">
-                <i className="bx bx-label"></i> Nhãn
+                <input type="checkbox" name="chk1" id="chk1" />
+                <label htmlFor="chk1" className="todoCard-details__item-label">
+                  <i className="bx bx-label"></i> Nhãn
+                </label>
+                <div className="todoCard-details__item-content">
+                  <input
+                    type="text"
+                    placeholder="Note label todo"
+                    value={infoLabel.name}
+                    onChange={(e) => setInfoLabel({ ...infoLabel, name: e.target.value })}
+                  />
+                  {labelColors.map((value, index) => (
+                    <div key={index}>
+                      <input
+                        key={index}
+                        type="radio"
+                        name="labelcolor"
+                        value={value}
+                        onChange={(e) => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                      />
+                      <span
+                        style={{
+                          width: "100%",
+                          height: "2rem",
+                          backgroundColor: `${value}`,
+                          display: "inline-block",
+                          marginLeft: ".9rem",
+                          borderRadius: "4px",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </li>
               <li className="todoCard-details__item">
-                <i className="bx bx-time"></i> Ngày hết hạn
+                <input type="checkbox" name="chk2" id="chk2" />
+                <label htmlFor="chk2" className="todoCard-details__item-label">
+                  <i className="bx bx-time"></i> Ngày hết hạn
+                </label>
+                <div className="todoCard-details__item-content">
+                  Chọn ngày:{" "}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    timeInputLabel="Time:"
+                    dateFormat="dd/MM/yyyy h:mm aa"
+                    showTimeInput
+                  />
+                </div>
               </li>
             </ul>
           </div>

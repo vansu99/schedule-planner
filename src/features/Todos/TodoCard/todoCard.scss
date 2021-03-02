@@ -170,18 +170,62 @@
     }
 
     &__item {
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      background-color: #d9d3d385;
-      padding: 1rem 1.5rem 1rem 0.8rem;
+      overflow: hidden;
       margin-bottom: 1rem;
       font-weight: 400;
       border-radius: 5px;
 
-      & > i {
-        margin-right: 0.5rem;
+      & > input[type="checkbox"] {
+        display: none;
+        z-index: -1;
+      }
+
+      &-label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        width: 100%;
+        background-color: #d2d2d2;
+
+        & > i {
+          margin-right: 0.5rem;
+        }
+      }
+
+      & > input:checked ~ &-content {
+        max-height: 100vh;
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+      }
+
+      &-content {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 1.4rem;
+        background-color: #fff;
+        transition: all 0.3s ease;
+
+        & > input {
+          width: 100%;
+          outline: none;
+          border: 1px solid #eee;
+          padding: 0.7rem;
+
+          &::-webkit-input-placeholder {
+            color: #333;
+          }
+        }
+
+        & > div {
+          display: flex;
+          align-items: center;
+          margin: 0.8rem 0;
+
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }
