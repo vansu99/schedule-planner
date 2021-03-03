@@ -72,12 +72,11 @@ const actEditTodoCard = (cardId, cardContent) => {
   };
 };
 
-const asyncEditTodoCard = (cardId, todo) => {
-  console.log({ todo });
+const asyncEditTodoCard = (cardId, title) => {
   return async (dispatch) => {
     try {
-      const result = await todosApis.updateSingleCardTodo(cardId, todo);
-      dispatch(actEditTodoCard(cardId, todo));
+      const result = await todosApis.updateSingleCardTodo(cardId, { title });
+      if (result.status === 200) dispatch(actEditTodoCard(cardId, result.data.result?.title));
     } catch (error) {
       console.log(error);
     }

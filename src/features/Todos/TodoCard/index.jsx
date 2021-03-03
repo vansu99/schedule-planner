@@ -98,6 +98,7 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
             <h3 className="todoCard-details__label">
               <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
             </h3>
+            {desc ? <button className="todoCard-details__button">Chỉnh sửa</button> : null}
             <div className="todoCard-details__edit">
               <p>{desc}</p>
             </div>

@@ -9,6 +9,9 @@ const API_URL = "http://localhost:3001";
 const axiosClient = axios.create({
   baseURL: API_URL,
   timeout: 4000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 
   paramsSerializer: (params) => queryString.stringify(params),
 });
