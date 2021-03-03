@@ -13,8 +13,8 @@ const todosApis = {
   createCardTodo: (card) => {
     return axiosClient.post("/api/cards", card);
   },
-  updateSingleCardTodo: (id, { title }) => {
-    return axiosClient.patch(`/api/cards/${id}`, { title });
+  updateSingleCardTodo: (id, title) => {
+    return axiosClient.patch(`/api/cards/${id}`, title);
   },
 };
 

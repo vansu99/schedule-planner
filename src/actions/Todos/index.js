@@ -83,6 +83,24 @@ const asyncEditTodoCard = (cardId, title) => {
   };
 };
 
+const actEditDescTodoCard = (cardId, desc) => {
+  return {
+    type: todoActions.EDIT_DESC_CARD,
+    payload: { cardId, desc },
+  };
+};
+
+const asyncEditDescTodoCard = (cardId, description) => {
+  return async (dispatch) => {
+    try {
+      const result = await todosApis.updateSingleCardTodo(cardId, { description });
+      if (result.status === 200) dispatch(actEditDescTodoCard(cardId, description));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const actDragEndList = (payload) => {
   return {
     type: todoActions.DRAG_END_LIST,
@@ -128,7 +146,12 @@ const actAddList = (payload) => {
 const asyncAddTodoList = (list) => {
   return async (dispatch) => {
     try {
-      dispatch(actAddList(list));
+      const result = await listsApis.createListTodo(list);
+      const listId = result.data?.list._id;
+      if (result.status === 201) {
+        dispatch(actAddList(result.data?.list));
+        await columnsApis.createColumnTodo({ listId });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -227,6 +250,7 @@ export const todosActions = {
   asyncAddTodoList,
   asyncGetAllTodoList,
   asyncEditTitleTodoList,
+  asyncEditDescTodoCard,
   asyncGetAllCardTodo,
   asyncRemoveTodoList,
   asyncAddTodoCard,

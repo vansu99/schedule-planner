@@ -10,8 +10,8 @@ const listsApis = {
   createListTodo: (list) => {
     return axiosClient.post("/api/lists", list);
   },
-  changeTitleListTodo: (id, { title }) => {
-    return axiosClient.patch(`/api/lists/${id}`, { title });
+  changeTitleListTodo: (id, title) => {
+    return axiosClient.patch(`/api/lists/${id}`, title);
   },
 };
 

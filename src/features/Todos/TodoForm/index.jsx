@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 import "./todoForm.scss";
 
 function TodoForm({ handleCloseForm, text, handleChange, children, placeholder, isLists }) {
-
   return (
     <div className="todoForm__list">
       <textarea
@@ -16,11 +15,11 @@ function TodoForm({ handleCloseForm, text, handleChange, children, placeholder, 
       <div className="todoForm__confirm">
         {children}
         <button className="todoForm__button" onClick={handleCloseForm}>
-          <i className='bx bx-x todoForm__button-icon'></i>
+          <i className="bx bx-x todoForm__button-icon"></i>
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default memo(TodoForm);

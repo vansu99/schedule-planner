@@ -14,8 +14,10 @@ import "react-datepicker/dist/react-datepicker.css";
 function TodoCard({ title, cardId, member, index, listId, desc, label }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditDescCard, setIsEditDescCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [cardContent, setCardContent] = useState(title);
+  const [descCardContent, setDescCardContent] = useState(desc);
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({
     name: "",
@@ -24,6 +26,10 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
 
   const handleCloseForm = () => {
     setIsEditing(false);
+  };
+
+  const handleCloseFormEditDesc = () => {
+    setIsEditDescCard(false);
   };
 
   const handleCloseModal = () => {
@@ -35,6 +41,11 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
     setIsEditing(false);
   };
 
+  const handleEditDescCard = () => {
+    dispatch(todosActions.asyncEditDescTodoCard(cardId, descCardContent));
+    setIsEditDescCard(false);
+  };
+
   const handleRemoveCard = () => {
     dispatch(todosActions.asyncRemoveTodoCard(listId, cardId));
   };
@@ -43,10 +54,22 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
     setCardContent(e.target.value);
   };
 
+  const handleChangeDescCard = (e) => {
+    setDescCardContent(e.target.value);
+  };
+
   const renderTextarea = () => (
     <TodoForm text={cardContent} handleChange={onChange} handleCloseForm={handleCloseForm}>
       <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditCard}>
         Save Edit Card
+      </button>
+    </TodoForm>
+  );
+
+  const renderTextareaForDescModal = () => (
+    <TodoForm text={descCardContent} handleChange={handleChangeDescCard} handleCloseForm={handleCloseFormEditDesc}>
+      <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditDescCard}>
+        Lưu
       </button>
     </TodoForm>
   );
@@ -98,9 +121,14 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
             <h3 className="todoCard-details__label">
               <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
             </h3>
-            {desc ? <button className="todoCard-details__button">Chỉnh sửa</button> : null}
+            {descCardContent && !isEditDescCard ? (
+              <button className="todoCard-details__button" onClick={() => setIsEditDescCard(true)}>
+                Chỉnh sửa
+              </button>
+            ) : null}
+
             <div className="todoCard-details__edit">
-              <p>{desc}</p>
+              {isEditDescCard ? renderTextareaForDescModal() : <p>{descCardContent}</p>}
             </div>
           </div>
           <div className="todoCard-details__right">

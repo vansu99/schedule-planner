@@ -84,6 +84,14 @@ export function todosReducer(state = initialState, { type, payload }) {
         cards: { ...state.cards, [cardId]: newCard },
       };
 
+    case todoActions.EDIT_DESC_CARD:
+      const newCardEdited = state.cards[payload.cardId];
+      newCardEdited.description = payload.desc;
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newCardEdited },
+      };
+
     case todoActions.REMOVE_CARD:
       const newCards = state.cards;
       delete newCards[payload.cardId];
