@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 import "./avatar.scss";
 
 export default function Avatar({ src }) {
   return (
-    <img src={src} alt="avatar" className="avatar" />
-  )
+    <div className="avatar">
+      <img src={src} alt="avatar" />
+    </div>
+  );
 }

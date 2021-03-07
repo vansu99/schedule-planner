@@ -7,11 +7,21 @@ import { todosActions } from "../../../actions/Todos";
 import Avatar from "../../../components/Avatar";
 import DatePicker from "react-datepicker";
 import ReactModal from "../../../components/Modal";
+import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
 import "./todoCard.scss";
 import "react-datepicker/dist/react-datepicker.css";
+import PropTypes from "prop-types";
 
-function TodoCard({ title, cardId, member, index, listId, desc, label }) {
+TodoCard.propTypes = {
+  title: PropTypes.string,
+  member: PropTypes.array,
+  checklist: PropTypes.array,
+  desc: PropTypes.string,
+  label: PropTypes.object,
+};
+
+function TodoCard({ title, cardId, member, checklist, index, listId, desc, label }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
@@ -130,6 +140,18 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
             <div className="todoCard-details__edit">
               {isEditDescCard ? renderTextareaForDescModal() : <p>{descCardContent}</p>}
             </div>
+            <div className="todoCard-details__checklist">
+              <h3>
+                <i className="bx bx-list-check"></i> Việc cần làm
+              </h3>
+              {checklist.length > 0 ? (
+                <div className="todoCard-details__checklist-list">
+                  <CheckListSelect checklist={checklist} />
+                </div>
+              ) : (
+                <p style={{ opacity: 0.6 }}>Chưa có việc cần làm</p>
+              )}
+            </div>
           </div>
           <div className="todoCard-details__right">
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
@@ -207,6 +229,18 @@ function TodoCard({ title, cardId, member, index, listId, desc, label }) {
                     dateFormat="dd/MM/yyyy h:mm aa"
                     showTimeInput
                   />
+                </div>
+              </li>
+              <li className="todoCard-details__item">
+                <input type="checkbox" name="chk3" id="chk3" />
+                <label htmlFor="chk3" className="todoCard-details__item-label">
+                  <i className="bx bx-time"></i> Việc cần làm
+                </label>
+                <div className="todoCard-details__item-content">
+                  <input type="text" placeholder="Việc cần làm" />
+                  <button type="submit" className="button button-success">
+                    Thêm
+                  </button>
                 </div>
               </li>
             </ul>

@@ -1,6 +1,6 @@
 import { Collapse } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { todosActions } from "../../../actions/Todos";
@@ -40,9 +40,9 @@ export default function TodoFormContainer({ isLists, listId }) {
     setTitle(e.target.value);
   };
 
-  const handleCloseForm = () => {
+  const handleCloseForm = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
   const handleAddList = () => {
     if (title === "") return;

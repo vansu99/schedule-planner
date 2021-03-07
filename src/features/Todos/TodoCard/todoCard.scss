@@ -1,5 +1,15 @@
 .button {
+  outline: none;
+  border: 0;
+  padding: 0.8rem 1.5rem;
+  text-align: center;
+  user-select: none;
+  font-weight: 600;
+  margin-top: 1rem;
+  border-radius: 4px;
+
   &-success {
+    color: #fff;
     background-color: #48c78e;
   }
 
@@ -230,6 +240,18 @@
           &:last-of-type {
             margin-bottom: 0;
           }
+        }
+      }
+    }
+
+    &__checklist {
+      margin-top: 3.5rem;
+      &-list {
+        margin-top: 1rem;
+
+        & > label {
+          display: flex;
+          align-items: center;
         }
       }
     }
