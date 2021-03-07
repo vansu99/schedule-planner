@@ -3,15 +3,15 @@ import { actShowLoading, actHideLoading } from "../Global";
 import { listsApis, columnsApis, todosApis } from "../../apis";
 
 // CARDS
-const actGetALlCardTodo = (cardss) => {
+const actGetALlCardTodo = cardss => {
   return {
     type: todoActions.GET_CARDS,
-    payload: { cardss },
+    payload: { cardss }
   };
 };
 
 const asyncGetAllCardTodo = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(actShowLoading());
       const result = await todosApis.getAllCardTodo();
@@ -32,12 +32,12 @@ const asyncGetAllCardTodo = () => {
 const actAddTodoCard = (listID, card) => {
   return {
     type: todoActions.ADD_CARD,
-    payload: { listID, card },
+    payload: { listID, card }
   };
 };
 
-const asyncAddTodoCard = (todo) => {
-  return async (dispatch) => {
+const asyncAddTodoCard = todo => {
+  return async dispatch => {
     try {
       //console.log("test action ", todo);
       const { list } = todo;
@@ -51,12 +51,12 @@ const asyncAddTodoCard = (todo) => {
 const actRemoveTodoCard = (listId, cardId) => {
   return {
     type: todoActions.REMOVE_CARD,
-    payload: { listId, cardId },
+    payload: { listId, cardId }
   };
 };
 
 const asyncRemoveTodoCard = (listId, cardId) => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(actRemoveTodoCard(listId, cardId));
     } catch (error) {
@@ -68,15 +68,16 @@ const asyncRemoveTodoCard = (listId, cardId) => {
 const actEditTodoCard = (cardId, cardContent) => {
   return {
     type: todoActions.EDIT_CARD,
-    payload: { cardId, cardContent },
+    payload: { cardId, cardContent }
   };
 };
 
 const asyncEditTodoCard = (cardId, title) => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, { title });
-      if (result.status === 200) dispatch(actEditTodoCard(cardId, result.data.result?.title));
+      if (result.status === 200)
+        dispatch(actEditTodoCard(cardId, result.data.result?.title));
     } catch (error) {
       console.log(error);
     }
@@ -86,30 +87,54 @@ const asyncEditTodoCard = (cardId, title) => {
 const actEditDescTodoCard = (cardId, desc) => {
   return {
     type: todoActions.EDIT_DESC_CARD,
-    payload: { cardId, desc },
+    payload: { cardId, desc }
   };
 };
 
 const asyncEditDescTodoCard = (cardId, description) => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
-      const result = await todosApis.updateSingleCardTodo(cardId, { description });
-      if (result.status === 200) dispatch(actEditDescTodoCard(cardId, description));
+      const result = await todosApis.updateSingleCardTodo(cardId, {
+        description
+      });
+      if (result.status === 200)
+        dispatch(actEditDescTodoCard(cardId, description));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-const actDragEndList = (payload) => {
+const actAddCheckListCard = (cardId, checklist) => {
   return {
-    type: todoActions.DRAG_END_LIST,
-    payload,
+    type: todoActions.ADD_CHECKLIST_TODO_CARD,
+    payload: { cardId, checklist }
   };
 };
 
-const asyncDragEndList = (result) => {
-  return async (dispatch) => {
+const asyncAddCheckListCard = (cardId, checklist) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.updateSingleCardTodo(cardId, {
+        checklist
+      });
+      if (result.status === 200)
+        dispatch(actAddCheckListCard(cardId, checklist));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const actDragEndList = payload => {
+  return {
+    type: todoActions.DRAG_END_LIST,
+    payload
+  };
+};
+
+const asyncDragEndList = result => {
+  return async dispatch => {
     try {
       dispatch(actDragEndList(result));
     } catch (error) {
@@ -118,15 +143,15 @@ const asyncDragEndList = (result) => {
   };
 };
 
-const actDragEndCard = (payload) => {
+const actDragEndCard = payload => {
   return {
     type: todoActions.DRAG_END_CARD,
-    payload,
+    payload
   };
 };
 
-const asyncDragEndCard = (result) => {
-  return async (dispatch) => {
+const asyncDragEndCard = result => {
+  return async dispatch => {
     try {
       dispatch(actDragEndCard(result));
     } catch (error) {
@@ -136,15 +161,15 @@ const asyncDragEndCard = (result) => {
 };
 
 // LISTS
-const actAddList = (payload) => {
+const actAddList = payload => {
   return {
     type: todoActions.ADD_LIST,
-    payload,
+    payload
   };
 };
 
-const asyncAddTodoList = (list) => {
-  return async (dispatch) => {
+const asyncAddTodoList = list => {
+  return async dispatch => {
     try {
       const result = await listsApis.createListTodo(list);
       const listId = result.data?.list._id;
@@ -161,12 +186,12 @@ const asyncAddTodoList = (list) => {
 const actEditTitleList = (listId, title) => {
   return {
     type: todoActions.CHANGE_TITLE_LIST,
-    payload: { listId, title },
+    payload: { listId, title }
   };
 };
 
 const asyncEditTitleTodoList = (listId, title) => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const result = await listsApis.changeTitleListTodo(listId, { title });
       if (result.status === 200) dispatch(actEditTitleList(listId, title));
@@ -176,15 +201,15 @@ const asyncEditTitleTodoList = (listId, title) => {
   };
 };
 
-const actRemoveList = (listId) => {
+const actRemoveList = listId => {
   return {
     type: todoActions.REMOVE_LIST,
-    payload: { listId },
+    payload: { listId }
   };
 };
 
-const asyncRemoveTodoList = (listId) => {
-  return async (dispatch) => {
+const asyncRemoveTodoList = listId => {
+  return async dispatch => {
     try {
       dispatch(actRemoveList(listId));
     } catch (error) {
@@ -193,15 +218,15 @@ const asyncRemoveTodoList = (listId) => {
   };
 };
 
-const actGetAllTodoList = (lists) => {
+const actGetAllTodoList = lists => {
   return {
     type: todoActions.GET_LISTS,
-    payload: { lists },
+    payload: { lists }
   };
 };
 
 const asyncGetAllTodoList = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(actShowLoading());
       const result = await listsApis.getAllListsTodo();
@@ -219,15 +244,15 @@ const asyncGetAllTodoList = () => {
   };
 };
 
-const actGetAllColumns = (columns) => {
+const actGetAllColumns = columns => {
   return {
     type: todoActions.GET_COLUMNS,
-    payload: { columns },
+    payload: { columns }
   };
 };
 
 const asyncGetAllColumns = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(actShowLoading());
       const result = await columnsApis.getAllColumnListTodo();
@@ -251,11 +276,12 @@ export const todosActions = {
   asyncGetAllTodoList,
   asyncEditTitleTodoList,
   asyncEditDescTodoCard,
+  asyncAddCheckListCard,
   asyncGetAllCardTodo,
   asyncRemoveTodoList,
   asyncAddTodoCard,
   asyncDragEndList,
   asyncDragEndCard,
   asyncEditTodoCard,
-  asyncRemoveTodoCard,
+  asyncRemoveTodoCard
 };

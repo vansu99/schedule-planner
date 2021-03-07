@@ -1,5 +1,6 @@
 import TextArea from "components/FormControls/TextArea";
 import React, { memo, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { labelColors } from "../../../configs/fakeLabel";
@@ -9,6 +10,7 @@ import DatePicker from "react-datepicker";
 import ReactModal from "../../../components/Modal";
 import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
+import { useInput } from "../../../hooks";
 import "./todoCard.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
@@ -18,20 +20,30 @@ TodoCard.propTypes = {
   member: PropTypes.array,
   checklist: PropTypes.array,
   desc: PropTypes.string,
-  label: PropTypes.object,
+  label: PropTypes.object
 };
 
-function TodoCard({ title, cardId, member, checklist, index, listId, desc, label }) {
+function TodoCard({
+  title,
+  cardId,
+  member,
+  checklist,
+  index,
+  listId,
+  desc,
+  label
+}) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [cardContent, setCardContent] = useState(title);
   const [descCardContent, setDescCardContent] = useState(desc);
+  const [todoCheckListContent, todoCheckListContentChange] = useInput("");
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({
     name: "",
-    color: "",
+    color: ""
   });
 
   const handleCloseForm = () => {
@@ -56,29 +68,55 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
     setIsEditDescCard(false);
   };
 
+  const handleAddCheckList = () => {
+    const value = `cklist-${uuidv4()}`;
+    const newCheckListTodo = {
+      value,
+      text: todoCheckListContent
+    };
+    const newCheckList = [...checklist, newCheckListTodo];
+    dispatch(todosActions.asyncAddCheckListCard(cardId, newCheckList));
+  };
+
   const handleRemoveCard = () => {
     dispatch(todosActions.asyncRemoveTodoCard(listId, cardId));
   };
 
-  const onChange = (e) => {
+  const onChange = e => {
     setCardContent(e.target.value);
   };
 
-  const handleChangeDescCard = (e) => {
+  const handleChangeDescCard = e => {
     setDescCardContent(e.target.value);
   };
 
   const renderTextarea = () => (
-    <TodoForm text={cardContent} handleChange={onChange} handleCloseForm={handleCloseForm}>
-      <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditCard}>
+    <TodoForm
+      text={cardContent}
+      handleChange={onChange}
+      handleCloseForm={handleCloseForm}
+    >
+      <button
+        type="submit"
+        className="todoForm__button todoForm__button--ok"
+        onClick={handleEditCard}
+      >
         Save Edit Card
       </button>
     </TodoForm>
   );
 
   const renderTextareaForDescModal = () => (
-    <TodoForm text={descCardContent} handleChange={handleChangeDescCard} handleCloseForm={handleCloseFormEditDesc}>
-      <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditDescCard}>
+    <TodoForm
+      text={descCardContent}
+      handleChange={handleChangeDescCard}
+      handleCloseForm={handleCloseFormEditDesc}
+    >
+      <button
+        type="submit"
+        className="todoForm__button todoForm__button--ok"
+        onClick={handleEditDescCard}
+      >
         Lưu
       </button>
     </TodoForm>
@@ -89,7 +127,11 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
       {label?.cardId === cardId ? (
         <div className="todoCard-label">
           {label?.colors?.map((value, index) => (
-            <div key={index} className="todoCard-label__item" style={{ backgroundColor: `${value.color}` }}>
+            <div
+              key={index}
+              className="todoCard-label__item"
+              style={{ backgroundColor: `${value.color}` }}
+            >
               <span className="todoCard-label__desc">{value?.name}</span>
             </div>
           ))}
@@ -107,12 +149,16 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
         </button>
       </div>
       {desc ? (
-        <span className="todoCard__detail-icon" onClick={() => setShowModal(true)}>
+        <span
+          className="todoCard__detail-icon"
+          onClick={() => setShowModal(true)}
+        >
           <i className="bx bx-detail"></i>
         </span>
       ) : null}
       <div className="todoCard__member">
-        {member && member.map((value, index) => <Avatar src={value} key={index} />)}
+        {member &&
+          member.map((value, index) => <Avatar src={value} key={index} />)}
       </div>
     </div>
   );
@@ -132,13 +178,20 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
               <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
             </h3>
             {descCardContent && !isEditDescCard ? (
-              <button className="todoCard-details__button" onClick={() => setIsEditDescCard(true)}>
+              <button
+                className="todoCard-details__button"
+                onClick={() => setIsEditDescCard(true)}
+              >
                 Chỉnh sửa
               </button>
             ) : null}
 
             <div className="todoCard-details__edit">
-              {isEditDescCard ? renderTextareaForDescModal() : <p>{descCardContent}</p>}
+              {isEditDescCard ? (
+                renderTextareaForDescModal()
+              ) : (
+                <p>{descCardContent}</p>
+              )}
             </div>
             <div className="todoCard-details__checklist">
               <h3>
@@ -165,7 +218,12 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                   <input type="text" placeholder="Note label todo" />
                   {labelColors.map((value, index) => (
                     <div key={index}>
-                      <input key={index} type="radio" name="labelcolor" value={value} />
+                      <input
+                        key={index}
+                        type="radio"
+                        name="labelcolor"
+                        value={value}
+                      />
                       <span
                         style={{
                           width: "100%",
@@ -173,7 +231,7 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                           backgroundColor: `${value}`,
                           display: "inline-block",
                           marginLeft: ".9rem",
-                          borderRadius: "4px",
+                          borderRadius: "4px"
                         }}
                       />
                     </div>
@@ -190,7 +248,9 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                     type="text"
                     placeholder="Note label todo"
                     value={infoLabel.name}
-                    onChange={(e) => setInfoLabel({ ...infoLabel, name: e.target.value })}
+                    onChange={e =>
+                      setInfoLabel({ ...infoLabel, name: e.target.value })
+                    }
                   />
                   {labelColors.map((value, index) => (
                     <div key={index}>
@@ -199,7 +259,9 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                         type="radio"
                         name="labelcolor"
                         value={value}
-                        onChange={(e) => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                        onChange={e =>
+                          setInfoLabel({ ...infoLabel, color: e.target.value })
+                        }
                       />
                       <span
                         style={{
@@ -208,7 +270,7 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                           backgroundColor: `${value}`,
                           display: "inline-block",
                           marginLeft: ".9rem",
-                          borderRadius: "4px",
+                          borderRadius: "4px"
                         }}
                       />
                     </div>
@@ -224,7 +286,7 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                   Chọn ngày:{" "}
                   <DatePicker
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={date => setStartDate(date)}
                     timeInputLabel="Time:"
                     dateFormat="dd/MM/yyyy h:mm aa"
                     showTimeInput
@@ -237,8 +299,17 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
                   <i className="bx bx-time"></i> Việc cần làm
                 </label>
                 <div className="todoCard-details__item-content">
-                  <input type="text" placeholder="Việc cần làm" />
-                  <button type="submit" className="button button-success">
+                  <input
+                    type="text"
+                    placeholder="Việc cần làm"
+                    value={todoCheckListContent}
+                    onChange={todoCheckListContentChange}
+                  />
+                  <button
+                    type="submit"
+                    className="button button-success"
+                    onClick={handleAddCheckList}
+                  >
                     Thêm
                   </button>
                 </div>
@@ -293,7 +364,7 @@ function TodoCard({ title, cardId, member, checklist, index, listId, desc, label
 
   return (
     <Draggable draggableId={String(cardId)} index={index}>
-      {(provided) => {
+      {provided => {
         return (
           <div
             {...provided.dragHandleProps}

@@ -6,11 +6,11 @@ import { v4 as uuidv4 } from "uuid";
 import { todosActions } from "../../../actions/Todos";
 import TodoForm from "./index";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "30rem",
     maxHeight: "100%",
-    padding: "0 0.5rem",
+    padding: "0 0.5rem"
   },
   addCard: {
     padding: theme.spacing(1, 1, 1, 2),
@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Poppins, sans-serif",
     "&:hover": {
       backgroundColor: fade("#000", 0.25),
-      cursor: "pointer",
-    },
+      cursor: "pointer"
+    }
   },
   btnAddCard: {
     fontFamily: "Poppins, sans-serif",
-    fontSize: "1.5rem",
-  },
+    fontSize: "1.5rem"
+  }
 }));
 
 export default function TodoFormContainer({ isLists, listId }) {
@@ -34,9 +34,11 @@ export default function TodoFormContainer({ isLists, listId }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const label = isLists ? "Thêm danh sách khác" : "Thêm thẻ khác";
-  const placeholder = isLists ? "Nhập tiêu đề danh sách" : "Enter a title for this card...";
+  const placeholder = isLists
+    ? "Nhập tiêu đề danh sách"
+    : "Enter a title for this card...";
 
-  const onChange = (e) => {
+  const onChange = e => {
     setTitle(e.target.value);
   };
 
@@ -61,7 +63,7 @@ export default function TodoFormContainer({ isLists, listId }) {
       _id,
       title,
       list: listId,
-      member: [],
+      member: []
     };
     dispatch(todosActions.asyncAddTodoCard(newCards));
     setTitle("");
@@ -88,7 +90,10 @@ export default function TodoFormContainer({ isLists, listId }) {
         </TodoForm>
       </Collapse>
       <Collapse in={!open}>
-        <button className="todoForm__createButton" onClick={() => setOpen(!open)}>
+        <button
+          className="todoForm__createButton"
+          onClick={() => setOpen(!open)}
+        >
           <i className="bx bx-plus"></i>
           {label}
         </button>

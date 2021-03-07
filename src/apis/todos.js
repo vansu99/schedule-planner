@@ -4,18 +4,18 @@ const todosApis = {
   getAllCardTodo: () => {
     return axiosClient.get("/api/cards");
   },
-  getCardTodoBySlug: (slug) => {
+  getCardTodoBySlug: slug => {
     return axiosClient.get(`/api/cards/${slug}`);
   },
-  getCardTodoById: (id) => {
+  getCardTodoById: id => {
     return axiosClient.get(`/api/cards/${id}`);
   },
-  createCardTodo: (card) => {
+  createCardTodo: card => {
     return axiosClient.post("/api/cards", card);
   },
   updateSingleCardTodo: (id, title) => {
     return axiosClient.patch(`/api/cards/${id}`, title);
-  },
+  }
 };
 
 export default todosApis;

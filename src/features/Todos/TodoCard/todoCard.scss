@@ -230,6 +230,10 @@
           &::-webkit-input-placeholder {
             color: #333;
           }
+
+          &:focus {
+            border-color: lightblue;
+          }
         }
 
         & > div {

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const useInput = (initialValue) => {
+const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
@@ -8,8 +8,9 @@ const useInput = (initialValue) => {
   }, [initialValue]);
 
   const onChangeValue = useCallback(
-    (e) => {
-      setValue(e.target.value);
+    e => {
+      const target = e.target.value;
+      setValue(target);
     },
     [value]
   );

@@ -5,18 +5,18 @@ import PropTypes from "prop-types";
 function CheckListSelect({ checklist }) {
   const [checkedValues, setCheckedValues] = useState({});
 
-  const handleChange = useCallback((e) => {
+  const handleChange = useCallback(e => {
     const selectedValue = e.target.value;
 
-    setCheckedValues((previousState) => ({
+    setCheckedValues(previousState => ({
       ...previousState,
-      [selectedValue]: !previousState[selectedValue],
+      [selectedValue]: !previousState[selectedValue]
     }));
   }, []);
 
   return (
     <>
-      {checklist?.map((option) => (
+      {checklist?.map(option => (
         <Checkbox
           key={option.value}
           name="checklist-group"
@@ -30,7 +30,7 @@ function CheckListSelect({ checklist }) {
 }
 
 CheckListSelect.propTypes = {
-  checklist: PropTypes.array.isRequired,
+  checklist: PropTypes.array.isRequired
 };
 
 export default CheckListSelect;

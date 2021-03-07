@@ -3,7 +3,7 @@ import { todoActions } from "../../configs";
 const initialState = {
   lists: {},
   cards: {},
-  columns: [],
+  columns: []
 };
 
 export function todosReducer(state = initialState, { type, payload }) {
@@ -12,21 +12,21 @@ export function todosReducer(state = initialState, { type, payload }) {
       const { cardss } = payload;
       return {
         ...state,
-        cards: { ...state.cards, ...cardss },
+        cards: { ...state.cards, ...cardss }
       };
 
     case todoActions.GET_COLUMNS:
       const { columns } = payload;
       return {
         ...state,
-        columns: [...state.columns, ...columns],
+        columns: [...state.columns, ...columns]
       };
 
     case todoActions.GET_LISTS:
       const { lists } = payload;
       return {
         ...state,
-        lists: { ...state.lists, ...lists },
+        lists: { ...state.lists, ...lists }
       };
 
     case todoActions.ADD_LIST:
@@ -35,7 +35,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         columns: [...state.columns, _id],
-        lists: { ...state.lists, [_id]: newLists },
+        lists: { ...state.lists, [_id]: newLists }
       };
 
     case todoActions.CHANGE_TITLE_LIST:
@@ -44,7 +44,7 @@ export function todosReducer(state = initialState, { type, payload }) {
 
       return {
         ...state,
-        lists: { ...state.lists, [payload.listId]: newTitleList },
+        lists: { ...state.lists, [payload.listId]: newTitleList }
       };
 
     case todoActions.REMOVE_LIST:
@@ -52,11 +52,11 @@ export function todosReducer(state = initialState, { type, payload }) {
       const { listId } = payload;
       const newList = state.lists;
       delete newList[listId];
-      const newColumns = state.columns.filter((column) => column !== listId);
+      const newColumns = state.columns.filter(column => column !== listId);
       return {
         ...state,
         columns: newColumns,
-        lists: newList,
+        lists: newList
       };
 
     case todoActions.ADD_CARD:
@@ -66,13 +66,13 @@ export function todosReducer(state = initialState, { type, payload }) {
         ...state.lists,
         [listID]: {
           ...state.lists[listID],
-          cards: [...state.lists[listID].cards, card._id],
-        },
+          cards: [...state.lists[listID].cards, card._id]
+        }
       };
       return {
         ...state,
         lists: newListss,
-        cards: { ...state.cards, [card._id]: card },
+        cards: { ...state.cards, [card._id]: card }
       };
 
     case todoActions.EDIT_CARD:
@@ -81,7 +81,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCard.title = cardContent;
       return {
         ...state,
-        cards: { ...state.cards, [cardId]: newCard },
+        cards: { ...state.cards, [cardId]: newCard }
       };
 
     case todoActions.EDIT_DESC_CARD:
@@ -89,7 +89,15 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCardEdited.description = payload.desc;
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newCardEdited },
+        cards: { ...state.cards, [payload.cardId]: newCardEdited }
+      };
+
+    case todoActions.ADD_CHECKLIST_TODO_CARD:
+      const newCheckListCard = state.cards[payload.cardId];
+      newCheckListCard.checklist = [...payload.checklist];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newCheckListCard }
       };
 
     case todoActions.REMOVE_CARD:
@@ -99,14 +107,16 @@ export function todosReducer(state = initialState, { type, payload }) {
         ...state.lists,
         [payload.listId]: {
           ...state.lists[payload.listId],
-          cards: state.lists[payload.listId].cards.filter((card) => card !== payload.cardId),
-        },
+          cards: state.lists[payload.listId].cards.filter(
+            card => card !== payload.cardId
+          )
+        }
       };
 
       return {
         ...state,
         lists: newListsss,
-        cards: newCards,
+        cards: newCards
       };
 
     case todoActions.DRAG_END_LIST:
@@ -119,7 +129,7 @@ export function todosReducer(state = initialState, { type, payload }) {
 
       return {
         ...state,
-        columns: newColumnss,
+        columns: newColumnss
       };
 
     case todoActions.DRAG_END_CARD: {
@@ -131,7 +141,10 @@ export function todosReducer(state = initialState, { type, payload }) {
         const droppedIdStart = source.droppableId;
         const lists = state.lists[droppedIdStart];
         const newCards = [...lists.cards];
-        [newCards[source.index], newCards[destination.index]] = [newCards[destination.index], newCards[source.index]];
+        [newCards[source.index], newCards[destination.index]] = [
+          newCards[destination.index],
+          newCards[source.index]
+        ];
 
         return {
           ...state,
@@ -139,9 +152,9 @@ export function todosReducer(state = initialState, { type, payload }) {
             ...state.lists,
             [droppedIdStart]: {
               ...lists,
-              cards: newCards,
-            },
-          },
+              cards: newCards
+            }
+          }
         };
       }
 
@@ -165,18 +178,18 @@ export function todosReducer(state = initialState, { type, payload }) {
             ...state.lists,
             [droppedIdStart]: {
               ...listStart,
-              cards: newCardsStart,
+              cards: newCardsStart
             },
             [droppedIdEnd]: {
               ...listEnd,
-              cards: newCardsEnd,
-            },
-          },
+              cards: newCardsEnd
+            }
+          }
         };
       }
 
       return {
-        ...state,
+        ...state
       };
     }
 
