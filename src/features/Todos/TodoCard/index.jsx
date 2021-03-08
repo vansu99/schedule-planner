@@ -72,10 +72,10 @@ function TodoCard({
     const value = `cklist-${uuidv4()}`;
     const newCheckListTodo = {
       value,
-      text: todoCheckListContent
+      text: todoCheckListContent,
+      status: false
     };
-    const newCheckList = [...checklist, newCheckListTodo];
-    dispatch(todosActions.asyncAddCheckListCard(cardId, newCheckList));
+    dispatch(todosActions.asyncAddCheckListCard(cardId, newCheckListTodo));
   };
 
   const handleRemoveCard = () => {
@@ -199,7 +199,7 @@ function TodoCard({
               </h3>
               {checklist.length > 0 ? (
                 <div className="todoCard-details__checklist-list">
-                  <CheckListSelect checklist={checklist} />
+                  <CheckListSelect checklist={checklist} cardId={cardId} />
                 </div>
               ) : (
                 <p style={{ opacity: 0.6 }}>Chưa có việc cần làm</p>

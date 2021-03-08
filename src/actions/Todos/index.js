@@ -115,11 +115,30 @@ const actAddCheckListCard = (cardId, checklist) => {
 const asyncAddCheckListCard = (cardId, checklist) => {
   return async dispatch => {
     try {
+      const result = await todosApis.addCheckListTodoCard(cardId, checklist);
+      if (result.status === 201)
+        dispatch(actAddCheckListCard(cardId, checklist));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const actEditCheckListTodoCard = (cardId, checklist) => {
+  return {
+    type: todoActions.EDIT_CHECKLIST_TODO_CARD,
+    payload: { cardId, checklist }
+  };
+};
+
+const asyncEditCheckListTodoCard = (cardId, checklist) => {
+  return async dispatch => {
+    try {
       const result = await todosApis.updateSingleCardTodo(cardId, {
         checklist
       });
       if (result.status === 200)
-        dispatch(actAddCheckListCard(cardId, checklist));
+        dispatch(actEditCheckListTodoCard(cardId, checklist));
     } catch (error) {
       console.log(error);
     }
@@ -276,6 +295,7 @@ export const todosActions = {
   asyncGetAllTodoList,
   asyncEditTitleTodoList,
   asyncEditDescTodoCard,
+  asyncEditCheckListTodoCard,
   asyncAddCheckListCard,
   asyncGetAllCardTodo,
   asyncRemoveTodoList,

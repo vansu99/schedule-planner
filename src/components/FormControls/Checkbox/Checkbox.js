@@ -4,11 +4,12 @@ import "./checkbox.scss";
 
 function Checkbox({ name, option, selected, onChange }) {
   return (
-    <label>
+    <label htmlFor={option.value}>
       <input
         type="checkbox"
         className="green"
         name={name}
+        id={option.value}
         value={option.value}
         checked={selected}
         onChange={onChange}
@@ -21,7 +22,7 @@ function Checkbox({ name, option, selected, onChange }) {
 Checkbox.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
-  option: PropTypes.object,
+  option: PropTypes.object
 };
 
 export default memo(Checkbox);

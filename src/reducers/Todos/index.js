@@ -94,10 +94,21 @@ export function todosReducer(state = initialState, { type, payload }) {
 
     case todoActions.ADD_CHECKLIST_TODO_CARD:
       const newCheckListCard = state.cards[payload.cardId];
-      newCheckListCard.checklist = [...payload.checklist];
+      newCheckListCard.checklist = [
+        ...newCheckListCard.checklist,
+        payload.checklist
+      ];
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newCheckListCard }
+      };
+
+    case todoActions.EDIT_CHECKLIST_TODO_CARD:
+      const newEditCheckListCard = state.cards[payload.cardId];
+      newEditCheckListCard.checklist = [...payload.checklist];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newEditCheckListCard }
       };
 
     case todoActions.REMOVE_CARD:
