@@ -1,3 +1,9 @@
+.chk {
+  &__todo {
+    text-decoration: line-through;
+  }
+}
+
 input[type="checkbox"] {
   visibility: hidden;
   position: relative;

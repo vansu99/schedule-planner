@@ -4,7 +4,7 @@ import "./checkbox.scss";
 
 function Checkbox({ name, option, selected, onChange }) {
   return (
-    <label htmlFor={option.value}>
+    <label htmlFor={option.value} className={selected ? "chk__todo" : null}>
       <input
         type="checkbox"
         className="green"

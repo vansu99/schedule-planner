@@ -1,12 +1,18 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Checkbox } from "../../../components/FormControls";
-import { todosActions } from '../../../actions/Todos';
+import { todosActions } from "../../../actions/Todos";
 import PropTypes from "prop-types";
 
 function CheckListSelect({ checklist, cardId }) {
   const dispatch = useDispatch();
-  const [checkedValues, setCheckedValues] = useState(checklist);
+  const [checkedValues, setCheckedValues] = useState([]);
+
+  useEffect(() => {
+    if (checklist) {
+      setCheckedValues(checklist);
+    }
+  }, [checklist]);
 
   const handleChange = useCallback(
     item => {
@@ -26,6 +32,7 @@ function CheckListSelect({ checklist, cardId }) {
   return (
     <>
       {checkedValues?.map(option => (
+        // test logic lại chỗ này
         <Checkbox
           key={option.value}
           name="checklist-group"
