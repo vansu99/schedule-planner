@@ -1,6 +1,7 @@
 import { todoActions } from "../../configs";
 import { actShowLoading, actHideLoading } from "../Global";
 import { listsApis, columnsApis, todosApis } from "../../apis";
+import showToast from "../../components/Toast";
 
 // CARDS
 const actGetALlCardTodo = cardss => {
@@ -145,6 +146,32 @@ const asyncEditCheckListTodoCard = (cardId, checklist) => {
   };
 };
 
+const actRemoveCheckListTodoCard = (cardId, checklistId) => {
+  return {
+    type: todoActions.REMOVE_CHECKLIST_TODO_CARD,
+    payload: { cardId, checklistId }
+  };
+};
+
+const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.removeCheckListTodoCard(
+        cardId,
+        checklistId
+      );
+      if (result.status === 200) {
+        showToast(result.data.msg, "success");
+        dispatch(actRemoveCheckListTodoCard(cardId, checklistId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+
+// DRAG & DROP
 const actDragEndList = payload => {
   return {
     type: todoActions.DRAG_END_LIST,
@@ -296,6 +323,7 @@ export const todosActions = {
   asyncEditTitleTodoList,
   asyncEditDescTodoCard,
   asyncEditCheckListTodoCard,
+  asyncRemoveCheckListTodoCard,
   asyncAddCheckListCard,
   asyncGetAllCardTodo,
   asyncRemoveTodoList,

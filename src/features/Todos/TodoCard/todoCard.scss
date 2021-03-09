@@ -253,9 +253,35 @@
       &-list {
         margin-top: 1rem;
 
-        & > label {
+        &-item {
           display: flex;
           align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+
+          &:hover button {
+            opacity: 1;
+            visibility: visible;
+          }
+
+          & > label {
+            display: flex;
+            align-items: center;
+          }
+
+          & > button {
+            border: 0;
+            outline: 0;
+            background-color: transparent;
+            color: rgb(207, 40, 40);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+
+            & > i {
+              font-size: 2rem;
+            }
+          }
         }
       }
     }

@@ -39,7 +39,9 @@ function TodoCard({
   const [showModal, setShowModal] = useState(false);
   const [cardContent, setCardContent] = useState(title);
   const [descCardContent, setDescCardContent] = useState(desc);
-  const [todoCheckListContent, todoCheckListContentChange] = useInput("");
+  const [todoCheckListContent, todoCheckListContentChange, reset] = useInput(
+    ""
+  );
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({
     name: "",
@@ -76,6 +78,7 @@ function TodoCard({
       status: false
     };
     dispatch(todosActions.asyncAddCheckListCard(cardId, newCheckListTodo));
+    reset();
   };
 
   const handleRemoveCard = () => {

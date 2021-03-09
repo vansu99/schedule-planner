@@ -7,6 +7,10 @@ const useInput = initialValue => {
     setValue(initialValue);
   }, [initialValue]);
 
+  const reset = () => {
+    setValue(initialValue);
+  };
+
   const onChangeValue = useCallback(
     e => {
       const target = e.target.value;
@@ -15,7 +19,7 @@ const useInput = initialValue => {
     [value]
   );
 
-  return [value, onChangeValue, setValue];
+  return [value, onChangeValue, reset];
 };
 
 export default useInput;

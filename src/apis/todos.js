@@ -18,6 +18,9 @@ const todosApis = {
   },
   addCheckListTodoCard: (id, checklist) => {
     return axiosClient.patch(`/api/cards/${id}/checklist`, checklist);
+  },
+  removeCheckListTodoCard: (id, checklistId) => {
+    return axiosClient.delete(`/api/cards/${id}/checklist/${checklistId}`);
   }
 };
 

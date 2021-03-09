@@ -29,16 +29,20 @@ function CheckListSelect({ checklist, cardId }) {
     dispatch(todosActions.asyncEditCheckListTodoCard(cardId, checkedValues));
   };
 
+  const handleRemoveCheckList = checklistId => {
+    dispatch(todosActions.asyncRemoveCheckListTodoCard(cardId, checklistId));
+  };
+
   return (
     <>
       {checkedValues?.map(option => (
-        // test logic lại chỗ này
         <Checkbox
           key={option.value}
           name="checklist-group"
           option={option}
           onChange={() => handleChange(option)}
           selected={option.status}
+          handleRemoveCheckList={handleRemoveCheckList}
         />
       ))}
       <button className="button button-success" onClick={handleUpdateCheckList}>
