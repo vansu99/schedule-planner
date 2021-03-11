@@ -1,1 +1,1 @@
-export const labelColors = ["#FF6978", "#6CAE75", "#F5A65B"];
+export const labelColors = ["#eb5a46", "#F75C03", "#4F4789", "#0079bf"];

@@ -8,7 +8,7 @@ import "./header.scss";
 export default function Header() {
   const dispatch = useDispatch();
   const [isShow, setIsShow] = useState(false);
-  const loggedInUser = useSelector((state) => state.user.currentUser);
+  const loggedInUser = useSelector(state => state.user.currentUser);
   const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
 
   const handleShowDrawler = () => {

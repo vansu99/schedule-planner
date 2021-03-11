@@ -10,17 +10,10 @@
         "trailingComma": "none",
         "endOfLine": "lf",
         "tabWidth": 2,
-        "printWidth": 80,
+        "printWidth": 120,
         "useTabs": false
       }
     ],
     "no-console": "warn"
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src"]
-      }
-    }
   }
 }

@@ -1,8 +1,8 @@
 import React, { memo, useEffect } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { todosActions } from "../../actions/Todos";
-import { getColumns, getLists, getCards } from "../../selectors/todos.selector";
+import { todosActions } from "actions/Todos";
+import { getColumns, getLists, getCards } from "selectors/todos.selector";
 import TodoFormContainer from "./TodoForm/TodoFormContainer";
 import TodoList from "./TodoList";
 import "./todos.scss";
@@ -13,7 +13,7 @@ function Todos() {
   const getColumnSelector = useSelector(getColumns);
   const getListSelector = useSelector(getLists);
 
-  const onDragEnd = (result) => {
+  const onDragEnd = result => {
     const { type } = result;
     if (type === "LIST") {
       dispatch(todosActions.asyncDragEndList(result));
@@ -36,7 +36,7 @@ function Todos() {
     <div className="todos">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="all-lists" direction="horizontal" type="LIST">
-          {(provided) => {
+          {provided => {
             return (
               <div ref={provided.innerRef} {...provided.droppableProps} className="todos__container">
                 {getColumnSelector.length > 0 ? (
@@ -44,7 +44,7 @@ function Todos() {
                     {getColumnSelector.map((column, index) => {
                       const lists = getListSelector[column];
                       if (lists) {
-                        const cards = lists?.cards.map((card) => getCardSelector && getCardSelector[card]);
+                        const cards = lists?.cards.map(card => getCardSelector && getCardSelector[card]);
                         return (
                           <TodoList
                             key={lists?._id}

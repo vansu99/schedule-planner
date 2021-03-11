@@ -94,10 +94,7 @@ export function todosReducer(state = initialState, { type, payload }) {
 
     case todoActions.ADD_CHECKLIST_TODO_CARD:
       const newCheckListCard = { ...state.cards[payload.cardId] };
-      newCheckListCard.checklist = [
-        ...newCheckListCard.checklist,
-        payload.checklist
-      ];
+      newCheckListCard.checklist = [...newCheckListCard.checklist, payload.checklist];
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newCheckListCard }
@@ -121,6 +118,14 @@ export function todosReducer(state = initialState, { type, payload }) {
         cards: { ...state.cards, [payload.cardId]: newRemoveCheckListCard }
       };
 
+    case todoActions.ADD_LABEL:
+      const newLabelCard = { ...state.cards[payload.cardId] };
+      newLabelCard.label = [...newLabelCard.label, payload.label];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newLabelCard }
+      };
+
     case todoActions.REMOVE_CARD:
       const newCards = state.cards;
       delete newCards[payload.cardId];
@@ -128,9 +133,7 @@ export function todosReducer(state = initialState, { type, payload }) {
         ...state.lists,
         [payload.listId]: {
           ...state.lists[payload.listId],
-          cards: state.lists[payload.listId].cards.filter(
-            card => card !== payload.cardId
-          )
+          cards: state.lists[payload.listId].cards.filter(card => card !== payload.cardId)
         }
       };
 
@@ -162,10 +165,7 @@ export function todosReducer(state = initialState, { type, payload }) {
         const droppedIdStart = source.droppableId;
         const lists = state.lists[droppedIdStart];
         const newCards = [...lists.cards];
-        [newCards[source.index], newCards[destination.index]] = [
-          newCards[destination.index],
-          newCards[source.index]
-        ];
+        [newCards[source.index], newCards[destination.index]] = [newCards[destination.index], newCards[source.index]];
 
         return {
           ...state,

@@ -3,14 +3,14 @@ import React, { memo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { labelColors } from "../../../configs/fakeLabel";
-import { todosActions } from "../../../actions/Todos";
-import Avatar from "../../../components/Avatar";
+import { labelColors } from "configs/fakeLabel";
+import { todosActions } from "actions/Todos";
+import Avatar from "components/Avatar";
 import DatePicker from "react-datepicker";
-import ReactModal from "../../../components/Modal";
+import ReactModal from "components/Modal";
 import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
-import { useInput } from "../../../hooks";
+import { useInput } from "hooks";
 import "./todoCard.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
@@ -20,33 +20,19 @@ TodoCard.propTypes = {
   member: PropTypes.array,
   checklist: PropTypes.array,
   desc: PropTypes.string,
-  label: PropTypes.object
+  label: PropTypes.array
 };
 
-function TodoCard({
-  title,
-  cardId,
-  member,
-  checklist,
-  index,
-  listId,
-  desc,
-  label
-}) {
+function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, label }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [cardContent, setCardContent] = useState(title);
   const [descCardContent, setDescCardContent] = useState(desc);
-  const [todoCheckListContent, todoCheckListContentChange, reset] = useInput(
-    ""
-  );
+  const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
   const [startDate, setStartDate] = useState(new Date());
-  const [infoLabel, setInfoLabel] = useState({
-    name: "",
-    color: ""
-  });
+  const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
 
   const handleCloseForm = () => {
     setIsEditing(false);
@@ -81,6 +67,19 @@ function TodoCard({
     reset();
   };
 
+  const handleAddLabelTodoCard = () => {
+    const value = `label-${uuidv4()}`;
+    const newLabelTodo = {
+      ...infoLabel,
+      value
+    };
+    dispatch(todosActions.asyncAddLabelTodo(cardId, newLabelTodo));
+    setInfoLabel({
+      name: "",
+      color: ""
+    });
+  };
+
   const handleRemoveCard = () => {
     dispatch(todosActions.asyncRemoveTodoCard(listId, cardId));
   };
@@ -94,32 +93,16 @@ function TodoCard({
   };
 
   const renderTextarea = () => (
-    <TodoForm
-      text={cardContent}
-      handleChange={onChange}
-      handleCloseForm={handleCloseForm}
-    >
-      <button
-        type="submit"
-        className="todoForm__button todoForm__button--ok"
-        onClick={handleEditCard}
-      >
+    <TodoForm text={cardContent} handleChange={onChange} handleCloseForm={handleCloseForm}>
+      <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditCard}>
         Save Edit Card
       </button>
     </TodoForm>
   );
 
   const renderTextareaForDescModal = () => (
-    <TodoForm
-      text={descCardContent}
-      handleChange={handleChangeDescCard}
-      handleCloseForm={handleCloseFormEditDesc}
-    >
-      <button
-        type="submit"
-        className="todoForm__button todoForm__button--ok"
-        onClick={handleEditDescCard}
-      >
+    <TodoForm text={descCardContent} handleChange={handleChangeDescCard} handleCloseForm={handleCloseFormEditDesc}>
+      <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditDescCard}>
         Lưu
       </button>
     </TodoForm>
@@ -127,14 +110,10 @@ function TodoCard({
 
   const renderCard = () => (
     <div className="todoCard">
-      {label?.cardId === cardId ? (
+      {label?.length > 0 ? (
         <div className="todoCard-label">
-          {label?.colors?.map((value, index) => (
-            <div
-              key={index}
-              className="todoCard-label__item"
-              style={{ backgroundColor: `${value.color}` }}
-            >
+          {label?.map((value, index) => (
+            <div key={index} className="todoCard-label__item" style={{ backgroundColor: `${value.color}` }}>
               <span className="todoCard-label__desc">{value?.name}</span>
             </div>
           ))}
@@ -152,16 +131,12 @@ function TodoCard({
         </button>
       </div>
       {desc ? (
-        <span
-          className="todoCard__detail-icon"
-          onClick={() => setShowModal(true)}
-        >
+        <span className="todoCard__detail-icon" onClick={() => setShowModal(true)}>
           <i className="bx bx-detail"></i>
         </span>
       ) : null}
       <div className="todoCard__member">
-        {member &&
-          member.map((value, index) => <Avatar src={value} key={index} />)}
+        {member && member.map((value, index) => <Avatar src={value} key={index} />)}
       </div>
     </div>
   );
@@ -177,24 +152,33 @@ function TodoCard({
         </div>
         <div className="todoCard-details__container">
           <div className="todoCard-details__left">
+            <div className="todoCard-details__labels">
+              <h3 className="todoCard-details__label">
+                <i className="bx bx-label"></i> Nhãn công việc
+              </h3>
+              <div className="todoCard-details__labels-list">
+                {label?.map(item => (
+                  <div
+                    key={item.value}
+                    className="todoCard-details__labels-item"
+                    style={{ backgroundColor: `${item.color}` }}
+                  >
+                    <span>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             <h3 className="todoCard-details__label">
               <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
             </h3>
             {descCardContent && !isEditDescCard ? (
-              <button
-                className="todoCard-details__button"
-                onClick={() => setIsEditDescCard(true)}
-              >
+              <button className="todoCard-details__button" onClick={() => setIsEditDescCard(true)}>
                 Chỉnh sửa
               </button>
             ) : null}
 
             <div className="todoCard-details__edit">
-              {isEditDescCard ? (
-                renderTextareaForDescModal()
-              ) : (
-                <p>{descCardContent}</p>
-              )}
+              {isEditDescCard ? renderTextareaForDescModal() : <p>{descCardContent}</p>}
             </div>
             <div className="todoCard-details__checklist">
               <h3>
@@ -221,12 +205,7 @@ function TodoCard({
                   <input type="text" placeholder="Note label todo" />
                   {labelColors.map((value, index) => (
                     <div key={index}>
-                      <input
-                        key={index}
-                        type="radio"
-                        name="labelcolor"
-                        value={value}
-                      />
+                      <input key={index} type="radio" name="labelcolor" value={value} />
                       <span
                         style={{
                           width: "100%",
@@ -251,9 +230,7 @@ function TodoCard({
                     type="text"
                     placeholder="Note label todo"
                     value={infoLabel.name}
-                    onChange={e =>
-                      setInfoLabel({ ...infoLabel, name: e.target.value })
-                    }
+                    onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
                   />
                   {labelColors.map((value, index) => (
                     <div key={index}>
@@ -262,9 +239,7 @@ function TodoCard({
                         type="radio"
                         name="labelcolor"
                         value={value}
-                        onChange={e =>
-                          setInfoLabel({ ...infoLabel, color: e.target.value })
-                        }
+                        onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                       />
                       <span
                         style={{
@@ -278,6 +253,9 @@ function TodoCard({
                       />
                     </div>
                   ))}
+                  <button className="button button-success" onClick={handleAddLabelTodoCard}>
+                    Thêm
+                  </button>
                 </div>
               </li>
               <li className="todoCard-details__item">
@@ -299,7 +277,7 @@ function TodoCard({
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk3" id="chk3" />
                 <label htmlFor="chk3" className="todoCard-details__item-label">
-                  <i className="bx bx-time"></i> Việc cần làm
+                  <i className="bx bx-pencil"></i> Việc cần làm
                 </label>
                 <div className="todoCard-details__item-content">
                   <input
@@ -308,11 +286,7 @@ function TodoCard({
                     value={todoCheckListContent}
                     onChange={todoCheckListContentChange}
                   />
-                  <button
-                    type="submit"
-                    className="button button-success"
-                    onClick={handleAddCheckList}
-                  >
+                  <button type="submit" className="button button-success" onClick={handleAddCheckList}>
                     Thêm
                   </button>
                 </div>

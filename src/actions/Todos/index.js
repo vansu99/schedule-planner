@@ -1,7 +1,7 @@
-import { todoActions } from "../../configs";
+import { todoActions } from "configs";
 import { actShowLoading, actHideLoading } from "../Global";
-import { listsApis, columnsApis, todosApis } from "../../apis";
-import showToast from "../../components/Toast";
+import { listsApis, columnsApis, todosApis } from "apis";
+import showToast from "components/Toast";
 
 // CARDS
 const actGetALlCardTodo = cardss => {
@@ -40,9 +40,13 @@ const actAddTodoCard = (listID, card) => {
 const asyncAddTodoCard = todo => {
   return async dispatch => {
     try {
-      //console.log("test action ", todo);
       const { list } = todo;
-      dispatch(actAddTodoCard(list, todo));
+      const result = await todosApis.createCardTodo(todo);
+      const cardId = result.data.card?._id;
+      if (result.status === 201) {
+        dispatch(actAddTodoCard(list, result.data.card));
+        await listsApis.addCardIdToList(list, cardId);
+      }
     } catch (error) {
       console.log("error action: ", error);
     }
@@ -59,7 +63,12 @@ const actRemoveTodoCard = (listId, cardId) => {
 const asyncRemoveTodoCard = (listId, cardId) => {
   return async dispatch => {
     try {
-      dispatch(actRemoveTodoCard(listId, cardId));
+      const result = await todosApis.removeCardTodo(cardId);
+      if (result.status === 200) {
+        dispatch(actRemoveTodoCard(listId, cardId));
+        await listsApis.removeCardIdToList(listId, cardId);
+        showToast(result.data.msg, "success");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -77,8 +86,7 @@ const asyncEditTodoCard = (cardId, title) => {
   return async dispatch => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, { title });
-      if (result.status === 200)
-        dispatch(actEditTodoCard(cardId, result.data.result?.title));
+      if (result.status === 200) dispatch(actEditTodoCard(cardId, result.data.result?.title));
     } catch (error) {
       console.log(error);
     }
@@ -98,8 +106,7 @@ const asyncEditDescTodoCard = (cardId, description) => {
       const result = await todosApis.updateSingleCardTodo(cardId, {
         description
       });
-      if (result.status === 200)
-        dispatch(actEditDescTodoCard(cardId, description));
+      if (result.status === 200) dispatch(actEditDescTodoCard(cardId, description));
     } catch (error) {
       console.log(error);
     }
@@ -117,8 +124,7 @@ const asyncAddCheckListCard = (cardId, checklist) => {
   return async dispatch => {
     try {
       const result = await todosApis.addCheckListTodoCard(cardId, checklist);
-      if (result.status === 201)
-        dispatch(actAddCheckListCard(cardId, checklist));
+      if (result.status === 201) dispatch(actAddCheckListCard(cardId, checklist));
     } catch (error) {
       console.log(error);
     }
@@ -138,8 +144,7 @@ const asyncEditCheckListTodoCard = (cardId, checklist) => {
       const result = await todosApis.updateSingleCardTodo(cardId, {
         checklist
       });
-      if (result.status === 200)
-        dispatch(actEditCheckListTodoCard(cardId, checklist));
+      if (result.status === 200) dispatch(actEditCheckListTodoCard(cardId, checklist));
     } catch (error) {
       console.log(error);
     }
@@ -156,10 +161,7 @@ const actRemoveCheckListTodoCard = (cardId, checklistId) => {
 const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
   return async dispatch => {
     try {
-      const result = await todosApis.removeCheckListTodoCard(
-        cardId,
-        checklistId
-      );
+      const result = await todosApis.removeCheckListTodoCard(cardId, checklistId);
       if (result.status === 200) {
         showToast(result.data.msg, "success");
         dispatch(actRemoveCheckListTodoCard(cardId, checklistId));
@@ -167,9 +169,8 @@ const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
     } catch (error) {
       console.log(error);
     }
-  }
-}
-
+  };
+};
 
 // DRAG & DROP
 const actDragEndList = payload => {
@@ -316,6 +317,27 @@ const asyncGetAllColumns = () => {
   };
 };
 
+// LABELS
+const actAddLabelTodo = (cardId, label) => {
+  return {
+    type: todoActions.ADD_LABEL,
+    payload: { cardId, label }
+  };
+};
+
+const asyncAddLabelTodo = (cardId, label) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.addLabelTodoCard(cardId, label);
+      if (result.status === 201) {
+        dispatch(actAddLabelTodo(cardId, label));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const todosActions = {
   asyncGetAllColumns,
   asyncAddTodoList,
@@ -331,5 +353,6 @@ export const todosActions = {
   asyncDragEndList,
   asyncDragEndCard,
   asyncEditTodoCard,
-  asyncRemoveTodoCard
+  asyncRemoveTodoCard,
+  asyncAddLabelTodo
 };

@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import TodoCard from "../TodoCard";
 import "./todoList.scss";
-import { todosActions } from "../../../actions/Todos";
+import { todosActions } from "actions/Todos";
 import TodoFormContainer from "../TodoForm/TodoFormContainer";
 import Title from "./titleCpt.jsx";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ function TodoList({ listId, title, cards, index }) {
   const dispatch = useDispatch();
   const [listTitle, setListTitle] = useState(title);
 
-  const handleChangeTitle = (e) => {
+  const handleChangeTitle = e => {
     setListTitle(e.target.value);
   };
 
@@ -27,7 +27,7 @@ function TodoList({ listId, title, cards, index }) {
 
   return (
     <Draggable draggableId={String(listId)} index={index}>
-      {(provided) => (
+      {provided => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="todoList">
           <Title
             title={listTitle}
@@ -38,7 +38,7 @@ function TodoList({ listId, title, cards, index }) {
             handleEditTitleList={handleEditTitleList}
           />
           <Droppable droppableId={String(listId)} type="CARD">
-            {(providedDrop) => (
+            {providedDrop => (
               <>
                 <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className="todoList__content">
                   {cards?.map((card, idx) => (

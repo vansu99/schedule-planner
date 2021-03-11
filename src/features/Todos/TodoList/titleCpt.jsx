@@ -5,7 +5,7 @@ import useStyles from "./theme.TodoList";
 export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveList, handleEditTitleList }) {
   const classes = useStyles();
 
-  const editTitleList = (e) => {
+  const editTitleList = e => {
     if (handleEditTitleList && e.keyCode === 13) {
       handleEditTitleList();
     }
@@ -25,7 +25,7 @@ export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveL
             autoFocus
             value={title}
             inputProps={{
-              className: classes.input,
+              className: classes.input
             }}
             fullWidth
             onChange={onChange}

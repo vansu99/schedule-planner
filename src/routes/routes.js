@@ -16,19 +16,19 @@ const routesConfig = [
     guard: GuestGuard,
     path: pathName.LOGIN,
     layout: MainLayout,
-    component: Login,
+    component: Login
   },
   {
     exact: true,
     guard: GuestGuard,
     path: pathName.REGISTER,
     layout: MainLayout,
-    component: Register,
+    component: Register
   },
   {
     exact: true,
     path: pathName.ERROR_404,
-    component: Error404View,
+    component: Error404View
   },
   {
     path: "/",
@@ -38,34 +38,34 @@ const routesConfig = [
       {
         exact: true,
         path: pathName.ROOT,
-        component: Home,
+        component: Home
       },
       {
         exact: true,
         path: pathName.TODO_LIST,
-        component: Todos,
+        component: Todos
       },
       {
         exact: true,
         path: pathName.ERROR_404,
-        component: Error404View,
+        component: Error404View
       },
       {
-        component: () => <Redirect to={pathName.ERROR_404} />,
-      },
-    ],
+        component: () => <Redirect to={pathName.ERROR_404} />
+      }
+    ]
   },
   {
     path: "*",
     routes: [
       {
-        component: () => <Redirect to={pathName.ERROR_404} />,
-      },
-    ],
-  },
+        component: () => <Redirect to={pathName.ERROR_404} />
+      }
+    ]
+  }
 ];
 
-const renderRoutes = (routes) => {
+const renderRoutes = routes => {
   return (
     <>
       {routes ? (
@@ -81,7 +81,7 @@ const renderRoutes = (routes) => {
                   key={`routes-${idx}`}
                   path={route.path}
                   exact={route.exact}
-                  render={(props) => (
+                  render={props => (
                     <Guard>
                       <Layout>{route.routes ? renderRoutes(route.routes) : <Component {...props} />}</Layout>
                     </Guard>

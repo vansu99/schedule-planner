@@ -13,6 +13,9 @@ const todosApis = {
   createCardTodo: card => {
     return axiosClient.post("/api/cards", card);
   },
+  removeCardTodo: id => {
+    return axiosClient.delete(`/api/cards/${id}`);
+  },
   updateSingleCardTodo: (id, title) => {
     return axiosClient.patch(`/api/cards/${id}`, title);
   },
@@ -21,6 +24,9 @@ const todosApis = {
   },
   removeCheckListTodoCard: (id, checklistId) => {
     return axiosClient.delete(`/api/cards/${id}/checklist/${checklistId}`);
+  },
+  addLabelTodoCard: (id, label) => {
+    return axiosClient.patch(`/api/cards/${id}/label`, label);
   }
 };
 

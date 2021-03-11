@@ -1,0 +1,9 @@
+@mixin aspectRatio($ratio: 16/9) {
+  height: 0;
+  padding-bottom: 100% / $ratio;
+  @supports (aspect-ratio: 16/9) {
+    aspect-ratio: $ratio;
+    height: initial;
+    padding-bottom: initial;
+  }
+}

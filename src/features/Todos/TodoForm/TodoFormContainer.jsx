@@ -1,9 +1,8 @@
 import { Collapse } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-import { todosActions } from "../../../actions/Todos";
+import { useDispatch, useSelector } from "react-redux";
+import { todosActions } from "actions/Todos";
 import TodoForm from "./index";
 
 const useStyles = makeStyles(theme => ({
@@ -34,9 +33,8 @@ export default function TodoFormContainer({ isLists, listId }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const label = isLists ? "Thêm danh sách khác" : "Thêm thẻ khác";
-  const placeholder = isLists
-    ? "Nhập tiêu đề danh sách"
-    : "Enter a title for this card...";
+  const placeholder = isLists ? "Nhập tiêu đề danh sách" : "Enter a title for this card...";
+  const userId = useSelector(state => state.user.currentUser);
 
   const onChange = e => {
     setTitle(e.target.value);
@@ -58,12 +56,10 @@ export default function TodoFormContainer({ isLists, listId }) {
   const handleAddCard = () => {
     if (title === "") return;
 
-    const _id = `card-${uuidv4()}`;
     const newCards = {
-      _id,
       title,
       list: listId,
-      member: []
+      userId: userId._id
     };
     dispatch(todosActions.asyncAddTodoCard(newCards));
     setTitle("");
@@ -90,10 +86,7 @@ export default function TodoFormContainer({ isLists, listId }) {
         </TodoForm>
       </Collapse>
       <Collapse in={!open}>
-        <button
-          className="todoForm__createButton"
-          onClick={() => setOpen(!open)}
-        >
+        <button className="todoForm__createButton" onClick={() => setOpen(!open)}>
           <i className="bx bx-plus"></i>
           {label}
         </button>

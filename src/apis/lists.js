@@ -12,6 +12,12 @@ const listsApis = {
   },
   changeTitleListTodo: (id, title) => {
     return axiosClient.patch(`/api/lists/${id}`, title);
+  },
+  addCardIdToList: (id, value) => {
+    return axiosClient.post(`/api/lists/${id}/cardId`, { value });
+  },
+  removeCardIdToList: (id, cardId) => {
+    return axiosClient.delete(`/api/lists/${id}/cardId/${cardId}`);
   }
 };
 

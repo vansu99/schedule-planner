@@ -1,14 +1,14 @@
 import React, { memo, useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
-import { userActions } from "../../actions/User";
+import { userActions } from "actions/User";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsAuthenticated } from "../../selectors/auth.selector";
+import { getIsAuthenticated } from "selectors/auth.selector";
 import { Redirect } from "react-router-dom";
-import { pathName } from "../../configs";
+import { pathName } from "configs";
 
 function Login(props) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function Login(props) {
     }
   }, [user]);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = values => {
     dispatch(userActions.asyncLogin(values));
   };
 
