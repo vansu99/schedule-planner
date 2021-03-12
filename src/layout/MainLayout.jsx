@@ -1,30 +1,27 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Header from '../components/Header';
-import FeatureSub from '../components/FeatureSup';
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import Header from "components/Header";
+import FeatureSub from "components/FeatureSup";
+import { useDarkMode } from "hooks";
 
 MainLayout.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any
 };
 
 MainLayout.defaultProps = {
-  children: null,
+  children: null
 };
 
-
 function MainLayout({ children }) {
+  const themeSwitcher = useDarkMode();
+
   return (
     <div className="wrapper">
-      <Header />
+      <Header>{themeSwitcher}</Header>
       <FeatureSub />
-      <main style={{ paddingTop: '3rem' }}>
-        {children}
-      </main>
-
+      <main style={{ paddingTop: "3rem" }}>{children}</main>
     </div>
-  )
+  );
 }
 
-
 export default MainLayout;
-

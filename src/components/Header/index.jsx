@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../actions/User";
 import "./header.scss";
 
-export default function Header() {
+export default function Header({ children }) {
   const dispatch = useDispatch();
   const [isShow, setIsShow] = useState(false);
   const loggedInUser = useSelector(state => state.user.currentUser);
@@ -64,6 +64,7 @@ export default function Header() {
             </div>
           </div>
         )}
+        {children}
       </nav>
     </header>
   );

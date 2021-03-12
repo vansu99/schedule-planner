@@ -1,29 +1,42 @@
 import { useState, useEffect } from "react";
+import { StorageKeys } from "configs";
 
 export default function useDarkMode() {
-  const [theme, setTheme] = useState("light");
+  const [mode, setMode] = useState(() => localStorage.getItem(StorageKeys.DARK_MODE));
 
-  const setMode = (mode) => {
-    localStorage.setItem("theme", mode);
-    setTheme(mode);
-  };
+  useEffect(() => {
+    window.addEventListener("storage", setPreferedTheme);
+    return () => {
+      window.removeEventListener("storage", setPreferedTheme);
+    };
+  }, []);
 
-  const toggleTheme = () => {
-    if (theme === "light") {
-      setMode("dark");
+  const setPreferedTheme = () => {
+    const _mode = localStorage.getItem(StorageKeys.DARK_MODE);
+    if (_mode) {
+      setMode(_mode);
     } else {
       setMode("light");
     }
   };
 
-  useEffect(() => {
-    const localTheme = localStorage.getItem("theme");
-    if (localTheme) {
-      setTheme(localTheme);
-    } else {
-      setTheme("light");
-    }
-  }, []);
+  const toggleTheme = () => {
+    setMode(mode => (mode === "dark" ? "light" : "dark"));
+  };
 
-  return [theme, toggleTheme];
+  useEffect(() => {
+    if (mode === "dark") {
+      document.body.classList.add("dark");
+      localStorage.setItem(StorageKeys.DARK_MODE, "dark");
+    } else {
+      document.body.classList.remove("dark");
+      localStorage.setItem(StorageKeys.DARK_MODE, "light");
+    }
+  }, [mode]);
+
+  return (
+    <div className="toggle-themes" onClick={toggleTheme}>
+      {mode === "dark" ? <i className="bx bx-moon toggle-icon"></i> : <i className="bx bx-sun toggle-icon"></i>}
+    </div>
+  );
 }

@@ -26,9 +26,17 @@ body {
   font-family: $body-font-family;
   font-size: 1.6rem;
   font-weight: $font-medium;
-  color: $dark-color;
-  line-height: 1.6;
+  background-color: $background-color-light;
+  color: $background-color-dark;
+  line-height: 1.5;
   overflow-y: auto;
+  transition: background-color 0.2s linear;
+}
+
+body.dark {
+  background-color: $background-color-dark;
+  color: $background-color-light;
+  transition: background-color 0.2s linear;
 }
 
 h1,
@@ -52,7 +60,6 @@ img {
 
 a {
   text-decoration: none;
-  color: $dark-color;
 }
 
 input,

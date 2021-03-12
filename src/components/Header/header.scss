@@ -36,6 +36,7 @@
     padding: 0.5rem 1.4rem;
     text-align: center;
     margin-left: 3rem;
+    margin-right: 3rem;
     border-radius: 0.8rem;
   }
 
@@ -139,6 +140,10 @@
         display: block;
         height: 100%;
       }
+    }
+
+    &__link {
+      color: $background-color-dark;
     }
 
     &__toggle {
