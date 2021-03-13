@@ -309,15 +309,45 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
         </div>
         <div className="todoCard-details__container">
           <div className="todoCard-details__left">
+            <div className="todoCard-details__labels">
+              <h3 className="todoCard-details__label">
+                <i className="bx bx-label"></i> Nhãn công việc
+              </h3>
+              <div className="todoCard-details__labels-list">
+                {label?.map(item => (
+                  <div
+                    key={item.value}
+                    className="todoCard-details__labels-item"
+                    style={{ backgroundColor: `${item.color}` }}
+                  >
+                    <span>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             <h3 className="todoCard-details__label">
               <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
             </h3>
             <div className="todoCard-details__edit">
-              <TextArea placeholder="Thêm mô tả chi tiết" />
-              <button className="button-success">Lưu</button>
+              <TextArea placeholder="Thêm mô tả chi tiết" text={descCardContent} setText={setDescCardContent} />
+              <button className="button-success" onClick={handleEditDescCard}>
+                Lưu
+              </button>
               <button className="button-danger">
                 <i className="bx bx-x"></i>
               </button>
+            </div>
+            <div className="todoCard-details__checklist">
+              <h3>
+                <i className="bx bx-list-check"></i> Việc cần làm
+              </h3>
+              {checklist?.length > 0 ? (
+                <div className="todoCard-details__checklist-list">
+                  <CheckListSelect checklist={checklist} cardId={cardId} />
+                </div>
+              ) : (
+                <p style={{ opacity: 0.6 }}>Chưa có việc cần làm</p>
+              )}
             </div>
           </div>
           <div className="todoCard-details__right">
@@ -327,10 +357,75 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
                 <i className="bx bx-user"></i> Thành viên
               </li>
               <li className="todoCard-details__item">
-                <i className="bx bx-label"></i> Nhãn
+                <input type="checkbox" name="chk1" id="chk1" />
+                <label htmlFor="chk1" className="todoCard-details__item-label">
+                  <i className="bx bx-label"></i> Nhãn
+                </label>
+                <div className="todoCard-details__item-content">
+                  <input
+                    type="text"
+                    placeholder="Note label todo"
+                    value={infoLabel.name}
+                    onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
+                  />
+                  {labelColors.map((value, index) => (
+                    <div key={index}>
+                      <input
+                        key={index}
+                        type="radio"
+                        name="labelcolor"
+                        value={value}
+                        onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                      />
+                      <span
+                        style={{
+                          width: "100%",
+                          height: "2rem",
+                          backgroundColor: `${value}`,
+                          display: "inline-block",
+                          marginLeft: ".9rem",
+                          borderRadius: "4px"
+                        }}
+                      />
+                    </div>
+                  ))}
+                  <button className="button button-success" onClick={handleAddLabelTodoCard}>
+                    Thêm
+                  </button>
+                </div>
               </li>
               <li className="todoCard-details__item">
-                <i className="bx bx-time"></i> Ngày hết hạn
+                <input type="checkbox" name="chk2" id="chk2" />
+                <label htmlFor="chk2" className="todoCard-details__item-label">
+                  <i className="bx bx-time"></i> Ngày hết hạn
+                </label>
+                <div className="todoCard-details__item-content">
+                  Chọn ngày:{" "}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={date => setStartDate(date)}
+                    timeInputLabel="Time:"
+                    dateFormat="dd/MM/yyyy h:mm aa"
+                    showTimeInput
+                  />
+                </div>
+              </li>
+              <li className="todoCard-details__item">
+                <input type="checkbox" name="chk3" id="chk3" />
+                <label htmlFor="chk3" className="todoCard-details__item-label">
+                  <i className="bx bx-pencil"></i> Việc cần làm
+                </label>
+                <div className="todoCard-details__item-content">
+                  <input
+                    type="text"
+                    placeholder="Việc cần làm"
+                    value={todoCheckListContent}
+                    onChange={todoCheckListContentChange}
+                  />
+                  <button type="submit" className="button button-success" onClick={handleAddCheckList}>
+                    Thêm
+                  </button>
+                </div>
               </li>
             </ul>
           </div>

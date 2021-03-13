@@ -198,9 +198,16 @@ const actDragEndCard = payload => {
 };
 
 const asyncDragEndCard = result => {
+  const { draggableId, destination, source } = result;
   return async dispatch => {
     try {
-      dispatch(actDragEndCard(result));
+      const list = destination.droppableId;
+      const response = await todosApis.updateSingleCardTodo(draggableId, { list });
+      if (response.status === 200) {
+        await listsApis.addCardIdToList(list, draggableId);
+        await listsApis.removeCardIdToList(source.droppableId, draggableId);
+        dispatch(actDragEndCard(result));
+      }
     } catch (error) {
       console.log(error);
     }

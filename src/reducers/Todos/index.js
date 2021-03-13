@@ -160,7 +160,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       const { destination, source } = payload;
       if (destination === null) return state;
 
-      // in the same list
+      // cùng 1 list
       if (source.droppableId === destination.droppableId) {
         const droppedIdStart = source.droppableId;
         const lists = state.lists[droppedIdStart];
@@ -179,18 +179,20 @@ export function todosReducer(state = initialState, { type, payload }) {
         };
       }
 
-      // other list
+      // list khác
       if (source.droppableId !== destination.droppableId) {
+        // lấy cột gốc được kéo
         const droppedIdStart = source.droppableId;
+        // lấy cột đích đến của task
         const droppedIdEnd = destination.droppableId;
         const listStart = state.lists[droppedIdStart];
         const listEnd = state.lists[droppedIdEnd];
         const newCardsStart = [...listStart.cards];
         const newCardsEnd = [...listEnd.cards];
 
-        // cut card in list start
+        // xóa task khỏi cột gốc
         const cardSpliced = newCardsStart.splice(source.index, 1)[0];
-        // add card spliced in list end
+        // thêm task vào cột đích
         newCardsEnd.splice(destination.index, 0, cardSpliced);
 
         return {
