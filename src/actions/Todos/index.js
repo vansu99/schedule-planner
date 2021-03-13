@@ -202,11 +202,13 @@ const asyncDragEndCard = result => {
   return async dispatch => {
     try {
       const list = destination.droppableId;
-      const response = await todosApis.updateSingleCardTodo(draggableId, { list });
-      if (response.status === 200) {
-        await listsApis.addCardIdToList(list, draggableId);
-        await listsApis.removeCardIdToList(source.droppableId, draggableId);
-        dispatch(actDragEndCard(result));
+      if (source.droppableId !== list) {
+        const response = await todosApis.updateSingleCardTodo(draggableId, { list });
+        if (response.status === 200) {
+          await listsApis.addCardIdToList(list, draggableId);
+          await listsApis.removeCardIdToList(source.droppableId, draggableId);
+          dispatch(actDragEndCard(result));
+        }
       }
     } catch (error) {
       console.log(error);
