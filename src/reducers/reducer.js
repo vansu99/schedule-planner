@@ -6,7 +6,7 @@ import { appReducer } from "./App";
 const rootReducer = combineReducers({
   app: appReducer,
   user: userReducer,
-  todo: todosReducer,
+  todo: todosReducer
 });
 
 export default rootReducer;

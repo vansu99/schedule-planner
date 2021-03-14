@@ -2,143 +2,163 @@
 @import "../../../styles/mixins.scss";
 
 .login {
-  display: grid;
-  grid-template-columns: 100%;
-  height: calc(100% - 6rem);
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  margin-top: 3rem;
-
-  &__content {
-    display: grid;
+  &__container {
+    width: 100%;
+    max-width: 93.5rem;
+    margin: 3.2rem auto 0;
+    display: flex;
+    justify-content: space-around;
   }
 
   &__image {
-    justify-self: center;
-
-    & img {
-      width: 310px;
-      margin-top: 1.5rem;
+    & > img {
+      width: 50rem;
     }
   }
 
   &__forms {
-    position: relative;
-    height: auto;
+    width: 100%;
+    max-width: 35rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    justify-content: center;
   }
 
   &__register {
-    position: absolute;
     width: 100%;
-    background-color: $dark-color-lighten;
-    padding: 2rem 1rem;
-    border-radius: 1rem;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(35, 0, 77, 0.2);
+    flex-shrink: 0;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    padding: 1rem 0;
+    border-radius: 1px;
   }
 
   &__title {
-    margin-bottom: 2rem;
-    font-size: 2.6rem;
-    font-weight: 500;
-    color: #088cfb;
+    margin: 1.2rem 0;
+    text-align: center;
+  }
+
+  &__content {
+    max-width: 35rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
   }
 
   &__box {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    column-gap: 0.5rem;
-    align-items: center;
-    padding: 1.125rem 1rem;
-    background-color: $white-color;
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-  }
-
-  &__icon {
-    font-size: 1.6rem;
-    color: #088cfb;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-bottom: 0.6rem;
   }
 
   &__input {
-    border: none;
-    outline: none;
+    color: #262626;
+    border-radius: 3px;
+    border: 1px solid #dbdbdb;
+    background-color: #fafafa;
     font-size: 1.4rem;
-    font-weight: 600;
+    padding: 0.9rem 0 0.7rem 0.8rem;
+    text-overflow: ellipsis;
+    width: 100%;
 
     &::-webkit-input-placeholder {
-      font-size: 1.4rem;
-      font-family: $body-font-family;
-      color: $dark-color-light;
+      font-size: 1.2rem;
     }
-  }
-
-  &__forgot {
-    display: block;
-    width: max-content;
-    margin-left: auto;
-    margin-top: 0.5rem;
-    font-family: 600;
-    color: $dark-color-light;
-    font-size: 1.4rem;
   }
 
   &__button {
-    display: block;
+    background-color: #0095f6;
+    border-radius: 4px;
+    border: 1px solid transparent;
     width: 100%;
-    padding: 1rem;
-    margin: 2rem 0;
-    color: $white-color;
-    background-color: #088cfb;
-    text-align: center;
-    border-radius: 0.5rem;
-    transition: all 0.3s;
-    border: 0;
-    outline: none;
-  }
-
-  &__account,
-  &__signup {
+    padding: 0.5rem 0.9rem;
     font-weight: 600;
-    font-style: 1.5rem;
+    font-size: 1.3rem;
+    color: #fff;
+    text-align: center;
   }
 
-  &__signup {
-    color: #088cfb;
-    cursor: pointer;
-  }
+  &__or {
+    margin: 1rem 4rem 1.8rem;
+    position: relative;
+    text-align: center;
 
-  @include mediumTabletsLand {
-    & {
-      overflow: hidden;
-      margin-top: 5rem;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #dbdbdb;
     }
 
-    &__content {
-      grid-template-columns: 1fr 390px;
+    & > span {
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+      background-color: #fff;
+      color: #8e8e8e;
+      font-size: 1.2rem;
+      padding: 0.5rem 0.9rem;
+    }
+  }
+
+  &__social {
+    margin: 0.8rem 4rem;
+
+    &-btn {
+      display: flex;
       justify-content: center;
       align-items: center;
-      margin-left: 10rem;
+      border: 0;
+      color: #385185;
+      background-color: #fff;
+      font-weight: 600;
+      font-size: 1.4rem;
+      width: 100%;
     }
+  }
 
-    &__image {
-      display: flex;
-      border-radius: 0.8rem;
-      overflow: hidden;
+  &__icon {
+    font-size: 2.4rem;
+    margin-right: 0.8rem;
+  }
 
-      & img {
-        width: 100%;
-        object-fit: cover;
-        margin-top: 0;
+  &__forgot {
+    margin-top: 1.2rem;
+    text-align: center;
+    display: block;
+    font-size: 1.2rem;
+    color: #00376b;
+    line-height: 2rem;
+  }
+
+  &__other {
+    margin-top: 1.2rem;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 1px;
+
+    & > p {
+      font-size: 1.3rem;
+      text-align: center;
+      margin: 1.5rem;
+
+      & > a {
+        color: #0095f6;
+        font-weight: 600;
+        margin-left: 0.5rem;
       }
-    }
-
-    &__register {
-      left: -13rem;
-      bottom: -15rem;
-      padding-left: 2rem;
-      padding-right: 2rem;
-      border-radius: 0.5rem;
     }
   }
 }

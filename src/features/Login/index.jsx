@@ -2,7 +2,6 @@ import React, { memo, useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
 import { userActions } from "actions/User";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsAuthenticated } from "selectors/auth.selector";
 import { Redirect } from "react-router-dom";
 import { pathName } from "configs";
 

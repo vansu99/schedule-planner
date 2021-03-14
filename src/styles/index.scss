@@ -2,6 +2,14 @@
 @import "./variables.scss";
 @import "./mixins.scss";
 
+.mt-1 {
+  margin-top: 0.8rem;
+}
+
+.mt-2 {
+  margin-top: 1.6rem;
+}
+
 .bd-grid {
   max-width: 117rem;
   padding-left: 1.5rem;

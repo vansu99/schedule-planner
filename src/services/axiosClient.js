@@ -10,26 +10,26 @@ const axiosClient = axios.create({
   baseURL: API_URL,
   timeout: 4000,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   },
 
-  paramsSerializer: (params) => queryString.stringify(params),
+  paramsSerializer: params => queryString.stringify(params)
 });
 
 // Request Interceptors
 axiosClient.interceptors.request.use(
-  (config) => {
+  config => {
     const token = localStorage.getItem(StorageKeys.TOKEN);
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   }
 );
 
 axiosClient.interceptors.response.use(
-  (response) => response
+  response => response
   // (error) => {
   //   let original_request = error.config;
   //   const { config, data, status, statusText } = error.response;

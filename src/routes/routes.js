@@ -8,7 +8,8 @@ const Error404View = lazy(() => import("../components/404"));
 const Login = lazy(() => import("../features/Login"));
 const Register = lazy(() => import("../features/Register"));
 const Todos = lazy(() => import("../features/Todos"));
-const Home = lazy(() => import("../features/Home"));
+const Home = lazy(() => import("../pages/Home"));
+const UserProfile = lazy(() => import("pages/User/UserProfile"));
 
 const routesConfig = [
   {
@@ -39,6 +40,11 @@ const routesConfig = [
         exact: true,
         path: pathName.ROOT,
         component: Home
+      },
+      {
+        exact: true,
+        path: pathName.USER_DETAIL,
+        component: UserProfile
       },
       {
         exact: true,

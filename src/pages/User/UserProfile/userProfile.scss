@@ -1,0 +1,38 @@
+.user {
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+
+  &__container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  &__avatar {
+    & > img {
+      width: 15rem;
+      height: 15rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  &__info {
+    flex: 1;
+    padding-left: 5rem;
+  }
+
+  &__title {
+    display: block;
+    font-size: 2.1rem;
+    font-weight: 400;
+  }
+
+  &__desc {
+    margin-top: 3rem;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
