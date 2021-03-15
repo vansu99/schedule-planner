@@ -6,6 +6,16 @@ import { todosActions } from "actions/Todos";
 import TodoFormContainer from "../TodoForm/TodoFormContainer";
 import Title from "./titleCpt.jsx";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+
+TodoList.propTypes = {
+  cards: PropTypes.array,
+  title: PropTypes.string
+};
+
+TodoList.defaultProps = {
+  cards: []
+};
 
 function TodoList({ listId, title, cards, index }) {
   const [isEditing, setEditing] = useState(false);
