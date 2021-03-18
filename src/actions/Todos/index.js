@@ -172,6 +172,47 @@ const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
   };
 };
 
+const actAddDealineTodoCard = (cardId, deadline) => {
+  return {
+    type: todoActions.ADD_DEADLINE_TODO_CARD,
+    payload: { cardId, deadline }
+  };
+};
+
+const asyncAddDeadlineTodoCard = (cardId, date) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.updateSingleCardTodo(cardId, { date });
+      if (result.status === 200) {
+        dispatch(actAddDealineTodoCard(cardId, date));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const actAddMemberTodoCard = (cardId, member) => {
+  return {
+    type: todoActions.ADD_MEMBER_TODO_CARD,
+    payload: { cardId, member }
+  };
+};
+
+const asyncAddMemberTodoCard = (cardId, value) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.addMemberTodoCard(cardId, { value });
+      const newMember = result.data.card.member;
+      if (result.status === 201) {
+        dispatch(actAddMemberTodoCard(cardId, newMember));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // DRAG & DROP
 const actDragEndList = payload => {
   return {
@@ -355,6 +396,8 @@ export const todosActions = {
   asyncEditDescTodoCard,
   asyncEditCheckListTodoCard,
   asyncRemoveCheckListTodoCard,
+  asyncAddDeadlineTodoCard,
+  asyncAddMemberTodoCard,
   asyncAddCheckListCard,
   asyncGetAllCardTodo,
   asyncRemoveTodoList,

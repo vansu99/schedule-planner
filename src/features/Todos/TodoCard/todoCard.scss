@@ -119,6 +119,21 @@
       }
     }
 
+    &__deadline {
+      margin-left: auto;
+      padding: .5rem 1rem;
+      background-color: #fff;
+      border: 1px solid #d1d1d1;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      user-select: none;
+
+      & > i {
+        margin-right: 0.7rem;
+      }
+    }
+
     &__container {
       display: flex;
       justify-content: space-between;

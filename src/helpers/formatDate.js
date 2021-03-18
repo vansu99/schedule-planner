@@ -1,10 +1,15 @@
-const formatDate = (date) => {
-  date = new Date(date);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
+import moment from "moment";
 
-  return `${year}년 ${month}월 ${day}일`;
+const formatDate = isoDateToDate => {
+  // date = new Date(date);
+  // const year = date.getFullYear();
+  // const month = date.getMonth() + 1;
+  // const day = date.getDate();
+
+  // return `${day}/${month}/${year}`;
+
+  const dateComponent = moment.parseZone(isoDateToDate).format("DD/MM/YYYY");
+  return dateComponent;
 };
 
 export default formatDate;

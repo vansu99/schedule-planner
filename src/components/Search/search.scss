@@ -1,0 +1,42 @@
+.search {
+  &-form {
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  &-input {
+    border: 0;
+    outline: none;
+    flex: 1 1 0%;
+    padding: 0 1rem 0 1.5rem;
+  }
+
+  &-icon {
+    color: rgb(153, 153, 153);
+    flex-shrink: 0;
+
+    &--danger {
+      color: rgb(182, 43, 43);
+    }
+  }
+
+  &-button {
+    background-color: #fff;
+    outline: none;
+    border: 0;
+
+    & > i {
+      font-size: 1.7rem;
+    }
+  }
+
+  &-result {
+    flex-direction: column;
+  }
+}

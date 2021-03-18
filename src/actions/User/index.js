@@ -3,22 +3,22 @@ import { UserActionTypes, pathName, StorageKeys } from "../../configs";
 import { userApis } from "../../apis";
 
 // GET ME
-const actGetMeSuccess = (user) => {
+const actGetMeSuccess = user => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_SUCCESS,
-    user,
+    user
   };
 };
 
-const actGetMeFailure = (error) => {
+const actGetMeFailure = error => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_FAILURE,
-    error,
+    error
   };
 };
 
 const asyncGetMe = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const response = await userApis.getMe();
       dispatch(actGetMeSuccess(response.data.data));
@@ -32,19 +32,19 @@ const asyncGetMe = () => {
 const actLoginSuccess = (token, userInfo) => {
   return {
     type: UserActionTypes.ACTION_LOGIN_SUCCESS,
-    payload: { token, userInfo },
+    payload: { token, userInfo }
   };
 };
 
-const actLoginFailure = (error) => {
+const actLoginFailure = error => {
   return {
     type: UserActionTypes.ACTION_LOGIN_ERROR,
-    error,
+    error
   };
 };
 
-const asyncLogin = (user) => {
-  return async (dispatch) => {
+const asyncLogin = user => {
+  return async dispatch => {
     try {
       const response = await userApis.login(user);
       const token = response.data?.token;
@@ -60,12 +60,17 @@ const asyncLogin = (user) => {
 
 const actLogout = () => {
   return {
-    type: UserActionTypes.ACTION_USER_LOGOUT,
+    type: UserActionTypes.ACTION_USER_LOGOUT
   };
 };
+
+// SEARCH USER
+const actSearchUser = () => {
+  
+}
 
 export const userActions = {
   asyncLogin,
   asyncGetMe,
-  actLogout,
+  actLogout
 };

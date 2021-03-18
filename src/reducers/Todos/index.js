@@ -126,6 +126,22 @@ export function todosReducer(state = initialState, { type, payload }) {
         cards: { ...state.cards, [payload.cardId]: newLabelCard }
       };
 
+    case todoActions.ADD_DEADLINE_TODO_CARD:
+      const newDeadLineCard = { ...state.cards[payload.cardId] };
+      newDeadLineCard.date = payload.deadline;
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newDeadLineCard }
+      };
+
+    case todoActions.ADD_MEMBER_TODO_CARD:
+      const newMemberCard = { ...state.cards[payload.cardId] };
+      newMemberCard.member = [...payload.member];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newMemberCard }
+      };
+
     case todoActions.REMOVE_CARD:
       const newCards = state.cards;
       delete newCards[payload.cardId];

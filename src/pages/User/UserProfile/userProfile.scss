@@ -4,23 +4,35 @@
   margin: 0 auto;
 
   &__container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+
   }
 
   &__avatar {
-    & > img {
-      width: 15rem;
-      height: 15rem;
-      object-fit: cover;
-      border-radius: 50%;
-    }
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: 50%;
   }
 
   &__info {
-    flex: 1;
-    padding-left: 5rem;
+    display: flex;
+  }
+
+  &__content {
+    flex: 7;
+    margin-left: 3rem;
+  }
+
+  &__button {
+    flex: 2;
+    display: inline-block;
+    border: 0;
+    outline: none;
+    height: 3.5rem;
+    border-radius: 4px;
+    background-color: #0095f6;
+    color: #fff;
+    font-size: 1.6rem;
   }
 
   &__title {
@@ -34,5 +46,28 @@
     display: block;
     font-size: 1.5rem;
     font-weight: 500;
+  }
+
+  &__board {
+    &-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 2rem;
+      margin-top: 5rem;
+    }
+
+    &-item {
+      border-radius: 4px;
+      margin-bottom: 3rem;
+      background: -webkit-linear-gradient(to right, #232526, #414345);
+      background: linear-gradient(to right, #232526, #414345);
+      color: #fff;
+      height: 10rem;
+    }
+
+    &-title {
+      display: block;
+      padding: 1rem 2rem;
+    }
   }
 }

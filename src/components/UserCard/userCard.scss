@@ -1,0 +1,38 @@
+.user {
+  &-card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    &-image {
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    &-title {
+      flex: 1 1 0;
+      display: block;
+      margin-left: 1rem;
+      font-weight: 500;
+    }
+
+    &-icon {
+      font-size: 2rem;
+      color: #7a7676;
+    }
+
+    & > button {
+      background-color: #fff;
+      border: 0;
+      outline: none;
+    }
+  }
+
+}

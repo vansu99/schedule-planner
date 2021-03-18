@@ -1,16 +1,18 @@
 import TextArea from "components/FormControls/TextArea";
-import React, { memo, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { labelColors } from "configs/fakeLabel";
 import { todosActions } from "actions/Todos";
 import Avatar from "components/Avatar";
+import Search from "components/Search";
 import DatePicker from "react-datepicker";
 import ReactModal from "components/Modal";
 import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
 import { useInput } from "hooks";
+import { formatDate } from "helpers";
 import "./todoCard.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
@@ -23,7 +25,7 @@ TodoCard.propTypes = {
   label: PropTypes.array
 };
 
-function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, label }) {
+function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, label, date }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
@@ -55,6 +57,12 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
     dispatch(todosActions.asyncEditDescTodoCard(cardId, descCardContent));
     setIsEditDescCard(false);
   };
+
+  const handleAddDeadLineTodo = useCallback(() => {
+    console.log("action add deadline");
+    dispatch(todosActions.asyncAddDeadlineTodoCard(cardId, startDate));
+  }, [dispatch, startDate]);
+
 
   const handleAddCheckList = () => {
     const value = `cklist-${uuidv4()}`;
@@ -155,6 +163,12 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
             <div className="todoCard-details__labels">
               <h3 className="todoCard-details__label">
                 <i className="bx bx-label"></i> Nhãn công việc
+                {date ? (
+                  <span className="todoCard-details__deadline">
+                    <i className="bx bx-time"></i>
+                    {formatDate(date)}
+                  </span>
+                ) : null}
               </h3>
               <div className="todoCard-details__labels-list">
                 {label?.map(item => (
@@ -202,22 +216,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
                   <i className="bx bx-user"></i> Thành viên
                 </label>
                 <div className="todoCard-details__item-content">
-                  <input type="text" placeholder="Note label todo" />
-                  {labelColors.map((value, index) => (
-                    <div key={index}>
-                      <input key={index} type="radio" name="labelcolor" value={value} />
-                      <span
-                        style={{
-                          width: "100%",
-                          height: "2rem",
-                          backgroundColor: `${value}`,
-                          display: "inline-block",
-                          marginLeft: ".9rem",
-                          borderRadius: "4px"
-                        }}
-                      />
-                    </div>
-                  ))}
+                  <Search cardId={cardId} />
                 </div>
               </li>
               <li className="todoCard-details__item">
@@ -312,6 +311,12 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
             <div className="todoCard-details__labels">
               <h3 className="todoCard-details__label">
                 <i className="bx bx-label"></i> Nhãn công việc
+                {date ? (
+                  <span className="todoCard-details__deadline">
+                    <i className="bx bx-time"></i>
+                    {formatDate(date)}
+                  </span>
+                ) : null}
               </h3>
               <div className="todoCard-details__labels-list">
                 {label?.map(item => (
@@ -408,6 +413,9 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
                     dateFormat="dd/MM/yyyy h:mm aa"
                     showTimeInput
                   />
+                  <button type="submit" className="button button-success" onClick={handleAddDeadLineTodo}>
+                    Thêm
+                  </button>
                 </div>
               </li>
               <li className="todoCard-details__item">
