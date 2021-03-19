@@ -17,7 +17,7 @@ TodoList.defaultProps = {
   cards: []
 };
 
-function TodoList({ listId, title, cards, index }) {
+function TodoList({ listId, title, cards, index, columnId }) {
   const [isEditing, setEditing] = useState(false);
   const dispatch = useDispatch();
   const [listTitle, setListTitle] = useState(title);
@@ -32,7 +32,7 @@ function TodoList({ listId, title, cards, index }) {
   };
 
   const handleRemoveList = () => {
-    dispatch(todosActions.asyncRemoveTodoList(listId));
+    dispatch(todosActions.asyncRemoveTodoList(listId, columnId));
   };
 
   return (

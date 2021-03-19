@@ -13,6 +13,9 @@ const listsApis = {
   changeTitleListTodo: (id, title) => {
     return axiosClient.patch(`/api/lists/${id}`, title);
   },
+  removeListById: id => {
+    return axiosClient.delete(`/api/lists/${id}`);
+  },
   addCardIdToList: (id, value) => {
     return axiosClient.post(`/api/lists/${id}/cardId`, { value });
   },

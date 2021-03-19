@@ -213,6 +213,27 @@ const asyncAddMemberTodoCard = (cardId, value) => {
   };
 };
 
+const actRemoveMemberTodoCard = (cardId, member) => {
+  return {
+    type: todoActions.REMOVE_MEMBER_TODO_CARD,
+    payload: { cardId, member }
+  };
+};
+
+const asyncRemoveMemberTodoCard = (cardId, value) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.removeMemberTodoCard(cardId, value);
+      if (result.status === 200) {
+        showToast(result.data.msg, "success");
+        dispatch(actRemoveMemberTodoCard(cardId, value));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // DRAG & DROP
 const actDragEndList = payload => {
   return {
@@ -258,10 +279,10 @@ const asyncDragEndCard = result => {
 };
 
 // LISTS
-const actAddList = payload => {
+const actAddList = (list, columnId) => {
   return {
     type: todoActions.ADD_LIST,
-    payload
+    payload: { list, columnId }
   };
 };
 
@@ -271,8 +292,8 @@ const asyncAddTodoList = list => {
       const result = await listsApis.createListTodo(list);
       const listId = result.data?.list._id;
       if (result.status === 201) {
-        dispatch(actAddList(result.data?.list));
-        await columnsApis.createColumnTodo({ listId });
+        const resultColumn = await columnsApis.createColumnTodo({ listId });
+        dispatch(actAddList(result.data?.list, resultColumn.data.column._id));
       }
     } catch (error) {
       console.log(error);
@@ -305,10 +326,15 @@ const actRemoveList = listId => {
   };
 };
 
-const asyncRemoveTodoList = listId => {
+const asyncRemoveTodoList = (listId, columnId) => {
   return async dispatch => {
     try {
-      dispatch(actRemoveList(listId));
+      const result = await listsApis.removeListById(listId);
+      if (result.status === 200) {
+        showToast(result.data.msg, "success");
+        await columnsApis.removeListIdTodo(columnId);
+        dispatch(actRemoveList(listId));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -353,12 +379,12 @@ const asyncGetAllColumns = () => {
     try {
       dispatch(actShowLoading());
       const result = await columnsApis.getAllColumnListTodo();
-      const response = result.data?.columns.reduce((acc, curr) => {
-        acc.push(curr.listId);
-        return acc;
-      }, []);
+      // const response = result.data?.columns.reduce((acc, curr) => {
+      //   acc.push(curr.listId);
+      //   return acc;
+      // }, []);
       if (result.status === 200) {
-        dispatch(actGetAllColumns(response));
+        dispatch(actGetAllColumns(result.data.columns));
         dispatch(actHideLoading());
       }
     } catch (error) {
@@ -394,6 +420,7 @@ export const todosActions = {
   asyncGetAllTodoList,
   asyncEditTitleTodoList,
   asyncEditDescTodoCard,
+  asyncRemoveMemberTodoCard,
   asyncEditCheckListTodoCard,
   asyncRemoveCheckListTodoCard,
   asyncAddDeadlineTodoCard,

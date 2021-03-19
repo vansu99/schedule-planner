@@ -6,10 +6,10 @@ const columnsApis = {
   },
   createColumnTodo: id => {
     return axiosClient.post("/api/columns", id);
+  },
+  removeListIdTodo: id => {
+    return axiosClient.delete(`/api/columns/${id}`);
   }
-  // createListTodo: (list) => {
-  //   return axiosClient.post("/api/lists", list);
-  // },
 };
 
 export default columnsApis;

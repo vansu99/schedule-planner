@@ -42,13 +42,14 @@ function Todos() {
                 {getColumnSelector.length > 0 ? (
                   <>
                     {getColumnSelector.map((column, index) => {
-                      const lists = getListSelector[column];
+                      const lists = getListSelector[column.listId];
                       if (lists) {
                         const cards = lists?.cards.map(card => getCardSelector && getCardSelector[card]);
                         return (
                           <TodoList
                             key={lists?._id}
                             listId={lists?._id}
+                            columnId={column?._id}
                             title={lists?.title}
                             cards={cards}
                             index={index}

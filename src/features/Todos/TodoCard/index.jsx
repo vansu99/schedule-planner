@@ -63,7 +63,6 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
     dispatch(todosActions.asyncAddDeadlineTodoCard(cardId, startDate));
   }, [dispatch, startDate]);
 
-
   const handleAddCheckList = () => {
     const value = `cklist-${uuidv4()}`;
     const newCheckListTodo = {
@@ -91,6 +90,10 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
   const handleRemoveCard = () => {
     dispatch(todosActions.asyncRemoveTodoCard(listId, cardId));
   };
+
+  const handleRemoveMember = memberId => {
+    dispatch(todosActions.asyncRemoveMemberTodoCard(cardId, memberId));
+  }
 
   const onChange = e => {
     setCardContent(e.target.value);
@@ -178,6 +181,21 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
                     style={{ backgroundColor: `${item.color}` }}
                   >
                     <span>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="todoCard-details__member">
+              <h3 className="todoCard-details__label">
+                <i className="bx bx-user"></i> Thành viên trong nhóm
+              </h3>
+              <div className="todoCard-details__member-list">
+                {member.map(value => (
+                  <div className="todoCard-details__member-item">
+                    <img src={value.image} alt={value.username} className="todoCard-details__member-image" />
+                    <button className="todoCard-details__member-button" onClick={() => handleRemoveMember(value._id)}>
+                      <i className="bx bx-x"></i>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -330,6 +348,20 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
                 ))}
               </div>
             </div>
+            {member.length > 0 ? (
+              <div className="todoCard-details__member">
+                <h3 className="todoCard-details__label">
+                  <i className="bx bx-user"></i> Thành viên trong nhóm
+                </h3>
+                <div className="todoCard-details__member-list">
+                  {member.map(value => (
+                    <div className="todoCard-details__member-item">
+                      <img src={value.image} alt={value.username} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <h3 className="todoCard-details__label">
               <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
             </h3>

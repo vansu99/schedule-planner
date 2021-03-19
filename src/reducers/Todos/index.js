@@ -30,11 +30,13 @@ export function todosReducer(state = initialState, { type, payload }) {
       };
 
     case todoActions.ADD_LIST:
-      const { _id, title, cards } = payload;
-      const newLists = { _id, title, cards };
+      const { _id } = payload.list;
+      const { columnId } = payload;
+      const newLists = { ...payload.list };
+      const newColumn = { listId: _id, _id: columnId };
       return {
         ...state,
-        columns: [...state.columns, _id],
+        columns: [...state.columns, newColumn],
         lists: { ...state.lists, [_id]: newLists }
       };
 
@@ -140,6 +142,14 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newMemberCard }
+      };
+
+    case todoActions.REMOVE_MEMBER_TODO_CARD:
+      const newRemoveMemberCard = { ...state.cards[payload.cardId] };
+      newRemoveMemberCard.member = newRemoveMemberCard.member.filter(item => item._id !== payload.member);
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newRemoveMemberCard }
       };
 
     case todoActions.REMOVE_CARD:
