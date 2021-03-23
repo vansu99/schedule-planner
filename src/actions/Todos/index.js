@@ -1,6 +1,6 @@
 import { todoActions } from "configs";
 import { actShowLoading, actHideLoading } from "../Global";
-import { listsApis, columnsApis, todosApis } from "apis";
+import { listsApis, columnsApis, todosApis, boardsApis } from "apis";
 import showToast from "components/Toast";
 
 // CARDS
@@ -286,14 +286,16 @@ const actAddList = (list, columnId) => {
   };
 };
 
-const asyncAddTodoList = list => {
+const asyncAddTodoList = (boardId, list) => {
   return async dispatch => {
     try {
       const result = await listsApis.createListTodo(list);
       const listId = result.data?.list._id;
       if (result.status === 201) {
         const resultColumn = await columnsApis.createColumnTodo({ listId });
-        dispatch(actAddList(result.data?.list, resultColumn.data.column._id));
+        const columnId = resultColumn.data.column._id;
+        dispatch(actAddList(result.data?.list, columnId));
+        await boardsApis.addColumnIdTodo(boardId, columnId);
       }
     } catch (error) {
       console.log(error);
@@ -367,6 +369,7 @@ const asyncGetAllTodoList = () => {
   };
 };
 
+// COLUMNS
 const actGetAllColumns = columns => {
   return {
     type: todoActions.GET_COLUMNS,
@@ -414,6 +417,53 @@ const asyncAddLabelTodo = (cardId, label) => {
   };
 };
 
+// BOARDS
+const actGetAllBoards = boards => {
+  return {
+    type: todoActions.GET_ALL_BOARDS,
+    payload: boards
+  };
+};
+
+const asyncGetAllBoards = () => {
+  return async dispatch => {
+    try {
+      dispatch(actShowLoading());
+      const result = await boardsApis.getAllBoardsTodo();
+      if (result.status === 200) {
+        dispatch(actGetAllBoards(result.data.boards));
+        dispatch(actHideLoading());
+      }
+    } catch (error) {
+      dispatch(actHideLoading());
+      console.log(error);
+    }
+  };
+};
+
+const actAddBoard = board => {
+  return {
+    type: todoActions.ADD_BOARDS,
+    payload: board
+  };
+};
+
+const asyncAddBoard = title => {
+  return async dispatch => {
+    try {
+      dispatch(actShowLoading());
+      const result = await boardsApis.createBoardTodo({ title });
+      if (result.status === 201) {
+        dispatch(actAddBoard(result.data.board));
+        dispatch(actHideLoading());
+      }
+    } catch (error) {
+      dispatch(actHideLoading());
+      console.log(error);
+    }
+  };
+};
+
 export const todosActions = {
   asyncGetAllColumns,
   asyncAddTodoList,
@@ -433,5 +483,7 @@ export const todosActions = {
   asyncDragEndCard,
   asyncEditTodoCard,
   asyncRemoveTodoCard,
-  asyncAddLabelTodo
+  asyncAddLabelTodo,
+  asyncGetAllBoards,
+  asyncAddBoard
 };

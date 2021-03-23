@@ -1,7 +1,6 @@
 import React, { memo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { pathName } from "../../configs";
 import "./home.scss";
 
 function Home() {
@@ -10,7 +9,6 @@ function Home() {
 
   return (
     <div>
-      <Link to={pathName.TODO_LIST}>Board</Link>
       <Link to={`/users/${userData._id}`}>User detail</Link>
     </div>
   );

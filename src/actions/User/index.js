@@ -64,13 +64,30 @@ const actLogout = () => {
   };
 };
 
-// SEARCH USER
-const actSearchUser = () => {
-  
-}
+// UPDATE USER PROFILE
+const actUpdateUserProfile = user => {
+  return {
+    type: UserActionTypes.ACTION_UPDATE_USER_PROFILE,
+    payload: user
+  }
+};
+
+const asyncUpdateUserProfile = (id, { user, image }) => {
+  return async dispatch => {
+    try {
+      const result = await userApis.updateUserProfile(id, { user, image });
+      if (result.status === 200) {
+        console.log(result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
 
 export const userActions = {
   asyncLogin,
   asyncGetMe,
-  actLogout
+  actLogout,
+  asyncUpdateUserProfile
 };

@@ -3,9 +3,9 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { todosActions } from "actions/Todos";
 import { getColumns, getLists, getCards } from "selectors/todos.selector";
-import TodoFormContainer from "./TodoForm/TodoFormContainer";
-import TodoList from "./TodoList";
 import "./todos.scss";
+import TodoList from "./TodoList";
+import TodoFormContainer from "./TodoForm/TodoFormContainer";
 
 function Todos() {
   const dispatch = useDispatch();

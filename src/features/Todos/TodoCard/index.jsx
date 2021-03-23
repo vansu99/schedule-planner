@@ -59,7 +59,6 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
   };
 
   const handleAddDeadLineTodo = useCallback(() => {
-    console.log("action add deadline");
     dispatch(todosActions.asyncAddDeadlineTodoCard(cardId, startDate));
   }, [dispatch, startDate]);
 
@@ -93,7 +92,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
 
   const handleRemoveMember = memberId => {
     dispatch(todosActions.asyncRemoveMemberTodoCard(cardId, memberId));
-  }
+  };
 
   const onChange = e => {
     setCardContent(e.target.value);

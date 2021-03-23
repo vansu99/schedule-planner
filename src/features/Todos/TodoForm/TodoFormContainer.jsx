@@ -4,6 +4,7 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { todosActions } from "actions/Todos";
 import TodoForm from "./index";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 export default function TodoFormContainer({ isLists, listId }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { boardId } = useParams();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const label = isLists ? "Thêm danh sách khác" : "Thêm thẻ khác";
@@ -48,7 +50,7 @@ export default function TodoFormContainer({ isLists, listId }) {
     if (title === "") return;
     const newList = { title, cards: [] };
 
-    dispatch(todosActions.asyncAddTodoList(newList));
+    dispatch(todosActions.asyncAddTodoList(boardId, newList));
     setTitle("");
     setOpen(false);
   };

@@ -15,6 +15,9 @@ const userApis = {
   },
   searchUser: search => {
     return axiosClient.get(`/api/users/search?username=${search}`);
+  },
+  updateUserProfile: (id, user) => {
+    return axiosClient.patch(`/api/users/${id}`, user);
   }
 };
 

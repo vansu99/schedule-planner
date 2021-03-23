@@ -3,7 +3,8 @@ import { todoActions } from "../../configs";
 const initialState = {
   lists: {},
   cards: {},
-  columns: []
+  columns: [],
+  boards: []
 };
 
 export function todosReducer(state = initialState, { type, payload }) {
@@ -20,6 +21,25 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         columns: [...state.columns, ...columns]
+      };
+
+    case todoActions.GET_ALL_BOARDS:
+      return {
+        ...state,
+        boards: [...state.boards, ...payload]
+      };
+
+    case todoActions.ADD_BOARDS:
+      const newBoard = [...state.boards];
+      newBoard.push(payload);
+      return {
+        ...state,
+        boards: newBoard
+      };
+
+    case todoActions.ADD_COLUMNID_TODO_BOARD:
+      return {
+        ...state
       };
 
     case todoActions.GET_LISTS:

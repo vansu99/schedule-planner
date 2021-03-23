@@ -3,10 +3,6 @@
   max-width: 70rem;
   margin: 0 auto;
 
-  &__container {
-
-  }
-
   &__avatar {
     width: 15rem;
     height: 15rem;
@@ -49,14 +45,39 @@
   }
 
   &__board {
+    margin-top: 5rem;
+
+    &-top {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    &-button {
+      border: 0;
+      border-radius: 6px;
+      outline: 0;
+      padding: 1.5rem 2rem;
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+    &-icon {
+      margin-right: .8rem;
+    }
+
+    &-title {
+      margin-right: 2rem;
+    }
+
     &-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-column-gap: 2rem;
-      margin-top: 5rem;
     }
 
     &-item {
+      display: block;
       border-radius: 4px;
       margin-bottom: 3rem;
       background: -webkit-linear-gradient(to right, #232526, #414345);
@@ -65,9 +86,69 @@
       height: 10rem;
     }
 
-    &-title {
+    &-name {
       display: block;
       padding: 1rem 2rem;
+    }
+
+    &-overlay {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #0008;
+    }
+
+    &-form {
+      padding: 1.5rem;
+      background-color: rgba(0,0,0,.5);
+      width: 37rem;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -100%);
+
+      &-input {
+        outline: none;
+        padding: 1rem;
+        border: 1px solid rgb(238, 238, 238);
+        display: block;
+        width: 80%;
+        transition: border 0.25s linear 0s;
+        color: rgb(51, 51, 51);
+        border-radius: inherit;
+        margin-bottom: 1.7rem;
+      }
+
+      &-button {
+        outline: none;
+        border: 0;
+        padding: 1rem;
+        border-radius: inherit;
+        font-weight: 500;
+      }
+
+      &-text {
+        display: block;
+        color: #fff;
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+      }
+
+      &-icon {
+        margin-left: auto;
+        margin-bottom: 2rem;
+        font-size: 2.2rem;
+        color: #fff;
+        cursor: pointer;
+      }
     }
   }
 }

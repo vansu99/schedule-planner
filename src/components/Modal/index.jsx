@@ -1,5 +1,5 @@
-import React from 'react';
-import Modal from 'react-modal';
+import React from "react";
+import Modal from "react-modal";
 import "./modal.scss";
 
 export default function ReactModal({ children, isOpen, handleCloseModal }) {
@@ -13,5 +13,5 @@ export default function ReactModal({ children, isOpen, handleCloseModal }) {
     >
       {children}
     </Modal>
-  )
+  );
 }
