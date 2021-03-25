@@ -6,9 +6,16 @@ import "./styles/index.scss";
 import store from "./store";
 import { Provider } from "react-redux";
 
+// context
+import { GlobalProvider } from "contexts/global-context";
+// i18n
+import "locales/i18n";
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <GlobalProvider>
+      <App />
+    </GlobalProvider>
   </Provider>,
   document.getElementById("root")
 );

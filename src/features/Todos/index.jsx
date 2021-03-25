@@ -6,8 +6,10 @@ import { getColumns, getLists, getCards } from "selectors/todos.selector";
 import "./todos.scss";
 import TodoList from "./TodoList";
 import TodoFormContainer from "./TodoForm/TodoFormContainer";
+import { useParams } from "react-router";
 
 function Todos() {
+  const { boardId } = useParams();
   const dispatch = useDispatch();
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
@@ -29,8 +31,9 @@ function Todos() {
   useEffect(() => {
     dispatch(todosActions.asyncGetAllCardTodo());
     dispatch(todosActions.asyncGetAllTodoList());
-    dispatch(todosActions.asyncGetAllColumns());
-  }, [dispatch]);
+    //dispatch(todosActions.asyncGetAllColumns());
+    dispatch(todosActions.asyncGetColumnByBoardId(boardId));
+  }, [dispatch, boardId]);
 
   return (
     <div className="todos">

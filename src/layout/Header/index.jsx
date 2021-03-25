@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../actions/User";
+import { useTranslation } from "react-i18next";
 import "./header.scss";
 
 export default function Header({ children }) {
   const dispatch = useDispatch();
+  const { t: translate } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const loggedInUser = useSelector(state => state.user.currentUser);
   const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
@@ -32,7 +34,7 @@ export default function Header({ children }) {
           <ul className="nav__list">
             <li className="nav__item active">
               <a href="#home" className="nav__link">
-                Home
+                {translate("Home")}
               </a>
             </li>
             <li className="nav__item">
@@ -52,7 +54,7 @@ export default function Header({ children }) {
         </div>
         {!isLoggedIn && (
           <Link to={pathName.LOGIN} className="nav__login">
-            Login
+            {translate("login")}
           </Link>
         )}
         {isLoggedIn && (
@@ -60,7 +62,7 @@ export default function Header({ children }) {
             <i className="bx bxs-user-circle"></i>
             <div className="nav__account-sub">
               <a href="#!">Info</a>
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout}>{translate("logout")}</button>
             </div>
           </div>
         )}

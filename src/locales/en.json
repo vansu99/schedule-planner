@@ -1,0 +1,20 @@
+{
+  "profile": "Profile",
+  "logout": "Log out",
+  "login": "Log in",
+  "or": "Or",
+  "login_fb": "Log in with Facebook",
+  "forgot_pw": "Forgot password?",
+  "dont_acc": "Don't have an account?",
+  "register": "Sign up",
+  "create_board": "Create new board",
+  "board": "Boards",
+  "edit_profile": "Edit Profile",
+  "add_list": "Add another list",
+  "add_card": "Add another card",
+  "label": "Labels",
+  "member": "Members",
+  "checklist": "Checklist",
+  "due_date": "Due date",
+  "description": "Description"
+}

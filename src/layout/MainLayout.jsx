@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import Header from "components/Header";
-import FeatureSub from "components/FeatureSup";
+import TopBar from "layout/TopBar";
+import Header from "layout/Header";
 import { useDarkMode } from "hooks";
+import PropTypes from "prop-types";
+import React from "react";
 
 MainLayout.propTypes = {
   children: PropTypes.any
@@ -18,7 +18,7 @@ function MainLayout({ children }) {
   return (
     <div className="wrapper">
       <Header>{themeSwitcher}</Header>
-      <FeatureSub />
+      <TopBar />
       <main style={{ paddingTop: "3rem" }}>{children}</main>
     </div>
   );

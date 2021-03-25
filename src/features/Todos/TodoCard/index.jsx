@@ -13,6 +13,7 @@ import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
 import { useInput } from "hooks";
 import { formatDate } from "helpers";
+import { useTranslation } from "react-i18next";
 import "./todoCard.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
@@ -27,6 +28,7 @@ TodoCard.propTypes = {
 
 function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, label, date }) {
   const dispatch = useDispatch();
+  const { t: translate } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -200,7 +202,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               </div>
             </div>
             <h3 className="todoCard-details__label">
-              <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
+              <i className="bx bx-menu-alt-left"></i> {translate("description")}
             </h3>
             {descCardContent && !isEditDescCard ? (
               <button className="todoCard-details__button" onClick={() => setIsEditDescCard(true)}>
@@ -213,7 +215,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
             </div>
             <div className="todoCard-details__checklist">
               <h3>
-                <i className="bx bx-list-check"></i> Việc cần làm
+                <i className="bx bx-list-check"></i> {translate("checklist")}
               </h3>
               {checklist.length > 0 ? (
                 <div className="todoCard-details__checklist-list">
@@ -230,7 +232,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk0" id="chk0" />
                 <label htmlFor="chk0" className="todoCard-details__item-label">
-                  <i className="bx bx-user"></i> Thành viên
+                  <i className="bx bx-user"></i> {translate("member")}
                 </label>
                 <div className="todoCard-details__item-content">
                   <Search cardId={cardId} />
@@ -239,7 +241,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk1" id="chk1" />
                 <label htmlFor="chk1" className="todoCard-details__item-label">
-                  <i className="bx bx-label"></i> Nhãn
+                  <i className="bx bx-label"></i> {translate("label")}
                 </label>
                 <div className="todoCard-details__item-content">
                   <input
@@ -277,7 +279,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk2" id="chk2" />
                 <label htmlFor="chk2" className="todoCard-details__item-label">
-                  <i className="bx bx-time"></i> Ngày hết hạn
+                  <i className="bx bx-time"></i> {translate("due_date")}
                 </label>
                 <div className="todoCard-details__item-content">
                   Chọn ngày:{" "}
@@ -362,7 +364,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               </div>
             ) : null}
             <h3 className="todoCard-details__label">
-              <i className="bx bx-menu-alt-left"></i> Mô tả chi tiết
+              <i className="bx bx-menu-alt-left"></i> {translate("description")}
             </h3>
             <div className="todoCard-details__edit">
               <TextArea placeholder="Thêm mô tả chi tiết" text={descCardContent} setText={setDescCardContent} />
@@ -375,7 +377,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
             </div>
             <div className="todoCard-details__checklist">
               <h3>
-                <i className="bx bx-list-check"></i> Việc cần làm
+                <i className="bx bx-list-check"></i> {translate("checklist")}
               </h3>
               {checklist?.length > 0 ? (
                 <div className="todoCard-details__checklist-list">
@@ -390,12 +392,12 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
             <ul className="todoCard-details__options">
               <li className="todoCard-details__item">
-                <i className="bx bx-user"></i> Thành viên
+                <i className="bx bx-user"></i> {translate("member")}
               </li>
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk1" id="chk1" />
                 <label htmlFor="chk1" className="todoCard-details__item-label">
-                  <i className="bx bx-label"></i> Nhãn
+                  <i className="bx bx-label"></i> {translate("label")}
                 </label>
                 <div className="todoCard-details__item-content">
                   <input
@@ -433,7 +435,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk2" id="chk2" />
                 <label htmlFor="chk2" className="todoCard-details__item-label">
-                  <i className="bx bx-time"></i> Ngày hết hạn
+                  <i className="bx bx-time"></i> {translate("due_date")}
                 </label>
                 <div className="todoCard-details__item-content">
                   Chọn ngày:{" "}
@@ -452,7 +454,7 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk3" id="chk3" />
                 <label htmlFor="chk3" className="todoCard-details__item-label">
-                  <i className="bx bx-pencil"></i> Việc cần làm
+                  <i className="bx bx-pencil"></i> {translate("checklist")}
                 </label>
                 <div className="todoCard-details__item-content">
                   <input

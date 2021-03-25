@@ -1,0 +1,21 @@
+{
+  "profile": "Tài Khoản",
+  "logout": "Đăng xuất",
+  "login": "Đăng nhập",
+  "Home": "Trang chủ",
+  "or": "hoặc",
+  "login_fb": "Đăng nhập bằng Facebook",
+  "forgot_pw": "Quên mật khẩu?",
+  "dont_acc": "Bạn không có tài khoản?",
+  "register": "Đăng ký",
+  "create_board": "Tạo bảng",
+  "board": "Bảng",
+  "edit_profile": "Chỉnh sửa trang cá nhân",
+  "add_list": "Thêm danh sách khác",
+  "add_card": "Thêm thẻ khác",
+  "label": "Nhãn",
+  "member": "Thành viên",
+  "checklist": "Việc cần làm",
+  "due_date": "Ngày hết hạn",
+  "description": "Mô tả chi tiết"
+}

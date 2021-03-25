@@ -4,6 +4,7 @@ import ImageLogin from "assets/images/login.jpg";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
 
 const schemaForm = yup.object().shape({
   email: yup.string().required("Vui lòng nhập email."),
@@ -11,6 +12,7 @@ const schemaForm = yup.object().shape({
 });
 
 export default function LoginForm({ onSubmit }) {
+  const { t: translate } = useTranslation();
   const { register, reset, handleSubmit, errors } = useForm({
     defaultValues: {
       email: "",
@@ -49,30 +51,30 @@ export default function LoginForm({ onSubmit }) {
 
               <div className="login__box mt-1">
                 <button type="submit" className="login__button">
-                  Đăng nhập
+                  {translate("login")}
                 </button>
               </div>
 
               <div className="login__or">
-                <span>hoặc</span>
+                <span>{translate("or")}</span>
               </div>
 
               <div className="login__social">
                 <button className="login__social-btn">
                   <i className="bx bxl-facebook-square login__icon"></i>
-                  <span>Đăng nhập bằng Facebook</span>
+                  <span>{translate("login_fb")}</span>
                 </button>
               </div>
             </div>
 
             <a href="#!" className="login__forgot">
-              Quên mật khẩu?
+            {translate("forgot_pw")}
             </a>
           </form>
           <div className="login__other">
             <p>
-              Bạn không có tài khoản?
-              <a href="#!">Đăng ký</a>
+              {translate("dont_acc")}
+              <a href="#!">{translate("register")}</a>
             </p>
           </div>
         </div>

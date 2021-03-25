@@ -8,9 +8,11 @@ import { todosActions } from "actions/Todos";
 import { useInput } from "hooks";
 import UserEdit from "../UserProfileEdit";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function UserProfile(props) {
   const { id } = useParams();
+  const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const boards = useSelector(getBoards);
@@ -23,9 +25,11 @@ function UserProfile(props) {
     if (id === currentUser._id) {
       setUserInfo(currentUser);
     }
+  }, [id, currentUser]);
 
+  useEffect(() => {
     dispatch(todosActions.asyncGetAllBoards());
-  }, [id, currentUser, dispatch]);
+  }, []);
 
   const handleAddBoard = () => {
     dispatch(todosActions.asyncAddBoard(dataBoard));
@@ -46,7 +50,7 @@ function UserProfile(props) {
         />
         <span className="user__board-form-text">không gian làm việc của {userInfo.username}</span>
         <button className="user__board-form-button" onClick={handleAddBoard}>
-          Tạo bảng
+          {translate("create_board")}
         </button>
       </div>
     </div>
@@ -67,15 +71,15 @@ function UserProfile(props) {
             <span>{userInfo?.email}</span>
           </div>
           <button className="user__button" onClick={() => setOnEdit(true)}>
-            Edit User
+            {translate("edit_profile")}
           </button>
         </div>
         <div className="user__board">
           <div className="user__board-top">
-            <h3 className="user__board-title">Bảng</h3>
+            <h3 className="user__board-title">{translate("board")}</h3>
             <button className="user__board-button" onClick={() => setShowModal(true)}>
               <i className="bx bx-plus user__board-icon"></i>
-              Tạo board
+              {translate("create_board")}
             </button>
           </div>
           <div className="user__board-list">

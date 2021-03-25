@@ -9,6 +9,9 @@ const boardsApis = {
   },
   addColumnIdTodo: (id, value) => {
     return axiosClient.patch(`/api/boards/${id}/column`, { value });
+  },
+  getBoardById: id => {
+    return axiosClient.get(`/api/boards/${id}`);
   }
 };
 

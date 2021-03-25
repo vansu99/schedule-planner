@@ -24,11 +24,13 @@
     display: inline-block;
     border: 0;
     outline: none;
-    height: 3.5rem;
+    height: 3.2rem;
     border-radius: 4px;
     background-color: #0095f6;
     color: #fff;
-    font-size: 1.6rem;
+    min-width: max-content;
+    padding: 0 1rem;
+    font-size: 1.4rem;
   }
 
   &__title {
@@ -68,6 +70,7 @@
 
     &-title {
       margin-right: 2rem;
+      font-weight: 500;
     }
 
     &-list {

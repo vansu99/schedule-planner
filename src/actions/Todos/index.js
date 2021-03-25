@@ -441,6 +441,30 @@ const asyncGetAllBoards = () => {
   };
 };
 
+const actGetColumnByBoardId = columns => {
+  return {
+    type: todoActions.GET_COLUMNS,
+    payload: { columns }
+  };
+};
+
+const asyncGetColumnByBoardId = id => {
+  return async dispatch => {
+    try {
+      dispatch(actShowLoading());
+      const result = await boardsApis.getBoardById(id);
+      if (result.status === 200) {
+        const columnId = result.data.board.columnId;
+        dispatch(actGetColumnByBoardId(columnId));
+        dispatch(actHideLoading());
+      }
+    } catch (error) {
+      dispatch(actHideLoading());
+      console.log(error);
+    }
+  }
+};
+
 const actAddBoard = board => {
   return {
     type: todoActions.ADD_BOARDS,
@@ -465,7 +489,6 @@ const asyncAddBoard = title => {
 };
 
 export const todosActions = {
-  asyncGetAllColumns,
   asyncAddTodoList,
   asyncGetAllTodoList,
   asyncEditTitleTodoList,
@@ -485,5 +508,6 @@ export const todosActions = {
   asyncRemoveTodoCard,
   asyncAddLabelTodo,
   asyncGetAllBoards,
+  asyncGetColumnByBoardId,
   asyncAddBoard
 };

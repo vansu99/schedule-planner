@@ -13,20 +13,20 @@ export function todosReducer(state = initialState, { type, payload }) {
       const { cardss } = payload;
       return {
         ...state,
-        cards: { ...state.cards, ...cardss }
+        cards: { ...cardss }
       };
 
     case todoActions.GET_COLUMNS:
       const { columns } = payload;
       return {
         ...state,
-        columns: [...state.columns, ...columns]
+        columns: [...columns]
       };
 
     case todoActions.GET_ALL_BOARDS:
       return {
         ...state,
-        boards: [...state.boards, ...payload]
+        boards: [...payload]
       };
 
     case todoActions.ADD_BOARDS:
@@ -46,7 +46,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       const { lists } = payload;
       return {
         ...state,
-        lists: { ...state.lists, ...lists }
+        lists: { ...lists }
       };
 
     case todoActions.ADD_LIST:
