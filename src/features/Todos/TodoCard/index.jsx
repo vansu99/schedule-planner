@@ -9,6 +9,8 @@ import Avatar from "components/Avatar";
 import Search from "components/Search";
 import DatePicker from "react-datepicker";
 import ReactModal from "components/Modal";
+import Comments from "./Comment";
+import InputComment from "./Comment/InputComment";
 import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
 import { useInput } from "hooks";
@@ -23,10 +25,12 @@ TodoCard.propTypes = {
   member: PropTypes.array,
   checklist: PropTypes.array,
   desc: PropTypes.string,
-  label: PropTypes.array
+  label: PropTypes.array,
+  comments: PropTypes.array
 };
 
-function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, label, date }) {
+function TodoCard(props) {
+  const { title, cardId, member = [], checklist, index, listId, desc, label, date, comments = [] } = props;
   const dispatch = useDispatch();
   const { t: translate } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
@@ -224,6 +228,14 @@ function TodoCard({ title, cardId, member = [], checklist, index, listId, desc, 
               ) : (
                 <p style={{ opacity: 0.6 }}>Chưa có việc cần làm</p>
               )}
+            </div>
+            <div className="todoCard-details__comments">
+              <h3 className="todoCard-details__label">
+                <i className="bx bx-comment-detail"></i>
+                Bình luận
+              </h3>
+              <Comments comments={comments} />
+              <InputComment cardId={cardId} />
             </div>
           </div>
           <div className="todoCard-details__right">

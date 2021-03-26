@@ -488,6 +488,29 @@ const asyncAddBoard = title => {
   };
 };
 
+// COMMENTS
+const actAddCommentTodoCard = (cardId, comment) => {
+  return {
+    type: todoActions.ADD_COMMENT_TODO_CARD,
+    payload: { cardId, comment }
+  };
+};
+
+const asyncAddCommentTodoCard = (cardId, newComment, user) => {
+  return async dispatch => {
+    try {
+      const data = { ...newComment, cardId };
+      const result = await todosApis.addCommentTodoCard(data);
+      const newData = { ...result.data.newComment, user: user };
+      if (result.status === 200) {
+        dispatch(actAddCommentTodoCard(cardId, newData));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 export const todosActions = {
   asyncAddTodoList,
   asyncGetAllTodoList,
@@ -496,6 +519,7 @@ export const todosActions = {
   asyncRemoveMemberTodoCard,
   asyncEditCheckListTodoCard,
   asyncRemoveCheckListTodoCard,
+  asyncAddCommentTodoCard,
   asyncAddDeadlineTodoCard,
   asyncAddMemberTodoCard,
   asyncAddCheckListCard,

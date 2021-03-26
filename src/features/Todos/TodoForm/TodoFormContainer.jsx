@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { todosActions } from "actions/Todos";
 import TodoForm from "./index";
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,11 +31,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function TodoFormContainer({ isLists, listId }) {
   const classes = useStyles();
+  const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const { boardId } = useParams();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const label = isLists ? "Thêm danh sách khác" : "Thêm thẻ khác";
+  const label = isLists ? translate("add_list") : translate("add_card");
   const placeholder = isLists ? "Nhập tiêu đề danh sách" : "Enter a title for this card...";
   const userId = useSelector(state => state.user.currentUser);
 

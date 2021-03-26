@@ -33,6 +33,9 @@ const todosApis = {
   },
   removeMemberTodoCard: (id, memberId) => {
     return axiosClient.delete(`/api/cards/${id}/member/${memberId}`);
+  },
+  addCommentTodoCard: comment => {
+    return axiosClient.post("/api/comments", comment);
   }
 };
 

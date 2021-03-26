@@ -262,6 +262,14 @@ export function todosReducer(state = initialState, { type, payload }) {
       };
     }
 
+    case todoActions.ADD_COMMENT_TODO_CARD:
+      const newCommentCard = { ...state.cards[payload.cardId] };
+      newCommentCard.comments = [...newCommentCard.comments, payload.comment];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newCommentCard }
+      };
+
     default:
       return state;
   }

@@ -94,6 +94,24 @@
       padding: 1rem 2rem;
     }
 
+    &-addBtn {
+      height: 10rem;
+      border: 1px dotted #999999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      & > i {
+        font-size: 3rem;
+        color: #999999;
+      }
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
     &-overlay {
       position: fixed;
       left: 0;

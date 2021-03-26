@@ -77,10 +77,10 @@ function UserProfile(props) {
         <div className="user__board">
           <div className="user__board-top">
             <h3 className="user__board-title">{translate("board")}</h3>
-            <button className="user__board-button" onClick={() => setShowModal(true)}>
+            {/* <button className="user__board-button" onClick={() => setShowModal(true)}>
               <i className="bx bx-plus user__board-icon"></i>
               {translate("create_board")}
-            </button>
+            </button> */}
           </div>
           <div className="user__board-list">
             {boards.map(board => (
@@ -88,6 +88,9 @@ function UserProfile(props) {
                 <span className="user__board-name">{board.title}</span>
               </Link>
             ))}
+            <div className="user__board-addBtn" onClick={() => setShowModal(true)}>
+              <i className="bx bx-plus"></i>
+            </div>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ function Checkbox({ name, option, selected, onChange, handleRemoveCheckList }) {
           name={name}
           id={option.value}
           value={option.value}
-          checked={selected}
+          checked={Boolean(selected)}
           onChange={onChange}
         />
         {option.text}

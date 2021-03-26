@@ -379,5 +379,119 @@
         }
       }
     }
+    // COMMENTS
+    &__comments {
+      margin-top: 3rem;
+
+      &-list {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      &-item {
+
+        &:not(:last-child) {
+          margin-bottom: 2rem;
+        }
+      }
+
+      &-info {
+        display: flex;
+        align-items: center;
+      }
+
+      &-image {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+
+      &-name {
+        font-weight: 500;
+        font-size: 1.3rem;
+        color: #333;
+      }
+
+      &-add  {
+        display: flex;
+        align-items: center;
+
+        & > input {
+          background-color: #f7f7f7;
+          border: none;
+          outline: none;
+          flex: 1;
+          overflow: auto;
+          padding: 1rem;
+        }
+      }
+
+      &-button {
+        padding: 1rem;
+        border: 0;
+        outline: none;
+        background-color: #f7f7f7;
+        color: #333;
+        font-weight: 600;
+        font-size: 1.4rem;
+      }
+
+      &-input {
+        width: 100%;
+        outline: none;
+        border: 0;
+      }
+
+      &-content {
+        background-color: #fff;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border-radius: 10px;
+        border-top-left-radius: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover .todoCard-details__comments-subMenu {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+      &-detail {
+        flex: 1;
+      }
+
+      &-text {
+        display: inline-block;
+        font-size: 1.4rem;
+      }
+
+      &-readMore {
+        cursor: pointer;
+        color: #00a5db;
+        font-size: 1.3rem;
+      }
+
+      &-time {
+        display: block;
+        color: #aba8a8;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+      }
+
+      &-menu {
+        display: flex;
+        align-items: center;
+      }
+
+      &-subMenu {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
   }
 }
