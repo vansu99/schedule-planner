@@ -1,24 +1,28 @@
+import { cardActions } from "actions/Todos/card.action";
+//import Avatar from "components/Avatar";
 import TextArea from "components/FormControls/TextArea";
-import React, { memo, useCallback, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { Draggable } from "react-beautiful-dnd";
-import { useDispatch } from "react-redux";
-import { labelColors } from "configs/fakeLabel";
-import { todosActions } from "actions/Todos";
-import Avatar from "components/Avatar";
-import Search from "components/Search";
-import DatePicker from "react-datepicker";
 import ReactModal from "components/Modal";
-import Comments from "./Comment";
-import InputComment from "./Comment/InputComment";
+import Search from "components/Search";
+import { labelColors } from "configs/fakeLabel";
+import { formatDate } from "helpers";
+import { useInput } from "hooks";
+import PropTypes from "prop-types";
+import React, { memo, useCallback, useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import { CheckListSelect } from "../TodoCheckList";
 import TodoForm from "../TodoForm";
-import { useInput } from "hooks";
-import { formatDate } from "helpers";
-import { useTranslation } from "react-i18next";
+import Comments from "./Comment";
+import InputComment from "./Comment/InputComment";
 import "./todoCard.scss";
-import "react-datepicker/dist/react-datepicker.css";
-import PropTypes from "prop-types";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
+import DoneIcon from "@material-ui/icons/Done";
+import { makeStyles } from "@material-ui/core";
 
 TodoCard.propTypes = {
   title: PropTypes.string,
@@ -29,9 +33,16 @@ TodoCard.propTypes = {
   comments: PropTypes.array
 };
 
+const useStyles = makeStyles(theme => ({
+  chipEl: {
+    fontSize: "1.3rem"
+  }
+}));
+
 function TodoCard(props) {
   const { title, cardId, member = [], checklist, index, listId, desc, label, date, comments = [] } = props;
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { t: translate } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
@@ -55,17 +66,17 @@ function TodoCard(props) {
   };
 
   const handleEditCard = () => {
-    dispatch(todosActions.asyncEditTodoCard(cardId, cardContent));
+    dispatch(cardActions.asyncEditTodoCard(cardId, cardContent));
     setIsEditing(false);
   };
 
   const handleEditDescCard = () => {
-    dispatch(todosActions.asyncEditDescTodoCard(cardId, descCardContent));
+    dispatch(cardActions.asyncEditDescTodoCard(cardId, descCardContent));
     setIsEditDescCard(false);
   };
 
   const handleAddDeadLineTodo = useCallback(() => {
-    dispatch(todosActions.asyncAddDeadlineTodoCard(cardId, startDate));
+    dispatch(cardActions.asyncAddDeadlineTodoCard(cardId, startDate));
   }, [dispatch, startDate]);
 
   const handleAddCheckList = () => {
@@ -75,7 +86,7 @@ function TodoCard(props) {
       text: todoCheckListContent,
       status: false
     };
-    dispatch(todosActions.asyncAddCheckListCard(cardId, newCheckListTodo));
+    dispatch(cardActions.asyncAddCheckListCard(cardId, newCheckListTodo));
     reset();
   };
 
@@ -85,7 +96,7 @@ function TodoCard(props) {
       ...infoLabel,
       value
     };
-    dispatch(todosActions.asyncAddLabelTodo(cardId, newLabelTodo));
+    dispatch(cardActions.asyncAddLabelTodo(cardId, newLabelTodo));
     setInfoLabel({
       name: "",
       color: ""
@@ -93,11 +104,11 @@ function TodoCard(props) {
   };
 
   const handleRemoveCard = () => {
-    dispatch(todosActions.asyncRemoveTodoCard(listId, cardId));
+    dispatch(cardActions.asyncRemoveTodoCard(listId, cardId));
   };
 
   const handleRemoveMember = memberId => {
-    dispatch(todosActions.asyncRemoveMemberTodoCard(cardId, memberId));
+    dispatch(cardActions.asyncRemoveMemberTodoCard(cardId, memberId));
   };
 
   const onChange = e => {
@@ -152,7 +163,7 @@ function TodoCard(props) {
         </span>
       ) : null}
       <div className="todoCard__member">
-        {member && member.map((value, index) => <Avatar src={value} key={index} />)}
+        {member && member.map((value, index) => <Avatar src={value.image} key={index} alt={value.username} />)}
       </div>
     </div>
   );
@@ -196,12 +207,12 @@ function TodoCard(props) {
               </h3>
               <div className="todoCard-details__member-list">
                 {member.map(value => (
-                  <div className="todoCard-details__member-item">
-                    <img src={value.image} alt={value.username} className="todoCard-details__member-image" />
-                    <button className="todoCard-details__member-button" onClick={() => handleRemoveMember(value._id)}>
-                      <i className="bx bx-x"></i>
-                    </button>
-                  </div>
+                  <Chip
+                    className={classes.chipEl}
+                    label={value.username}
+                    color="secondary"
+                    onDelete={() => handleRemoveMember(value._id)}
+                  />
                 ))}
               </div>
             </div>
@@ -234,7 +245,7 @@ function TodoCard(props) {
                 <i className="bx bx-comment-detail"></i>
                 Bình luận
               </h3>
-              <Comments comments={comments} />
+              <Comments comments={comments} cardId={cardId} />
               <InputComment cardId={cardId} />
             </div>
           </div>
@@ -368,9 +379,12 @@ function TodoCard(props) {
                 </h3>
                 <div className="todoCard-details__member-list">
                   {member.map(value => (
-                    <div className="todoCard-details__member-item">
-                      <img src={value.image} alt={value.username} />
-                    </div>
+                    <Chip
+                      className={classes.chipEl}
+                      label={value.username}
+                      color="secondary"
+                      onDelete={() => handleRemoveMember(value._id)}
+                    />
                   ))}
                 </div>
               </div>
@@ -399,12 +413,26 @@ function TodoCard(props) {
                 <p style={{ opacity: 0.6 }}>Chưa có việc cần làm</p>
               )}
             </div>
+            <div className="todoCard-details__comments">
+              <h3 className="todoCard-details__label">
+                <i className="bx bx-comment-detail"></i>
+                Bình luận
+              </h3>
+              <Comments comments={comments} cardId={cardId} />
+              <InputComment cardId={cardId} />
+            </div>
           </div>
           <div className="todoCard-details__right">
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
             <ul className="todoCard-details__options">
               <li className="todoCard-details__item">
-                <i className="bx bx-user"></i> {translate("member")}
+                <input type="checkbox" name="chk0" id="chk0" />
+                <label htmlFor="chk0" className="todoCard-details__item-label">
+                  <i className="bx bx-user"></i> {translate("member")}
+                </label>
+                <div className="todoCard-details__item-content">
+                  <Search cardId={cardId} />
+                </div>
               </li>
               <li className="todoCard-details__item">
                 <input type="checkbox" name="chk1" id="chk1" />

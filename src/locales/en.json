@@ -3,6 +3,8 @@
   "logout": "Log out",
   "login": "Log in",
   "or": "Or",
+  "edit": "Edit",
+  "remove": "Remove",
   "login_fb": "Log in with Facebook",
   "forgot_pw": "Forgot password?",
   "dont_acc": "Don't have an account?",
@@ -16,5 +18,7 @@
   "member": "Members",
   "checklist": "Checklist",
   "due_date": "Due date",
-  "description": "Description"
+  "description": "Description",
+  "see_more_cmt": "See more comments...",
+  "hide_more_cmt": "Hide comments..."
 }

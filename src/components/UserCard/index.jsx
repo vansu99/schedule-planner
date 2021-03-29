@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./userCard.scss";
-import { todosActions } from "actions/Todos";
+import { cardActions } from "actions/Todos/card.action";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 
 function UserCard({ user, cardId }) {
   const dispatch = useDispatch();
   const handleAddMemberTodo = useCallback(() => {
-    dispatch(todosActions.asyncAddMemberTodoCard(cardId, user._id));
+    dispatch(cardActions.asyncAddMemberTodoCard(cardId, user._id));
   }, [user, dispatch]);
 
   return (

@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import TodoCard from "../TodoCard";
 import "./todoList.scss";
-import { todosActions } from "actions/Todos";
+import { listActions } from "actions/Todos/list.action";
 import TodoFormContainer from "../TodoForm/TodoFormContainer";
 import Title from "./titleCpt.jsx";
 import { useDispatch } from "react-redux";
@@ -27,12 +27,12 @@ function TodoList({ listId, title, cards, index, columnId }) {
   };
 
   const handleEditTitleList = () => {
-    dispatch(todosActions.asyncEditTitleTodoList(listId, listTitle));
+    dispatch(listActions.asyncEditTitleTodoList(listId, listTitle));
     setEditing(false);
   };
 
   const handleRemoveList = () => {
-    dispatch(todosActions.asyncRemoveTodoList(listId, columnId));
+    dispatch(listActions.asyncRemoveTodoList(listId, columnId));
   };
 
   return (

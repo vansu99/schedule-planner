@@ -1,14 +1,14 @@
+import { boardActions } from "actions/Todos/board.action";
+import { useInput } from "hooks";
 import React, { useEffect, useState } from "react";
-import "./userProfile.scss";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { getCurrentUser } from "selectors/auth.selector";
 import { getBoards } from "selectors/todos.selector";
-import { todosActions } from "actions/Todos";
-import { useInput } from "hooks";
 import UserEdit from "../UserProfileEdit";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import "./userProfile.scss";
 
 function UserProfile(props) {
   const { id } = useParams();
@@ -28,11 +28,11 @@ function UserProfile(props) {
   }, [id, currentUser]);
 
   useEffect(() => {
-    dispatch(todosActions.asyncGetAllBoards());
+    dispatch(boardActions.asyncGetAllBoards());
   }, []);
 
   const handleAddBoard = () => {
-    dispatch(todosActions.asyncAddBoard(dataBoard));
+    dispatch(boardActions.asyncAddBoard(dataBoard));
     resetDataBoard();
     setShowModal(false);
   };
@@ -84,7 +84,7 @@ function UserProfile(props) {
           </div>
           <div className="user__board-list">
             {boards.map(board => (
-              <Link to={`/todos/${board._id}/task`} className="user__board-item" key={board._id}>
+              <Link to={`/todos/${board._id}/${board.slug}`} className="user__board-item" key={board._id}>
                 <span className="user__board-name">{board.title}</span>
               </Link>
             ))}

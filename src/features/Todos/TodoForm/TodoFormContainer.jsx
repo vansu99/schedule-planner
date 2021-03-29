@@ -2,7 +2,8 @@ import { Collapse } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { todosActions } from "actions/Todos";
+import { cardActions } from "actions/Todos/card.action";
+import { listActions } from "actions/Todos/list.action";
 import TodoForm from "./index";
 import { useParams } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -52,7 +53,7 @@ export default function TodoFormContainer({ isLists, listId }) {
     if (title === "") return;
     const newList = { title, cards: [] };
 
-    dispatch(todosActions.asyncAddTodoList(boardId, newList));
+    dispatch(listActions.asyncAddTodoList(boardId, newList));
     setTitle("");
     setOpen(false);
   };
@@ -63,9 +64,10 @@ export default function TodoFormContainer({ isLists, listId }) {
     const newCards = {
       title,
       list: listId,
-      userId: userId._id
+      userId: userId._id,
+      boardId
     };
-    dispatch(todosActions.asyncAddTodoCard(newCards));
+    dispatch(cardActions.asyncAddTodoCard(newCards));
     setTitle("");
     setOpen(false);
   };

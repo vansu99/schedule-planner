@@ -36,6 +36,15 @@ const todosApis = {
   },
   addCommentTodoCard: comment => {
     return axiosClient.post("/api/comments", comment);
+  },
+  updateCommentTodoCard: (id, content) => {
+    return axiosClient.patch(`/api/comments/${id}`, content);
+  },
+  likeCommentTodoCard: (id, user) => {
+    return axiosClient.patch(`/api/comments/${id}/like`, { user });
+  },
+  unLikeCommentTodoCard: (id, user) => {
+    return axiosClient.patch(`/api/comments/${id}/unlike`, { user });
   }
 };
 

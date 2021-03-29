@@ -12,6 +12,15 @@ const boardsApis = {
   },
   getBoardById: id => {
     return axiosClient.get(`/api/boards/${id}`);
+  },
+  getListsFromBoard: id => {
+    return axiosClient.get(`/api/boards/${id}/lists`);
+  },
+  getCardsFromBoard: id => {
+    return axiosClient.get(`/api/boards/${id}/cards`);
+  },
+  getColumnsFromBoard: id => {
+    return axiosClient.get(`/api/boards/${id}/columns`);
   }
 };
 

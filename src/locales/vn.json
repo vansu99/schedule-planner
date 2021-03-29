@@ -4,6 +4,8 @@
   "login": "Đăng nhập",
   "Home": "Trang chủ",
   "or": "hoặc",
+  "edit": "Sửa",
+  "remove": "Xóa",
   "login_fb": "Đăng nhập bằng Facebook",
   "forgot_pw": "Quên mật khẩu?",
   "dont_acc": "Bạn không có tài khoản?",
@@ -17,5 +19,7 @@
   "member": "Thành viên",
   "checklist": "Việc cần làm",
   "due_date": "Ngày hết hạn",
-  "description": "Mô tả chi tiết"
+  "description": "Mô tả chi tiết",
+  "see_more_cmt": "Xem thêm nhận xét...",
+  "hide_more_cmt": "Ẩn nhận xét..."
 }

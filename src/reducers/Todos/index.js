@@ -4,7 +4,8 @@ const initialState = {
   lists: {},
   cards: {},
   columns: [],
-  boards: []
+  boards: [],
+  currBoard: {}
 };
 
 export function todosReducer(state = initialState, { type, payload }) {
@@ -27,6 +28,12 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         boards: [...payload]
+      };
+
+    case todoActions.GET_BOARD_BY_ID:
+      return {
+        ...state,
+        currBoard: payload
       };
 
     case todoActions.ADD_BOARDS:
@@ -268,6 +275,32 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newCommentCard }
+      };
+
+    case todoActions.UPDATE_COMMENT_TODO_CARD:
+      const newUpdateCommentCard = { ...state.cards[payload.cardId] };
+      const index = newUpdateCommentCard.comments.findIndex(value => value._id === payload.newUpdateComment._id);
+      newUpdateCommentCard.comments[index].content = payload.newUpdateComment.content;
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newUpdateCommentCard }
+      };
+
+    case todoActions.LIKE_COMMENT_TODO_CARD:
+      const newUpdateLikeCommentCard = { ...state.cards[payload.cardId] };
+      const cmtIndex = newUpdateLikeCommentCard.comments.findIndex(value => value._id === payload.comment._id);
+      newUpdateLikeCommentCard.comments[cmtIndex].likes = [...payload.comment.likes];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newUpdateLikeCommentCard }
+      };
+
+    case todoActions.UNLIKE_COMMENT_TODO_CARD:
+      const newUpdateUnLikeCommentCard = { ...state.cards[payload.cardId] };
+      newUpdateUnLikeCommentCard.comments = [...payload.comment.likes];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newUpdateUnLikeCommentCard }
       };
 
     default:

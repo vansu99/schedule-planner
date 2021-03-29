@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
 import { Checkbox } from "components/FormControls";
 import ProgressBar from "components/ProgressBar";
-import { todosActions } from "actions/Todos";
+import { cardActions } from "actions/Todos/card.action";
 import { round } from "helpers";
 import PropTypes from "prop-types";
 
@@ -31,11 +31,11 @@ function CheckListSelect({ checklist, cardId }) {
   );
 
   const handleUpdateCheckList = () => {
-    dispatch(todosActions.asyncEditCheckListTodoCard(cardId, checkedValues));
+    dispatch(cardActions.asyncEditCheckListTodoCard(cardId, checkedValues));
   };
 
   const handleRemoveCheckList = checklistId => {
-    dispatch(todosActions.asyncRemoveCheckListTodoCard(cardId, checklistId));
+    dispatch(cardActions.asyncRemoveCheckListTodoCard(cardId, checklistId));
   };
 
   return (

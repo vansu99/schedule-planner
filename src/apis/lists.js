@@ -17,10 +17,10 @@ const listsApis = {
     return axiosClient.delete(`/api/lists/${id}`);
   },
   addCardIdToList: (id, value) => {
-    return axiosClient.post(`/api/lists/${id}/cardId`, { value });
+    return axiosClient.post(`/api/lists/${id}/cards`, { value });
   },
   removeCardIdToList: (id, cardId) => {
-    return axiosClient.delete(`/api/lists/${id}/cardId/${cardId}`);
+    return axiosClient.delete(`/api/lists/${id}/cards/${cardId}`);
   }
 };
 

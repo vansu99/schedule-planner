@@ -5,26 +5,48 @@ import moment from "moment";
 import LikeButton from "./LikeButton";
 import CommentMenu from "./CommentMenu";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { commentActions } from "actions/Todos/comment.action";
+import { getCurrentUser } from "selectors/auth.selector";
 
-function CommentCard({ comment }) {
+function CommentCard({ comment, cardId }) {
   const dispatch = useDispatch();
+  const user = useSelector(getCurrentUser);
   const [content, setContent] = useState("");
   const [readMore, setReadMore] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
+  const [loadLike, setLoadLike] = useState(false);
 
   useEffect(() => {
     setContent(comment.content);
+    if (comment.likes.find(like => like === user._id)) {
+      setIsLike(true);
+    }
   }, [comment]);
 
-  const handleUnLike = () => {};
+  const handleUnLike = () => {
+    if (loadLike) return;
+    setIsLike(false);
 
-  const handleLike = () => {};
+    setLoadLike(true);
+    dispatch(commentActions.asyncUnLikeCommentTodoCard(cardId, comment, user));
+    setLoadLike(false);
+  };
+
+  const handleLike = () => {
+    if (loadLike) return;
+    setIsLike(true);
+
+    setLoadLike(true);
+    dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user));
+    setLoadLike(false);
+  };
 
   const handleUpdate = () => {
     if (comment.content !== content) {
-      dispatch();
+      dispatch(commentActions.asyncUpdateCommentTodoCard(cardId, comment, content, user));
+      setOnEdit(false);
     } else {
       setOnEdit(false);
     }

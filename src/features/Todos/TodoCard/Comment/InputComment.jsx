@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { StorageKeys } from "configs";
 import "../todoCard.scss";
 import { useDispatch } from "react-redux";
-import { todosActions } from "actions/Todos";
+import { commentActions } from "actions/Todos/comment.action";
 
 function InputComment({ children, cardId }) {
   const dispatch = useDispatch();
@@ -19,8 +19,9 @@ function InputComment({ children, cardId }) {
       reply: "",
       user: user._id
     };
-    dispatch(todosActions.asyncAddCommentTodoCard(cardId, newComment, user));
+    dispatch(commentActions.asyncAddCommentTodoCard(cardId, newComment, user));
   };
+
   return (
     <div className="todoCard-details__comments-add">
       {children}
