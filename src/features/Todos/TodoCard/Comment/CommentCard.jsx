@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import LikeButton from "./LikeButton";
 import CommentMenu from "./CommentMenu";
+import InputComment from "./InputComment";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useDispatch, useSelector } from "react-redux";
 import { commentActions } from "actions/Todos/comment.action";
 import { getCurrentUser } from "selectors/auth.selector";
 
-function CommentCard({ comment, cardId }) {
+function CommentCard({ children, comment, cardId, commentId, replyComments = {} }) {
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
   const [content, setContent] = useState("");
@@ -17,6 +18,7 @@ function CommentCard({ comment, cardId }) {
   const [isLike, setIsLike] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
   const [loadLike, setLoadLike] = useState(false);
+  const [reply, setReply] = useState(false);
 
   useEffect(() => {
     setContent(comment.content);
@@ -52,6 +54,11 @@ function CommentCard({ comment, cardId }) {
     }
   };
 
+  const handleReply = () => {
+    if (reply) return setReply(false);
+    setReply({ ...comment, commentId });
+  };
+
   return (
     <div className="todoCard-details__comments-item">
       <Link to="/" className="todoCard-details__comments-info">
@@ -78,13 +85,22 @@ function CommentCard({ comment, cardId }) {
               )}
             </p>
           )}
-          <span className="todoCard-details__comments-time">{moment(comment.createdAt).fromNow()}</span>
-          {onEdit ? (
-            <>
-              <span onClick={handleUpdate}>Chỉnh sửa</span>
-              <span onClick={() => setOnEdit(false)}>Hủy bỏ</span>
-            </>
-          ) : null}
+          <div className="todoCard-details__comments-status">
+            <span className="todoCard-details__comments-time">{moment(comment.createdAt).fromNow()}</span>
+            {onEdit ? (
+              <>
+                <span onClick={handleUpdate}>Chỉnh sửa</span>
+                <span onClick={() => setOnEdit(false)}>Hủy bỏ</span>
+              </>
+            ) : (
+              <>
+                <span className="todoCard-details__comments-likes">{comment.likes.length} likes</span>
+                <span className="todoCard-details__comments-reply-text" onClick={handleReply}>
+                  {reply ? "cancel" : "reply"}
+                </span>
+              </>
+            )}
+          </div>
         </div>
 
         <div className="todoCard-details__comments-menu">
@@ -92,12 +108,20 @@ function CommentCard({ comment, cardId }) {
           <CommentMenu comment={comment} setOnEdit={setOnEdit} />
         </div>
       </div>
+      {reply && (
+        <InputComment cardId={cardId} reply={reply} setReply={setReply}>
+          <Link to={`/users/${reply.user._id}`}>@{reply.user.username}: </Link>
+        </InputComment>
+      )}
+      {children}
     </div>
   );
 }
 
 CommentCard.propTypes = {
-  comment: PropTypes.object
+  comment: PropTypes.object,
+  commentId: PropTypes.string,
+  replyComments: PropTypes.array
 };
 
 export default CommentCard;

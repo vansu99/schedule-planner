@@ -1,40 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
-function ProgressBar({ completed }) {
-  const container = {
-    height: "1.8rem",
-    backgroundColor: "#fff",
-    marginBotton: "1.5rem"
-  };
-  const fillerStyles = {
-    width: `${completed}%`,
-    backgroundColor: "rgba(255, 82, 82, .7)",
-    transition: "width 1s ease-in-out",
-    height: "100%"
-  };
-
+function LinearProgressWithLabel(props) {
   return (
-    <div className="progress-bar-container" style={container}>
-      <div className="progress-filler" style={fillerStyles}>
-        <span
-          className="progress-label"
-          style={{
-            display: "block",
-            color: "#333",
-            paddingRight: "0.7rem",
-            textAlign: "right",
-            fontSize: "1.3rem",
-            fontWeight: "bold"
-          }}
-        >{`${completed}%`}</span>
-      </div>
-    </div>
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="h5" color="textSecondary">{`${Math.round(props.value)}%`}</Typography>
+      </Box>
+    </Box>
   );
 }
 
-ProgressBar.propTypes = {
-  completed: PropTypes.any.isRequired
+LinearProgressWithLabel.propTypes = {
+  value: PropTypes.number
 };
 
-export default ProgressBar;
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+    marginBottom: "1rem"
+  }
+});
+
+export default function LinearWithValueLabel({ completedTodo }) {
+  const classes = useStyles();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (completedTodo) return setProgress(completedTodo)
+  }, [completedTodo]);
+
+  return (
+    <div className={classes.root}>
+      <LinearProgressWithLabel value={progress} />
+    </div>
+  );
+}

@@ -5,21 +5,25 @@ import "../todoCard.scss";
 import { useDispatch } from "react-redux";
 import { commentActions } from "actions/Todos/comment.action";
 
-function InputComment({ children, cardId }) {
+function InputComment({ children, cardId, reply = {}, setReply }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const user = JSON.parse(localStorage.getItem(StorageKeys.USER));
 
   const handleSubmitComment = () => {
-    if (!content.trim()) return;
+    if (!content.trim()) {
+      return;
+    }
 
     setContent("");
     const newComment = {
       content,
-      reply: "",
-      user: user._id
+      reply: reply && reply.commentId,
+      user: user._id,
+      tag: reply && reply.user
     };
     dispatch(commentActions.asyncAddCommentTodoCard(cardId, newComment, user));
+    if (setReply) return setReply(false);
   };
 
   return (
@@ -34,7 +38,8 @@ function InputComment({ children, cardId }) {
 }
 
 InputComment.propTypes = {
-  cardId: PropTypes.string
+  cardId: PropTypes.string,
+  reply: PropTypes.object
 };
 
 export default InputComment;

@@ -419,6 +419,8 @@
       &-add  {
         display: flex;
         align-items: center;
+        background-color: #f7f7f7;
+        padding: 0 1rem;
 
         & > input {
           background-color: #f7f7f7;
@@ -448,7 +450,7 @@
 
       &-content {
         background-color: #fff;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
         padding: 1rem;
         border-radius: 10px;
         border-top-left-radius: 0;
@@ -478,11 +480,29 @@
         font-size: 1.3rem;
       }
 
-      &-time {
+      &-status {
+        display: flex;
+      }
+
+      &-time,
+      &-likes,
+      &-reply-text {
         display: block;
         color: #aba8a8;
         font-size: 1.2rem;
         margin-top: 1rem;
+      }
+
+      &-likes,
+      &-reply-text {
+        color: #333;
+        font-weight: bold;
+        margin-left: 1rem;
+      }
+
+      &-reply {
+        padding-left: 2rem;
+        padding-top: 1rem;
       }
 
       &-menu {
