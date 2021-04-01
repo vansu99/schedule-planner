@@ -1,3 +1,6 @@
+import { makeStyles } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
 import { cardActions } from "actions/Todos/card.action";
 //import Avatar from "components/Avatar";
 import TextArea from "components/FormControls/TextArea";
@@ -19,10 +22,6 @@ import TodoForm from "../TodoForm";
 import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import "./todoCard.scss";
-import Avatar from "@material-ui/core/Avatar";
-import Chip from "@material-ui/core/Chip";
-import DoneIcon from "@material-ui/icons/Done";
-import { makeStyles } from "@material-ui/core";
 
 TodoCard.propTypes = {
   title: PropTypes.string,

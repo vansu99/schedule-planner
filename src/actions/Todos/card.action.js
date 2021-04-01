@@ -1,4 +1,4 @@
-import { todosApis, listsApis } from "apis";
+import { todosApis, listsApis, userApis } from "apis";
 import showToast from "components/Toast";
 import { todoActions } from "configs";
 import { actShowLoading, actHideLoading } from "../Global";
@@ -202,9 +202,12 @@ const asyncAddMemberTodoCard = (cardId, value) => {
   return async dispatch => {
     try {
       const result = await todosApis.addMemberTodoCard(cardId, { value });
+      const boardId = result.data.card.boardId;
+      const userId = result.data.card.member[0]._id;
       const newMember = result.data.card.member;
       if (result.status === 201) {
         dispatch(actAddMemberTodoCard(cardId, newMember));
+        await userApis.addBoardIdToUser(userId, boardId);
       }
     } catch (error) {
       console.log(error);

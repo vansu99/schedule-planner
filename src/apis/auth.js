@@ -14,10 +14,13 @@ const userApis = {
     return axiosClient.post("/api/auth/me");
   },
   searchUser: search => {
-    return axiosClient.get(`/api/users/search?username=${search}`);
+    return axiosClient.get(`/api/users/search/by?username=${search}`);
   },
   updateUserProfile: (id, user) => {
     return axiosClient.patch(`/api/users/${id}`, user);
+  },
+  addBoardIdToUser: (id, value) => {
+    return axiosClient.post(`/api/users/${id}/boards`, { value });
   }
 };
 

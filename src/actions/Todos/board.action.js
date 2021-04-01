@@ -1,4 +1,4 @@
-import { boardsApis } from "apis";
+import { boardsApis, userApis } from "apis";
 import showToast from "components/Toast";
 import { todoActions } from "configs";
 import { actShowLoading, actHideLoading } from "../Global";
@@ -57,13 +57,15 @@ const actAddBoard = board => {
   };
 };
 
-const asyncAddBoard = title => {
+const asyncAddBoard = (userId, title) => {
   return async dispatch => {
     try {
       dispatch(actShowLoading());
-      const result = await boardsApis.createBoardTodo({ title });
+      const result = await boardsApis.createBoardTodo({ userId, title });
+      const boardId = result.data.board._id;
       if (result.status === 201) {
         dispatch(actAddBoard(result.data.board));
+        await userApis.addBoardIdToUser(userId, boardId);
         dispatch(actHideLoading());
       }
     } catch (error) {
@@ -80,11 +82,11 @@ const actGetBoardById = board => {
   };
 };
 
-const asyncGetBoardById = id => {
+const asyncGetBoardById = ids => {
   return async dispatch => {
     try {
       dispatch(actShowLoading());
-      const result = await boardsApis.getBoardById(id);
+      const result = await boardsApis.getBoardById(ids);
       if (result.status === 200) {
         dispatch(actGetBoardById(result.data.board));
         dispatch(actHideLoading());

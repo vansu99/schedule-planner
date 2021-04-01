@@ -28,11 +28,11 @@ function UserProfile(props) {
   }, [id, currentUser]);
 
   useEffect(() => {
-    dispatch(boardActions.asyncGetAllBoards());
+    dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
   }, []);
 
   const handleAddBoard = () => {
-    dispatch(boardActions.asyncAddBoard(dataBoard));
+    dispatch(boardActions.asyncAddBoard(currentUser._id, dataBoard));
     resetDataBoard();
     setShowModal(false);
   };
@@ -60,11 +60,7 @@ function UserProfile(props) {
     <div className="user">
       <div className="user__container">
         <div className="user__info">
-          <img
-            src="https://truyenvn.com/tin/wp-content/uploads/2020/08/sasuke-uchiha-1-758x482.jpg"
-            alt="user_avatar"
-            className="user__avatar"
-          />
+          <img src={userInfo.image} alt="user_avatar" className="user__avatar" />
           <div className="user__content">
             <h3 className="user__title">{userInfo?.username}</h3>
             <span className="user__desc">IT Engineer</span>

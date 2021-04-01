@@ -33,7 +33,7 @@ export function todosReducer(state = initialState, { type, payload }) {
     case todoActions.GET_BOARD_BY_ID:
       return {
         ...state,
-        currBoard: payload
+        boards: [...payload]
       };
 
     case todoActions.ADD_BOARDS:
