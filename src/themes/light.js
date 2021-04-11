@@ -15,7 +15,22 @@ const lightTheme = createMuiTheme({
     secondary: {},
     text: {}
   },
-  overrides: {}
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        html: {
+          WebkitFontSmoothing: "antialiased",
+          height: "100%"
+        },
+        body: {
+          fontSize: "62.5%",
+          fontWeight: 400,
+          lineHeight: "24px",
+          height: "100%"
+        }
+      }
+    }
+  }
 });
 
 export default lightTheme;

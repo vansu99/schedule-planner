@@ -10,6 +10,7 @@ const Register = lazy(() => import("../features/Register"));
 const Todos = lazy(() => import("../features/Todos"));
 const Home = lazy(() => import("../pages/Home"));
 const UserProfile = lazy(() => import("pages/User/UserProfile"));
+const TodoReport = lazy(() => import("pages/Report"));
 
 const routesConfig = [
   {
@@ -50,6 +51,11 @@ const routesConfig = [
         exact: true,
         path: pathName.TODO_LIST,
         component: Todos
+      },
+      {
+        exact: true,
+        path: pathName.USER_REPORT,
+        component: TodoReport
       },
       {
         exact: true,

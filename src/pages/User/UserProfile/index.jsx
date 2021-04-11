@@ -66,9 +66,14 @@ function UserProfile(props) {
             <span className="user__desc">IT Engineer</span>
             <span>{userInfo?.email}</span>
           </div>
-          <button className="user__button" onClick={() => setOnEdit(true)}>
-            {translate("edit_profile")}
-          </button>
+          <div>
+            <button className="user__button" onClick={() => setOnEdit(true)}>
+              {translate("edit_profile")}
+            </button>
+            <Link className="user__report-btn" to={`/users/${userInfo._id}/report`}>
+              Thống kê
+            </Link>
+          </div>
         </div>
         <div className="user__board">
           <div className="user__board-top">
