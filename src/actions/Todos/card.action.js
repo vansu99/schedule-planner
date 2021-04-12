@@ -1,4 +1,4 @@
-import { todosApis, listsApis, userApis } from "apis";
+import { todosApis, listsApis, userApis, completedTodoApis } from "apis";
 import showToast from "components/Toast";
 import { todoActions } from "configs";
 import { actShowLoading, actHideLoading } from "../Global";
@@ -42,9 +42,11 @@ const asyncAddTodoCard = todo => {
       const { list } = todo;
       const result = await todosApis.createCardTodo(todo);
       const cardId = result.data.card?._id;
+      const boardId = result.data.card?.boardId;
       if (result.status === 201) {
         dispatch(actAddTodoCard(list, result.data.card));
         await listsApis.addCardIdToList(list, cardId);
+        await completedTodoApis.addFailedTodo(boardId, cardId);
       }
     } catch (error) {
       console.log("error action: ", error);
@@ -90,6 +92,24 @@ const asyncEditTodoCard = (cardId, title) => {
       console.log(error);
     }
   };
+};
+
+const asyncUpdateCompletedTodoCard = (cardId, completed, boardId) => {
+  return async dispatch => {
+    try {
+      dispatch(actShowLoading());
+      const result = await todosApis.updateCompletedCardTodo(cardId, completed);
+      if (result.status === 200) {
+        await completedTodoApis.addCompletedTodo(boardId, cardId);
+        // khi update Task Success -> remove cái Task đó khỏi array Failed
+        await completedTodoApis.removeFailedTodo(boardId, cardId);
+        dispatch(actHideLoading());
+      }
+    } catch (error) {
+      dispatch(actHideLoading());
+      console.log(error);
+    }
+  }
 };
 
 const actEditDescTodoCard = (cardId, desc) => {
@@ -244,6 +264,7 @@ export const cardActions = {
   asyncAddMemberTodoCard,
   asyncEditCheckListTodoCard,
   asyncEditDescTodoCard,
+  asyncUpdateCompletedTodoCard,
   asyncEditTodoCard,
   asyncRemoveCheckListTodoCard,
   asyncRemoveMemberTodoCard,

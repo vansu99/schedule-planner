@@ -29,7 +29,7 @@ function UserProfile(props) {
 
   useEffect(() => {
     dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
-  }, []);
+  }, [dispatch]);
 
   const handleAddBoard = () => {
     dispatch(boardActions.asyncAddBoard(currentUser._id, dataBoard));

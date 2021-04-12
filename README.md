@@ -2,24 +2,24 @@
 
 ### Front-End
 
-. ReactJS
-. Context API
-. Redux
-. Redux-thunk
++ ReactJS
++ Context API
++ Redux
++ Redux-thunk
 
 ### FEATURES
 
-. Dark Mode
-. i18n
-. Schedule to do list
-. ...
++ Dark Mode
++ i18n
++ Schedule to do list
++ ...
 
 ### Back-End
 
-. MongoDB
-. NodeJs
-. ExpressJs
-. Passport
++ MongoDB
++ NodeJs
++ ExpressJs
++ Passport
 
 ### Mô tả
 

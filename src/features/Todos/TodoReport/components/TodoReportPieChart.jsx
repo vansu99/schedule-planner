@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { Pie, defaults } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
 const PieOptions = {
   maintainAspectRatio: false,
@@ -11,14 +11,14 @@ const PieOptions = {
   }
 };
 
-function TodoReportPieChart(props) {
+function TodoReportPieChart({ completed, failed }) {
   const data = {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: ["Quá hạn", "Hoàn thành"],
     datasets: [
       {
         label: "My First Dataset",
-        data: [300, 50, 100],
-        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"],
+        data: [failed, completed],
+        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
         hoverOffset: 4
       }
     ]
@@ -31,6 +31,9 @@ function TodoReportPieChart(props) {
   );
 }
 
-TodoReportPieChart.propTypes = {};
+TodoReportPieChart.propTypes = {
+  completed: PropTypes.string,
+  failed: PropTypes.string
+};
 
 export default memo(TodoReportPieChart);

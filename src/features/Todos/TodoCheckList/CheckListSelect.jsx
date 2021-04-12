@@ -1,11 +1,20 @@
 import { cardActions } from "actions/Todos/card.action";
 import { Checkbox } from "components/FormControls";
+import { makeStyles } from "@material-ui/core";
 import LinearWithValueLabel from "components/ProgressBar";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
+const useStyles = makeStyles(theme => ({
+  btnMarginTop: {
+    marginTop: theme.spacing(1)
+  }
+}));
+
 function CheckListSelect({ checklist, cardId }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [checkedValues, setCheckedValues] = useState([]);
   const [completedPercent, setCompletedPercent] = useState({});
@@ -58,9 +67,9 @@ function CheckListSelect({ checklist, cardId }) {
           handleRemoveCheckList={handleRemoveCheckList}
         />
       ))}
-      <button className="button button-success" onClick={handleUpdateCheckList}>
-        Lưu
-      </button>
+      <Button variant="contained" color="primary" className={classes.btnMarginTop} onClick={handleUpdateCheckList}>
+        Lưu công việc chi tiết
+      </Button>
     </>
   );
 }

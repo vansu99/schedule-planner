@@ -1,9 +1,9 @@
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
+import InputLabel from "@material-ui/core/InputLabel";
+import Paper from "@material-ui/core/Paper";
+import Select from "@material-ui/core/Select";
+import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { memo, useCallback } from "react";
 import TodoReportCard from "./components/TodoReportCard";
@@ -83,7 +83,10 @@ function TodoReport({ reports = {}, totalCards }) {
       <div>
         <Grid container spacing={4}>
           <Grid item xs={5}>
-            <TodoReportPieChart />
+            <TodoReportPieChart
+              failed={calPercentCompletedTodo(reports.cardFailed?.length)}
+              completed={calPercentCompletedTodo(reports.cardCompleted?.length)}
+            />
           </Grid>
           <Grid item xs={7}>
             <TodoReportTable />

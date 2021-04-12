@@ -19,6 +19,9 @@ const todosApis = {
   updateSingleCardTodo: (id, title) => {
     return axiosClient.patch(`/api/cards/${id}`, title);
   },
+  updateCompletedCardTodo: (id, completed) => {
+    return axiosClient.patch(`/api/cards/${id}`, { completed });
+  },
   addCheckListTodoCard: (id, checklist) => {
     return axiosClient.patch(`/api/cards/${id}/checklist`, checklist);
   },

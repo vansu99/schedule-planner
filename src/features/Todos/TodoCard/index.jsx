@@ -1,8 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import Button from "@material-ui/core/Button";
 import { cardActions } from "actions/Todos/card.action";
-//import Avatar from "components/Avatar";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import TextArea from "components/FormControls/TextArea";
 import ReactModal from "components/Modal";
 import Search from "components/Search";
@@ -22,6 +24,7 @@ import TodoForm from "../TodoForm";
 import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import "./todoCard.scss";
+import { useParams } from "react-router";
 
 TodoCard.propTypes = {
   title: PropTypes.string,
@@ -35,13 +38,33 @@ TodoCard.propTypes = {
 const useStyles = makeStyles(theme => ({
   chipEl: {
     fontSize: "1.3rem"
+  },
+  margin: {
+    margin: theme.spacing(2)
+  },
+  btnMarginRight: {
+    marginRight: theme.spacing(1)
+  },
+  btnMarginTop: {
+    marginTop: theme.spacing(3)
+  },
+  chkCompletedTodo: {
+    marginBottom: theme.spacing(2)
+  },
+  formControlLabel: {
+    "& .MuiTypography-body1": {
+      fontSize: "1.7rem",
+      fontWeight: "bold",
+      textTransform: "uppercase"
+    }
   }
 }));
 
 function TodoCard(props) {
-  const { title, cardId, member = [], checklist, index, listId, desc, label, date, comments = [] } = props;
+  const { title, cardId, member = [], checklist, index, listId, desc, label, date, comments = [], completed } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
+  const { boardId } = useParams();
   const { t: translate } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
@@ -51,6 +74,7 @@ function TodoCard(props) {
   const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
+  const [completedTodo, setCompletedTodo] = useState(completed);
 
   const handleCloseForm = () => {
     setIsEditing(false);
@@ -118,6 +142,14 @@ function TodoCard(props) {
     setDescCardContent(e.target.value);
   };
 
+  const handleChangeCompletedCard = e => {
+    setCompletedTodo(e.target.checked);
+  };
+
+  const handleUpdateCompletedTodo = () => {
+    dispatch(cardActions.asyncUpdateCompletedTodoCard(cardId, completedTodo, boardId));
+  };
+
   const renderTextarea = () => (
     <TodoForm text={cardContent} handleChange={onChange} handleCloseForm={handleCloseForm}>
       <button type="submit" className="todoForm__button todoForm__button--ok" onClick={handleEditCard}>
@@ -178,6 +210,15 @@ function TodoCard(props) {
         </div>
         <div className="todoCard-details__container">
           <div className="todoCard-details__left">
+            <div className={classes.chkCompletedTodo}>
+              <FormControlLabel
+                control={
+                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
+                }
+                label="Hoàn thành công việc"
+                className={classes.formControlLabel}
+              />
+            </div>
             <div className="todoCard-details__labels">
               <h3 className="todoCard-details__label">
                 <i className="bx bx-label"></i> Nhãn công việc
@@ -215,14 +256,21 @@ function TodoCard(props) {
                 ))}
               </div>
             </div>
-            <h3 className="todoCard-details__label">
-              <i className="bx bx-menu-alt-left"></i> {translate("description")}
-            </h3>
-            {descCardContent && !isEditDescCard ? (
-              <button className="todoCard-details__button" onClick={() => setIsEditDescCard(true)}>
-                Chỉnh sửa
-              </button>
-            ) : null}
+            <div>
+              <h3 className="todoCard-details__label">
+                <i className="bx bx-menu-alt-left"></i> {translate("description")}
+              </h3>
+              {descCardContent && !isEditDescCard ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.margin}
+                  onClick={() => setIsEditDescCard(true)}
+                >
+                  Chỉnh sửa
+                </Button>
+              ) : null}
+            </div>
 
             <div className="todoCard-details__edit">
               {isEditDescCard ? renderTextareaForDescModal() : <p>{descCardContent}</p>}
@@ -247,6 +295,15 @@ function TodoCard(props) {
               <Comments comments={comments} cardId={cardId} />
               <InputComment cardId={cardId} />
             </div>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              className={classes.btnMarginTop}
+              onClick={handleUpdateCompletedTodo}
+            >
+              Lưu công việc
+            </Button>
           </div>
           <div className="todoCard-details__right">
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
@@ -293,9 +350,14 @@ function TodoCard(props) {
                       />
                     </div>
                   ))}
-                  <button className="button button-success" onClick={handleAddLabelTodoCard}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.margin}
+                    onClick={handleAddLabelTodoCard}
+                  >
                     Thêm
-                  </button>
+                  </Button>
                 </div>
               </li>
               <li className="todoCard-details__item">
@@ -326,9 +388,9 @@ function TodoCard(props) {
                     value={todoCheckListContent}
                     onChange={todoCheckListContentChange}
                   />
-                  <button type="submit" className="button button-success" onClick={handleAddCheckList}>
+                  <Button variant="contained" color="primary" className={classes.margin} onClick={handleAddCheckList}>
                     Thêm
-                  </button>
+                  </Button>
                 </div>
               </li>
             </ul>
@@ -349,6 +411,15 @@ function TodoCard(props) {
         </div>
         <div className="todoCard-details__container">
           <div className="todoCard-details__left">
+            <div className={classes.chkCompletedTodo}>
+              <FormControlLabel
+                control={
+                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
+                }
+                label="Hoàn thành công việc"
+                className={classes.formControlLabel}
+              />
+            </div>
             <div className="todoCard-details__labels">
               <h3 className="todoCard-details__label">
                 <i className="bx bx-label"></i> Nhãn công việc
@@ -371,34 +442,39 @@ function TodoCard(props) {
                 ))}
               </div>
             </div>
-            {member.length > 0 ? (
-              <div className="todoCard-details__member">
-                <h3 className="todoCard-details__label">
-                  <i className="bx bx-user"></i> Thành viên trong nhóm
-                </h3>
-                <div className="todoCard-details__member-list">
-                  {member.map(value => (
-                    <Chip
-                      className={classes.chipEl}
-                      label={value.username}
-                      color="secondary"
-                      onDelete={() => handleRemoveMember(value._id)}
-                    />
-                  ))}
+            <div className="todoCard-details__members">
+              {member.length > 0 ? (
+                <div className="todoCard-details__member">
+                  <h3 className="todoCard-details__label">
+                    <i className="bx bx-user"></i> Thành viên trong nhóm
+                  </h3>
+                  <div className="todoCard-details__member-list">
+                    {member.map(value => (
+                      <Chip
+                        className={classes.chipEl}
+                        label={value.username}
+                        color="secondary"
+                        onDelete={() => handleRemoveMember(value._id)}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
             <h3 className="todoCard-details__label">
               <i className="bx bx-menu-alt-left"></i> {translate("description")}
             </h3>
             <div className="todoCard-details__edit">
               <TextArea placeholder="Thêm mô tả chi tiết" text={descCardContent} setText={setDescCardContent} />
-              <button className="button-success" onClick={handleEditDescCard}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleEditDescCard}
+                className={classes.btnMarginRight}
+              >
                 Lưu
-              </button>
-              <button className="button-danger">
-                <i className="bx bx-x"></i>
-              </button>
+              </Button>
+              <Button variant="outlined">Hủy</Button>
             </div>
             <div className="todoCard-details__checklist">
               <h3>
@@ -420,6 +496,15 @@ function TodoCard(props) {
               <Comments comments={comments} cardId={cardId} />
               <InputComment cardId={cardId} />
             </div>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              className={classes.btnMarginTop}
+              onClick={handleUpdateCompletedTodo}
+            >
+              Lưu công việc
+            </Button>
           </div>
           <div className="todoCard-details__right">
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
@@ -466,9 +551,14 @@ function TodoCard(props) {
                       />
                     </div>
                   ))}
-                  <button className="button button-success" onClick={handleAddLabelTodoCard}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.margin}
+                    onClick={handleAddLabelTodoCard}
+                  >
                     Thêm
-                  </button>
+                  </Button>
                 </div>
               </li>
               <li className="todoCard-details__item">
@@ -485,9 +575,14 @@ function TodoCard(props) {
                     dateFormat="dd/MM/yyyy h:mm aa"
                     showTimeInput
                   />
-                  <button type="submit" className="button button-success" onClick={handleAddDeadLineTodo}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.margin}
+                    onClick={handleAddDeadLineTodo}
+                  >
                     Thêm
-                  </button>
+                  </Button>
                 </div>
               </li>
               <li className="todoCard-details__item">
@@ -502,9 +597,9 @@ function TodoCard(props) {
                     value={todoCheckListContent}
                     onChange={todoCheckListContentChange}
                   />
-                  <button type="submit" className="button button-success" onClick={handleAddCheckList}>
+                  <Button variant="contained" color="primary" className={classes.margin} onClick={handleAddCheckList}>
                     Thêm
-                  </button>
+                  </Button>
                 </div>
               </li>
             </ul>

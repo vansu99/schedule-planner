@@ -7,11 +7,14 @@ const completedTodoApis = {
   createReportTodo: boardId => {
     return axiosClient.post("/api/reports", { boardId });
   },
-  addCompletedTodo: (id, value) => {
-    return axiosClient.patch(`/api/reports/${id}/completed`, { value });
+  addCompletedTodo: (boardId, value) => {
+    return axiosClient.patch(`/api/reports/completed`, { boardId, value });
   },
-  addFailedTodo: (id, value) => {
-    return axiosClient.patch(`/api/reports/${id}/failed`, { value });
+  addFailedTodo: (boardId, value) => {
+    return axiosClient.patch(`/api/reports/failed`, { boardId, value });
+  },
+  removeFailedTodo: (boardId, failedId) => {
+    return axiosClient.patch(`/api/reports/failed/${failedId}`, { boardId });
   }
 };
 
