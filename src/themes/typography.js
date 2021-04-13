@@ -29,6 +29,16 @@ const typography = {
     fontSize: 14,
     letterSpacing: "-0.05px"
   },
+  subtitle1: {
+    fontWeight: 500,
+    fontSize: 12,
+    letterSpacing: "-0.05px"
+  },
+  body1: {
+    fontWeight: 500,
+    fontSize: 16,
+    letterSpacing: "-0.05px"
+  },
   overline: {
     fontWeight: 500
   }

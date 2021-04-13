@@ -1,6 +1,7 @@
 import TopBar from "layout/TopBar";
 import Header from "layout/Header";
-import { useDarkMode } from "hooks";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import DarkMode from "./Header/components/darkMode";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -13,11 +14,14 @@ MainLayout.defaultProps = {
 };
 
 function MainLayout({ children }) {
-  const themeSwitcher = useDarkMode();
+  //const themeSwitcher = useDarkMode();
 
   return (
     <div className="wrapper">
-      <Header>{themeSwitcher}</Header>
+      <CssBaseline />
+      <Header>
+        <DarkMode />
+      </Header>
       <TopBar />
       <main style={{ paddingTop: "3rem" }}>{children}</main>
     </div>

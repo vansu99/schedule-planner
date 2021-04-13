@@ -8,8 +8,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
-import "./styles/index.scss";
-
+//import "./styles/index.scss";
 
 ReactDOM.render(
   <Provider store={store}>

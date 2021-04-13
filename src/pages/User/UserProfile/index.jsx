@@ -1,5 +1,7 @@
 import { boardActions } from "actions/Todos/board.action";
 import { useInput } from "hooks";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,12 +10,66 @@ import { Link } from "react-router-dom";
 import { getCurrentUser } from "selectors/auth.selector";
 import { getBoards } from "selectors/todos.selector";
 import UserEdit from "../UserProfileEdit";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import AddIcon from "@material-ui/icons/Add";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import "./userProfile.scss";
+import { Box, TextField } from "@material-ui/core";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    "& > .MuiContainer-maxWidthLg": {
+      maxWidth: "780px"
+    }
+  },
+  large: {
+    width: theme.spacing(9),
+    height: theme.spacing(9),
+    margin: "0 auto"
+  },
+  btnMargin: {
+    marginBottom: theme.spacing(1)
+  },
+  userInfo: {
+    marginBottom: theme.spacing(14)
+  },
+  userBoard: {
+    "& .MuiGrid-container": {
+      marginTop: theme.spacing(3)
+    }
+  },
+  paper: {
+    backgroundColor: "#4D5465",
+    color: "#ffffff",
+    "& > .MuiBox-root": {
+      display: "block",
+      color: "#ffffff",
+      height: "100px"
+    }
+  },
+  boxAddTodo: {
+    border: "1px dotted #d1d2d2",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100px",
+    cursor: "pointer"
+  }
+}));
 function UserProfile(props) {
   const { id } = useParams();
   const { t: translate } = useTranslation();
   const dispatch = useDispatch();
+  const classes = useStyles();
   const currentUser = useSelector(getCurrentUser);
   const boards = useSelector(getBoards);
   const [userInfo, setUserInfo] = useState({});
@@ -38,65 +94,84 @@ function UserProfile(props) {
   };
 
   const renderFormBoard = () => (
-    <div className="user__board-overlay">
-      <div className="user__board-form">
-        <i className="bx bx-x user__board-form-icon" onClick={() => setShowModal(false)}></i>
-        <input
-          type="text"
-          className="user__board-form-input"
-          placeholder="Enter title board"
-          onChange={changeDataBoard}
-          value={dataBoard}
-        />
-        <span className="user__board-form-text">không gian làm việc của {userInfo.username}</span>
-        <button className="user__board-form-button" onClick={handleAddBoard}>
+    <Dialog open={showModal} fullWidth onClose={() => setShowModal(false)} aria-labelledby="form-dialog-title-board">
+      <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+      <DialogContent>
+        <DialogContentText>không gian làm việc của {userInfo.username}</DialogContentText>
+        <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
+      </DialogContent>
+      <DialogActions>
+        <Button size="large" onClick={() => setShowModal(false)} color="primary">
+          Hủy
+        </Button>
+        <Button size="large" onClick={handleAddBoard} color="primary">
           {translate("create_board")}
-        </button>
-      </div>
-    </div>
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 
   return (
-    <div className="user">
-      <div className="user__container">
-        <div className="user__info">
-          <img src={userInfo.image} alt="user_avatar" className="user__avatar" />
-          <div className="user__content">
-            <h3 className="user__title">{userInfo?.username}</h3>
-            <span className="user__desc">IT Engineer</span>
-            <span>{userInfo?.email}</span>
-          </div>
-          <div>
-            <button className="user__button" onClick={() => setOnEdit(true)}>
-              {translate("edit_profile")}
-            </button>
-            <Link className="user__report-btn" to={`/users/${userInfo._id}/report`}>
-              Thống kê
-            </Link>
-          </div>
+    <div className={classes.root}>
+      <Container>
+        <div className={classes.userInfo}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={3}>
+              <Avatar alt={userInfo?.username} src={userInfo.image} className={classes.large} />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h3" component="h3" gutterBottom>
+                {userInfo?.username}
+              </Typography>
+              <Typography variant="h5" component="h5">
+                IT Engineer
+              </Typography>
+              <Typography variant="h5" component="h5">
+                {userInfo?.email}
+              </Typography>
+            </Grid>
+            <Grid item xs>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                className={classes.btnMargin}
+                onClick={() => setOnEdit(true)}
+              >
+                {translate("edit_profile")}
+              </Button>
+              <Button variant="contained" size="large" component={Link} to={`/users/${userInfo._id}/report`}>
+                {translate("reports")}
+              </Button>
+            </Grid>
+          </Grid>
         </div>
-        <div className="user__board">
-          <div className="user__board-top">
-            <h3 className="user__board-title">{translate("board")}</h3>
-            {/* <button className="user__board-button" onClick={() => setShowModal(true)}>
-              <i className="bx bx-plus user__board-icon"></i>
-              {translate("create_board")}
-            </button> */}
-          </div>
-          <div className="user__board-list">
+        <div className={classes.userBoard}>
+          <Typography variant="h4" component="h4">
+            {translate("board")} của {userInfo?.username}
+          </Typography>
+          <Grid container spacing={4}>
             {boards.map(board => (
-              <Link to={`/todos/${board._id}/${board.slug}`} className="user__board-item" key={board._id}>
-                <span className="user__board-name">{board.title}</span>
-              </Link>
+              <Grid item xs md={4} key={board._id}>
+                <Paper elevation={4} className={classes.paper}>
+                  <Box p={1} component={Link} to={`/todos/${board._id}/${board.slug}`}>
+                    <Typography variant="h5" component="h5">
+                      {board.title}
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
             ))}
-            <div className="user__board-addBtn" onClick={() => setShowModal(true)}>
-              <i className="bx bx-plus"></i>
-            </div>
-          </div>
+            <Grid item xs md={4}>
+              <Box className={classes.boxAddTodo} onClick={() => setShowModal(true)}>
+                <AddIcon />
+              </Box>
+            </Grid>
+          </Grid>
         </div>
-      </div>
-      {onEdit && <UserEdit userInfo={userInfo} setOnEdit={setOnEdit} />}
-      {showModal && renderFormBoard()}
+        {onEdit && <UserEdit userInfo={userInfo} setOnEdit={setOnEdit} />}
+        {showModal && renderFormBoard()}
+      </Container>
     </div>
   );
 }

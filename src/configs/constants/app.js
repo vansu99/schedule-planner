@@ -10,4 +10,9 @@ const LANGUAGE = {
   VIETNAMESE: "vn"
 };
 
-export { appConstants, LANGUAGE };
+const THEMES = {
+  LIGHT: "light",
+  DARK: "dark"
+};
+
+export { appConstants, LANGUAGE, THEMES };
