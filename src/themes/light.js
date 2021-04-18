@@ -22,7 +22,7 @@ const lightTheme = createMuiTheme({
       contrastText: "#FFF"
     },
     error: {
-      main: "#D67564"
+      main: "#e94848"
     },
     text: {
       primary: "#4D5465",

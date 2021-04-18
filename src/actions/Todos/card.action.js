@@ -61,13 +61,15 @@ const actRemoveTodoCard = (listId, cardId) => {
   };
 };
 
-const asyncRemoveTodoCard = (listId, cardId) => {
+const asyncRemoveTodoCard = (listId, cardId, boardId) => {
   return async dispatch => {
     try {
       const result = await todosApis.removeCardTodo(cardId);
       if (result.status === 200) {
         dispatch(actRemoveTodoCard(listId, cardId));
         await listsApis.removeCardIdToList(listId, cardId);
+        // xóa luôn cardId ở cardFailed trong Reports
+        await completedTodoApis.removeFailedTodo(boardId, cardId);
         showToast(result.data.msg, "success");
       }
     } catch (error) {

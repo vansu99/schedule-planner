@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     paddingRight: "0.5rem"
   },
   editTitleContainer: {
-    padding: theme.spacing(1),
+    padding: "0 0 10px 0",
     display: "flex",
     alignItems: "center"
   },
@@ -30,6 +30,24 @@ const useStyles = makeStyles(theme => ({
       background: "#FFF",
       width: "100%"
     }
+  },
+  todoList: {
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: "5px",
+    backgroundColor: "#dfe3e6",
+    maxWidth: "300px",
+    minWidth: "300px",
+    maxHeight: "100%",
+    padding: "10px 8px 0 8px",
+    marginRight: theme.spacing(1)
+  },
+  todoListContent: {
+    flex: "1 1 auto",
+    marginBottom: 0,
+    minHeight: "10px",
+    overflowX: "hidden",
+    overflowY: "auto"
   }
 }));
 

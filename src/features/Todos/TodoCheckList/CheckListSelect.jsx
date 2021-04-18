@@ -1,5 +1,5 @@
 import { cardActions } from "actions/Todos/card.action";
-import { Checkbox } from "components/FormControls";
+import { CheckBox } from "components/FormControls";
 import { makeStyles } from "@material-ui/core";
 import LinearWithValueLabel from "components/ProgressBar";
 import PropTypes from "prop-types";
@@ -10,7 +10,8 @@ import { useDispatch } from "react-redux";
 const useStyles = makeStyles(theme => ({
   btnMarginTop: {
     marginTop: theme.spacing(1)
-  }
+  },
+  chkCheckList: {},
 }));
 
 function CheckListSelect({ checklist, cardId }) {
@@ -58,7 +59,7 @@ function CheckListSelect({ checklist, cardId }) {
     <>
       <LinearWithValueLabel completedTodo={completedPercent.percentage} />
       {checkedValues?.map(option => (
-        <Checkbox
+        <CheckBox
           key={option.value}
           name="checklist-group"
           option={option}

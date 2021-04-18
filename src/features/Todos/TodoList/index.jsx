@@ -1,4 +1,7 @@
 import React, { useState, memo } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Box from '@material-ui/core/Box';
+import useStyles from "./theme.TodoList";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import TodoCard from "../TodoCard";
 import "./todoList.scss";
@@ -18,6 +21,7 @@ TodoList.defaultProps = {
 };
 
 function TodoList({ listId, title, cards, index, columnId }) {
+  const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const dispatch = useDispatch();
   const [listTitle, setListTitle] = useState(title);
@@ -38,7 +42,12 @@ function TodoList({ listId, title, cards, index, columnId }) {
   return (
     <Draggable draggableId={String(listId)} index={index}>
       {provided => (
-        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="todoList">
+        <Box
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          className={classes.todoList}
+        >
           <Title
             title={listTitle}
             open={isEditing}
@@ -50,7 +59,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
           <Droppable droppableId={String(listId)} type="CARD">
             {providedDrop => (
               <>
-                <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className="todoList__content">
+                <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className={classes.todoListContent}>
                   {cards?.map((card, idx) => (
                     <TodoCard
                       cardId={card?._id}
@@ -73,7 +82,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
               </>
             )}
           </Droppable>
-        </div>
+        </Box>
       )}
     </Draggable>
   );

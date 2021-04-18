@@ -1,32 +1,33 @@
-import { Collapse } from "@material-ui/core";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Button, Collapse, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { cardActions } from "actions/Todos/card.action";
 import { listActions } from "actions/Todos/list.action";
-import TodoForm from "./index";
-import { useParams } from "react-router";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import TodoForm from "./index";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: "30rem",
     maxHeight: "100%",
-    padding: "0 0.5rem"
+    marginBottom: "1rem"
   },
   addCard: {
-    padding: theme.spacing(1, 1, 1, 2),
-    margin: theme.spacing(0, 1, 1, 1),
+    width: "100%",
     backgroundColor: "#EBECF0",
     fontFamily: "Poppins, sans-serif",
     "&:hover": {
-      backgroundColor: fade("#000", 0.25),
+      backgroundColor: "#d6d7db",
       cursor: "pointer"
+    },
+    "& .MuiButton-label > i": {
+      marginRight: theme.spacing(1),
+      fontSize: theme.spacing(1.8)
     }
   },
   btnAddCard: {
-    fontFamily: "Poppins, sans-serif",
-    fontSize: "1.5rem"
+    fontSize: "1.2rem"
   }
 }));
 
@@ -73,7 +74,7 @@ export default function TodoFormContainer({ isLists, listId }) {
   };
 
   return (
-    <div className={classes.root}>
+    <Box component="div" className={classes.root}>
       <Collapse in={open}>
         <TodoForm
           handleCloseForm={handleCloseForm}
@@ -82,21 +83,25 @@ export default function TodoFormContainer({ isLists, listId }) {
           placeholder={placeholder}
           handleChange={onChange}
         >
-          <button
+          <Button
             type="submit"
-            className="todoForm__button todoForm__button--ok"
+            variant="contained"
+            color="secondary"
+            className={classes.btnAddCard}
             onClick={isLists ? handleAddList : handleAddCard}
           >
             Save
-          </button>
+          </Button>
         </TodoForm>
       </Collapse>
       <Collapse in={!open}>
-        <button className="todoForm__createButton" onClick={() => setOpen(!open)}>
+        <Button className={classes.addCard} onClick={() => setOpen(!open)}>
           <i className="bx bx-plus"></i>
-          {label}
-        </button>
+          <Typography variant="h6" component="h6">
+            {label}
+          </Typography>
+        </Button>
       </Collapse>
-    </div>
+    </Box>
   );
 }

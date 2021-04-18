@@ -28,6 +28,9 @@ const darkTheme = createMuiTheme({
       secondary: "#fff",
       disabled: "rgba(255, 255, 255, 0.5)",
       hint: "rgba(255, 255, 255, 0.5)"
+    },
+    error: {
+      main: "#e94848"
     }
   },
   overrides: {

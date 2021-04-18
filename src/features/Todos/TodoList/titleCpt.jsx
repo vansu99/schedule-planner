@@ -1,4 +1,4 @@
-import { InputBase } from "@material-ui/core";
+import { InputBase, Typography } from "@material-ui/core";
 import React from "react";
 import useStyles from "./theme.TodoList";
 
@@ -36,7 +36,9 @@ export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveL
       ) : (
         <div className={classes.editTitleContainer}>
           <div onClick={() => setOpen(!open)} className={classes.editTitle}>
-            <span>{title}</span>
+            <Typography variant="h5" component="h5">
+              {title}
+            </Typography>
           </div>
           <button className="todoList__button" onClick={removeList}>
             <i className="bx bx-trash"></i>

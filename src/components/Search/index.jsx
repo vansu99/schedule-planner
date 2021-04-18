@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { userApis } from "apis";
-
 import UserCard from "../UserCard";
 import "./search.scss";
 

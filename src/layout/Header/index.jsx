@@ -1,15 +1,25 @@
-import { pathName } from "../../configs";
+import { Divider } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "../../actions/User";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { userActions } from "../../actions/User";
 import "./header.scss";
+import useStyles from "./theme.header";
 
 export default function Header({ children }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { t: translate } = useTranslation();
   const [isShow, setIsShow] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const loggedInUser = useSelector(state => state.user.currentUser);
   const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
 
@@ -21,53 +31,58 @@ export default function Header({ children }) {
     dispatch(userActions.actLogout());
   };
 
+  const handleUserClick = e => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <header className="l-header">
-      <nav className="nav bd-grid">
-        <div className="nav__toggle" onClick={handleShowDrawler}>
-          <i className="bx bxs-grid"></i>
-        </div>
-        <a href="#!" className="nav__logo">
-          Scheduler
-        </a>
-        <div className={isShow ? "nav__menu show" : "nav__menu"}>
-          <ul className="nav__list">
-            <li className="nav__item active">
-              <a href="#home" className="nav__link">
-                {translate("Home")}
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="#home" className="nav__link">
-                Contact
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="#home" className="nav__link">
-                About
-              </a>
-            </li>
-            <li className="nav__item">
-              <span className="divider"></span>
-            </li>
-          </ul>
-        </div>
-        {!isLoggedIn && (
-          <Link to={pathName.LOGIN} className="nav__login">
-            {translate("login")}
-          </Link>
-        )}
-        {isLoggedIn && (
-          <div className="nav__account">
-            <i className="bx bxs-user-circle"></i>
-            <div className="nav__account-sub">
-              <a href="#!">Info</a>
-              <button onClick={handleLogout}>{translate("logout")}</button>
-            </div>
-          </div>
-        )}
-        {children}
-      </nav>
-    </header>
+    <div className={classes.root}>
+      <AppBar position="static" color="primary">
+        <Toolbar>
+          <Typography variant="h3" className={classes.title}>
+            <Link to="/" className={classes.link}>
+              Scheduler
+            </Link>
+          </Typography>
+          {/* {!isLoggedIn && (
+            <Link to={pathName.LOGIN} className="nav__login">
+              {translate("login")}
+            </Link>
+          )} */}
+          {isLoggedIn && (
+            <>
+              <IconButton color="inherit" aria-controls="menu-appbar" onClick={handleUserClick}>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                keepMounted
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleCloseMenu}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left"
+                }}
+                getContentAnchorEl={null}
+              >
+                <MenuItem>Thông tin</MenuItem>
+                <Divider variant="middle" />
+                <MenuItem onClick={handleLogout}>{translate("logout")}</MenuItem>
+              </Menu>
+            </>
+          )}
+          {children}
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }

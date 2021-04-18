@@ -1,24 +1,29 @@
 import React, { memo } from "react";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import useStyles from "./theme.todoForm";
 import "./todoForm.scss";
+import { Box, IconButton } from "@material-ui/core";
+import ClearIcon from '@material-ui/icons/Clear';
 
 function TodoForm({ handleCloseForm, text, handleChange, children, placeholder, isLists }) {
+  const classes = useStyles();
   return (
-    <div className="todoForm__list">
-      <textarea
+    <Box className={classes.root}>
+      <TextareaAutosize
         autoFocus
-        className="todoForm__input"
         value={text}
         onChange={handleChange}
         placeholder={placeholder}
-        rows={isLists ? "2" : "4"}
+        className={classes.textarea}
+        rowsMin={isLists ? "2" : "4"}
       />
-      <div className="todoForm__confirm">
+      <Box display="flex" mt={1}>
         {children}
-        <button className="todoForm__button" onClick={handleCloseForm}>
-          <i className="bx bx-x todoForm__button-icon"></i>
-        </button>
-      </div>
-    </div>
+        <IconButton onClick={handleCloseForm} style={{ marginLeft: "8px" }}>
+          <ClearIcon fontSize="default" color="error" />
+        </IconButton>
+      </Box>
+    </Box>
   );
 }
 
