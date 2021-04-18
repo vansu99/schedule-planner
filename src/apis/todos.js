@@ -48,6 +48,9 @@ const todosApis = {
   },
   unLikeCommentTodoCard: (id, user) => {
     return axiosClient.patch(`/api/comments/${id}/unlike`, { user });
+  },
+  removeCommentTodoCard: id => {
+    return axiosClient.delete(`/api/comments/${id}`);
   }
 };
 

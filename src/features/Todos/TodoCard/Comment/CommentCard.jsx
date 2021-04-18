@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import useStyles from "../theme.todoCard";
 import LikeButton from "./LikeButton";
 import CommentMenu from "./CommentMenu";
 import InputComment from "./InputComment";
@@ -9,8 +10,11 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useDispatch, useSelector } from "react-redux";
 import { commentActions } from "actions/Todos/comment.action";
 import { getCurrentUser } from "selectors/auth.selector";
+import { Box, Typography } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 
 function CommentCard({ children, comment, cardId, commentId, replyComments = {} }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
   const [content, setContent] = useState("");
@@ -22,6 +26,8 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
 
   useEffect(() => {
     setContent(comment.content);
+    setIsLike(false);
+    setReply(false);
     if (comment.likes.find(like => like === user._id)) {
       setIsLike(true);
     }
@@ -60,11 +66,17 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
   };
 
   return (
-    <div className="todoCard-details__comments-item">
-      <Link to="/" className="todoCard-details__comments-info">
-        <img src={comment.user.image} alt={comment.user.username} className="todoCard-details__comments-image" />
-        <h6 className="todoCard-details__comments-name">{comment.user.username}</h6>
-      </Link>
+    <div className={classes.todoCardCommentItem}>
+      <Box component={Link} to="/" display="flex" alignItems="center">
+        <Avatar
+          src={comment.user.image}
+          alt={comment.user.username}
+          style={{ width: "3rem", height: "3rem", marginRight: "1.2rem" }}
+        />
+        <Typography variant="subtitle1" component="h5" className={classes.link}>
+          {comment.user.username}
+        </Typography>
+      </Box>
       <div className="todoCard-details__comments-content">
         <div className="todoCard-details__comments-detail">
           {onEdit ? (
@@ -105,7 +117,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
 
         <div className="todoCard-details__comments-menu">
           <LikeButton isLike={isLike} handleLike={handleLike} handleUnLike={handleUnLike} />
-          <CommentMenu comment={comment} setOnEdit={setOnEdit} />
+          <CommentMenu comment={comment} setOnEdit={setOnEdit} cardId={cardId} />
         </div>
       </div>
       {reply && (

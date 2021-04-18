@@ -90,7 +90,29 @@ const asyncUnLikeCommentTodoCard = (cardId, comment, user) => {
   };
 };
 
+const actRemoveComment = (comment, cardId) => {
+  return {
+    type: todoActions.REMOVE_COMMENT_TODO_CARD,
+    payload: { comment, cardId }
+  };
+};
+
+const asyncRemoveComment = (commentId, cardId) => {
+  return async dispatch => {
+    try {
+      const removeComment = await todosApis.removeCommentTodoCard(commentId);
+      if (removeComment.status === 200) {
+        dispatch(actRemoveComment(commentId, cardId));
+        showToast(removeComment.data.msg, "success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const commentActions = {
+  asyncRemoveComment,
   asyncAddCommentTodoCard,
   asyncLikeCommentTodoCard,
   asyncUnLikeCommentTodoCard,

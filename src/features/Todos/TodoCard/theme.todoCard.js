@@ -52,6 +52,17 @@ const useStyles = makeStyles(theme => ({
   todoCardDescription: {},
   todoCardCheckList: {},
   todoCardComments: {},
+  todoCardTextarea: {
+    resize: "none",
+    width: "100%",
+    padding: "1rem",
+    border: "1px solid #d1d1d1"
+  },
+  todoCardCommentItem: {
+    "&:not(:last-child)": {
+      marginBottom: "2rem"
+    }
+  },
 
 
   chipEl: {
@@ -107,6 +118,10 @@ const useStyles = makeStyles(theme => ({
       padding: "5px",
       transition: "all 0.25s ease"
     }
+  },
+  link: {
+    textDecoration: "none",
+    color: "#333333"
   }
 }));
 

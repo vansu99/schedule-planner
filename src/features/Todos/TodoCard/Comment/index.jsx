@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import CommentCard from "./CommentCard";
 import { useTranslation } from "react-i18next";
+import Box from "@material-ui/core/Box";
+import useStyles from "../theme.todoCard";
 
 function Comments({ comments = [], cardId }) {
+  const classes = useStyles();
   const { t: translate } = useTranslation();
   const [showComment, setShowComment] = useState([]);
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(4);
   const [replyComments, setReplyComments] = useState([]);
 
   useEffect(() => {
@@ -20,7 +23,7 @@ function Comments({ comments = [], cardId }) {
   }, [comments]);
 
   return (
-    <div className="todoCard-details__comments-list">
+    <Box mt={2.7} mb={3.8}>
       {showComment.map(comment => (
         <CommentCard
           key={comment._id}
@@ -48,7 +51,7 @@ function Comments({ comments = [], cardId }) {
           </span>
         )
       )}
-    </div>
+    </Box>
   );
 }
 

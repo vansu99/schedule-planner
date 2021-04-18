@@ -1,22 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "selectors/auth.selector";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core";
-
-const options = [
-  {
-    title: "Edit",
-    icon: "bx bx-pencil"
-  },
-  {
-    title: "Remove",
-    icon: "bx bx-trash-alt"
-  }
-];
+import { commentActions } from "actions/Todos/comment.action";
 
 const useStyles = makeStyles(theme => ({
   menuTitile: {
@@ -36,6 +26,7 @@ function CommentMenu({ comment, setOnEdit }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -43,6 +34,10 @@ function CommentMenu({ comment, setOnEdit }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleRemoveComment = () => {
+    dispatch(commentActions.asyncRemoveComment(comment._id, comment.cardId));
   };
   return (
     <div className="todoCard-details__comments-subMenu">
@@ -70,12 +65,14 @@ function CommentMenu({ comment, setOnEdit }) {
               }
             }}
           >
-            {options.map((option, idx) => (
-              <MenuItem key={idx} onClick={() => setOnEdit(true)}>
-                <i className={`${option.icon} ${classes.menuIcon}`}></i>
-                <span className={classes.menuTitile}>{option.title}</span>
-              </MenuItem>
-            ))}
+            <MenuItem onClick={() => setOnEdit(true)}>
+              <i className={`bx bx-pencil ${classes.menuIcon}`}></i>
+              <span className={classes.menuTitile}>Edit</span>
+            </MenuItem>
+            <MenuItem onClick={handleRemoveComment}>
+              <i className={`bx bx-trash-alt ${classes.menuIcon}`}></i>
+              <span className={classes.menuTitile}>Remove</span>
+            </MenuItem>
           </Menu>
         </div>
       )}

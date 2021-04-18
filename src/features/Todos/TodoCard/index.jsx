@@ -7,6 +7,7 @@ import Chip from "@material-ui/core/Chip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
@@ -403,14 +404,16 @@ function TodoCard(props) {
   const renderContentModal = () => (
     <ReactModal isOpen={showModal} handleCloseModal={handleCloseModal}>
       <div className="todoCard-details">
-        <div className="todoCard-details__title">
-          <h3>
+        <Box mb={4}>
+          <Typography variant="h4" component="h4">
             <i className="bx bx-layout"></i> Nội dung: {title}
-          </h3>
-          <span>trong danh sách X</span>
-        </div>
-        <div className="todoCard-details__container">
-          <div className="todoCard-details__left">
+          </Typography>
+          <Typography variant="subtitle1" component="span">
+            trong danh sách X
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Box className={classes.todoCardLeft}>
             <div className={classes.chkCompletedTodo}>
               <FormControlLabel
                 control={
@@ -420,17 +423,17 @@ function TodoCard(props) {
                 className={classes.formControlLabel}
               />
             </div>
-            <div className="todoCard-details__labels">
-              <h3 className="todoCard-details__label">
-                <i className="bx bx-label"></i> Nhãn công việc
-                {date ? (
-                  <span className="todoCard-details__deadline">
-                    <i className="bx bx-time"></i>
+            <Box className={classes.todoCardLabels}>
+              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <LabelIcon fontSize="large" /> {translate("label")}
+                {date && (
+                  <span className={classes.todoCardDeadline}>
+                    <QueryBuilderIcon fontSize="large" />
                     {formatDate(date)}
                   </span>
-                ) : null}
-              </h3>
-              <div className="todoCard-details__labels-list">
+                )}
+              </Typography>
+              <Box display="flex" mt={2} ml={2}>
                 {label?.map(item => (
                   <div
                     key={item.value}
@@ -440,62 +443,67 @@ function TodoCard(props) {
                     <span>{item.name}</span>
                   </div>
                 ))}
-              </div>
-            </div>
-            <div className="todoCard-details__members">
-              {member.length > 0 ? (
-                <div className="todoCard-details__member">
-                  <h3 className="todoCard-details__label">
-                    <i className="bx bx-user"></i> Thành viên trong nhóm
-                  </h3>
-                  <div className="todoCard-details__member-list">
-                    {member.map(value => (
-                      <Chip
-                        className={classes.chipEl}
-                        label={value.username}
-                        color="secondary"
-                        onDelete={() => handleRemoveMember(value._id)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-            <h3 className="todoCard-details__label">
-              <i className="bx bx-menu-alt-left"></i> {translate("description")}
-            </h3>
-            <div className="todoCard-details__edit">
-              <TextArea placeholder="Thêm mô tả chi tiết" text={descCardContent} setText={setDescCardContent} />
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleEditDescCard}
-                className={classes.btnMarginRight}
-              >
-                Lưu
-              </Button>
-              <Button variant="outlined">Hủy</Button>
-            </div>
-            <div className="todoCard-details__checklist">
-              <h3>
-                <i className="bx bx-list-check"></i> {translate("checklist")}
-              </h3>
+              </Box>
+            </Box>
+            <Box className={classes.todoCardMembers}>
+              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <GroupIcon fontSize="large" /> {translate("member")}
+              </Typography>
+              <Box display="flex" flexWrap="wrap" mt={1.5}>
+                {member.map(value => (
+                  <Chip
+                    className={classes.chipEl}
+                    label={value.username}
+                    color="secondary"
+                    onDelete={() => handleRemoveMember(value._id)}
+                  />
+                ))}
+              </Box>
+            </Box>
+            <Box className={classes.todoCardDescription}>
+              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <DescriptionIcon fontSize="large" /> {translate("description")}
+              </Typography>
+              <Box pt={2.8} pl={3.5}>
+                <TextareaAutosize
+                  className={classes.todoCardTextarea}
+                  placeholder="Thêm mô tả chi tiết"
+                  value={descCardContent}
+                  onChange={handleChangeDescCard}
+                  rowsMin={4}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEditDescCard}
+                  className={classes.btnMarginRight}
+                >
+                  Lưu
+                </Button>
+                <Button variant="outlined">Hủy</Button>
+              </Box>
+            </Box>
+            <Box mt={3.4} className={classes.todoCardCheckList}>
+              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <PlaylistAddCheckIcon fontSize="large" /> {translate("checklist")}
+              </Typography>
               {checklist?.length > 0 ? (
-                <div className="todoCard-details__checklist-list">
+                <Box mt={1.5}>
                   <CheckListSelect checklist={checklist} cardId={cardId} />
-                </div>
+                </Box>
               ) : (
-                <p style={{ opacity: 0.6 }}>Chưa có việc cần làm</p>
+                <Typography variant="subtitle1" component="p" style={{ opacity: 0.6 }}>
+                  Chưa có việc cần làm
+                </Typography>
               )}
-            </div>
-            <div className="todoCard-details__comments">
-              <h3 className="todoCard-details__label">
-                <i className="bx bx-comment-detail"></i>
-                Bình luận
-              </h3>
+            </Box>
+            <Box mt={3.8} className={classes.todoCardComments}>
+              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <ChatIcon fontSize="large" /> {translate("comment")}
+              </Typography>
               <Comments comments={comments} cardId={cardId} />
               <InputComment cardId={cardId} />
-            </div>
+            </Box>
             <Button
               variant="contained"
               color="primary"
@@ -505,106 +513,95 @@ function TodoCard(props) {
             >
               Lưu công việc
             </Button>
-          </div>
+          </Box>
           <div className="todoCard-details__right">
             <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
-            <ul className="todoCard-details__options">
-              <li className="todoCard-details__item">
-                <input type="checkbox" name="chk0" id="chk0" />
-                <label htmlFor="chk0" className="todoCard-details__item-label">
-                  <i className="bx bx-user"></i> {translate("member")}
-                </label>
-                <div className="todoCard-details__item-content">
+            <Box component="ul" mt={1.6}>
+              <Box mt={1} component="li">
+                <AccordionCpt title="member" icon="bx bx-user">
                   <Search cardId={cardId} />
-                </div>
-              </li>
-              <li className="todoCard-details__item">
-                <input type="checkbox" name="chk1" id="chk1" />
-                <label htmlFor="chk1" className="todoCard-details__item-label">
-                  <i className="bx bx-label"></i> {translate("label")}
-                </label>
-                <div className="todoCard-details__item-content">
-                  <input
-                    type="text"
-                    placeholder="Note label todo"
-                    value={infoLabel.name}
-                    onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
-                  />
-                  {labelColors.map((value, index) => (
-                    <div key={index}>
-                      <input
-                        key={index}
-                        type="radio"
-                        name="labelcolor"
-                        value={value}
-                        onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                </AccordionCpt>
+              </Box>
+              <Box mt={1} component="li">
+                <AccordionCpt title="label" icon="bx bx-label">
+                  <Box width="100%">
+                    <TextField
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      label="Nhập tên nhãn công việc"
+                      value={infoLabel.name}
+                      onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
+                    />
+                    <Box mt={1} mb={1.5}>
+                      {labelColors.map((label, idx) => (
+                        <Box display="flex" alignItems="center" position="relative" key={idx}>
+                          <Radio
+                            className={classes.todoCardRadioLabel}
+                            name="labelcolor"
+                            value={label}
+                            onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                          />
+                          <span
+                            style={{
+                              position: "absolute",
+                              left: 0,
+                              right: 0,
+                              height: "2rem",
+                              backgroundColor: `${label}`,
+                              display: "inline-block",
+                              borderRadius: "4px"
+                            }}
+                          />
+                        </Box>
+                      ))}
+                    </Box>
+                    <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
+                      Thêm nhãn công việc
+                    </Button>
+                  </Box>
+                </AccordionCpt>
+              </Box>
+              <Box mt={1} component="li">
+                <AccordionCpt title="due_date" icon="bx bx-time">
+                  <Box>
+                    <Box mb={1.5}>
+                      <DatePicker
+                        selected={startDate}
+                        onChange={date => setStartDate(date)}
+                        timeInputLabel="Time:"
+                        dateFormat="dd/MM/yyyy h:mm aa"
+                        showTimeInput
                       />
-                      <span
-                        style={{
-                          width: "100%",
-                          height: "2rem",
-                          backgroundColor: `${value}`,
-                          display: "inline-block",
-                          marginLeft: ".9rem",
-                          borderRadius: "4px"
-                        }}
-                      />
-                    </div>
-                  ))}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.margin}
-                    onClick={handleAddLabelTodoCard}
-                  >
-                    Thêm
-                  </Button>
-                </div>
-              </li>
-              <li className="todoCard-details__item">
-                <input type="checkbox" name="chk2" id="chk2" />
-                <label htmlFor="chk2" className="todoCard-details__item-label">
-                  <i className="bx bx-time"></i> {translate("due_date")}
-                </label>
-                <div className="todoCard-details__item-content">
-                  Chọn ngày:{" "}
-                  <DatePicker
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
-                    timeInputLabel="Time:"
-                    dateFormat="dd/MM/yyyy h:mm aa"
-                    showTimeInput
-                  />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.margin}
-                    onClick={handleAddDeadLineTodo}
-                  >
-                    Thêm
-                  </Button>
-                </div>
-              </li>
-              <li className="todoCard-details__item">
-                <input type="checkbox" name="chk3" id="chk3" />
-                <label htmlFor="chk3" className="todoCard-details__item-label">
-                  <i className="bx bx-pencil"></i> {translate("checklist")}
-                </label>
-                <div className="todoCard-details__item-content">
-                  <input
-                    type="text"
-                    placeholder="Việc cần làm"
-                    value={todoCheckListContent}
-                    onChange={todoCheckListContentChange}
-                  />
-                  <Button variant="contained" color="primary" className={classes.margin} onClick={handleAddCheckList}>
-                    Thêm
-                  </Button>
-                </div>
-              </li>
-            </ul>
+                    </Box>
+                    <Button variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
+                      Thêm ngày deadline
+                    </Button>
+                  </Box>
+                </AccordionCpt>
+              </Box>
+              <Box mt={1} component="li">
+                <AccordionCpt title="checklist" icon="bx bx-pencil">
+                  <Box width="100%">
+                    <TextField
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      label="Nhập việc cần làm"
+                      value={todoCheckListContent}
+                      onChange={todoCheckListContentChange}
+                    />
+                    <Box mt={1.5}>
+                      <Button variant="contained" color="primary" onClick={handleAddCheckList}>
+                        Thêm checklist
+                      </Button>
+                    </Box>
+                  </Box>
+                </AccordionCpt>
+              </Box>
+            </Box>
           </div>
-        </div>
+        </Box>
       </div>
     </ReactModal>
   );

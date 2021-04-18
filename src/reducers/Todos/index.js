@@ -303,6 +303,15 @@ export function todosReducer(state = initialState, { type, payload }) {
         cards: { ...state.cards, [payload.cardId]: newUpdateUnLikeCommentCard }
       };
 
+    case todoActions.REMOVE_COMMENT_TODO_CARD:
+      const newRemoveCommentCard = { ...state.cards[payload.cardId] };
+      const deleteArr = [...newRemoveCommentCard.comments.filter(cmt => cmt.id !== payload.comment)];
+      newRemoveCommentCard.comments = [...deleteArr];
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newRemoveCommentCard }
+      };
+
     default:
       return state;
   }
