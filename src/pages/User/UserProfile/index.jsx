@@ -117,7 +117,7 @@ function UserProfile(props) {
         <div className={classes.userInfo}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={3}>
-              <Avatar alt={userInfo?.username} src={userInfo.image} className={classes.large} />
+              <Avatar alt={userInfo?.username} src={userInfo?.image} className={classes.large} />
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h3" component="h3" gutterBottom>

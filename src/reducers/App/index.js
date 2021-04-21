@@ -1,7 +1,7 @@
 import { appConstants } from "../../configs";
 
 const initialState = {
-  loading: false,
+  loading: false
 };
 
 export function appReducer(state = initialState, action) {
@@ -9,13 +9,13 @@ export function appReducer(state = initialState, action) {
     case appConstants.SHOW_LOADING:
       return {
         ...state,
-        loading: true,
+        loading: true
       };
 
     case appConstants.HIDE_LOADING:
       return {
         ...state,
-        loading: false,
+        loading: false
       };
 
     default:

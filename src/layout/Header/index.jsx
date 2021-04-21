@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import NotificationButton from "components/Notification/NotificationButton";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,8 +56,9 @@ export default function Header({ children }) {
           )} */}
           {isLoggedIn && (
             <>
+              <NotificationButton />
               <IconButton color="inherit" aria-controls="menu-appbar" onClick={handleUserClick}>
-                <AccountCircle />
+                <AccountCircle fontSize="large" />
               </IconButton>
               <Menu
                 id="menu-appbar"

@@ -17,6 +17,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
+  const socket = useSelector(state => state.socket.socket);
   const [content, setContent] = useState("");
   const [readMore, setReadMore] = useState(false);
   const [isLike, setIsLike] = useState(false);
@@ -38,7 +39,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setIsLike(false);
 
     setLoadLike(true);
-    dispatch(commentActions.asyncUnLikeCommentTodoCard(cardId, comment, user));
+    dispatch(commentActions.asyncUnLikeCommentTodoCard(cardId, comment, user, socket));
     setLoadLike(false);
   };
 
@@ -47,7 +48,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setIsLike(true);
 
     setLoadLike(true);
-    dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user));
+    dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user, socket));
     setLoadLike(false);
   };
 

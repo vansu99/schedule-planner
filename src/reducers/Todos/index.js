@@ -297,7 +297,8 @@ export function todosReducer(state = initialState, { type, payload }) {
 
     case todoActions.UNLIKE_COMMENT_TODO_CARD:
       const newUpdateUnLikeCommentCard = { ...state.cards[payload.cardId] };
-      newUpdateUnLikeCommentCard.comments = [...payload.comment.likes];
+      const cmtIndexCmt = newUpdateUnLikeCommentCard.comments.findIndex(value => value._id === payload.comment._id);
+      newUpdateUnLikeCommentCard.comments[cmtIndexCmt].likes = [...payload.comment.likes];
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newUpdateUnLikeCommentCard }

@@ -56,13 +56,13 @@ const actLikeCommentTodoCard = (cardId, comment) => {
   };
 };
 
-const asyncLikeCommentTodoCard = (cardId, comment, user) => {
+const asyncLikeCommentTodoCard = (cardId, comment, user, socket) => {
   return async dispatch => {
-    //const newComment = { ...comment, likes: [...comment.likes, user] };
     try {
       const result = await todosApis.likeCommentTodoCard(comment._id, user);
       if (result.status === 200) {
         dispatch(actLikeCommentTodoCard(cardId, result.data.likeComment));
+        socket.emit("likeComment", result.data);
       }
     } catch (error) {
       console.log(error);
@@ -77,7 +77,7 @@ const actUnLikeCommentTodoCard = (cardId, comment) => {
   };
 };
 
-const asyncUnLikeCommentTodoCard = (cardId, comment, user) => {
+const asyncUnLikeCommentTodoCard = (cardId, comment, user, socket) => {
   return async dispatch => {
     try {
       const result = await todosApis.unLikeCommentTodoCard(comment._id, user);
