@@ -4,23 +4,27 @@ import CommentCard from "./CommentCard";
 import { useTranslation } from "react-i18next";
 import Box from "@material-ui/core/Box";
 import useStyles from "../theme.todoCard";
+import { getCards } from "selectors/todos.selector";
+import { useSelector } from "react-redux";
 
-function Comments({ comments = [], cardId }) {
+function Comments({ cardId }) {
   const classes = useStyles();
   const { t: translate } = useTranslation();
   const [showComment, setShowComment] = useState([]);
-  const [next, setNext] = useState(4);
+  const [next, setNext] = useState(2);
   const [replyComments, setReplyComments] = useState([]);
+  const card = useSelector(getCards);
+  const commentss = card[cardId].comments;
 
   useEffect(() => {
-    const newCm = comments.filter(cm => !cm.reply);
+    const newCm = commentss.filter(cm => !cm.reply);
     setShowComment(newCm.slice(newCm.length - next));
-  }, [comments, next]);
+  }, [commentss, next]);
 
   useEffect(() => {
-    const newRep = comments.filter(cmt => cmt.reply);
+    const newRep = commentss.filter(cmt => cmt.reply);
     setReplyComments(newRep);
-  }, [comments]);
+  }, [commentss]);
 
   return (
     <Box mt={2.7} mb={3.8}>
@@ -40,12 +44,12 @@ function Comments({ comments = [], cardId }) {
           </div>
         </CommentCard>
       ))}
-      {comments.length - next > 0 ? (
+      {commentss.length - next > 0 ? (
         <span className="todoCard-details__comments-more" onClick={() => setNext(prev => prev + 10)}>
           {translate("see_more_cmt")}
         </span>
       ) : (
-        comments.length > 2 && (
+        commentss.length > 2 && (
           <span className="todoCard-details__comments-more" onClick={() => setNext(2)}>
             {translate("hide_more_cmt")}
           </span>
@@ -56,7 +60,6 @@ function Comments({ comments = [], cardId }) {
 }
 
 Comments.propTypes = {
-  comments: PropTypes.array,
   cardId: PropTypes.string
 };
 

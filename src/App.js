@@ -12,7 +12,7 @@ import Loading from "./components/Loading";
 import history from "./helpers/history";
 import Routes from "./routes/routes";
 import SocketClient from "services/Socket/socketClient";
-import { socketActions } from "actions/Socket";
+import { connectSocket } from "actions/Socket";
 import { StorageKeys } from "configs";
 import { fetchNotificationsStart } from "actions/Global";
 import "./styles/index.scss";
@@ -31,10 +31,10 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      dispatch(socketActions.connectSocket());
+      dispatch(connectSocket());
       dispatch(fetchNotificationsStart());
     }
-  }, [dispatch, token, fetchNotificationsStart, socketActions.connectSocket]);
+  }, [dispatch, token, fetchNotificationsStart, connectSocket]);
 
   return (
     <MuiThemeProvider theme={themes(type)}>

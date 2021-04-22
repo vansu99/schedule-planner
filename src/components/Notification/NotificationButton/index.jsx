@@ -25,12 +25,12 @@ function NotificationButton(props) {
     }
   }, [notificationState.unreadCount]);
 
-  useEffect(() => {
-    if (showNotifications) {
-      clearTimeout(notificationPopupTimeout);
-      setShowNotificationPopup(false);
-    }
-  }, [showNotifications, notificationPopupTimeout]);
+  // useEffect(() => {
+  //   if (showNotifications) {
+  //     clearTimeout(notificationPopupTimeout);
+  //     setShowNotificationPopup(false);
+  //   }
+  // }, [showNotifications, notificationPopupTimeout]);
 
   return (
     <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
@@ -45,7 +45,7 @@ function NotificationButton(props) {
           </Badge>
         </IconButton>
         {showNotifications && (
-          <PopupCard>
+          <PopupCard notifyHeading="Notifications">
             <NotifitionFeed open={showNotifications} setShowNotifications={setShowNotifications} />
           </PopupCard>
         )}

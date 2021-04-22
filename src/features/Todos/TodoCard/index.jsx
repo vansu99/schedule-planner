@@ -6,11 +6,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControl from "@material-ui/core/FormControl";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
@@ -20,9 +18,9 @@ import LabelIcon from "@material-ui/icons/Label";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import { labelActions } from "actions/Todos/label.action";
 import { cardActions } from "actions/Todos/card.action";
 import AccordionCpt from "components/Accordion";
-import TextArea from "components/FormControls/TextArea";
 import ReactModal from "components/Modal";
 import Search from "components/Search";
 import { labelColors } from "configs/fakeLabel";
@@ -112,7 +110,7 @@ function TodoCard(props) {
       ...infoLabel,
       value
     };
-    dispatch(cardActions.asyncAddLabelTodo(cardId, newLabelTodo));
+    dispatch(labelActions.asyncAddLabelTodo(cardId, newLabelTodo));
     setInfoLabel({
       name: "",
       color: ""
@@ -294,7 +292,7 @@ function TodoCard(props) {
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <ChatIcon fontSize="large" /> {translate("comment")}
               </Typography>
-              <Comments comments={comments} cardId={cardId} />
+              <Comments cardId={cardId} />
               <InputComment cardId={cardId} />
             </Box>
             <Button
@@ -501,7 +499,7 @@ function TodoCard(props) {
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <ChatIcon fontSize="large" /> {translate("comment")}
               </Typography>
-              <Comments comments={comments} cardId={cardId} />
+              <Comments cardId={cardId} />
               <InputComment cardId={cardId} />
             </Box>
             <Button

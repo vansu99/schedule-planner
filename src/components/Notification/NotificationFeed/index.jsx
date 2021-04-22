@@ -12,11 +12,12 @@ import SkeletonCpt from "components/Skeleton";
 import { Link } from "react-router-dom";
 import { Avatar, Divider } from "@material-ui/core";
 
-function NotificationFeef({ open, onClose }) {
+function NotificationFeed({ open, onClose }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const notifications = useSelector(selectNotifications);
   const notificationState = useSelector(selectNotificationState);
+
   useEffect(() => {
     (async function () {
       await dispatch(fetchNotificationsStart());
@@ -36,7 +37,7 @@ function NotificationFeef({ open, onClose }) {
         notifications.map((notification, idx) => {
           const userCardProps = {
             username: notification.sender.username,
-            avatar: notification.sender.avatar,
+            avatar: notification.sender.image,
             subTextDark: true,
             date: notification.date
           };
@@ -48,7 +49,6 @@ function NotificationFeef({ open, onClose }) {
                 userCardProps.subTextDark = "liked your comment";
                 userCardChild = <div></div>;
               }
-
               break;
 
             default:
@@ -60,7 +60,7 @@ function NotificationFeef({ open, onClose }) {
           return (
             <li key={idx}>
               <Box className={classes.notifyItem}>
-                <Avatar />
+                <Avatar src={userCardProps.avatar} />
                 <Box ml={1.4} className={classes.notifyItemContent}>
                   <Typography variant="h6" component="h6">
                     {userCardProps.username}
@@ -93,10 +93,10 @@ function NotificationFeef({ open, onClose }) {
   );
 }
 
-NotificationFeef.propTypes = {
+NotificationFeed.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   setShowNotifications: PropTypes.func
 };
 
-export default NotificationFeef;
+export default NotificationFeed;

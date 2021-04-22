@@ -1,8 +1,8 @@
 import { connect } from "services/socketService";
 import { SOCKET } from "configs";
-import { addNotification } from "../Global"
+import { addNotification } from "../Global";
 
-const connectSocket = () => dispatch => {
+export const connectSocket = () => dispatch => {
   const socket = connect();
   dispatch({ type: SOCKET.CONNECT, payload: socket });
 
@@ -11,11 +11,11 @@ const connectSocket = () => dispatch => {
   });
 };
 
-const disconnectSocket = () => ({
+export const disconnectSocket = () => ({
   type: SOCKET.DISCONNECT
 });
 
-export const socketActions = {
-  connectSocket,
-  disconnectSocket
-};
+// export const socketActions = {
+//   connectSocket,
+//   disconnectSocket
+// };

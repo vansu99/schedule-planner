@@ -29,6 +29,11 @@ const useStyles = makeStyles(theme => ({
     "& > .MuiSvgIcon-root": {
       fontSize: "5rem",
       marginBottom: theme.spacing(2)
+    },
+    "& > .MuiTypography-root": {
+      fontWeight: 400,
+      textAlign: "center",
+      padding: ".6rem 0"
     }
   },
   ul: {
