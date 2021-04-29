@@ -1,8 +1,14 @@
 import axiosClient from "../services/axiosClient";
 
 const completedTodoApis = {
-  getReportById: boardId => {
-    return axiosClient.post(`/api/reports`, { boardId });
+  getAllReport: () => {
+    return axiosClient.get(`/api/reports`);
+  },
+  getReportByBoardId: boardId => {
+    return axiosClient.post(`/api/reports/board`, { boardId });
+  },
+  getReportById: id => {
+    return axiosClient.get(`/api/reports/${id}`);
   },
   createReportTodo: boardId => {
     return axiosClient.post("/api/reports", { boardId });

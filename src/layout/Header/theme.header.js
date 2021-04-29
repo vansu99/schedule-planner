@@ -4,6 +4,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
+  header: {
+    height: 45
+  },
   title: {
     flexGrow: 1
   },

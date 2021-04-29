@@ -52,9 +52,6 @@ const lightTheme = createMuiTheme({
           height: "100%"
         }
       }
-    },
-    MuiButton: {
-      root: {}
     }
   }
 });

@@ -29,6 +29,14 @@ export function userReducer(state = initialState, action) {
         error: null
       };
 
+    case UserActionTypes.SET_CURRENT_USER_SUCCESS:
+      const { user } = action.payload;
+      return {
+        ...state,
+        isAuthenticated: true,
+        currentUser: user
+      };
+
     default:
       return state;
   }

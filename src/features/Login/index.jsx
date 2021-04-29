@@ -4,6 +4,7 @@ import { userActions } from "actions/User";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { pathName } from "configs";
+import Footer from "components/Footer";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function Login(props) {
     return (
       <React.Fragment>
         <LoginForm onSubmit={handleSubmit} />
+        <Footer />
       </React.Fragment>
     );
   }

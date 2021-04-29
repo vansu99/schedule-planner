@@ -317,16 +317,16 @@ function TodoCard(props) {
               </Box>
               <Box mt={1} component="li">
                 <AccordionCpt title="label" icon="bx bx-label">
-                  <Box width="100%">
+                  <Box width="91%">
                     <TextField
                       fullWidth
                       size="small"
-                      variant="outlined"
                       label="Nhập tên nhãn công việc"
                       value={infoLabel.name}
                       onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
                     />
-                    <Box mt={1} mb={1.5}>
+                    <Box mt={2} mb={2.5} display="flex" alignItems="baseline">
+                      <span style={{ fontWeight: "bold", marginRight: "18px", color: "#B4ADCD" }}>Color</span>
                       {labelColors.map((label, idx) => (
                         <Box display="flex" alignItems="center" position="relative" key={idx}>
                           <Radio
@@ -340,10 +340,11 @@ function TodoCard(props) {
                               position: "absolute",
                               left: 0,
                               right: 0,
-                              height: "2rem",
+                              width: "3rem",
+                              height: "3rem",
                               backgroundColor: `${label}`,
-                              display: "inline-block",
-                              borderRadius: "4px"
+                              display: "block",
+                              borderRadius: "50%"
                             }}
                           />
                         </Box>

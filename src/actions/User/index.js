@@ -6,7 +6,7 @@ import { userApis } from "../../apis";
 const actGetMeSuccess = user => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_SUCCESS,
-    user
+    payload: { user }
   };
 };
 
@@ -21,7 +21,7 @@ const asyncGetMe = () => {
   return async dispatch => {
     try {
       const response = await userApis.getMe();
-      dispatch(actGetMeSuccess(response.data.data));
+      dispatch(actGetMeSuccess(response.data.user));
     } catch (error) {
       dispatch(actGetMeFailure(error));
     }

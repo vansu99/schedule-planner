@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "selectors/auth.selector";
 import { getBoards } from "selectors/todos.selector";
+import { userActions } from "actions/User";
 import UserEdit from "../UserProfileEdit";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
@@ -72,16 +73,13 @@ function UserProfile(props) {
   const classes = useStyles();
   const currentUser = useSelector(getCurrentUser);
   const boards = useSelector(getBoards);
-  const [userInfo, setUserInfo] = useState({});
   const [onEdit, setOnEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput("");
 
   useEffect(() => {
-    if (id === currentUser._id) {
-      setUserInfo(currentUser);
-    }
-  }, [id, currentUser]);
+    dispatch(userActions.asyncGetMe());
+  }, [id, dispatch]);
 
   useEffect(() => {
     dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
@@ -97,7 +95,7 @@ function UserProfile(props) {
     <Dialog open={showModal} fullWidth onClose={() => setShowModal(false)} aria-labelledby="form-dialog-title-board">
       <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
       <DialogContent>
-        <DialogContentText>không gian làm việc của {userInfo.username}</DialogContentText>
+        <DialogContentText>không gian làm việc của {currentUser.username}</DialogContentText>
         <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
       </DialogContent>
       <DialogActions>
@@ -117,17 +115,17 @@ function UserProfile(props) {
         <div className={classes.userInfo}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={3}>
-              <Avatar alt={userInfo?.username} src={userInfo?.image} className={classes.large} />
+              <Avatar alt={currentUser?.username} src={currentUser?.image} className={classes.large} />
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h3" component="h3" gutterBottom>
-                {userInfo?.username}
+                {currentUser?.username}
               </Typography>
               <Typography variant="h5" component="h5">
                 IT Engineer
               </Typography>
               <Typography variant="h5" component="h5">
-                {userInfo?.email}
+                {currentUser?.email}
               </Typography>
             </Grid>
             <Grid item xs>
@@ -140,7 +138,7 @@ function UserProfile(props) {
               >
                 {translate("edit_profile")}
               </Button>
-              <Button variant="contained" size="large" component={Link} to={`/users/${userInfo._id}/report`}>
+              <Button variant="contained" size="large" component={Link} to={`/users/${currentUser._id}/report`}>
                 {translate("reports")}
               </Button>
             </Grid>
@@ -148,7 +146,7 @@ function UserProfile(props) {
         </div>
         <div className={classes.userBoard}>
           <Typography variant="h4" component="h4">
-            {translate("board")} của {userInfo?.username}
+            {translate("board")} của {currentUser?.username}
           </Typography>
           <Grid container spacing={4}>
             {boards.map(board => (
@@ -169,7 +167,7 @@ function UserProfile(props) {
             </Grid>
           </Grid>
         </div>
-        {onEdit && <UserEdit userInfo={userInfo} setOnEdit={setOnEdit} />}
+        {onEdit && <UserEdit userInfo={currentUser} setOnEdit={setOnEdit} />}
         {showModal && renderFormBoard()}
       </Container>
     </div>

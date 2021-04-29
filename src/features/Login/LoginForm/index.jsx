@@ -1,6 +1,6 @@
 import React from "react";
 import useStyles from "./theme.loginForm";
-import ImageLogin from "assets/images/login.jpg";
+import ImageLogin from "assets/images/bg-1.png";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";

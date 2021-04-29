@@ -1,30 +1,33 @@
 import React, { Fragment, lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Loading from "../components/Loading";
-import { pathName } from "../configs";
-import { AuthGuard, GuestGuard } from "../guards";
-import MainLayout from "../layout/MainLayout";
-const Error404View = lazy(() => import("../components/404"));
-const Login = lazy(() => import("../features/Login"));
-const Register = lazy(() => import("../features/Register"));
-const Todos = lazy(() => import("../features/Todos"));
-const Home = lazy(() => import("../pages/Home"));
+import Loading from "components/Loading";
+import { pathName } from "configs";
+import { AuthGuard, GuestGuard } from "guards";
+import MainLayout from "layout/MainLayout";
+import GuestLayout from "layout/GuestLayout";
+
+const Error404View = lazy(() => import("components/404"));
+const Login = lazy(() => import("features/Login"));
+const Register = lazy(() => import("features/Register"));
+const Todos = lazy(() => import("features/Todos"));
+const Home = lazy(() => import("pages/Home"));
 const UserProfile = lazy(() => import("pages/User/UserProfile"));
 const TodoReport = lazy(() => import("pages/Report"));
+const TimeTable = lazy(() => import("features/Calendar"));
 
 const routesConfig = [
   {
     exact: true,
     guard: GuestGuard,
     path: pathName.LOGIN,
-    layout: MainLayout,
+    layout: GuestLayout,
     component: Login
   },
   {
     exact: true,
     guard: GuestGuard,
     path: pathName.REGISTER,
-    layout: MainLayout,
+    layout: GuestLayout,
     component: Register
   },
   {
@@ -46,6 +49,11 @@ const routesConfig = [
         exact: true,
         path: pathName.USER_DETAIL,
         component: UserProfile
+      },
+      {
+        exact: true,
+        path: pathName.TODO_CALENDAR,
+        component: TimeTable
       },
       {
         exact: true,

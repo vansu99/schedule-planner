@@ -1,4 +1,4 @@
-import { todoActions } from "../../configs";
+import { todoActions } from "configs";
 
 const initialState = {
   lists: {},
@@ -111,6 +111,14 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cards: { ...state.cards, [cardId]: newCard }
+      };
+
+    case todoActions.EDIT_DETAIL_CARD:
+      let newCardDueDate = state.cards[payload.cardId];
+      newCardDueDate = { ...newCardDueDate, ...payload.cardContent };
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newCardDueDate }
       };
 
     case todoActions.EDIT_DESC_CARD:

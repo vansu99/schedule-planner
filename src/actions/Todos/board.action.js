@@ -1,4 +1,4 @@
-import { boardsApis, userApis } from "apis";
+import { boardsApis, userApis, completedTodoApis } from "apis";
 import showToast from "components/Toast";
 import { todoActions } from "configs";
 import { actShowLoading, actHideLoading } from "../Global";
@@ -66,6 +66,7 @@ const asyncAddBoard = (userId, title) => {
       if (result.status === 201) {
         dispatch(actAddBoard(result.data.board));
         await userApis.addBoardIdToUser(userId, boardId);
+        await completedTodoApis.createReportTodo(boardId);
         dispatch(actHideLoading());
       }
     } catch (error) {

@@ -42,9 +42,9 @@ export default function Header({ children }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <Typography variant="h3" className={classes.title}>
+      <AppBar position="static" color="primary" className={classes.header}>
+        <Toolbar style={{ minHeight: "100%" }}>
+          <Typography variant="h4" className={classes.title}>
             <Link to="/" className={classes.link}>
               Scheduler
             </Link>

@@ -7,7 +7,7 @@ const MuiButton = {
   },
   label: {
     textTransform: "capitalize",
-    fontSize: 12,
+    fontSize: 14,
     letterSpacing: 0.17,
     fontWeight: 500,
     height: 16,

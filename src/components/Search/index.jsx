@@ -1,10 +1,29 @@
-import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import ClearIcon from "@material-ui/icons/Clear";
+import List from "@material-ui/core/List";
 import { userApis } from "apis";
+import PropTypes from "prop-types";
+import React, { useRef, useState } from "react";
 import UserCard from "../UserCard";
 import "./search.scss";
 
+const useStyles = makeStyles(theme => ({
+  search: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  result: {
+    marginTop: theme.spacing(2)
+  }
+}));
+
 function Search({ onSubmit, cardId }) {
+  const classes = useStyles();
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const typingTimeoutRef = useRef(null);
@@ -41,27 +60,30 @@ function Search({ onSubmit, cardId }) {
   };
 
   return (
-    <React.Fragment>
-      <form className="search-form">
-        <i className="bx bx-search search-icon"></i>
-        <input
-          type="text"
-          name="search"
-          onChange={handleChangeSearch}
-          value={search}
-          className="search-input"
-          placeholder="Search"
-        />
-        <button className="search-button" onClick={handleClose}>
-          <i className="bx bx-x search-icon search-icon--danger"></i>
-        </button>
+    <div className={classes.search}>
+      <form>
+        <FormControl size="small" variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Search</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type="text"
+            value={search}
+            onChange={handleChangeSearch}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton aria-label="toggle password visibility" onClick={handleClose} edge="end">
+                  <ClearIcon color="error" />
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </FormControl>
       </form>
-      <div className="search-result">
-        {users.map(user => (
-          <UserCard user={user} key={user._id} cardId={cardId} />
-        ))}
+      <div className={classes.result}>
+        <List>{users && users.map(user => <UserCard user={user} key={user._id} cardId={cardId} />)}</List>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

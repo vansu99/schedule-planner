@@ -9,6 +9,7 @@ const pathName = {
   USER_REPORT: "/users/:id/report",
   USERS_ROLE: "/users/role/:id",
   USERS_ADD: "/users/add",
+  TODO_CALENDAR: "/todos/:boardId/timetable",
   TODO_LIST: "/todos/:boardId/:name?"
 };
 

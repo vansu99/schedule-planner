@@ -96,6 +96,24 @@ const asyncEditTodoCard = (cardId, title) => {
   };
 };
 
+const actEditDetailTodoCard = (cardId, cardContent) => {
+  return {
+    type: todoActions.EDIT_DETAIL_CARD,
+    payload: { cardId, cardContent }
+  };
+};
+
+const asyncEditDetailTodoCard = (cardId, content) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.updateSingleCardTodo(cardId, content);
+      if (result.status === 200) dispatch(actEditDetailTodoCard(cardId, result.data.result));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const asyncUpdateCompletedTodoCard = (cardId, completed, boardId) => {
   return async dispatch => {
     try {
@@ -270,5 +288,6 @@ export const cardActions = {
   asyncEditTodoCard,
   asyncRemoveCheckListTodoCard,
   asyncRemoveMemberTodoCard,
+  asyncEditDetailTodoCard,
   asyncRemoveTodoCard
 };

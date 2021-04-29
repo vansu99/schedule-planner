@@ -11,9 +11,8 @@ import TodoReportPieChart from "./components/TodoReportPieChart";
 import TodoReportTable from "./components/TodoReportTables";
 import useStyles from "./todoReport.theme";
 
-function TodoReport({ reports = {}, totalCards }) {
+function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard }) {
   const classes = useStyles();
-
   const calPercentCompletedTodo = useCallback(
     value => {
       let result = Math.round((value / totalCards) * 100).toFixed(2);
@@ -22,26 +21,35 @@ function TodoReport({ reports = {}, totalCards }) {
     [totalCards]
   );
 
+  const onChangeBoard = e => {
+    if (handleChangeBoard) {
+      handleChangeBoard(e.target.value);
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div>
         <Typography variant="h4" className={classes.todoReportTitle}>
           Tổng quan báo cáo
         </Typography>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
+        <FormControl size="small" variant="outlined" className={classes.formControl}>
+          <InputLabel htmlFor="outlined-age-native-simple">Board</InputLabel>
           <Select
+            onChange={onChangeBoard}
             native
-            label="Age"
+            label="Board"
             inputProps={{
-              name: "age",
-              id: "outlined-age-native-simple"
+              name: "board",
+              id: "outlined-board-native-simple"
             }}
           >
             <option aria-label="None" value="" />
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
+            {allReports?.map(report => (
+              <option key={report._id} value={report._id}>
+                {report?.boardId.title}
+              </option>
+            ))}
           </Select>
         </FormControl>
       </div>
@@ -99,7 +107,9 @@ function TodoReport({ reports = {}, totalCards }) {
 
 TodoReport.propTypes = {
   reports: PropTypes.object,
-  totalCards: PropTypes.number
+  allReports: PropTypes.array,
+  totalCards: PropTypes.number,
+  handleChangeBoard: PropTypes.func
 };
 
 export default memo(TodoReport);

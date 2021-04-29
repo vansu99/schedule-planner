@@ -40,7 +40,7 @@ const typography = {
     letterSpacing: "-0.05px"
   },
   overline: {
-    fontWeight: 500
+    fontWeight: 400
   }
 };
 

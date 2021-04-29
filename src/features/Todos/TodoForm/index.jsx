@@ -3,7 +3,7 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import useStyles from "./theme.todoForm";
 import "./todoForm.scss";
 import { Box, IconButton } from "@material-ui/core";
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from "@material-ui/icons/Clear";
 
 function TodoForm({ handleCloseForm, text, handleChange, children, placeholder, isLists }) {
   const classes = useStyles();
