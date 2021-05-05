@@ -6,6 +6,7 @@
   "or": "hoặc",
   "reports": "Thống kê",
   "edit": "Sửa",
+  "cancel": "Hủy",
   "remove": "Xóa",
   "login_fb": "Đăng nhập bằng Facebook",
   "forgot_pw": "Quên mật khẩu?",
@@ -23,5 +24,7 @@
   "due_date": "Ngày hết hạn",
   "description": "Mô tả chi tiết",
   "see_more_cmt": "Xem thêm nhận xét...",
-  "hide_more_cmt": "Ẩn nhận xét..."
+  "hide_more_cmt": "Ẩn nhận xét...",
+  "are_you_sure": "Bạn có chắc chắn?",
+  "activity": "Hoạt động"
 }

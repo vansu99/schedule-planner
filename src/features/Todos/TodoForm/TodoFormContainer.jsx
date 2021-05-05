@@ -2,6 +2,7 @@ import { Box, Button, Collapse, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { cardActions } from "actions/Todos/card.action";
 import { listActions } from "actions/Todos/list.action";
+import { activityActions } from "actions/Activity/activity.action";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +56,12 @@ export default function TodoFormContainer({ isLists, listId }) {
     const newList = { title, cards: [] };
 
     dispatch(listActions.asyncAddTodoList(boardId, newList));
+    dispatch(
+      activityActions.asyncCreateNewActivity({
+        text: `${userId.username} added ${newList.title} to this board`,
+        boardId: boardId
+      })
+    );
     setTitle("");
     setOpen(false);
   };

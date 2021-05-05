@@ -4,6 +4,7 @@
   "login": "Log in",
   "or": "Or",
   "edit": "Edit",
+  "cancel": "Cancel",
   "reports": "Reports",
   "remove": "Remove",
   "login_fb": "Log in with Facebook",
@@ -22,5 +23,7 @@
   "due_date": "Due date",
   "description": "Description",
   "see_more_cmt": "See more comments...",
-  "hide_more_cmt": "Hide comments..."
+  "hide_more_cmt": "Hide comments...",
+  "are_you_sure": "Are you sure?",
+  "activity": "Activity"
 }

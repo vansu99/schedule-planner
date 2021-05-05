@@ -1,13 +1,13 @@
 import { Box, Button, Typography } from "@material-ui/core";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { boardActions } from "actions/Todos/board.action";
 import { dndActions } from "actions/Todos/dnd.action";
-import React, { memo, useEffect } from "react";
+import DrawerComponent from "components/Drawer";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { getCards, getColumns, getLists, getBoards } from "selectors/todos.selector";
+import { getBoards, getCards, getColumns, getLists } from "selectors/todos.selector";
 import TodoFormContainer from "./TodoForm/TodoFormContainer";
 import TodoList from "./TodoList";
 import "./todos.scss";
@@ -15,10 +15,15 @@ import "./todos.scss";
 function Todos() {
   const { boardId } = useParams();
   const dispatch = useDispatch();
+  const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
   const getListSelector = useSelector(getLists);
   const getCurrBoardSelector = useSelector(getBoards);
+
+  const handleToogleDrawer = useCallback(() => {
+    setIsDrawer(!isDrawer);
+  }, [isDrawer]);
 
   const onDragEnd = result => {
     const { type } = result;
@@ -38,6 +43,7 @@ function Todos() {
     dispatch(boardActions.asyncGetListsFromBoard(boardId));
     dispatch(boardActions.asyncGetColumnByBoardId(boardId));
     dispatch(boardActions.asyncGetCardsFromBoard(boardId));
+    dispatch(boardActions.asyncGetActivity(boardId));
   }, [dispatch, boardId]);
 
   return (
@@ -46,16 +52,15 @@ function Todos() {
         <Typography variant="h4" component="h4">
           {getCurrBoardSelector[0]?.title}
         </Typography>
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<MoreHorizIcon />}
-          component={Link}
-          to={`/todos/${boardId}/timetable`}
-        >
+        <Button variant="outlined" color="primary" startIcon={<MoreHorizIcon />} onClick={handleToogleDrawer}>
           Show Menu
         </Button>
       </Box>
+      <DrawerComponent
+        board={getCurrBoardSelector[0]?.title}
+        isDrawer={isDrawer}
+        handleToogleDrawer={handleToogleDrawer}
+      />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="all-columns" direction="horizontal" type="LIST">
           {provided => {

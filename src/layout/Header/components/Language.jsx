@@ -51,6 +51,15 @@ export default function Language(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         className={classes.menu}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left"
+        }}
+        getContentAnchorEl={null}
       >
         <MenuItem onClick={() => _handleChooseLanguage(LANGUAGE.ENGLISH)}>ENGLISH</MenuItem>
         <MenuItem onClick={() => _handleChooseLanguage(LANGUAGE.VIETNAMESE)}>VIETNAMESE</MenuItem>

@@ -44,6 +44,14 @@ export function todosReducer(state = initialState, { type, payload }) {
         boards: newBoard
       };
 
+    case todoActions.REMOVE_BOARDS:
+      const newRemoveBoard = [...state.boards].filter(board => board._id !== payload.boardId);
+      console.log({newRemoveBoard});
+      return {
+        ...state,
+        boards: newRemoveBoard
+      };
+
     case todoActions.ADD_COLUMNID_TODO_BOARD:
       return {
         ...state
@@ -161,6 +169,14 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newLabelCard }
+      };
+
+    case todoActions.REMOVE_LABEL:
+      const newRemoveLabelCard = state.cards[payload.cardId];
+      newRemoveLabelCard.label = newRemoveLabelCard.label.filter(item => item.value !== payload.labelId);
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newRemoveLabelCard }
       };
 
     case todoActions.ADD_DEADLINE_TODO_CARD:

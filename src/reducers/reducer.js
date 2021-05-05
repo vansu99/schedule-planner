@@ -5,6 +5,7 @@ import { appReducer } from "./App";
 import { socketReducer } from "./Socket";
 import { notifyReducer } from "./Notification";
 import { calendarReducer } from "./Calendar";
+import { activityReducer } from "./Activity";
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   todo: todosReducer,
   socket: socketReducer,
   calendar: calendarReducer,
+  activities: activityReducer,
   notifications: notifyReducer
 });
 

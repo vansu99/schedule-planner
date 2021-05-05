@@ -23,6 +23,28 @@ const asyncAddLabelTodo = (cardId, label) => {
   };
 };
 
+const actRemoveLabelTodoCard = (cardId, labelId) => {
+  return {
+    type: todoActions.REMOVE_LABEL,
+    payload: { cardId, labelId }
+  };
+};
+
+const asyncRemoveLabelTodo = (cardId, labelId) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.removeLabelTodoCard(cardId, labelId);
+      if (result.status === 200) {
+        showToast(result.data.msg, "success");
+        dispatch(actRemoveLabelTodoCard(cardId, labelId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 export const labelActions = {
-  asyncAddLabelTodo
+  asyncAddLabelTodo,
+  asyncRemoveLabelTodo
 };

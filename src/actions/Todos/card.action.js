@@ -67,9 +67,10 @@ const asyncRemoveTodoCard = (listId, cardId, boardId) => {
       const result = await todosApis.removeCardTodo(cardId);
       if (result.status === 200) {
         dispatch(actRemoveTodoCard(listId, cardId));
-        await listsApis.removeCardIdToList(listId, cardId);
+        // xóa cardId ở trong Lists
+        //await listsApis.removeCardIdToList(listId, cardId);
         // xóa luôn cardId ở cardFailed trong Reports
-        await completedTodoApis.removeFailedTodo(boardId, cardId);
+        //await completedTodoApis.removeFailedTodo(boardId, cardId);
         showToast(result.data.msg, "success");
       }
     } catch (error) {
@@ -129,7 +130,7 @@ const asyncUpdateCompletedTodoCard = (cardId, completed, boardId) => {
       dispatch(actHideLoading());
       console.log(error);
     }
-  }
+  };
 };
 
 const actEditDescTodoCard = (cardId, desc) => {

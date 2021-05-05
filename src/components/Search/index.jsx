@@ -32,10 +32,14 @@ function Search({ onSubmit, cardId }) {
     setSearch(e.target.value);
     if (!handleFilterMemberTodo) return;
 
+    // cần clear cái timeout cũ để setup timeout mới cho mỗi lần typing
+    // check nều đang đợi => thì clear nó đi
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 
+    // mỗi lần typing là sẽ đợi 500ms rồi mới chạy lệnh bên trong
+    // cứ tiếp tục typing thì sẽ cứ đợi 500ms và mỗi lần thay đổi đó cần xóa đi cái timeout trước đó
     typingTimeoutRef.current = setTimeout(() => {
       const formValues = {
         search: e.target.value
@@ -71,7 +75,7 @@ function Search({ onSubmit, cardId }) {
             onChange={handleChangeSearch}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" onClick={handleClose} edge="end">
+                <IconButton onClick={handleClose} edge="end">
                   <ClearIcon color="error" />
                 </IconButton>
               </InputAdornment>

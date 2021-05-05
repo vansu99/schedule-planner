@@ -31,6 +31,9 @@ const todosApis = {
   addLabelTodoCard: (id, label) => {
     return axiosClient.patch(`/api/cards/${id}/label`, label);
   },
+  removeLabelTodoCard: (id, labelId) => {
+    return axiosClient.delete(`/api/cards/${id}/label/${labelId}`);
+  },
   addMemberTodoCard: (id, member) => {
     return axiosClient.patch(`/api/cards/${id}/member`, member);
   },

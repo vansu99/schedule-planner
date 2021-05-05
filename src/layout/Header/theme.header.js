@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   header: {
-    height: 45
+    height: 46
   },
   title: {
     flexGrow: 1
@@ -14,6 +14,16 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "'Kaushan Script', cursive",
     color: "#fff",
     textDecoration: "none"
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    marginRight: theme.spacing(1)
+  },
+  menuSelect: {
+    "& .MuiMenuItem-root": {
+      fontWeight: 400
+    }
   }
 }));
 

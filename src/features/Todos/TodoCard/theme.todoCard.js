@@ -64,7 +64,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
-
   chipEl: {
     fontSize: "1.3rem",
     marginRight: theme.spacing(1.5)
@@ -122,6 +121,14 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: "none",
     color: "#333333"
+  },
+  label: {
+    fontSize: "12px",
+    color: "#FFF",
+    marginRight: theme.spacing(1),
+    "& .MuiChip-deleteIcon": {
+      color: "#f3f3f3d6"
+    }
   }
 }));
 

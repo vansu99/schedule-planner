@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale } from "react-datepicker";
-import { Box, TextField, Button, Typography, Divider } from "@material-ui/core";
-import DatePicker from "react-datepicker";
+import { Box, Button, Divider, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +19,13 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     paddingBottom: theme.spacing(1.5)
+  },
+  datePicker: {
+    marginTop: theme.spacing(1.5),
+    padding: theme.spacing(1),
+    borderRadius: "4px",
+    border: "1px solid rgba(0, 0, 0, 0.23)",
+    outline: "none"
   }
 }));
 
@@ -52,6 +58,7 @@ function CalendarForm({ onSubmit, event = {} }) {
       <Box mt={2}>
         <TextField value={content?.title} onChange={onChange} name="title" size="small" fullWidth variant="outlined" />
         <DatePicker
+          className={classes.datePicker}
           showTimeSelect
           timeIntervals={15}
           dateFormat="dd/MM/yy HH:mm"

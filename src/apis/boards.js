@@ -13,6 +13,9 @@ const boardsApis = {
   getBoardById: ids => {
     return axiosClient.post(`/api/boards/ids`, { ids });
   },
+  removeBoardById: id => {
+    return axiosClient.delete(`/api/boards/${id}`);
+  },
   getListsFromBoard: id => {
     return axiosClient.get(`/api/boards/${id}/lists`);
   },
@@ -21,6 +24,9 @@ const boardsApis = {
   },
   getColumnsFromBoard: id => {
     return axiosClient.get(`/api/boards/${id}/columns`);
+  },
+  getActivityFromBoard: (id, params) => {
+    return axiosClient.get(`/api/boards/${id}/activity?${params}`);
   }
 };
 

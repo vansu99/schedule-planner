@@ -1,11 +1,11 @@
-import { Divider } from "@material-ui/core";
+import { Divider, Avatar } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import NotificationButton from "components/Notification/NotificationButton";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,14 +19,9 @@ export default function Header({ children }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t: translate } = useTranslation();
-  const [isShow, setIsShow] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const loggedInUser = useSelector(state => state.user.currentUser);
   const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
-
-  const handleShowDrawler = () => {
-    setIsShow(!isShow);
-  };
 
   const handleLogout = () => {
     dispatch(userActions.actLogout());
@@ -54,13 +49,17 @@ export default function Header({ children }) {
               {translate("login")}
             </Link>
           )} */}
+          <NotificationButton />
+          {children}
+          <Divider orientation="vertical" variant="middle" />
           {isLoggedIn && (
             <>
-              <NotificationButton />
               <IconButton color="inherit" aria-controls="menu-appbar" onClick={handleUserClick}>
-                <AccountCircle fontSize="large" />
+                <Avatar src={loggedInUser.image} className={classes.small} />
+                <KeyboardArrowDownIcon />
               </IconButton>
               <Menu
+                className={classes.menuSelect}
                 id="menu-appbar"
                 keepMounted
                 anchorEl={anchorEl}
@@ -76,13 +75,18 @@ export default function Header({ children }) {
                 }}
                 getContentAnchorEl={null}
               >
-                <MenuItem>Thông tin</MenuItem>
-                <Divider variant="middle" />
+                <MenuItem>
+                  Signed in as <span style={{ marginLeft: "5px", fontWeight: 500 }}>{loggedInUser.username}</span>
+                </MenuItem>
+                <Divider />
+                <MenuItem>Helps</MenuItem>
+                <MenuItem>Settings</MenuItem>
+                <MenuItem>Your profile</MenuItem>
+                <Divider />
                 <MenuItem onClick={handleLogout}>{translate("logout")}</MenuItem>
               </Menu>
             </>
           )}
-          {children}
         </Toolbar>
       </AppBar>
     </div>

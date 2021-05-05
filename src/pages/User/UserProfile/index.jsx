@@ -1,4 +1,5 @@
 import { boardActions } from "actions/Todos/board.action";
+import { activityActions } from "actions/Activity/activity.action";
 import { useInput } from "hooks";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -22,6 +23,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import ButtonComponent from "components/Button";
 import "./userProfile.scss";
 import { Box, TextField } from "@material-ui/core";
 
@@ -29,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     "& > .MuiContainer-maxWidthLg": {
-      maxWidth: "780px"
+      maxWidth: "860px"
     }
   },
   large: {
@@ -66,6 +68,7 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer"
   }
 }));
+
 function UserProfile(props) {
   const { id } = useParams();
   const { t: translate } = useTranslation();
@@ -79,14 +82,17 @@ function UserProfile(props) {
 
   useEffect(() => {
     dispatch(userActions.asyncGetMe());
-  }, [id, dispatch]);
-
-  useEffect(() => {
     dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
-  }, [dispatch]);
+  }, [id, dispatch]);
 
   const handleAddBoard = () => {
     dispatch(boardActions.asyncAddBoard(currentUser._id, dataBoard));
+    dispatch(
+      activityActions.asyncCreateNewActivity({
+        text: `${currentUser.username} created this board`,
+        boardId: currentUser.boardId
+      })
+    );
     resetDataBoard();
     setShowModal(false);
   };
@@ -129,18 +135,7 @@ function UserProfile(props) {
               </Typography>
             </Grid>
             <Grid item xs>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                className={classes.btnMargin}
-                onClick={() => setOnEdit(true)}
-              >
-                {translate("edit_profile")}
-              </Button>
-              <Button variant="contained" size="large" component={Link} to={`/users/${currentUser._id}/report`}>
-                {translate("reports")}
-              </Button>
+              <ButtonComponent text={translate("edit_profile")} type="form" onClick={() => setOnEdit(true)} />
             </Grid>
           </Grid>
         </div>

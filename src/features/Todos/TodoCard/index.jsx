@@ -52,7 +52,7 @@ TodoCard.propTypes = {
 };
 
 function TodoCard(props) {
-  const { title, cardId, member = [], checklist, index, listId, desc, label, date, comments = [], completed } = props;
+  const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
   const { boardId } = useParams();
@@ -125,13 +125,17 @@ function TodoCard(props) {
     dispatch(cardActions.asyncRemoveMemberTodoCard(cardId, memberId));
   };
 
-  const onChange = e => {
-    setCardContent(e.target.value);
+  const handleRemoveLabel = labelId => {
+    dispatch(labelActions.asyncRemoveLabelTodo(cardId, labelId));
   };
 
-  const handleChangeDescCard = e => {
+  const onChange = useCallback(e => {
+    setCardContent(e.target.value);
+  }, []);
+
+  const handleChangeDescCard = useCallback(e => {
     setDescCardContent(e.target.value);
-  };
+  }, []);
 
   const handleChangeCompletedCard = e => {
     setCompletedTodo(e.target.checked);
@@ -230,14 +234,14 @@ function TodoCard(props) {
                 )}
               </Typography>
               <Box display="flex" mt={2} ml={2}>
-                {label?.map(item => (
-                  <div
-                    key={item.value}
-                    className="todoCard-details__labels-item"
+                {label?.map((item, index) => (
+                  <Chip
+                    key={index}
+                    label={item.name}
                     style={{ backgroundColor: `${item.color}` }}
-                  >
-                    <span>{item.name}</span>
-                  </div>
+                    className={classes.label}
+                    onDelete={() => handleRemoveLabel(item.value)}
+                  />
                 ))}
               </Box>
             </Box>
@@ -433,14 +437,14 @@ function TodoCard(props) {
                 )}
               </Typography>
               <Box display="flex" mt={2} ml={2}>
-                {label?.map(item => (
-                  <div
-                    key={item.value}
-                    className="todoCard-details__labels-item"
+                {label?.map((item, index) => (
+                  <Chip
+                    key={index}
+                    label={item.name}
                     style={{ backgroundColor: `${item.color}` }}
-                  >
-                    <span>{item.name}</span>
-                  </div>
+                    className={classes.label}
+                    onDelete={() => handleRemoveLabel(item.value)}
+                  />
                 ))}
               </Box>
             </Box>

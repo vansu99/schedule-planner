@@ -153,10 +153,57 @@ const asyncGetCardsFromBoard = id => {
   };
 };
 
+const actRemoveBoardById = boardId => {
+  return {
+    type: todoActions.REMOVE_BOARDS,
+    payload: { boardId }
+  };
+};
+
+const asyncRemoveBoardById = boardId => {
+  return async dispatch => {
+    try {
+      const result = await boardsApis.removeBoardById(boardId);
+      if (result.status === 200) {
+        dispatch(actRemoveBoardById(boardId));
+        showToast(result.data.msg, "success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+const asyncGetActivity = (boardId, last, limit) => {
+  return async dispatch => {
+    let params = "";
+    if (last) params += `&last=${last}`;
+    // eslint-disable-next-line no-unused-vars
+    if (limit) params += `&limit=${limit || 10}`;
+    try {
+      const result = await boardsApis.getActivityFromBoard(boardId);
+      if (result.status === 200) {
+        dispatch({
+          type: todoActions.GET_ACTIVITIES,
+          payload: {
+            activities: result.data,
+            hasMore: result.headers["x-has-more"] === true,
+            add: !!last
+          }
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const boardActions = {
   asyncAddBoard,
+  asyncGetActivity,
   asyncGetBoardById,
   asyncGetAllBoards,
+  asyncRemoveBoardById,
   asyncGetCardsFromBoard,
   asyncGetListsFromBoard,
   asyncGetColumnByBoardId
