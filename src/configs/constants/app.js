@@ -6,12 +6,12 @@ const appConstants = {
 };
 
 const LANGUAGE = {
-  ENGLISH: "en",
+  ENGLISH: process.env.REACT_APP_LANGUAGE,
   VIETNAMESE: "vn"
 };
 
 const THEMES = {
-  LIGHT: "light",
+  LIGHT: process.env.REACT_APP_THEME,
   DARK: "dark"
 };
 
