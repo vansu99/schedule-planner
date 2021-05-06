@@ -7,6 +7,9 @@ import Chip from "@material-ui/core/Chip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -41,6 +44,7 @@ import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import useStyles from "./theme.todoCard";
 import "./todoCard.scss";
+import { closestIndexTo } from "date-fns/esm";
 
 TodoCard.propTypes = {
   title: PropTypes.string,
@@ -323,6 +327,7 @@ function TodoCard(props) {
                 <AccordionCpt title="label" icon="bx bx-label">
                   <Box width="91%">
                     <TextField
+                      className={classes.textFieldLabel}
                       fullWidth
                       size="small"
                       label="Nhập tên nhãn công việc"
@@ -330,29 +335,40 @@ function TodoCard(props) {
                       onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
                     />
                     <Box mt={2} mb={2.5} display="flex" alignItems="baseline">
-                      <span style={{ fontWeight: "bold", marginRight: "18px", color: "#B4ADCD" }}>Color</span>
-                      {labelColors.map((label, idx) => (
-                        <Box display="flex" alignItems="center" position="relative" key={idx}>
-                          <Radio
-                            className={classes.todoCardRadioLabel}
-                            name="labelcolor"
-                            value={label}
-                            onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
-                          />
-                          <span
-                            style={{
-                              position: "absolute",
-                              left: 0,
-                              right: 0,
-                              width: "3rem",
-                              height: "3rem",
-                              backgroundColor: `${label}`,
-                              display: "block",
-                              borderRadius: "50%"
-                            }}
-                          />
-                        </Box>
-                      ))}
+                      <FormControl>
+                        <FormLabel>Color</FormLabel>
+                        <RadioGroup
+                          aria-label="labelcolor"
+                          name="labelcolor"
+                          value={infoLabel.color}
+                          onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                        >
+                          <Box mt={1} display="flex" alignItems="center" position="relative" key={index}>
+                            {labelColors.map((label, index) => (
+                              <Box position="relative">
+                                <Radio
+                                  disableRipple
+                                  value={label}
+                                  classes={{ root: classes.radio, checked: classes.checked }}
+                                />
+                                <span
+                                  style={{
+                                    position: "absolute",
+                                    left: "2px",
+                                    top: "3px",
+                                    right: 0,
+                                    width: "3rem",
+                                    height: "3rem",
+                                    backgroundColor: `${label}`,
+                                    display: "inline-block",
+                                    borderRadius: "50%"
+                                  }}
+                                />
+                              </Box>
+                            ))}
+                          </Box>
+                        </RadioGroup>
+                      </FormControl>
                     </Box>
                     <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
                       Thêm nhãn công việc
@@ -517,8 +533,10 @@ function TodoCard(props) {
               Lưu công việc
             </Button>
           </Box>
-          <div className="todoCard-details__right">
-            <h3 className="todoCard-details__label">Thêm vào thẻ</h3>
+          <Box className={classes.todoCardRight}>
+            <Typography variant="h4" component="h4">
+              Thêm vào thẻ
+            </Typography>
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
                 <AccordionCpt title="member" icon="bx bx-user">
@@ -527,37 +545,50 @@ function TodoCard(props) {
               </Box>
               <Box mt={1} component="li">
                 <AccordionCpt title="label" icon="bx bx-label">
-                  <Box width="100%">
+                  <Box width="91%">
                     <TextField
+                      className={classes.textFieldLabel}
                       fullWidth
                       size="small"
-                      variant="outlined"
                       label="Nhập tên nhãn công việc"
                       value={infoLabel.name}
                       onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
                     />
-                    <Box mt={1} mb={1.5}>
-                      {labelColors.map((label, idx) => (
-                        <Box display="flex" alignItems="center" position="relative" key={idx}>
-                          <Radio
-                            className={classes.todoCardRadioLabel}
-                            name="labelcolor"
-                            value={label}
-                            onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
-                          />
-                          <span
-                            style={{
-                              position: "absolute",
-                              left: 0,
-                              right: 0,
-                              height: "2rem",
-                              backgroundColor: `${label}`,
-                              display: "inline-block",
-                              borderRadius: "4px"
-                            }}
-                          />
-                        </Box>
-                      ))}
+                    <Box mt={2} mb={2.5} display="flex" alignItems="baseline">
+                      <FormControl>
+                        <FormLabel>Color</FormLabel>
+                        <RadioGroup
+                          aria-label="labelcolor"
+                          name="labelcolor"
+                          value={infoLabel.color}
+                          onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                        >
+                          <Box mt={1} display="flex" alignItems="center" position="relative" key={index}>
+                            {labelColors.map((label, index) => (
+                              <Box position="relative">
+                                <Radio
+                                  disableRipple
+                                  value={label}
+                                  classes={{ root: classes.radio, checked: classes.checked }}
+                                />
+                                <span
+                                  style={{
+                                    position: "absolute",
+                                    left: "2px",
+                                    top: "3px",
+                                    right: 0,
+                                    width: "3rem",
+                                    height: "3rem",
+                                    backgroundColor: `${label}`,
+                                    display: "inline-block",
+                                    borderRadius: "50%"
+                                  }}
+                                />
+                              </Box>
+                            ))}
+                          </Box>
+                        </RadioGroup>
+                      </FormControl>
                     </Box>
                     <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
                       Thêm nhãn công việc
@@ -603,7 +634,7 @@ function TodoCard(props) {
                 </AccordionCpt>
               </Box>
             </Box>
-          </div>
+          </Box>
         </Box>
       </div>
     </ReactModal>

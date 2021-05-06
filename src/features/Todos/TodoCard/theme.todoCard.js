@@ -28,12 +28,32 @@ const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(1)
     }
   },
-  todoCardRadioLabel: {
-    cursor: "pointer",
-    width: "100%",
-    "& .MuiRadio-colorSecondary.Mui-checked": {
-      backgroundColor: "red"
+  radio: {
+    position: "relative",
+    marginRight: theme.spacing(1),
+    padding: "9px",
+    boxShadow: "none"
+  },
+  checked: {
+    "&::before": {
+      position: "absolute",
+      content: "''",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      transform: "scale(1.25) translate(1%, 3%)",
+      borderRadius: "inherit",
+      border: "2px solid #607d8b"
     }
+  },
+  radioLabel: {
+    display: "block",
+    position: "absolute",
+    left: 0,
+    width: "3rem",
+    height: "3rem",
+    borderRadius: "50%"
   },
   todoCardDeadline: {
     display: "flex",
