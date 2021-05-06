@@ -649,7 +649,6 @@ function TodoCard(props) {
             {...provided.draggableProps}
             ref={provided.innerRef}
             onDoubleClick={() => setShowModal(true)}
-            className="todoCard__container"
           >
             {isEditing ? renderTextarea() : renderCard()}
             {desc ? renderModalWithDescCard() : renderContentModal()}

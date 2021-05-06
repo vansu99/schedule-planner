@@ -15,8 +15,8 @@ function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard })
   const classes = useStyles();
   const calPercentCompletedTodo = useCallback(
     value => {
-      let result = Math.round((value / totalCards) * 100).toFixed(2);
-      return result;
+      let result = Math.round((value / totalCards) * 100).toFixed(1);
+      return result || 0;
     },
     [totalCards]
   );

@@ -109,7 +109,7 @@ const useStyles = makeStyles(theme => ({
     float: "right",
     height: "100vh",
     right: props => (props.isDrawer === false ? theme.spacing(-100) : theme.spacing(0)),
-    top: "7.1%",
+    top: "6.9%",
     borderRadius: theme.spacing(0),
     position: "fixed",
     wordWrap: "break-word",

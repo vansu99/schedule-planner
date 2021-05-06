@@ -8,7 +8,7 @@ const lightTheme = createMuiTheme({
       white: "#ffffff"
     },
     background: {
-      default: "#F7F8FA",
+      default: "#ffffff",
       paper: "#F7F8FA"
     },
     primary: {

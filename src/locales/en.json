@@ -12,6 +12,7 @@
   "dont_acc": "Don't have an account?",
   "register": "Sign up",
   "create_board": "Create new board",
+  "delete_board": "Delete board",
   "board": "Boards",
   "edit_profile": "Edit Profile",
   "add_list": "Add another list",
@@ -25,5 +26,7 @@
   "see_more_cmt": "See more comments...",
   "hide_more_cmt": "Hide comments...",
   "are_you_sure": "Are you sure?",
-  "activity": "Activity"
+  "activity": "Activity",
+  "change_bg": "Change Background",
+  "calendar": "Calendar"
 }

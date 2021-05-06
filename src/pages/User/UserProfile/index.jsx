@@ -29,6 +29,7 @@ import { Box, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
+    paddingTop: theme.spacing(5),
     flexGrow: 1,
     "& > .MuiContainer-maxWidthLg": {
       maxWidth: "860px"
@@ -51,7 +52,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
   paper: {
-    backgroundColor: "#4D5465",
     color: "#ffffff",
     "& > .MuiBox-root": {
       display: "block",
@@ -79,6 +79,7 @@ function UserProfile(props) {
   const [onEdit, setOnEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput("");
+  console.log({ boards });
 
   useEffect(() => {
     dispatch(userActions.asyncGetMe());
@@ -146,7 +147,11 @@ function UserProfile(props) {
           <Grid container spacing={4}>
             {boards.map(board => (
               <Grid item xs md={4} key={board._id}>
-                <Paper elevation={4} className={classes.paper}>
+                <Paper
+                  elevation={4}
+                  className={classes.paper}
+                  style={{ backgroundColor: `${board.image?.color && board.image?.color}` }}
+                >
                   <Box p={1} component={Link} to={`/todos/${board._id}/${board.slug}`}>
                     <Typography variant="h5" component="h5">
                       {board.title}

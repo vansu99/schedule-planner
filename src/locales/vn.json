@@ -13,6 +13,7 @@
   "dont_acc": "Bạn không có tài khoản?",
   "register": "Đăng ký",
   "create_board": "Tạo bảng",
+  "delete_board": "Xóa bảng",
   "board": "Bảng",
   "edit_profile": "Chỉnh sửa trang cá nhân",
   "add_list": "Thêm danh sách khác",
@@ -26,5 +27,7 @@
   "see_more_cmt": "Xem thêm nhận xét...",
   "hide_more_cmt": "Ẩn nhận xét...",
   "are_you_sure": "Bạn có chắc chắn?",
-  "activity": "Hoạt động"
+  "activity": "Hoạt động",
+  "change_bg": "Thay đổi màu nền",
+  "calendar": "Thời gian biểu"
 }

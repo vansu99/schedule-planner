@@ -22,8 +22,9 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonComponent from "components/Button";
 import LinkComponent from "components/Link";
 import ActivityPage from "components/Activity";
+import Background from "components/Background";
 
-function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
+function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground }) {
   const classes = useStyles({ isDrawer });
   const { t: translate } = useTranslation();
   const history = useHistory();
@@ -37,6 +38,13 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
     if (handleToogleDrawer) {
       handleToogleDrawer();
     }
+    if (showBackground) {
+      setShowBackground(false);
+    }
+  };
+
+  const handleToggleBackground = () => {
+    setShowBackground(prev => !prev);
   };
 
   return (
@@ -52,13 +60,34 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
           <Divider variant="middle" />
           <Box p={2}>
             <ButtonComponent
-              text="Delete Board"
+              text={translate("delete_board")}
               icon={<DeviceHubIcon />}
               handleClick={() => setDeleting(true)}
               type="select"
             />
-            <ButtonComponent text="Change Background" icon={<PanoramaIcon />} type="select" />
-            <LinkComponent text="Calendar" href={`/todos/${boardId}/timetable`} icon={<CalendarTodayIcon />} />
+            <ButtonComponent
+              text={translate("change_bg")}
+              icon={
+                <span
+                  style={{
+                    marginRight: "13px",
+                    backgroundColor: `${board.image.color}`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    width: "20px",
+                    height: "20px",
+                    borderRadius: "2px"
+                  }}
+                ></span>
+              }
+              type="select"
+              handleClick={handleToggleBackground}
+            />
+            <LinkComponent
+              text={translate("calendar")}
+              href={`/todos/${boardId}/timetable`}
+              icon={<CalendarTodayIcon />}
+            />
             <LinkComponent text={translate("reports")} href={`/users/${_id}/report`} icon={<AssessmentIcon />} />
             <Dialog
               open={deleting}
@@ -69,7 +98,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
               <DialogTitle id="delete-dialog-title">{translate("are_you_sure")}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="delete-dialog-description">
-                  Bạn có chắc muốn xóa dự án <span style={{ color: "#3A61C8" }}>{board}</span> này.
+                  Bạn có chắc muốn xóa dự án <span style={{ color: "#3A61C8" }}>{board.title}</span> này.
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -100,12 +129,21 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
           </Box>
         </Paper>
       )}
+      {showBackground && (
+        <Background
+          closeHandler={handleClose}
+          setColorBackground={setBackground}
+          backHandler={handleToggleBackground}
+        />
+      )}
     </React.Fragment>
   );
 }
 
 DrawerComponent.propTypes = {
-  board: PropTypes.string
+  board: PropTypes.string,
+  setBackground: PropTypes.func,
+  handleToogleDrawer: PropTypes.func
 };
 
 export default DrawerComponent;

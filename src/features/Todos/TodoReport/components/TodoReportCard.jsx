@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function TodoReportCard({ title, completed, calPercent, color }) {
+function TodoReportCard({ title, completed, calPercent = 0, color }) {
   const classes = useStyles();
+
   return (
     <Card className={classes.todoReportCard} style={{ borderBottom: `7px solid ${color}` }}>
       <Typography variant="h4" component="h4">
@@ -43,7 +44,7 @@ function TodoReportCard({ title, completed, calPercent, color }) {
       <Typography variant="h4" component="h5">
         {completed}
         <Typography variant="subtitle2" component="span" className={classes.todoCardPercent}>
-          ({calPercent || 0}%)
+          ({isNaN(calPercent) ? 0 : calPercent}%)
         </Typography>
       </Typography>
     </Card>

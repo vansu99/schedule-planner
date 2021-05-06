@@ -4,8 +4,7 @@ const initialState = {
   lists: {},
   cards: {},
   columns: [],
-  boards: [],
-  currBoard: {}
+  boards: []
 };
 
 export function todosReducer(state = initialState, { type, payload }) {
@@ -44,9 +43,17 @@ export function todosReducer(state = initialState, { type, payload }) {
         boards: newBoard
       };
 
+    case todoActions.UPDATE_BOARDS:
+      const newUpdateBoard = [...state.boards];
+      const targetIndex = newUpdateBoard.findIndex(board => board._id === payload.board._id);
+      newUpdateBoard[targetIndex] = payload.board;
+      return {
+        ...state,
+        boards: newUpdateBoard
+      };
+
     case todoActions.REMOVE_BOARDS:
       const newRemoveBoard = [...state.boards].filter(board => board._id !== payload.boardId);
-      console.log({newRemoveBoard});
       return {
         ...state,
         boards: newRemoveBoard

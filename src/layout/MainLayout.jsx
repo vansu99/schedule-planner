@@ -35,9 +35,7 @@ function MainLayout({ children }) {
         <DarkMode />
         <Language />
       </Header>
-      <div style={{ paddingTop: "3rem" }}>
-        <Container>{children}</Container>
-      </div>
+      {children}
       <Loading isLoading={isLoading} />
     </div>
   );
