@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     "& > span": {
       textTransform: "uppercase",
       backgroundColor: "#FFFFFF",
-      color: "#8e8e8e",
+      color: theme.palette.text.primary,
       fontSize: "1.2rem",
       fontWeight: "bold",
       padding: "0.5rem 0.9rem"
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   forgotLogin: {
-    color: "#00376b",
+    color: theme.palette.primary.main,
     fontSize: "1.2rem",
     textDecoration: "none",
     textAlign: "center",
@@ -85,14 +85,14 @@ const useStyles = makeStyles(theme => ({
   otherRegister: {
     border: "1px solid #dbdbdb",
     borderRadius: "1px",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: theme.palette.background.default,
     marginTop: theme.spacing(1.5),
     padding: "2rem 0",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     "& > p > a": {
-      color: "#0095f6",
+      color: theme.palette.primary.main,
       marginLeft: ".5rem"
     }
   }
