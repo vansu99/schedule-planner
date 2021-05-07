@@ -37,7 +37,7 @@ export default function Header({ children }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="primary" className={classes.header}>
+      <AppBar position="static" className={classes.header}>
         <Toolbar style={{ minHeight: "100%" }}>
           <Typography variant="h4" className={classes.title}>
             <Link to="/" className={classes.link}>

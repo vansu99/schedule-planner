@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import "./checkbox.scss";
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from "@material-ui/icons/Clear";
 import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
     "& + .MuiTypography-body1": {
       fontFamily: "Poppins, sans-serif",
       fontWeight: "400"
-    }
+    },
+    color: theme.palette.text.primary
   }
 }));
 

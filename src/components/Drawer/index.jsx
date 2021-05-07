@@ -70,13 +70,14 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
               icon={
                 <span
                   style={{
-                    marginRight: "13px",
-                    backgroundColor: `${board.image.color}`,
+                    marginRight: "7px",
+                    backgroundColor: `${board?.image?.color}`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     width: "20px",
                     height: "20px",
-                    borderRadius: "2px"
+                    borderRadius: "2px",
+                    border: "2px solid rgb(184 182 182)"
                   }}
                 ></span>
               }
@@ -98,7 +99,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
               <DialogTitle id="delete-dialog-title">{translate("are_you_sure")}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="delete-dialog-description">
-                  Bạn có chắc muốn xóa dự án <span style={{ color: "#3A61C8" }}>{board.title}</span> này.
+                  Bạn có chắc muốn xóa dự án <span style={{ color: "#3A61C8" }}>{board?.title}</span> này.
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -141,7 +142,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
 }
 
 DrawerComponent.propTypes = {
-  board: PropTypes.string,
+  board: PropTypes.object,
   setBackground: PropTypes.func,
   handleToogleDrawer: PropTypes.func
 };

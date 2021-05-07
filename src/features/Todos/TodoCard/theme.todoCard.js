@@ -63,6 +63,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "4px",
     border: "1px solid #d1d1d1",
     backgroundColor: "#FFFFFF",
+    color: theme.palette.text.secondary,
     padding: ".5rem 1rem",
     fontWeight: "400",
     "& > .MuiSvgIcon-root": {
@@ -105,6 +106,9 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.7rem",
       fontWeight: "bold",
       textTransform: "uppercase"
+    },
+    "& .MuiCheckbox-root": {
+      color: theme.palette.text.primary
     }
   },
   smallAvatar: {
@@ -115,14 +119,14 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "6px"
   },
   card: {
-    "& .MuiCardContent-root:last-child": {
-      paddingBottom: "16px"
+    // "& .MuiCardContent-root:last-child": {
+    //   paddingBottom: "16px"
+    // },
+    "& .MuiCardContent-root": {
+      padding: "6px 8px 2px"
     },
     position: "relative",
-    "&:hover .MuiIconButton-root": {
-      opacity: 1,
-      visibility: "visible"
-    }
+    overflow: "hidden"
   },
   box: {
     "& > .MuiChip-root": {
@@ -130,13 +134,18 @@ const useStyles = makeStyles(theme => ({
       fontSize: "12px",
       color: "#FFFFFF"
     },
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    wordWrap: "break-word",
+    overflowX: "hidden"
 
-    "& > .MuiIconButton-root": {
-      opacity: 0,
-      visibility: "hidden",
-      padding: "5px",
-      transition: "all 0.25s ease"
-    }
+    // "& > .MuiIconButton-root": {
+    //   opacity: 0,
+    //   visibility: "hidden",
+    //   padding: "5px",
+    //   transition: "all 0.25s ease"
+    // }
   },
   link: {
     textDecoration: "none",
@@ -148,6 +157,18 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     "& .MuiChip-deleteIcon": {
       color: "#f3f3f3d6"
+    }
+  },
+  menuItem: {
+    display: "flex",
+    alignItems: "center",
+    "& .MuiSvgIcon-root": {
+      fontSize: "1.8rem",
+      marginRight: theme.spacing(1.4)
+    },
+    "&:hover": {
+      backgroundColor: "transparent",
+      color: "#EB5757"
     }
   }
 }));

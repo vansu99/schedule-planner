@@ -1,11 +1,39 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { StorageKeys } from "configs";
-import "../todoCard.scss";
-import { useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import { commentActions } from "actions/Todos/comment.action";
+import { StorageKeys } from "configs";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+const useStyles = makeStyles(theme => ({
+  commentInput: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#f7f7f7",
+    border: "1px solid #d1d1d1",
+    "& > input": {
+      backgroundColor: " #f7f7f7",
+      border: "none",
+      outline: "none",
+      flex: 1,
+      overflow: "auto",
+      padding: "1rem",
+      color: "#000"
+    },
+    "& > button": {
+      padding: "1rem",
+      border: 0,
+      outline: "none",
+      backgroundColor: "#f7f7f7",
+      color: "#333",
+      fontWeight: 600,
+      fontSize: "1.4rem"
+    }
+  }
+}));
 
 function InputComment({ children, cardId, reply = {}, setReply }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const user = JSON.parse(localStorage.getItem(StorageKeys.USER));
@@ -27,12 +55,10 @@ function InputComment({ children, cardId, reply = {}, setReply }) {
   };
 
   return (
-    <div className="todoCard-details__comments-add">
+    <div className={classes.commentInput}>
       {children}
       <input type="text" placeholder="Add your comment..." value={content} onChange={e => setContent(e.target.value)} />
-      <button className="todoCard-details__comments-button" onClick={handleSubmitComment}>
-        Post
-      </button>
+      <button onClick={handleSubmitComment}>Post</button>
     </div>
   );
 }

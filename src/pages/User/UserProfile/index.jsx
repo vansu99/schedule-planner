@@ -79,7 +79,6 @@ function UserProfile(props) {
   const [onEdit, setOnEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput("");
-  console.log({ boards });
 
   useEffect(() => {
     dispatch(userActions.asyncGetMe());
@@ -150,7 +149,7 @@ function UserProfile(props) {
                 <Paper
                   elevation={4}
                   className={classes.paper}
-                  style={{ backgroundColor: `${board.image?.color && board.image?.color}` }}
+                  style={{ backgroundColor: `${board.image?.color === "#FFFFFF" ? "#4D5465" : board.image?.color}` }}
                 >
                   <Box p={1} component={Link} to={`/todos/${board._id}/${board.slug}`}>
                     <Typography variant="h5" component="h5">

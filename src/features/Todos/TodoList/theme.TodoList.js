@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "5px",
-    backgroundColor: "#dfe3e6",
+    backgroundColor: theme.palette.background.list,
     maxWidth: "300px",
     minWidth: "300px",
     maxHeight: "100%",
@@ -48,6 +48,15 @@ const useStyles = makeStyles(theme => ({
     minHeight: "10px",
     overflowX: "hidden",
     overflowY: "auto"
+  },
+  icon: {
+    color: theme.palette.text.primary,
+    backgroundColor: "transparent",
+    outline: "none",
+    border: 0,
+    "& .MuiSvgIcon-root": {
+      fontSize: "1.9rem"
+    }
   }
 }));
 

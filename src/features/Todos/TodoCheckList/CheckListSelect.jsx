@@ -10,8 +10,7 @@ import { useDispatch } from "react-redux";
 const useStyles = makeStyles(theme => ({
   btnMarginTop: {
     marginTop: theme.spacing(1)
-  },
-  chkCheckList: {},
+  }
 }));
 
 function CheckListSelect({ checklist, cardId }) {

@@ -16,10 +16,11 @@ const useStyles = makeStyles(theme => ({
   },
   addCard: {
     width: "100%",
-    backgroundColor: "#EBECF0",
+    backgroundColor: theme.palette.background.card,
     fontFamily: "Poppins, sans-serif",
-    "&:hover": {
-      backgroundColor: "#d6d7db",
+    "&.MuiButton-root:hover": {
+      background: theme.palette.background.card,
+      boxShadow: "0px 1px 3px 2px rgb(73 71 71 / 17%)",
       cursor: "pointer"
     },
     "& .MuiButton-label > i": {
@@ -102,9 +103,9 @@ export default function TodoFormContainer({ isLists, listId }) {
         </TodoForm>
       </Collapse>
       <Collapse in={!open}>
-        <Button className={classes.addCard} onClick={() => setOpen(!open)}>
+        <Button disableRipple className={classes.addCard} onClick={() => setOpen(!open)}>
           <i className="bx bx-plus"></i>
-          <Typography variant="h6" component="h6">
+          <Typography variant="h6" component="h6" color="textPrimary">
             {label}
           </Typography>
         </Button>

@@ -5,7 +5,8 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    minWidth: "21rem"
+    minWidth: "21rem",
+    marginBottom: "10px"
   },
   textarea: {
     outline: "none",

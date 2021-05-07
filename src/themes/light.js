@@ -5,17 +5,21 @@ const lightTheme = createMuiTheme({
     type: "light",
     common: {
       black: "#4D5465",
-      white: "#ffffff"
+      white: "#FFFFFF"
     },
     background: {
-      default: "#ffffff",
-      paper: "#F7F8FA"
+      default: "#FFFFFF",
+      paper: "#F7F8FA",
+      card: "#EBECF0",
+      list: "#dfe3e6",
+      modal: "#f4f5f7"
     },
     primary: {
-      main: "#3A61C8",
+      main: "#0348FF",
       light: "#1976d2",
       dark: "#303f9f",
-      contrastText: "#FFF"
+      contrastText: "#FFF",
+      menu: "#0348FF"
     },
     secondary: {
       main: "#6294E7",

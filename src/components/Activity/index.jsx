@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
   },
   timestamp: {
     fontSize: "11px",
-    marginTop: theme.spacing(0.5),
     color: "#637187"
   }
 }));

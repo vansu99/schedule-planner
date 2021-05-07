@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Controller } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
+import React from "react";
+import { Controller } from "react-hook-form";
 
 function InputField({ form, name, label, disabled }) {
   const { errors } = form;

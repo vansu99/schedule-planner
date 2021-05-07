@@ -7,6 +7,7 @@ import Chip from "@material-ui/core/Chip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import Radio from "@material-ui/core/Radio";
+import Fade from "@material-ui/core/Fade";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -17,6 +18,9 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import DescriptionIcon from "@material-ui/icons/Description";
 import GroupIcon from "@material-ui/icons/Group";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import LabelIcon from "@material-ui/icons/Label";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
@@ -44,16 +48,6 @@ import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import useStyles from "./theme.todoCard";
 import "./todoCard.scss";
-import { closestIndexTo } from "date-fns/esm";
-
-TodoCard.propTypes = {
-  title: PropTypes.string,
-  member: PropTypes.array,
-  checklist: PropTypes.array,
-  desc: PropTypes.string,
-  label: PropTypes.array,
-  comments: PropTypes.array
-};
 
 function TodoCard(props) {
   const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed } = props;
@@ -64,6 +58,7 @@ function TodoCard(props) {
   const [isEditing, setIsEditing] = useState(false);
   const [isEditDescCard, setIsEditDescCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [cardContent, setCardContent] = useState(title);
   const [descCardContent, setDescCardContent] = useState(desc);
   const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
@@ -73,6 +68,15 @@ function TodoCard(props) {
 
   const handleCloseForm = () => {
     setIsEditing(false);
+    setAnchorEl(null);
+  };
+
+  const handleShowSubMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleToggleSubMenu = () => {
+    setAnchorEl(prev => !prev);
   };
 
   const handleCloseFormEditDesc = () => {
@@ -176,17 +180,44 @@ function TodoCard(props) {
               ))}
             </Box>
           ) : null}
-          <Typography className={classes.title} variant="h5" gutterBottom>
-            {title}
-          </Typography>
-          <Box position="absolute" right={10} top={8} className={classes.box}>
-            <IconButton color="primary" onClick={() => setIsEditing(true)} style={{ display: "block" }}>
-              <CreateIcon />
+          <div className={classes.box}>
+            <Typography className={classes.title} variant="body2" component="p">
+              {title}
+            </Typography>
+            <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleShowSubMenu}>
+              <MoreVertIcon fontSize="inherit" />
             </IconButton>
-            <IconButton color="primary" onClick={handleRemoveCard}>
-              <DeleteOutlineIcon />
-            </IconButton>
-          </Box>
+            <Menu
+              id="long-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleToggleSubMenu}
+              TransitionComponent={Fade}
+              PaperProps={{
+                style: {
+                  width: "20rem",
+                  backgroundColor: "#FFFFFF"
+                }
+              }}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center"
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left"
+              }}
+            >
+              <MenuItem className={classes.menuItem} onClick={() => setIsEditing(true)}>
+                <CreateIcon /> Edit Task
+              </MenuItem>
+              <MenuItem className={classes.menuItem} onClick={handleRemoveCard}>
+                <DeleteOutlineIcon /> Delete Task
+              </MenuItem>
+            </Menu>
+          </div>
           {desc ? (
             <span className="todoCard__detail-icon" onClick={() => setShowModal(true)}>
               <i className="bx bx-detail"></i>
@@ -658,5 +689,14 @@ function TodoCard(props) {
     </Draggable>
   );
 }
+
+TodoCard.propTypes = {
+  title: PropTypes.string,
+  member: PropTypes.array,
+  checklist: PropTypes.array,
+  desc: PropTypes.string,
+  label: PropTypes.array,
+  comments: PropTypes.array
+};
 
 export default memo(TodoCard);

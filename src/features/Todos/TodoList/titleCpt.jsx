@@ -1,5 +1,6 @@
 import { InputBase, Typography } from "@material-ui/core";
 import React from "react";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import useStyles from "./theme.TodoList";
 
 export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveList, handleEditTitleList }) {
@@ -36,12 +37,12 @@ export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveL
       ) : (
         <div className={classes.editTitleContainer}>
           <div onClick={() => setOpen(!open)} className={classes.editTitle}>
-            <Typography variant="h5" component="h5">
+            <Typography variant="h5" component="h5" color="textPrimary">
               {title}
             </Typography>
           </div>
-          <button className="todoList__button" onClick={removeList}>
-            <i className="bx bx-trash"></i>
+          <button className={classes.icon} onClick={removeList}>
+            <DeleteOutlineIcon />
           </button>
         </div>
       )}

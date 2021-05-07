@@ -5,27 +5,29 @@ const darkTheme = createMuiTheme({
     type: "dark",
     common: {
       black: "#4D5465",
-      white: "#ffffff"
+      white: "#FFFFFF"
     },
     background: {
-      default: "#121212",
-      paper: "#424242"
+      default: "#171717",
+      paper: "#424242",
+      card: "rgba(84, 84, 89, 0.91)",
+      list: "rgb(24, 24, 32)"
     },
     primary: {
-      light: "#333",
-      main: "#90caf9",
-      dark: "#303f9f",
-      contrastText: "#fff"
+      main: "#0348FF",
+      dark: "#121212",
+      contrastText: "#FFFFFF",
+      menu: "#171717"
     },
     secondary: {
       light: "#ff4081",
       main: "#90caf9",
       dark: "#c51162",
-      contrastText: "#fff"
+      contrastText: "#FFFFFF"
     },
     text: {
-      primary: "#fff",
-      secondary: "#fff",
+      primary: "#FFFFFF",
+      secondary: "#000000",
       disabled: "rgba(255, 255, 255, 0.5)",
       hint: "rgba(255, 255, 255, 0.5)"
     },

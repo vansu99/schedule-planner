@@ -20,8 +20,8 @@ import "./styles/index.scss";
 function App() {
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
-  const { language, modeTheme } = useGlobalContext();
-  const type = modeTheme === THEMES.LIGHT ? 0 : 1;
+  const { language } = useGlobalContext();
+  const type = JSON.parse(localStorage.getItem(StorageKeys.DARK_MODE)) === THEMES.LIGHT ? 0 : 1;
   const token = localStorage.getItem(StorageKeys.TOKEN);
 
   useEffect(() => {

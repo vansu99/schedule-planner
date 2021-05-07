@@ -17,7 +17,9 @@ const useStyles = makeStyles(theme => ({
   app: {
     position: "relative",
     minHeight: "100vh",
-    paddingTop: "60px"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 }));
 

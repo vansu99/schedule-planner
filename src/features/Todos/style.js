@@ -9,6 +9,14 @@ const useStyles = makeStyles(theme => ({
   },
   main: {
     padding: "0 16px"
+  },
+  titleIcon: {
+    display: "flex",
+    alignItems: "center",
+    "& .MuiSvgIcon-root": {
+      marginRight: theme.spacing(1)
+    },
+    color: theme.palette.text.primary
   }
 }));
 

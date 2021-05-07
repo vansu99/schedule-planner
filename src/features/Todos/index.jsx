@@ -1,8 +1,9 @@
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box, Button, Divider, Typography } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { boardActions } from "actions/Todos/board.action";
 import { dndActions } from "actions/Todos/dnd.action";
 import DrawerComponent from "components/Drawer";
+import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +18,7 @@ function Todos() {
   const classes = useStyles();
   const { boardId } = useParams();
   const dispatch = useDispatch();
-  const [color, setColor] = useState("#FFF");
+  const [color, setColor] = useState("#FFFFFF");
   const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
@@ -85,16 +86,16 @@ function Todos() {
     <div
       className={classes.root}
       style={{
-        color: `${color ? "#FFF" : "#000000"}`,
+        color: `${color === "#FFFFFF" ? "#000000" : "#FFFFFF"}`,
         backgroundColor: `${color}`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat"
       }}
     >
       <div className={classes.main}>
-        <Box display="flex" justifyContent="space-between" mb={2}>
-          <Typography variant="h4" component="h4">
-            {getCurrBoardSelector[0]?.title}
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="h4" component="h4" className={classes.titleIcon}>
+            <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
           </Typography>
           <Button variant="outlined" color="primary" startIcon={<MoreHorizIcon />} onClick={handleToogleDrawer}>
             Show Menu
@@ -106,6 +107,7 @@ function Todos() {
           setBackground={setBackground}
           handleToogleDrawer={handleToogleDrawer}
         />
+        <Divider variant="middle" style={{ margin: "20px 0", backgroundColor: "#F0EEED" }} />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="LIST">
             {provided => {

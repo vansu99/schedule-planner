@@ -28,6 +28,7 @@ function PasswordField({ form, name, label, disabled }) {
         control={form.control}
         render={({ onChange, onBlur, value, name }) => (
           <OutlinedInput
+            color="primary"
             id={name}
             type={showPassword ? "text" : "password"}
             label={label}

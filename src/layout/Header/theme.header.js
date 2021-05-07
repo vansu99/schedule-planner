@@ -5,7 +5,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   header: {
-    height: 46
+    height: 46,
+    backgroundColor: theme.palette.primary.menu
   },
   title: {
     flexGrow: 1

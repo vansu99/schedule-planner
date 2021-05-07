@@ -11,6 +11,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CalendarEdit from "./CalendarEdit";
 import CustomToolbar from "./components/CustomToolbar";
+import { Container } from "@material-ui/core";
 
 moment.locale("vi");
 const localizer = momentLocalizer(moment);
@@ -51,22 +52,24 @@ function CalendarCpt(props) {
 
   return (
     <React.Fragment>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="date"
-        titleAccessor="title"
-        views={["month"]}
-        endAccessor={event => moment(event.date).add(1, "hour").toDate()}
-        popup
-        selectable
-        style={{ height: "85vh" }}
-        onSelectEvent={event => openEditEventTodo(event)}
-        components={{
-          toolbar: CustomToolbar
-        }}
-      />
-      {dataEvent && <CalendarEdit event={dataEvent} />}
+      <Container>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="date"
+          titleAccessor="title"
+          views={["month"]}
+          endAccessor={event => moment(event.date).add(1, "hour").toDate()}
+          popup
+          selectable
+          style={{ height: "85vh", paddingTop: "40px" }}
+          onSelectEvent={event => openEditEventTodo(event)}
+          components={{
+            toolbar: CustomToolbar
+          }}
+        />
+        {dataEvent && <CalendarEdit event={dataEvent} />}
+      </Container>
     </React.Fragment>
   );
 }
