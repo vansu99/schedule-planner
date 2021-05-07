@@ -1,5 +1,4 @@
 import React, { useReducer, useContext, createContext } from "react";
-import { StorageKeys } from "configs";
 
 const initialState = {
   modeTheme: process.env.REACT_APP_THEME,
@@ -13,7 +12,6 @@ const GlobalContext = createContext(initialState);
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case "SET_MODE_THEME": {
-      localStorage.setItem(StorageKeys.DARK_MODE, JSON.stringify(payload));
       return {
         ...state,
         modeTheme: payload

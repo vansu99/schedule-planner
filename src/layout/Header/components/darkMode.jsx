@@ -22,11 +22,7 @@ function DarkMode() {
       title="Change Theme"
       onClick={_handleChangeTheme}
     >
-      {JSON.parse(localStorage.getItem(StorageKeys.DARK_MODE)) === THEMES.LIGHT ? (
-        <Brightness4Icon fontSize="large" />
-      ) : (
-        <Brightness7Icon fontSize="large" />
-      )}
+      {modeTheme === THEMES.LIGHT ? <Brightness4Icon fontSize="large" /> : <Brightness7Icon fontSize="large" />}
     </IconButton>
   );
 }
