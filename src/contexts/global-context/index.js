@@ -1,8 +1,8 @@
 import React, { useReducer, useContext, createContext } from "react";
 
 const initialState = {
-  modeTheme: process.env.REACT_APP_THEME,
-  language: process.env.REACT_APP_LANGUAGE,
+  modeTheme: "light",
+  language: "en",
   setModeTheme: () => {},
   setLanguage: () => {}
 };
