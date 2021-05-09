@@ -77,6 +77,12 @@ export default function TodoFormContainer({ isLists, listId }) {
       boardId
     };
     dispatch(cardActions.asyncAddTodoCard(newCards));
+    dispatch(
+      activityActions.asyncCreateNewActivity({
+        text: `${userId.username} added ${newCards.title} to do to this list`,
+        boardId: boardId
+      })
+    );
     setTitle("");
     setOpen(false);
   };

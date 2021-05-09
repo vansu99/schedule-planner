@@ -10,7 +10,6 @@ import { userApis } from "apis";
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import UserCard from "../UserCard";
-import "./search.scss";
 
 const useStyles = makeStyles(theme => ({
   search: {

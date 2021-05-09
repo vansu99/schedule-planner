@@ -109,12 +109,24 @@ const useStyles = makeStyles(theme => ({
     float: "right",
     height: "100vh",
     right: props => (props.isDrawer === false ? theme.spacing(-100) : theme.spacing(0)),
-    top: "6.9%",
+    top: "5rem",
     borderRadius: theme.spacing(0),
     position: "fixed",
     wordWrap: "break-word",
     zIndex: "1200",
     transition: "right 0.7s ease-out"
+  },
+  activities: {
+    overflow: "auto",
+    maxHeight: "calc(100% - 200px)",
+    "&::-webkit-scrollbar": {
+      width: "9px"
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#eee",
+      borderRadius: "10px",
+      boxShadow: "inset 0 0 6px rgba(0,0,0,.3)"
+    }
   }
 }));
 

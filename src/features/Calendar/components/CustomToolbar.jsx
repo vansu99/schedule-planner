@@ -1,4 +1,5 @@
-import { Box, Button, IconButton, Typography } from "@material-ui/core";
+import {Button, IconButton, Typography } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CustomToolbar({ date, onNavigate }) {
+  const { t: translate } = useTranslation();
   const classes = useStyles();
 
   const goToBack = () => {
@@ -57,7 +59,7 @@ function CustomToolbar({ date, onNavigate }) {
   return (
     <div className={classes.toolbar}>
       <Typography variant="h3" component="h3">
-        Calendar
+        {translate("calendar")}
       </Typography>
       <div className={classes.calendarMonth}>
         <IconButton style={{ border: "0" }} onClick={goToBack}>

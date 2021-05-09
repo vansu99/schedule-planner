@@ -121,7 +121,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
             </Dialog>
           </Box>
           <Divider variant="middle" />
-          <Box p={2}>
+          <Box p={2} className={classes.activities}>
             <Typography variant="h5" component="h5" className={classes.titleActivity}>
               <DeviceHubIcon />
               {translate("activity")}

@@ -9,6 +9,7 @@ import { listActions } from "actions/Todos/list.action";
 import TodoFormContainer from "../TodoForm/TodoFormContainer";
 import Title from "./titleCpt.jsx";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 TodoList.propTypes = {
@@ -21,6 +22,7 @@ TodoList.defaultProps = {
 };
 
 function TodoList({ listId, title, cards, index, columnId }) {
+  const { boardId } = useParams();
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const dispatch = useDispatch();
@@ -36,7 +38,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
   };
 
   const handleRemoveList = () => {
-    dispatch(listActions.asyncRemoveTodoList(listId, columnId));
+    dispatch(listActions.asyncRemoveTodoList(boardId, listId, columnId));
   };
 
   return (

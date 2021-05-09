@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     float: "right",
     height: "100vh",
     right: theme.spacing(0),
-    top: "6.9%",
+    top: "5rem",
     borderRadius: theme.spacing(0),
     position: "fixed",
     wordWrap: "break-word",

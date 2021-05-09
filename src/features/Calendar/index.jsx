@@ -56,10 +56,10 @@ function CalendarCpt(props) {
         <Calendar
           localizer={localizer}
           events={events}
-          startAccessor="date"
+          startAccessor="createdAt"
           titleAccessor="title"
           views={["month"]}
-          endAccessor={event => moment(event.date).add(1, "hour").toDate()}
+          endAccessor="date"
           popup
           selectable
           style={{ height: "85vh", paddingTop: "40px" }}

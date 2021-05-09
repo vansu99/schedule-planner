@@ -11,9 +11,10 @@ import ButtonComponent from "components/Button";
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
-    marginBottom: theme.spacing(7),
+    marginBottom: "90px",
     paddingTop: theme.spacing(1),
-    paddingLeft: theme.spacing(2)
+    paddingLeft: theme.spacing(2),
+    height: "100%"
   },
   text: {
     fontSize: "15px"
@@ -53,8 +54,8 @@ function ActivityPage(props) {
         const date = new Date(activity.createdAt);
         const str = moment(date).fromNow();
         var timestampString;
-        const userName = activity.text.split(" ").slice(0, 2).join(" ");
-        const activityText = activity.text.replace(userName, "");
+        const userName = activity.text?.split(" ").slice(0, 2).join(" ");
+        const activityText = activity.text?.replace(userName, "");
         if (str.includes("second") || str.includes("minute") || str.includes("hour")) timestampString = str;
         else if (str.includes("day") && (str.split(" ")[0] === "a" || str.split(" ")[0] < 7)) {
           if (str === "a day ago") {

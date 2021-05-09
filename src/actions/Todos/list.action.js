@@ -52,12 +52,13 @@ const actRemoveList = listId => {
   };
 };
 
-const asyncRemoveTodoList = (listId, columnId) => {
+const asyncRemoveTodoList = (boardId, listId, columnId) => {
   return async dispatch => {
     try {
       const result = await listsApis.removeListById(listId);
       if (result.status === 200) {
         showToast(result.data.msg, "success");
+        await boardsApis.removeColumnIdBoardById(boardId, columnId);
         await columnsApis.removeListIdTodo(columnId);
         dispatch(actRemoveList(listId));
       }

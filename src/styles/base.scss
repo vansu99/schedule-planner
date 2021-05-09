@@ -29,7 +29,7 @@ body {
   background-color: $background-color-light;
   color: $background-color-dark;
   line-height: 1.4;
-  overflow-y: auto;
+  overflow: auto;
   transition: background-color 0.2s linear;
 }
 

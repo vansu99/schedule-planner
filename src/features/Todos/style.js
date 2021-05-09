@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     position: "relative",
-    minHeight: "calc(100vh - 46px)",
+    minHeight: "calc(100vh - 50px)",
     overflowY: "auto",
     paddingTop: theme.spacing(5)
   },

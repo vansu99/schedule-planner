@@ -19,6 +19,9 @@ const boardsApis = {
   removeBoardById: id => {
     return axiosClient.delete(`/api/boards/${id}`);
   },
+  removeColumnIdBoardById: (id, columnId) => {
+    return axiosClient.delete(`/api/boards/${id}/column/${columnId}`);
+  },
   getListsFromBoard: id => {
     return axiosClient.get(`/api/boards/${id}/lists`);
   },
@@ -30,6 +33,9 @@ const boardsApis = {
   },
   getActivityFromBoard: (id, params) => {
     return axiosClient.get(`/api/boards/${id}/activity?${params}`);
+  },
+  searchBoard: search => {
+    return axiosClient.get(`/api/boards/search/by?title=${search}`);
   }
 };
 
