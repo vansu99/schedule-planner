@@ -32,7 +32,8 @@ const lightTheme = createMuiTheme({
       primary: "#4D5465",
       secondary: "rgba(0, 0, 0, 0.54)",
       disabled: "rgba(0, 0, 0, 0.38)",
-      hint: "rgba(0, 0, 0, 0.38)"
+      hint: "rgba(0, 0, 0, 0.38)",
+      light: "#8e8e8e"
     }
   },
   typography: {

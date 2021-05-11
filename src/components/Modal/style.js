@@ -15,7 +15,15 @@ const useStyles = makeStyles(theme => ({
     border: 0,
     outline: "none",
     borderRadius: "6px",
-    overflowY: "auto"
+    overflowY: "auto",
+    "&::-webkit-scrollbar": {
+      width: "11px"
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#eee",
+      borderRadius: "10px",
+      boxShadow: "inset 0 0 6px rgba(0,0,0,.3)"
+    }
   },
   overlay: {
     width: "100vw",

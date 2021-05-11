@@ -1,6 +1,7 @@
 import history from "../../helpers/history";
 import { UserActionTypes, pathName, StorageKeys } from "../../configs";
 import { userApis } from "../../apis";
+import showToast from "components/Toast";
 
 // GET ME
 const actGetMeSuccess = user => {
@@ -58,6 +59,21 @@ const asyncLogin = user => {
   };
 };
 
+const asyncRegister = user => {
+  return async dispatch => {
+    try {
+      const response = await userApis.register(user);
+      const token = response.data?.token;
+      const userInfo = response.data?.user;
+      dispatch(actLoginSuccess(token, userInfo));
+      localStorage.setItem(StorageKeys.USER, JSON.stringify(userInfo));
+      history.push({ pathname: pathName.ROOT, state: 200 });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const actLogout = () => {
   return {
     type: UserActionTypes.ACTION_USER_LOGOUT
@@ -68,24 +84,54 @@ const actLogout = () => {
 const actUpdateUserProfile = user => {
   return {
     type: UserActionTypes.ACTION_UPDATE_USER_PROFILE,
-    payload: user
-  }
+    payload: { user }
+  };
 };
 
-const asyncUpdateUserProfile = (id, { user, image }) => {
+const asyncUpdateUserProfile = (id, user) => {
   return async dispatch => {
     try {
-      const result = await userApis.updateUserProfile(id, { user, image });
+      const result = await userApis.updateUserProfile(id, user);
       if (result.status === 200) {
-        console.log(result);
+        dispatch(actUpdateUserProfile(result.data.user));
+        showToast("Cập nhật thành công.", "success");
       }
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+const changeAvatarStart = formData => async dispatch => {
+  try {
+    dispatch({ type: UserActionTypes.CHANGE_AVATAR_START });
+    const response = await userApis.changeAvatar(formData);
+    dispatch({
+      type: UserActionTypes.CHANGE_AVATAR_SUCCESS,
+      payload: response.data.image
+    });
+  } catch (err) {
+    dispatch({
+      type: UserActionTypes.CHANGE_AVATAR_FAILURE,
+      payload: err.message
+    });
+  }
+};
+
+const removeAvatarStart = () => async dispatch => {
+  try {
+    dispatch({ type: UserActionTypes.REMOVE_AVATAR_START });
+    await userApis.removeAvatar();
+    dispatch({ type: UserActionTypes.REMOVE_AVATAR_SUCCESS });
+  } catch (err) {
+    dispatch({ type: UserActionTypes.REMOVE_AVATAR_FAILURE, payload: err.message });
   }
 };
 
 export const userActions = {
+  asyncRegister,
+  removeAvatarStart,
+  changeAvatarStart,
   asyncLogin,
   asyncGetMe,
   actLogout,

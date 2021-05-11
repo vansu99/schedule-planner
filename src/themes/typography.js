@@ -44,6 +44,11 @@ const typography = {
     fontSize: 14,
     letterSpacing: "-0.05px"
   },
+  caption: {
+    fontWeight: 400,
+    fontSize: 12,
+    letterSpacing: "-0.05px"
+  },
   overline: {
     fontWeight: 400
   }

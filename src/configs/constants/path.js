@@ -5,6 +5,8 @@ const pathName = {
   LOGIN: "/login",
   REGISTER: "/register",
   USERS: "/users",
+  USER_CHANGE_PASSWORD: "/users/settings/password",
+  USER_EDIT: "/users/settings/edit",
   USER_DETAIL: "/users/:id",
   USER_REPORT: "/users/:id/report",
   USERS_ROLE: "/users/role/:id",

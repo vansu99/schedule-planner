@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { getCurrentUser } from "selectors/auth.selector";
 import { getBoards } from "selectors/todos.selector";
 import { userActions } from "actions/User";
-import UserEdit from "../UserProfileEdit";
+import UserEdit from "../UserProfileEdit/components/EditForm";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -26,6 +26,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import ButtonComponent from "components/Button";
 import "./userProfile.scss";
 import { Box, TextField } from "@material-ui/core";
+import { pathName } from "configs";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,6 +67,19 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     height: "100px",
     cursor: "pointer"
+  },
+  link: {
+    color: theme.palette.text.primary,
+    fontSize: "1.6rem",
+    fontWeight: "500",
+    border: "1px solid #dbdbdb",
+    borderRadius: "4px",
+    backgroundColor: "transparent",
+    padding: "6px 20px",
+    outline: "none",
+    "&:hover": {
+      backgroundColor: "#e7e3e340"
+    }
   }
 }));
 
@@ -76,7 +90,6 @@ function UserProfile(props) {
   const classes = useStyles();
   const currentUser = useSelector(getCurrentUser);
   const boards = useSelector(getBoards);
-  const [onEdit, setOnEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput("");
 
@@ -128,14 +141,16 @@ function UserProfile(props) {
                 {currentUser?.username}
               </Typography>
               <Typography variant="h5" component="h5">
-                IT Engineer
+                {currentUser?.bio}
               </Typography>
               <Typography variant="h5" component="h5">
                 {currentUser?.email}
               </Typography>
             </Grid>
             <Grid item xs>
-              <ButtonComponent text={translate("edit_profile")} type="form" onClick={() => setOnEdit(true)} />
+              <Link to={pathName.USER_EDIT} className={classes.link}>
+                {translate("edit_profile")}
+              </Link>
             </Grid>
           </Grid>
         </div>
@@ -166,7 +181,6 @@ function UserProfile(props) {
             </Grid>
           </Grid>
         </div>
-        {onEdit && <UserEdit userInfo={currentUser} setOnEdit={setOnEdit} />}
         {showModal && renderFormBoard()}
       </Container>
     </div>

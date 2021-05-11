@@ -1,111 +1,89 @@
 import React from "react";
+import useStyles from "./theme.registerForm";
+import ImageRegister from "assets/images/bg-2.jpg";
+import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ImageLogin from "../../../assets/images/login.jpg";
-import "./RegisterForm.scss";
+import { useTranslation } from "react-i18next";
+import { InputField, PasswordField } from "components/FormControls";
+import { Box, Button, Divider } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const schemaForm = yup.object().shape({
-  fullname: yup.string().required("Nhập họ tên của bạn."),
-  email: yup.string().email("Hãy nhập email đúng.").required("Nhập địa chỉ Email của bạn."),
-  password: yup.string().min(6).max(10).required(),
-  retypePassword: yup.string().oneOf([yup.ref("password"), null]),
+  username: yup.string().required("Vui lòng nhập tên của bạn."),
+  email: yup.string().required("Vui lòng nhập email của bạn."),
+  password: yup.string().required("Vui lòng nhập mật khẩu.")
 });
 
-function RegisterForm({ onSubmit }) {
-  const { register, errors, reset, handleSubmit } = useForm({
+export default function RegisterForm({ onSubmit }) {
+  const classes = useStyles();
+  const { t: translate } = useTranslation();
+  const form = useForm({
     defaultValues: {
-      fullname: "",
+      username: "",
       email: "",
-      password: "",
-      retypePassword: "",
+      password: ""
     },
-    resolver: yupResolver(schemaForm),
+    resolver: yupResolver(schemaForm)
   });
 
-  const handleSubmitForm = async (values) => {
+  const handleSubmitForm = async values => {
     if (onSubmit) {
       await onSubmit(values);
     }
-    reset();
+    form.reset();
   };
 
+  const { isSubmitting } = form.formState;
+
   return (
-    <div className="register">
-      <div className="register__content">
-        <div className="register__image">
-          <img src={ImageLogin} alt="register" />
-        </div>
-
-        <div className="register__forms">
-          <form className="register__register" onSubmit={handleSubmit(handleSubmitForm)}>
-            <h1 className="register__title">Sign Up</h1>
-            <div className="register__box">
-              <i className="bx bx-user register__icon"></i>
-              <input type="text" placeholder="Fullname" name="fullname" className="register__input" ref={register} />
-            </div>
-            {Object.keys(errors).length > 0 ? <p className="register__error">{errors.fullname?.message}</p> : null}
-
-            <div className="register__box">
-              <i className="bx bx-user register__icon"></i>
-              <input type="email" placeholder="Email" name="email" className="register__input" ref={register} />
-            </div>
-            {Object.keys(errors).length > 0 ? <p className="register__error">{errors.email?.message}</p> : null}
-
-            <div className="register__box">
-              <i className="bx bx-key register__icon"></i>
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                className="register__input"
-                ref={register}
-              />
-            </div>
-            {Object.keys(errors).length > 0 ? <p className="register__error">{errors.password?.message}</p> : null}
-
-            <div className="register__box">
-              <i className="bx bx-key register__icon"></i>
-              <input
-                type="password"
-                placeholder="Password"
-                name="retypePassword"
-                className="register__input"
-                ref={register}
-              />
-            </div>
-            {Object.keys(errors).length > 0 ? (
-              <p className="register__error">{errors.retypePassword?.message}</p>
-            ) : null}
-
-            <button type="submit" className="register__button">
-              Sign Up
-            </button>
-
-            <div className="register-social">
-              <ul className="register-social__list">
-                <li className="register-social__item">
-                  <a href="#!">
-                    <i className="bx bxl-facebook"></i>
-                  </a>
-                </li>
-                <li className="register-social__item">
-                  <a href="#!">
-                    <i className="bx bxl-google"></i>
-                  </a>
-                </li>
-                <li className="register-social__item">
-                  <a href="#!">
-                    <i className="bx bxl-github"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
+    <div className={classes.root}>
+      <div className={classes.loginLeft}>
+        <img src={ImageRegister} alt="" width={540} />
+      </div>
+      <div className={classes.loginRight}>
+        <Box className={classes.loginForm}>
+          <Typography component="h2" variant="h2" className={classes.title}>
+            Scheduler
+          </Typography>
+          <form onSubmit={form.handleSubmit(handleSubmitForm)}>
+            <InputField form={form} label="Email" name="email" />
+            <InputField form={form} label="Tên người dùng" name="username" />
+            <PasswordField form={form} label="Password" name="password" />
+            <Button
+              disabled={isSubmitting}
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              classes={{
+                root: classes.btnLogin
+              }}
+            >
+              {translate("logout")}
+            </Button>
+            {/* <Box className={classes.orLogin}>
+              <Box component="span">{translate("or")}</Box>
+            </Box> */}
+            <Divider variant="middle" style={{ margin: "2rem 0" }} />
+            <Link to="/facebook" className={classes.socialLogin}>
+              <i className="bx bxl-google"></i>
+              {translate("login_gg")}
+            </Link>
+            <Typography variant="caption" component="p" className={classes.term}>
+              Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và{" "}
+              <strong>Chính sách cookie</strong> của chúng tôi.
+            </Typography>
           </form>
-        </div>
+        </Box>
+        <Box className={classes.otherRegister}>
+          <Typography variant="h6" component="p">
+            {translate("dont_acc")}
+            <Link to="/login">{translate("login")}</Link>
+          </Typography>
+        </Box>
       </div>
     </div>
   );
 }
-
-export default RegisterForm;

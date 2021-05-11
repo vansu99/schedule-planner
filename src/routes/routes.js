@@ -12,6 +12,8 @@ const Register = lazy(() => import("features/Register"));
 const Todos = lazy(() => import("features/Todos"));
 const Home = lazy(() => import("pages/Home"));
 const UserProfile = lazy(() => import("pages/User/UserProfile"));
+const UserEdit = lazy(() => import("pages/User/UserProfileEdit"));
+const UserChangePassword = lazy(() => import("pages/User/ChangePassword"));
 const TodoReport = lazy(() => import("pages/Report"));
 const TimeTable = lazy(() => import("features/Calendar"));
 
@@ -44,6 +46,16 @@ const routesConfig = [
         exact: true,
         path: pathName.ROOT,
         component: Home
+      },
+      {
+        exact: true,
+        path: pathName.USER_CHANGE_PASSWORD,
+        component: UserChangePassword
+      },
+      {
+        exact: true,
+        path: pathName.USER_EDIT,
+        component: UserEdit
       },
       {
         exact: true,

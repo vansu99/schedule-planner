@@ -3,7 +3,8 @@ import { UserActionTypes, StorageKeys } from "../../configs";
 const initialState = {
   isAuthenticated: false,
   currentUser: JSON.parse(localStorage.getItem(StorageKeys.USER)) || {},
-  error: null
+  error: null,
+  fetchingAvatar: false
 };
 
 export function userReducer(state = initialState, action) {
@@ -35,6 +36,30 @@ export function userReducer(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         currentUser: user
+      };
+
+    case UserActionTypes.ACTION_UPDATE_USER_PROFILE:
+      return {
+        ...state,
+        isAuthenticated: true,
+        currentUser: { ...action.payload.user }
+      };
+
+    case UserActionTypes.CHANGE_AVATAR_START:
+      return { ...state, fetchingAvatar: true };
+
+    case UserActionTypes.CHANGE_AVATAR_SUCCESS:
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, image: action.payload },
+        fetchingAvatar: false
+      };
+
+    case UserActionTypes.CHANGE_AVATAR_FAILURE:
+      return {
+        ...state,
+        fetchingAvatar: false,
+        error: action.payload
       };
 
     default:

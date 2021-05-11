@@ -1,11 +1,11 @@
+import React from "react";
+import useStyles from "./style";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import React from "react";
-import EditForm from "./components/EditForm";
-import SidebarUserEdit from "./components/Sidebar";
-import useStyles from "./style";
+import SidebarUserEdit from "../UserProfileEdit/components/Sidebar";
+import ChangePasswordEditForm from "./components/EditForm";
 
-const UserProfileEdit = props => {
+const ChangePassword = props => {
   const classes = useStyles();
   return (
     <Container maxWidth="md">
@@ -15,7 +15,7 @@ const UserProfileEdit = props => {
             <SidebarUserEdit />
           </Grid>
           <Grid item md={8}>
-            <EditForm />
+            <ChangePasswordEditForm />
           </Grid>
         </Grid>
       </div>
@@ -23,6 +23,4 @@ const UserProfileEdit = props => {
   );
 };
 
-UserProfileEdit.propTypes = {};
-
-export default UserProfileEdit;
+export default ChangePassword;

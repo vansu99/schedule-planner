@@ -21,6 +21,18 @@ const userApis = {
   },
   addBoardIdToUser: (id, value) => {
     return axiosClient.post(`/api/users/${id}/boards`, { value });
+  },
+  changeAvatar: image => {
+    const formData = new FormData();
+    formData.append("image", image);
+    return axiosClient.put("/api/users/avatar", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+  },
+  removeAvatar: () => {
+    return axiosClient.delete("/api/users/avatar");
   }
 };
 

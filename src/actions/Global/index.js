@@ -50,3 +50,32 @@ export const readNotificationsStart = () => {
 export const clearNotifications = () => ({
   type: NOTIFICATIONS.CLEAR_NOTIFICATIONS
 });
+
+export const hideAlert = () => ({
+  type: appConstants.HIDE_ALERT
+});
+
+export const showAlert = (text, onClick = null) => (dispatch, getState) => {
+  const state = getState();
+  clearTimeout(state.alert.timeoutId);
+  const timeout = setTimeout(() => {
+    dispatch(hideAlert());
+    dispatch({ type: appConstants.SET_ALERT_TIMEOUT_ID, payload: null });
+  }, 5000);
+  dispatch({ type: appConstants.SET_ALERT_TIMEOUT_ID, payload: timeout });
+
+  if (state.alert.showAlert) {
+    dispatch(hideAlert());
+    setTimeout(() => {
+      dispatch({
+        type: appConstants.SHOW_ALERT,
+        payload: { text, onClick }
+      });
+    }, 500);
+  } else {
+    dispatch({
+      type: appConstants.SHOW_ALERT,
+      payload: { text, onClick }
+    });
+  }
+};
