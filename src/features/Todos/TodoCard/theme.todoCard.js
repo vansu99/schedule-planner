@@ -123,16 +123,14 @@ const useStyles = makeStyles(theme => ({
     //   paddingBottom: "16px"
     // },
     "& .MuiCardContent-root": {
-      padding: "6px 8px 2px"
+      padding: "8px"
     },
     position: "relative",
     overflow: "hidden"
   },
   box: {
     "& > .MuiChip-root": {
-      marginRight: theme.spacing(1),
-      fontSize: "12px",
-      color: "#FFFFFF"
+      marginRight: theme.spacing(1)
     },
     display: "flex",
     justifyContent: "space-between",
@@ -146,6 +144,13 @@ const useStyles = makeStyles(theme => ({
     //   padding: "5px",
     //   transition: "all 0.25s ease"
     // }
+  },
+  chipTags: {
+    fontSize: "1.3rem",
+    fontWeight: "400",
+    color: "#FFFFFF",
+    borderRadius: "4px",
+    height: "2.8rem"
   },
   link: {
     textDecoration: "none",
@@ -169,6 +174,50 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "transparent",
       color: "#EB5757"
+    }
+  },
+  attachments: {
+    margin: "1rem 0 1.5rem 0",
+    backgroundColor: "rgb(64, 78, 71)",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    userSelect: "none",
+    height: "200px",
+    overflow: "hidden",
+    borderRadius: "10px"
+  },
+  attachmentIem: {
+    marginTop: theme.spacing(2),
+    minHeight: "80px",
+    cursor: "pointer",
+    borderRadius: "4px",
+    "&:hover": {
+      backgroundColor: "rgba(9, 30, 66, 0.04)"
+    },
+    display: "flex"
+  },
+  attachmentImg: {
+    backgroundColor: "rgb(64, 78, 71)",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    userSelect: "none",
+    width: "140px",
+    height: "100px",
+    overflow: "hidden",
+    borderRadius: "10px"
+  },
+  attachmentContent: {
+    marginLeft: theme.spacing(2)
+  },
+  attachmentBtn: {
+    textDecoration: "underline",
+    fontSize: "1.4rem"
+  },
+  cardIcon: {
+    display: "flex",
+    alignItems: "center",
+    "& > .MuiSvgIcon-root": {
+      marginRight: "4px"
     }
   }
 }));

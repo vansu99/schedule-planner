@@ -3,7 +3,7 @@ import queryString from "query-string";
 import { pathName, StorageKeys } from "../configs";
 import history from "../helpers/history";
 
-const API_URL = "https://projectfinaltodo.herokuapp.com";
+const API_URL = "http://localhost:8080";
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
 

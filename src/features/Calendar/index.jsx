@@ -58,7 +58,7 @@ function CalendarCpt(props) {
           events={events}
           startAccessor="createdAt"
           titleAccessor="title"
-          views={["month"]}
+          views={["month", "week"]}
           endAccessor="date"
           popup
           selectable

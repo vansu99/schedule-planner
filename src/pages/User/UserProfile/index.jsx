@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   boxAddTodo: {
-    border: "1px dotted #d1d2d2",
+    border: "2px dotted #d1d2d2",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -80,6 +80,32 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "#e7e3e340"
     }
+  },
+  lineText: {
+    textAlign: "center",
+    position: "relative",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      width: "100%",
+      height: "1px",
+      top: "50%",
+      left: 0,
+      transform: "translateY(-50%)",
+      backgroundColor: "currentColor"
+    }
+  },
+  title: {
+    display: "inline-block",
+    backgroundColor: theme.palette.background.default,
+    position: "relative",
+    zIndex: 2,
+    padding: "1rem",
+    fontWeight: 600,
+    color: theme.palette.text.primary
+  },
+  btn: {
+    fontSize: "1.1rem"
   }
 }));
 
@@ -112,16 +138,16 @@ function UserProfile(props) {
 
   const renderFormBoard = () => (
     <Dialog open={showModal} fullWidth onClose={() => setShowModal(false)} aria-labelledby="form-dialog-title-board">
-      <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+      <DialogTitle id="form-dialog-title">"Try to take advantage of every opportunity that comes you way"</DialogTitle>
       <DialogContent>
         <DialogContentText>không gian làm việc của {currentUser.username}</DialogContentText>
         <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
       </DialogContent>
       <DialogActions>
-        <Button size="large" onClick={() => setShowModal(false)} color="primary">
+        <Button variant="outlined" classes={{ root: classes.btn }} onClick={() => setShowModal(false)} color="primary">
           Hủy
         </Button>
-        <Button size="large" onClick={handleAddBoard} color="primary">
+        <Button variant="outlined" classes={{ root: classes.btn }} onClick={handleAddBoard} color="primary">
           {translate("create_board")}
         </Button>
       </DialogActions>
@@ -155,9 +181,12 @@ function UserProfile(props) {
           </Grid>
         </div>
         <div className={classes.userBoard}>
-          <Typography variant="h4" component="h4">
-            {translate("board")} của {currentUser?.username}
-          </Typography>
+          <div className={classes.lineText}>
+            <Typography variant="h4" component="h4" className={classes.title}>
+              {translate("board")} của {currentUser?.username}
+            </Typography>
+          </div>
+
           <Grid container spacing={4}>
             {boards.map(board => (
               <Grid item xs md={4} key={board._id}>
@@ -176,7 +205,7 @@ function UserProfile(props) {
             ))}
             <Grid item xs md={4}>
               <Box className={classes.boxAddTodo} onClick={() => setShowModal(true)}>
-                <AddIcon />
+                <AddIcon fontSize="large" />
               </Box>
             </Grid>
           </Grid>

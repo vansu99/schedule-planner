@@ -44,7 +44,7 @@ export default function Header({ children }) {
         <Toolbar style={{ minHeight: "100%" }}>
           <Typography variant="h4" className={classes.title} noWrap>
             <Link to="/" className={classes.link}>
-              Scheduler
+              Schedule Planner
             </Link>
           </Typography>
           <SearchBoard />

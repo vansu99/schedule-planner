@@ -43,7 +43,7 @@ export default function LoginForm({ onSubmit }) {
       <div className={classes.loginRight}>
         <Box className={classes.loginForm}>
           <Typography component="h2" variant="h2" className={classes.title}>
-            Scheduler
+            Schedule Planner
           </Typography>
           <form onSubmit={form.handleSubmit(handleSubmitForm)}>
             <InputField form={form} label="Email" name="email" />

@@ -13,12 +13,13 @@ import TodoFormContainer from "./TodoForm/TodoFormContainer";
 import TodoList from "./TodoList";
 import useStyles from "./style";
 import "./todos.scss";
+import ButtonComponent from "components/Button";
 
 function Todos() {
   const classes = useStyles();
   const { boardId } = useParams();
   const dispatch = useDispatch();
-  const [color, setColor] = useState("#FFFFFF");
+  const [color, setColor] = useState("#E1E4EE");
   const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
@@ -31,7 +32,7 @@ function Todos() {
 
   const setBackground = background => {
     if (background.thumb) {
-      setColor("#FFFFFF");
+      setColor("#E1E4EE");
       dispatch(
         boardActions.asyncUpdateBoardById(getCurrBoardSelector[0]._id, {
           image: {
@@ -82,22 +83,33 @@ function Todos() {
     }
   }, [getCurrBoardSelector]);
 
+  useEffect(() => {
+    document.title = `${getCurrBoardSelector[0]?.title} • Schedule Planner`;
+  }, [getCurrBoardSelector]);
+
   return (
     <div
       className={classes.root}
-      style={{
-        color: `${color === "#FFFFFF" ? "#000000" : "#FFFFFF"}`,
-        backgroundColor: `${color}`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat"
-      }}
+      // style={{
+      //   color: `${color === "#FFFFFF" ? "#000000" : "#FFFFFF"}`,
+      //   backgroundColor: `${color}`,
+      //   backgroundSize: "cover",
+      //   backgroundRepeat: "no-repeat"
+      // }}
     >
       <div className={classes.main}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h4" component="h4" className={classes.titleIcon}>
             <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
           </Typography>
-          <Button variant="outlined" color="primary" startIcon={<MoreHorizIcon />} onClick={handleToogleDrawer}>
+          <Button
+            variant="outlined"
+            classes={{
+              root: classes.btn
+            }}
+            startIcon={<MoreHorizIcon />}
+            onClick={handleToogleDrawer}
+          >
             Show Menu
           </Button>
         </Box>

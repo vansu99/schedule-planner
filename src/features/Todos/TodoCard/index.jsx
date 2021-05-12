@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
+import AttachFileIcon from "@material-ui/icons/AttachFile";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import Radio from "@material-ui/core/Radio";
@@ -48,9 +49,10 @@ import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import useStyles from "./theme.todoCard";
 import "./todoCard.scss";
+import ButtonComponent from "components/Button";
 
 function TodoCard(props) {
-  const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed } = props;
+  const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed, attachments } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
   const { boardId } = useParams();
@@ -176,7 +178,12 @@ function TodoCard(props) {
           {label?.length > 0 ? (
             <Box mb={1} className={classes.box}>
               {label?.map((value, index) => (
-                <Chip size="small" key={index} label={value?.name} style={{ backgroundColor: `${value.color}` }} />
+                <Chip
+                  classes={{ root: classes.chipTags }}
+                  key={index}
+                  label={value?.name}
+                  style={{ backgroundColor: `${value.color}` }}
+                />
               ))}
             </Box>
           ) : null}
@@ -223,6 +230,19 @@ function TodoCard(props) {
               <i className="bx bx-detail"></i>
             </span>
           ) : null}
+          {attachments?.length > 0 && (
+            <div className={classes.cardIcon}>
+              <AttachFileIcon />
+              <span>{attachments?.length}</span>
+            </div>
+            // <div
+            //   className={classes.attachments}
+            //   style={{
+            //     backgroundImage: `url(https://static.wikia.nocookie.net/naruto/images/5/50/Team_Kakashi.png/revision/latest?cb=20161219035928)`,
+            //     backgroundSize: "cover"
+            //   }}
+            // ></div>
+          )}
           <Box display="flex" justifyContent="flex-end">
             <AvatarGroup>
               {member &&
@@ -327,6 +347,28 @@ function TodoCard(props) {
                 </Typography>
               )}
             </Box>
+            {attachments?.length > 0 && (
+              <Box mt={3.4} className={classes.todoCardCheckList}>
+                <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                  <AttachFileIcon fontSize="large" /> Attachments
+                </Typography>
+                {attachments?.map(m => (
+                  <div key={m.value} className={classes.attachmentIem}>
+                    <div
+                      className={classes.attachmentImg}
+                      style={{
+                        backgroundImage: `url(${m.item})`,
+                        backgroundSize: "cover"
+                      }}
+                    ></div>
+                    <div className={classes.attachmentContent}>
+                      <Button classes={{ root: classes.attachmentBtn }}>Edit</Button>
+                      <Button>Delete</Button>
+                    </div>
+                  </div>
+                ))}
+              </Box>
+            )}
             <Box mt={3.8} className={classes.todoCardComments}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <ChatIcon fontSize="large" /> {translate("comment")}
@@ -547,6 +589,23 @@ function TodoCard(props) {
                 </Typography>
               )}
             </Box>
+            {attachments?.length > 0 && (
+              <Box mt={3.4} className={classes.todoCardCheckList}>
+                <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                  <AttachFileIcon fontSize="large" /> Attachments
+                </Typography>
+                {attachments?.map(m => (
+                  <div
+                    key={m.value}
+                    className={classes.attachments}
+                    style={{
+                      backgroundImage: `url(${m.item})`,
+                      backgroundSize: "cover"
+                    }}
+                  ></div>
+                ))}
+              </Box>
+            )}
             <Box mt={3.8} className={classes.todoCardComments}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <ChatIcon fontSize="large" /> {translate("comment")}
@@ -694,6 +753,7 @@ TodoCard.propTypes = {
   title: PropTypes.string,
   member: PropTypes.array,
   checklist: PropTypes.array,
+  attachments: PropTypes.array,
   desc: PropTypes.string,
   label: PropTypes.array,
   comments: PropTypes.array

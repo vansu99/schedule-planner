@@ -35,7 +35,7 @@ function UserProfileEdit(props) {
   const { isSubmitting } = form.formState;
 
   useEffect(() => {
-    document.title = "Edit Profile • Scheduler";
+    document.title = "Edit Profile • Schedule Planner";
   }, []);
 
   const handleSubmit = values => {
