@@ -54,6 +54,9 @@ const todosApis = {
   },
   removeCommentTodoCard: id => {
     return axiosClient.delete(`/api/comments/${id}`);
+  },
+  addAttachmentTodoCard: (id, formData) => {
+    return axiosClient.patch(`/api/cards/${id}/attachment`, formData);
   }
 };
 
