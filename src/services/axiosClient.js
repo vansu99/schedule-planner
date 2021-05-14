@@ -1,9 +1,11 @@
 import axios from "axios";
 import queryString from "query-string";
-import { pathName, StorageKeys } from "../configs";
-import history from "../helpers/history";
+import { pathName, StorageKeys } from "configs";
+import { localStorageService } from "hooks/useLocalStorage";
+import history from "helpers/history";
 
-const API_URL = "https://projectfinaltodo.herokuapp.com";
+const { clearTokens, getRefreshToken } = localStorageService;
+const API_URL = "http://localhost:8080";
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
 
@@ -33,16 +35,27 @@ axiosClient.interceptors.response.use(
   response => response,
   error => {
     const { status } = error.response;
+    if (status !== 401) {
+      return Promise.reject(error);
+    }
+
+    if (error.config.url === "/api/auth/refresh") {
+      clearTokens();
+
+      return Promise.reject(error);
+    }
+
     if (status === 401) {
       history.push(pathName.LOGIN);
       forceRenewToken();
     }
+
     return Promise.reject(error);
   }
 );
 
 async function forceRenewToken() {
-  const refreshToken = localStorage.getItem(StorageKeys.REFRESH_TOKEN);
+  const refreshToken = getRefreshToken();
   if (!refreshToken) {
     history.push(pathName.LOGIN);
   }

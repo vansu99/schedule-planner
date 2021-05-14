@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectActivityState } from "selectors/activity.selector";

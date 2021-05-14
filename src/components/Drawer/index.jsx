@@ -8,7 +8,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import DeviceHubIcon from "@material-ui/icons/DeviceHub";
 import AssessmentIcon from "@material-ui/icons/Assessment";
-import PanoramaIcon from "@material-ui/icons/Panorama";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";

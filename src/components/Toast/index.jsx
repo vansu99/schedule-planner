@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const showToast = (message, type) => {
+const showToast = (message, type = "success") => {
   return toast[type](message, {
     position: "top-right",
-    autoClose: 1500,
+    autoClose: 2500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

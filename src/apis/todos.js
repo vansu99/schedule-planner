@@ -55,8 +55,16 @@ const todosApis = {
   removeCommentTodoCard: id => {
     return axiosClient.delete(`/api/comments/${id}`);
   },
-  addAttachmentTodoCard: (id, formData) => {
-    return axiosClient.patch(`/api/cards/${id}/attachment`, formData);
+  addAttachmentTodoCard: (id, form) => {
+    const formData = new FormData();
+    formData.append("image", form.item);
+    formData.append("name", form.item.name);
+    formData.append("id", form.value);
+    return axiosClient.patch(`/api/cards/${id}/attachment`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
   }
 };
 

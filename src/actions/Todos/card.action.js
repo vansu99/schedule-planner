@@ -277,6 +277,27 @@ const asyncRemoveMemberTodoCard = (cardId, value) => {
   };
 };
 
+const asyncAddAttachTodoCard = (cardId, form) => {
+  return async dispatch => {
+    try {
+      const result = await todosApis.addAttachmentTodoCard(cardId, form);
+      if (result.status === 201) {
+        const cardAttached = result.data.card;
+        dispatch({
+          type: todoActions.ATTACH_TODO_SUCCESS,
+          payload: { cardAttached, cardId }
+        });
+        showToast("Finished", "success");
+      }
+    } catch (err) {
+      dispatch({
+        type: todoActions.ATTACH_TODO_FAILURE,
+        payload: err.response.data.error
+      });
+    }
+  };
+};
+
 export const cardActions = {
   asyncGetAllCardTodo,
   asyncAddCheckListCard,
@@ -290,5 +311,6 @@ export const cardActions = {
   asyncRemoveCheckListTodoCard,
   asyncRemoveMemberTodoCard,
   asyncEditDetailTodoCard,
-  asyncRemoveTodoCard
+  asyncRemoveTodoCard,
+  asyncAddAttachTodoCard
 };

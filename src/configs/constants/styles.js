@@ -5,8 +5,3 @@ export const BREAKPOINT = {
   XL: 1200,
   XXL: 1400
 };
-
-export const COLOR = {
-  BLUE: "#0d6efd",
-  textColor: "#999999"
-};

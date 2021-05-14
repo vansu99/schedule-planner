@@ -6,10 +6,12 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
   },
   heading: {
     flexShrink: 0,
@@ -37,13 +39,14 @@ function AccordionCpt({ children, title, icon }) {
 
   return (
     <div className={classes.root}>
-      <Accordion expanded={expanded === title} onChange={handleChange(title)} square>
+      <Accordion expanded={expanded === title} onChange={handleChange(title)} square elevation={0}>
         <AccordionSummary aria-controls={`${title}-content`} id={`${title}-header`}>
           <i className={`${icon} ${classes.icon}`}></i>
           <Typography variant="h6" component="h5" className={classes.heading}>
             {translate(title)}
           </Typography>
         </AccordionSummary>
+        <Divider variant="middle" />
         <AccordionDetails>{children}</AccordionDetails>
       </Accordion>
     </div>

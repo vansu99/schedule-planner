@@ -4,18 +4,32 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: "935px",
-    margin: "32px auto 0",
+    margin: "0 auto",
     display: "flex",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 0
+    }
   },
   title: {
     fontFamily: "'Kaushan Script', cursive",
     textAlign: "center",
     marginTop: "2rem",
-    marginBottom: "2rem"
+    marginBottom: "2rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "39px"
+    }
   },
-  loginLeft: {},
-  loginRight: {},
+  loginLeft: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  },
+  loginRight: {
+    [theme.breakpoints.down("sm")]: {
+      padding: "0 1rem"
+    }
+  },
   loginForm: {
     width: "100%",
     maxWidth: "35rem",
@@ -27,7 +41,11 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     border: "1px solid #dbdbdb",
     borderRadius: "1px",
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
+    [theme.breakpoints.down("sm")]: {
+      border: 0,
+      padding: 0
+    }
   },
   btnLogin: {
     marginTop: theme.spacing(1),
@@ -72,6 +90,13 @@ const useStyles = makeStyles(theme => ({
       position: "relative",
       top: "5px",
       fontSize: "2.3rem"
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.8rem",
+      "& > i": {
+        top: "5px",
+        fontSize: "2.6rem"
+      }
     }
   },
   forgotLogin: {
@@ -80,7 +105,11 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none",
     textAlign: "center",
     display: "block",
-    marginTop: "1.4rem"
+    marginTop: "1.4rem",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "2.5rem",
+      fontSize: "1.5rem"
+    }
   },
   otherRegister: {
     border: "1px solid #dbdbdb",
@@ -94,6 +123,12 @@ const useStyles = makeStyles(theme => ({
     "& > p > a": {
       color: theme.palette.primary.main,
       marginLeft: ".5rem"
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(3),
+      "& > .MuiTypography-h6": {
+        fontSize: "1.7rem"
+      }
     }
   }
 }));

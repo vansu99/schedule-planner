@@ -4,7 +4,8 @@ const initialState = {
   lists: {},
   cards: {},
   columns: [],
-  boards: []
+  boards: [],
+  error: null
 };
 
 export function todosReducer(state = initialState, { type, payload }) {
@@ -342,6 +343,18 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newRemoveCommentCard }
+      };
+
+    case todoActions.ATTACH_TODO_SUCCESS:
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: payload.cardAttached }
+      };
+
+    case todoActions.ATTACH_TODO_FAILURE:
+      return {
+        ...state,
+        error: payload
       };
 
     default:

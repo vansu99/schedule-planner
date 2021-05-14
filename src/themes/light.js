@@ -43,6 +43,7 @@ const lightTheme = createMuiTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 500
   },
+  breakpoints: {},
   overrides: {
     MuiCssBaseline: {
       "@global": {

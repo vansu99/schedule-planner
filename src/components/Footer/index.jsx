@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
   },
   footerLeft: {
     "& > .MuiTypography-root": {
@@ -35,7 +38,7 @@ export default function Footer() {
   return (
     <Container maxWidth="md" className={classes.root}>
       <Grid container spacing={4}>
-        <Grid item xs={7} className={classes.footerLeft}>
+        <Grid item xs={12} md={7} className={classes.footerLeft}>
           <Typography variant="h6" component={Link} to="/">
             about
           </Typography>
@@ -49,7 +52,7 @@ export default function Footer() {
             terms
           </Typography>
         </Grid>
-        <Grid item xs={5} className={classes.footerRight}>
+        <Grid item xs={12} md={5} className={classes.footerRight}>
           <Typography variant="h6" component="h6">
             Made by <span>evandev</span>
           </Typography>

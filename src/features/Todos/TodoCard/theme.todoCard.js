@@ -207,17 +207,51 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "10px"
   },
   attachmentContent: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
+    padding: "10px",
+    "& > .MuiTypography-h6": {
+      fontSize: "1.6rem",
+      fontWeight: "bold"
+    }
   },
   attachmentBtn: {
     textDecoration: "underline",
-    fontSize: "1.4rem"
+    fontSize: "1.4rem",
+    transition: "all linear 0.3s",
+    "&:hover": {
+      backgroundColor: "transparent",
+      textDecoration: "underline",
+      fontWeight: "bold"
+    }
+  },
+  attachmentInput: {
+    display: "flex",
+    alignItems: "center",
+    overflow: "hidden",
+    cursor: "pointer",
+    borderRadius: "4px",
+    padding: "5px 9px",
+    "&:hover": {
+      backgroundColor: "rgba(9, 30, 66, 0.04)"
+    }
   },
   cardIcon: {
     display: "flex",
     alignItems: "center",
     "& > .MuiSvgIcon-root": {
       marginRight: "4px"
+    }
+  },
+  dueDate: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#FFFFFF",
+    backgroundColor: "#DB3246",
+    padding: "2px 6px",
+    borderRadius: "4px",
+    "& > span": {
+      marginLeft: "4px"
     }
   }
 }));

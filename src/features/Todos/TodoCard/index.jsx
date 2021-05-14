@@ -4,30 +4,34 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import IconButton from "@material-ui/core/IconButton";
-import Radio from "@material-ui/core/Radio";
 import Fade from "@material-ui/core/Fade";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Typography from "@material-ui/core/Typography";
+import AttachFileIcon from "@material-ui/icons/AttachFile";
 import ChatIcon from "@material-ui/icons/Chat";
+import PublishIcon from "@material-ui/icons/Publish";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import DescriptionIcon from "@material-ui/icons/Description";
 import GroupIcon from "@material-ui/icons/Group";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import LabelIcon from "@material-ui/icons/Label";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
+import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
+import LinearScaleIcon from "@material-ui/icons/LinearScale";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
-import { labelActions } from "actions/Todos/label.action";
 import { cardActions } from "actions/Todos/card.action";
+import { labelActions } from "actions/Todos/label.action";
 import AccordionCpt from "components/Accordion";
 import ReactModal from "components/Modal";
 import Search from "components/Search";
@@ -40,16 +44,18 @@ import { Draggable } from "react-beautiful-dnd";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 import { CheckListSelect } from "../TodoCheckList";
+import { selectorErrorTodoCard } from "selectors/todos.selector";
 import TodoForm from "../TodoForm";
 import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import useStyles from "./theme.todoCard";
 import "./todoCard.scss";
-import ButtonComponent from "components/Button";
+import showToast from "components/Toast";
+import moment from "moment";
 
 function TodoCard(props) {
   const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed, attachments } = props;
@@ -67,6 +73,9 @@ function TodoCard(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
   const [completedTodo, setCompletedTodo] = useState(completed);
+  const [showAttach, setShowAttach] = useState(false);
+  const [attachItem, setAttachItem] = useState(null);
+  const error = useSelector(selectorErrorTodoCard);
 
   const handleCloseForm = () => {
     setIsEditing(false);
@@ -75,6 +84,11 @@ function TodoCard(props) {
 
   const handleShowSubMenu = event => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleToggleShowAttach = attach => {
+    setAttachItem(attach);
+    setShowAttach(prev => !prev);
   };
 
   const handleToggleSubMenu = () => {
@@ -155,6 +169,16 @@ function TodoCard(props) {
     dispatch(cardActions.asyncUpdateCompletedTodoCard(cardId, completedTodo, boardId));
   };
 
+  const onAddAttachTodo = event => {
+    const value = `attackItem-${uuidv4()}`;
+    const newAttach = {
+      value,
+      item: event.target.files[0]
+    };
+    dispatch(cardActions.asyncAddAttachTodoCard(cardId, newAttach));
+    if (error) showToast(error, "error");
+  };
+
   const renderTextarea = () => (
     <TodoForm text={cardContent} handleChange={onChange} handleCloseForm={handleCloseForm}>
       <Button type="submit" variant="contained" color="primary" onClick={handleEditCard}>
@@ -230,26 +254,37 @@ function TodoCard(props) {
               <i className="bx bx-detail"></i>
             </span>
           ) : null}
-          {attachments?.length > 0 && (
+          {!showAttach ? (
             <div className={classes.cardIcon}>
               <AttachFileIcon />
               <span>{attachments?.length}</span>
             </div>
-            // <div
-            //   className={classes.attachments}
-            //   style={{
-            //     backgroundImage: `url(https://static.wikia.nocookie.net/naruto/images/5/50/Team_Kakashi.png/revision/latest?cb=20161219035928)`,
-            //     backgroundSize: "cover"
-            //   }}
-            // ></div>
+          ) : (
+            <div
+              className={classes.attachments}
+              style={{
+                backgroundImage: `url(${attachItem})`,
+                backgroundSize: "cover"
+              }}
+            ></div>
           )}
-          <Box display="flex" justifyContent="flex-end">
-            <AvatarGroup>
-              {member &&
-                member.map((value, index) => (
-                  <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
-                ))}
-            </AvatarGroup>
+          <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
+            {date ? (
+              <div className={classes.dueDate}>
+                <AccessTimeIcon />
+                <span>{moment(date).format("MMM DD")}</span>
+              </div>
+            ) : (
+              <div></div>
+            )}
+            <div>
+              <AvatarGroup>
+                {member &&
+                  member.map((value, index) => (
+                    <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
+                  ))}
+              </AvatarGroup>
+            </div>
           </Box>
         </CardContent>
       </Card>
@@ -284,7 +319,7 @@ function TodoCard(props) {
                 {date && (
                   <span className={classes.todoCardDeadline}>
                     <QueryBuilderIcon fontSize="large" />
-                    {formatDate(date)}
+                    {moment(date).format("DD/MM/YYYY")}
                   </span>
                 )}
               </Typography>
@@ -353,7 +388,7 @@ function TodoCard(props) {
                   <AttachFileIcon fontSize="large" /> Attachments
                 </Typography>
                 {attachments?.map(m => (
-                  <div key={m.value} className={classes.attachmentIem}>
+                  <div key={m.id} className={classes.attachmentIem}>
                     <div
                       className={classes.attachmentImg}
                       style={{
@@ -362,8 +397,23 @@ function TodoCard(props) {
                       }}
                     ></div>
                     <div className={classes.attachmentContent}>
-                      <Button classes={{ root: classes.attachmentBtn }}>Edit</Button>
-                      <Button>Delete</Button>
+                      <Typography variant="h6" component="h6" gutterBottom>
+                        {m.name}
+                      </Typography>
+                      <Box display="flex" alignItems="center">
+                        <Button
+                          classes={{ root: classes.attachmentBtn }}
+                          startIcon={<FeaturedVideoIcon />}
+                          onClick={() => handleToggleShowAttach(m.item)}
+                          disableRipple
+                        >
+                          Make cover
+                        </Button>
+                        <span>
+                          <LinearScaleIcon />
+                        </span>
+                        <Button classes={{ root: classes.attachmentBtn }}>Delete</Button>
+                      </Box>
                     </div>
                   </div>
                 ))}
@@ -486,6 +536,30 @@ function TodoCard(props) {
                   </Box>
                 </AccordionCpt>
               </Box>
+              <Box mt={1} component="li">
+                <AccordionCpt title="attach" icon="bx bx-link-alt">
+                  <Box width="100%">
+                    <Typography variant="h6" component="h6" align="center">
+                      Attach From
+                    </Typography>
+                    <label className={classes.attachmentInput} htmlFor="attach-computer">
+                      <PublishIcon />
+                      <span>Computer</span>
+                    </label>
+                    <input
+                      type="file"
+                      name="attach-computer"
+                      id="attach-computer"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={event => onAddAttachTodo(event)}
+                    />
+                    {/* <div>
+                      <input type="text" placeholder="Link ..." />
+                    </div> */}
+                  </Box>
+                </AccordionCpt>
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -521,7 +595,7 @@ function TodoCard(props) {
                 {date && (
                   <span className={classes.todoCardDeadline}>
                     <QueryBuilderIcon fontSize="large" />
-                    {formatDate(date)}
+                    {moment(date).format("DD/MM/YYYY")}
                   </span>
                 )}
               </Typography>
@@ -595,14 +669,34 @@ function TodoCard(props) {
                   <AttachFileIcon fontSize="large" /> Attachments
                 </Typography>
                 {attachments?.map(m => (
-                  <div
-                    key={m.value}
-                    className={classes.attachments}
-                    style={{
-                      backgroundImage: `url(${m.item})`,
-                      backgroundSize: "cover"
-                    }}
-                  ></div>
+                  <div key={m.id} className={classes.attachmentIem}>
+                    <div
+                      className={classes.attachments}
+                      style={{
+                        backgroundImage: `url(${m.item})`,
+                        backgroundSize: "cover"
+                      }}
+                    ></div>
+                    <div className={classes.attachmentContent}>
+                      <Typography variant="h6" component="h6" gutterBottom>
+                        {m.name}
+                      </Typography>
+                      <Box display="flex" alignItems="center">
+                        <Button
+                          classes={{ root: classes.attachmentBtn }}
+                          startIcon={<FeaturedVideoIcon />}
+                          onClick={() => handleToggleShowAttach(m.item)}
+                          disableRipple
+                        >
+                          Make cover
+                        </Button>
+                        <span>
+                          <LinearScaleIcon />
+                        </span>
+                        <Button classes={{ root: classes.attachmentBtn }}>Delete</Button>
+                      </Box>
+                    </div>
+                  </div>
                 ))}
               </Box>
             )}
@@ -720,6 +814,30 @@ function TodoCard(props) {
                         Thêm checklist
                       </Button>
                     </Box>
+                  </Box>
+                </AccordionCpt>
+              </Box>
+              <Box mt={1} component="li">
+                <AccordionCpt title="attach" icon="bx bx-link-alt">
+                  <Box width="100%">
+                    <Typography variant="h6" component="h6" align="center">
+                      Attach From
+                    </Typography>
+                    <label className={classes.attachmentInput} htmlFor="attach-computer">
+                      <PublishIcon />
+                      <span>Computer</span>
+                    </label>
+                    <input
+                      type="file"
+                      name="attach-computer"
+                      id="attach-computer"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={event => onAddAttachTodo(event)}
+                    />
+                    {/* <div>
+                      <input type="text" placeholder="Link ..." />
+                    </div> */}
                   </Box>
                 </AccordionCpt>
               </Box>

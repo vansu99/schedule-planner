@@ -6,6 +6,7 @@ const selectorGetCards = state => state.todo.cards;
 const selectorGetBoards = state => state.todo.boards;
 const selectorGetBoardById = state => state.todo.currBoard;
 
+export const selectorErrorTodoCard = state => state.todo.error;
 export const getColumns = createSelector(selectorGetColumn, columns => columns);
 export const getBoards = createSelector(selectorGetBoards, boards => boards);
 export const getCurrBoard = createSelector(selectorGetBoardById, board => board);

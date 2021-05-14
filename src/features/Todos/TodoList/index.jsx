@@ -1,16 +1,15 @@
-import React, { useState, memo } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import useStyles from "./theme.TodoList";
-import { Draggable, Droppable } from "react-beautiful-dnd";
-import TodoCard from "../TodoCard";
-import "./todoList.scss";
 import { listActions } from "actions/Todos/list.action";
-import TodoFormContainer from "../TodoForm/TodoFormContainer";
-import Title from "./titleCpt.jsx";
+import PropTypes from "prop-types";
+import React, { memo, useState } from "react";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
+import TodoCard from "../TodoCard";
+import TodoFormContainer from "../TodoForm/TodoFormContainer";
+import useStyles from "./theme.TodoList";
+import Title from "./titleCpt.jsx";
+import "./todoList.scss";
 
 TodoList.propTypes = {
   cards: PropTypes.array,
