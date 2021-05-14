@@ -7,8 +7,14 @@ const useStyles = makeStyles(theme => ({
     margin: "0 auto",
     display: "flex",
     justifyContent: "space-around",
+    alignItems: "center",
+    flexGrow: 1,
+    minHeight: "90vh",
+    overflow: "hidden",
     [theme.breakpoints.down("sm")]: {
-      marginTop: 0
+      marginTop: 0,
+      padding: "1rem 3rem",
+      alignItems: "normal"
     }
   },
   title: {
@@ -27,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   loginRight: {
     [theme.breakpoints.down("sm")]: {
-      padding: "0 1rem"
+      paddingTop: theme.spacing(5)
     }
   },
   loginForm: {
@@ -44,7 +50,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#FFFFFF",
     [theme.breakpoints.down("sm")]: {
       border: 0,
-      padding: 0
+      padding: 0,
+      "& > form": {
+        marginTop: theme.spacing(3)
+      }
     }
   },
   btnLogin: {
@@ -79,7 +88,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
   socialLogin: {
-    marginBottom: theme.spacing(1),
     display: "block",
     textAlign: "center",
     color: "#385185",
@@ -99,12 +107,15 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-  term: {
-    color: theme.palette.text.light,
+  forgotLogin: {
+    color: theme.palette.primary.main,
+    fontSize: "1.2rem",
+    textDecoration: "none",
     textAlign: "center",
-    fontFamily: '"Roboto", sans-serif',
-    marginTop: theme.spacing(2.6),
+    display: "block",
+    marginTop: "1.4rem",
     [theme.breakpoints.down("sm")]: {
+      margin: "3.5rem 0",
       fontSize: "1.5rem"
     }
   },
@@ -122,7 +133,6 @@ const useStyles = makeStyles(theme => ({
       marginLeft: ".5rem"
     },
     [theme.breakpoints.down("sm")]: {
-      marginTop: theme.spacing(3),
       "& > .MuiTypography-h6": {
         fontSize: "1.7rem"
       }
