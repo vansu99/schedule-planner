@@ -3,14 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    maxWidth: "935px",
+    maxWidth: "1000px",
     margin: "0 auto",
     display: "flex",
-    justifyContent: "space-around",
     alignItems: "center",
     flexGrow: 1,
     minHeight: "90vh",
     overflow: "hidden",
+    justifyContent: "space-around",
     [theme.breakpoints.down("sm")]: {
       marginTop: 0,
       padding: "1rem 3rem",
@@ -88,6 +88,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   socialLogin: {
+    marginBottom: theme.spacing(1),
     display: "block",
     textAlign: "center",
     color: "#385185",
@@ -107,15 +108,12 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-  forgotLogin: {
-    color: theme.palette.primary.main,
-    fontSize: "1.2rem",
-    textDecoration: "none",
+  term: {
+    color: theme.palette.text.light,
     textAlign: "center",
-    display: "block",
-    marginTop: "1.4rem",
+    fontFamily: '"Roboto", sans-serif',
+    marginTop: theme.spacing(2.6),
     [theme.breakpoints.down("sm")]: {
-      margin: "3.5rem 0",
       fontSize: "1.5rem"
     }
   },
@@ -133,6 +131,8 @@ const useStyles = makeStyles(theme => ({
       marginLeft: ".5rem"
     },
     [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
       "& > .MuiTypography-h6": {
         fontSize: "1.7rem"
       }

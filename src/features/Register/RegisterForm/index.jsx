@@ -1,6 +1,6 @@
 import React from "react";
 import useStyles from "./theme.registerForm";
-import ImageRegister from "assets/images/bg-2.jpg";
+import ImageRegister from "assets/images/bg-3.jpg";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
