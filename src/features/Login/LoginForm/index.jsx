@@ -63,7 +63,7 @@ export default function LoginForm({ onSubmit }) {
             {/* <Box className={classes.orLogin}>
               <Box component="span">{translate("or")}</Box>
             </Box> */}
-            <Divider variant="middle" style={{ margin: "2rem 0" }}/>
+            <Divider variant="middle" style={{ margin: "2rem 0" }} />
             <Link to="/facebook" className={classes.socialLogin}>
               <i className="bx bxl-facebook-square"></i>
               {translate("login_fb")}

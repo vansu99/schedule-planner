@@ -1,4 +1,4 @@
-import { Container, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Loading from "components/Loading";
 import PropTypes from "prop-types";
@@ -16,10 +16,7 @@ GuestLayout.defaultProps = {
 const useStyles = makeStyles(theme => ({
   app: {
     position: "relative",
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
+    minHeight: "100vh"
   }
 }));
 
@@ -30,7 +27,7 @@ function GuestLayout({ children }) {
   return (
     <div className={classes.app}>
       <CssBaseline />
-      <Container>{children}</Container>
+      {children}
       <Loading isLoading={isLoading} />
     </div>
   );
