@@ -5,13 +5,13 @@ import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import TodoReportCard from "./components/TodoReportCard";
 import TodoReportPieChart from "./components/TodoReportPieChart";
 import TodoReportTable from "./components/TodoReportTables";
 import useStyles from "./todoReport.theme";
 
-function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard }) {
+function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBoard }) {
   const classes = useStyles();
   const calPercentCompletedTodo = useCallback(
     value => {
@@ -20,6 +20,10 @@ function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard })
     },
     [totalCards]
   );
+
+  useEffect(() => {
+    document.title = "Reports • Schedule Planner";
+  }, []);
 
   const onChangeBoard = e => {
     if (handleChangeBoard) {
@@ -31,7 +35,7 @@ function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard })
     <div className={classes.root}>
       <div>
         <Typography variant="h4" className={classes.todoReportTitle}>
-          Tổng quan báo cáo
+          Tổng quan báo cáo - <span>{reports.boardId?.title}</span>
         </Typography>
         <FormControl size="small" variant="outlined" className={classes.formControl}>
           <InputLabel htmlFor="outlined-age-native-simple">Board</InputLabel>
@@ -97,7 +101,7 @@ function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard })
             />
           </Grid>
           <Grid item xs={7}>
-            <TodoReportTable />
+            <TodoReportTable team={team} />
           </Grid>
         </Grid>
       </div>
@@ -108,6 +112,7 @@ function TodoReport({ reports = {}, allReports, totalCards, handleChangeBoard })
 TodoReport.propTypes = {
   reports: PropTypes.object,
   allReports: PropTypes.array,
+  team: PropTypes.array,
   totalCards: PropTypes.number,
   handleChangeBoard: PropTypes.func
 };

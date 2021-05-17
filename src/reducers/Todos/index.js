@@ -357,6 +357,20 @@ export function todosReducer(state = initialState, { type, payload }) {
         error: payload
       };
 
+    case todoActions.REMOVE_ATTACH_TODO_SUCCESS:
+      const newRemoveAttachCard = state.cards[payload.cardId];
+      newRemoveAttachCard.attachments = newRemoveAttachCard.attachments.filter(item => item.id !== payload.attachId);
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newRemoveAttachCard }
+      };
+
+    case todoActions.REMOVE_ATTACH_TODO_FAILURE:
+      return {
+        ...state,
+        error: payload
+      };
+
     default:
       return state;
   }

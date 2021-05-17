@@ -15,29 +15,31 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Typography from "@material-ui/core/Typography";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
 import ChatIcon from "@material-ui/icons/Chat";
-import PublishIcon from "@material-ui/icons/Publish";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import DescriptionIcon from "@material-ui/icons/Description";
+import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
 import GroupIcon from "@material-ui/icons/Group";
 import LabelIcon from "@material-ui/icons/Label";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import LinearScaleIcon from "@material-ui/icons/LinearScale";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import PublishIcon from "@material-ui/icons/Publish";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
-import LinearScaleIcon from "@material-ui/icons/LinearScale";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import { cardActions } from "actions/Todos/card.action";
 import { labelActions } from "actions/Todos/label.action";
 import AccordionCpt from "components/Accordion";
+import DialogComponent from "components/ConfirmDialog";
 import ReactModal from "components/Modal";
 import Search from "components/Search";
+import showToast from "components/Toast";
 import { labelColors } from "configs/fakeLabel";
-import { formatDate } from "helpers";
 import { useInput } from "hooks";
+import moment from "moment";
 import PropTypes from "prop-types";
 import React, { memo, useCallback, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
@@ -46,16 +48,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { selectorErrorTodoCard } from "selectors/todos.selector";
 import { v4 as uuidv4 } from "uuid";
 import { CheckListSelect } from "../TodoCheckList";
-import { selectorErrorTodoCard } from "selectors/todos.selector";
 import TodoForm from "../TodoForm";
 import Comments from "./Comment";
 import InputComment from "./Comment/InputComment";
 import useStyles from "./theme.todoCard";
 import "./todoCard.scss";
-import showToast from "components/Toast";
-import moment from "moment";
 
 function TodoCard(props) {
   const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed, attachments } = props;
@@ -67,6 +67,7 @@ function TodoCard(props) {
   const [isEditDescCard, setIsEditDescCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [expandedList, setExpandedList] = useState(null);
   const [cardContent, setCardContent] = useState(title);
   const [descCardContent, setDescCardContent] = useState(desc);
   const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
@@ -75,12 +76,20 @@ function TodoCard(props) {
   const [completedTodo, setCompletedTodo] = useState(completed);
   const [showAttach, setShowAttach] = useState(false);
   const [attachItem, setAttachItem] = useState(null);
+  const [dataDialog, setDataDialog] = useState(null);
   const error = useSelector(selectorErrorTodoCard);
 
   const handleCloseForm = () => {
     setIsEditing(false);
     setAnchorEl(null);
   };
+
+  const handleShowPopup = (event, data) => {
+    setExpandedList(expandedList ? null : event.currentTarget);
+    setDataDialog(data);
+  };
+
+  const closeExpandedPopup = () => setExpandedList(null);
 
   const handleShowSubMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -179,6 +188,10 @@ function TodoCard(props) {
     if (error) showToast(error, "error");
   };
 
+  const handleRemoveAttachTodo = attachId => {
+    dispatch(cardActions.asyncRemoveAttachTodoCard(cardId, attachId));
+  };
+
   const renderTextarea = () => (
     <TodoForm text={cardContent} handleChange={onChange} handleCloseForm={handleCloseForm}>
       <Button type="submit" variant="contained" color="primary" onClick={handleEditCard}>
@@ -196,7 +209,7 @@ function TodoCard(props) {
   );
 
   const renderCard = () => (
-    <Paper elevation={4} className={classes.paper}>
+    <Paper elevation={0} className={classes.paper}>
       <Card variant="outlined" className={classes.card}>
         <CardContent>
           {label?.length > 0 ? (
@@ -412,7 +425,24 @@ function TodoCard(props) {
                         <span>
                           <LinearScaleIcon />
                         </span>
-                        <Button classes={{ root: classes.attachmentBtn }}>Delete</Button>
+                        <Button
+                          aria-describedby={m.id}
+                          disableRipple
+                          classes={{ root: classes.attachmentBtn }}
+                          onClick={e => handleShowPopup(e, m)}
+                        >
+                          {translate("remove")}
+                        </Button>
+                        {dataDialog?.id === m.id ? (
+                          <DialogComponent
+                            id={m.id}
+                            anchorEl={expandedList}
+                            open={Boolean(expandedList)}
+                            handleClickAway={closeExpandedPopup}
+                            content={m.name}
+                            onClick={() => handleRemoveAttachTodo(m.id)}
+                          />
+                        ) : null}
                       </Box>
                     </div>
                   </div>

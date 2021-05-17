@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     paddingRight: "0.5rem"
   },
   editTitleContainer: {
-    padding: "0 0 10px 0",
+    padding: "0 1.5rem 10px",
     display: "flex",
     alignItems: "center"
   },
@@ -38,16 +38,28 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.list,
     maxWidth: "300px",
     minWidth: "300px",
-    maxHeight: "100%",
-    padding: "10px 8px 0 8px",
-    marginRight: theme.spacing(1)
+    maxHeight: "76vh",
+    height: "100%",
+    padding: "10px 0 0",
+    marginRight: theme.spacing(1),
+    overflow: "auto"
   },
   todoListContent: {
     flex: "1 1 auto",
     marginBottom: 0,
     minHeight: "10px",
     overflowX: "hidden",
-    overflowY: "auto"
+    overflowY: "auto",
+    padding: "0 4px",
+    margin: "0 4px",
+    "&::-webkit-scrollbar": {
+      width: "9px"
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#d2d7e0",
+      borderRadius: "10px",
+      boxShadow: "inset 0 0 6px rgba(0,0,0,.3)"
+    }
   },
   icon: {
     color: theme.palette.text.primary,

@@ -21,6 +21,9 @@ const completedTodoApis = {
   },
   removeFailedTodo: (boardId, failedId) => {
     return axiosClient.patch(`/api/reports/failed/${failedId}`, { boardId });
+  },
+  getMemberTeamTodo: boardId => {
+    return axiosClient.get(`/api/reports/completed/${boardId}`);
   }
 };
 

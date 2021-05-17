@@ -13,7 +13,6 @@ import TodoFormContainer from "./TodoForm/TodoFormContainer";
 import TodoList from "./TodoList";
 import useStyles from "./style";
 import "./todos.scss";
-import ButtonComponent from "components/Button";
 
 function Todos() {
   const classes = useStyles();

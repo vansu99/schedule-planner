@@ -65,6 +65,9 @@ const todosApis = {
         "Content-Type": "multipart/form-data"
       }
     });
+  },
+  removeAttachTodoCard: (id, attachId) => {
+    return axiosClient.delete(`/api/cards/${id}/attachment/${attachId}`);
   }
 };
 

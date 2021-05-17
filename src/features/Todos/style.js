@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     minHeight: "calc(100vh - 50px)",
     overflowY: "auto",
-    paddingTop: theme.spacing(5),
+    paddingTop: "3rem",
     backgroundColor: theme.palette.background.default
   },
   main: {
@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     padding: "6px 8px",
     fontWeight: 500,
     fontSize: "1.2rem",
-    backgroundColor: "hsla(0, 0%, 0%, 0.08)"
+    backgroundColor: "hsla(0, 0%, 0%, 0.08)",
+    fontFamily: "Poppins, sans-serif"
   }
 }));
 
