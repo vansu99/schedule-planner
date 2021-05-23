@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginBottom: "6px"
   },
-  card: {
+  cardContainer: {
     // "& .MuiCardContent-root:last-child": {
     //   paddingBottom: "16px"
     // },

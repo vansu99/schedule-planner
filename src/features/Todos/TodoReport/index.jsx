@@ -11,7 +11,7 @@ import TodoReportPieChart from "./components/TodoReportPieChart";
 import TodoReportTable from "./components/TodoReportTables";
 import useStyles from "./todoReport.theme";
 
-function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBoard }) {
+function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBoard, loading }) {
   const classes = useStyles();
   const calPercentCompletedTodo = useCallback(
     value => {
@@ -64,12 +64,13 @@ function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBo
         <Grid container spacing={3}>
           <Grid item xs>
             <Paper elevation={3}>
-              <TodoReportCard title="Tổng công việc" completed={totalCards} color="#2E86AB" />
+              <TodoReportCard loading={loading} title="Tổng công việc" completed={totalCards} color="#2E86AB" />
             </Paper>
           </Grid>
           <Grid item xs>
             <Paper elevation={3}>
               <TodoReportCard
+                loading={loading}
                 title="Quá hạn"
                 completed={reports.cardFailed?.length}
                 calPercent={calPercentCompletedTodo(reports.cardFailed?.length)}
@@ -81,6 +82,7 @@ function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBo
             <Paper elevation={3}>
               <TodoReportCard
                 title="Hoàn thành"
+                loading={loading}
                 completed={reports.cardCompleted?.length}
                 calPercent={calPercentCompletedTodo(reports.cardCompleted?.length)}
                 color="#35CE8D"
@@ -101,7 +103,7 @@ function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBo
             />
           </Grid>
           <Grid item xs={7}>
-            <TodoReportTable team={team} />
+            <TodoReportTable loading={loading} team={team} />
           </Grid>
         </Grid>
       </div>
@@ -114,7 +116,8 @@ TodoReport.propTypes = {
   allReports: PropTypes.array,
   team: PropTypes.array,
   totalCards: PropTypes.number,
-  handleChangeBoard: PropTypes.func
+  handleChangeBoard: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 export default memo(TodoReport);

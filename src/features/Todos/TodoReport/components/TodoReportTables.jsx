@@ -8,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles({
   table: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
   }
 });
 
-function TodoReportTables({ team }) {
+function TodoReportTables({ team, loading }) {
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
@@ -28,18 +29,51 @@ function TodoReportTables({ team }) {
             <TableCell align="right">Hoàn thành</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {team.map(row => (
-            <TableRow key={row._id}>
-              <TableCell component="th" scope="row">
-                {row.userId.username}
+        {loading ? (
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
               </TableCell>
-              <TableCell align="right">{row.failed.length}</TableCell>
-              <TableCell align="right">{row.failed.length}</TableCell>
-              <TableCell align="right">{row.completed.length}</TableCell>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
+            <TableRow>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
+              <TableCell>
+                <Skeleton animation="wave" height={50} width="100%" />
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        ) : (
+          <TableBody>
+            {(team || []).map(row => (
+              <TableRow key={row._id}>
+                <TableCell component="th" scope="row">
+                  {row.userId.username}
+                </TableCell>
+                <TableCell align="right">{row.failed.length}</TableCell>
+                <TableCell align="right">{row.failed.length}</TableCell>
+                <TableCell align="right">{row.completed.length}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        )}
       </Table>
     </TableContainer>
   );

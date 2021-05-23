@@ -13,43 +13,41 @@ function ReportPage() {
   const [team, setTeam] = useState([]);
   const [allReports, setAllReports] = useState([]);
   const [totalCards, setTotalCards] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async function () {
       try {
-        dispatch(actShowLoading());
+        //dispatch(actShowLoading());
+        setLoading(true);
         const result = await completedTodoApis.getReportByBoardId(boardId);
         const teamTodo = await completedTodoApis.getMemberTeamTodo(boardId);
         const reportTodos = await completedTodoApis.getAllReport();
         if (result.status === 200) {
-          dispatch(actHideLoading());
           setReports({ ...result.data.completedTodo });
           setAllReports([...reportTodos.data.reports]);
           setTeam([...teamTodo.data.completedList]);
           setTotalCards(result.data.totalCards);
+          setLoading(false);
         }
       } catch (error) {
-        dispatch(actHideLoading());
+        setLoading(false);
+        console.log(error);
       }
     })();
   }, [boardId, dispatch]);
 
-  const handleChangeBoard = useCallback(
-    async id => {
-      try {
-        dispatch(actShowLoading());
-        const response = await completedTodoApis.getReportById(id);
-        if (response.status === 200) {
-          setReports({ ...response.data.report[0] });
-          setTotalCards(response.data.totalCards);
-          dispatch(actHideLoading());
-        }
-      } catch (error) {
-        dispatch(actHideLoading());
+  const handleChangeBoard = useCallback(async id => {
+    try {
+      const response = await completedTodoApis.getReportById(id);
+      if (response.status === 200) {
+        setReports({ ...response.data.report[0] });
+        setTotalCards(response.data.totalCards);
       }
-    },
-    [dispatch]
-  );
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <React.Fragment>
@@ -59,6 +57,7 @@ function ReportPage() {
         totalCards={totalCards}
         handleChangeBoard={handleChangeBoard}
         team={team}
+        loading={loading}
       />
     </React.Fragment>
   );

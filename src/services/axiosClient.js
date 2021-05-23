@@ -3,9 +3,10 @@ import queryString from "query-string";
 import { pathName, StorageKeys } from "configs";
 import { localStorageService } from "hooks/useLocalStorage";
 import history from "helpers/history";
+import { setDialog } from "actions/Global";
 
 const { clearTokens, getRefreshToken } = localStorageService;
-const API_URL = "https://projectfinaltodo.herokuapp.com";
+const API_URL = "http://localhost:8080";
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
 

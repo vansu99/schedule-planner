@@ -1,8 +1,10 @@
-import { Box, Button, Divider, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Divider, InputAdornment, TextField, Typography } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
+import AlarmIcon from "@material-ui/icons/AddAlarm";
+import { DateTimePicker } from "@material-ui/pickers";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const useStyles = makeStyles(theme => ({
@@ -23,9 +25,17 @@ const useStyles = makeStyles(theme => ({
   datePicker: {
     marginTop: theme.spacing(1.5),
     padding: theme.spacing(1),
-    borderRadius: "4px",
-    border: "1px solid rgba(0, 0, 0, 0.23)",
     outline: "none"
+  },
+  btnSubmit: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    "& > .MuiButton-label": {
+      fontSize: "12px"
+    },
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main
+    }
   }
 }));
 
@@ -57,7 +67,7 @@ function CalendarForm({ onSubmit, event = {} }) {
       <Divider />
       <Box mt={2}>
         <TextField value={content?.title} onChange={onChange} name="title" size="small" fullWidth variant="outlined" />
-        <DatePicker
+        {/* <DatePicker
           className={classes.datePicker}
           showTimeSelect
           timeIntervals={15}
@@ -68,10 +78,25 @@ function CalendarForm({ onSubmit, event = {} }) {
           autoComplete="off"
           selected={content && content?.date}
           onChange={date => setContent({ ...content, date })}
+        /> */}
+        <DateTimePicker
+          className={classes.datePicker}
+          value={content && content?.date}
+          onChange={date => setContent({ ...content, date })}
+          format="dd/MM/yyyy HH:mm"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton>
+                  <AlarmIcon fontSize="large" />
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         />
       </Box>
       <Box mt={2} display="flex" justifyContent="flex-end" alignItems="center">
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button className={classes.btnSubmit} onClick={handleSubmit}>
           Cập nhật
         </Button>
       </Box>

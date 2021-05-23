@@ -37,10 +37,12 @@ function App() {
 
   return (
     <MuiThemeProvider theme={themes(type)}>
-      <Router history={history}>
-        <Routes />
-      </Router>
-      <ToastContainer />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+        <ToastContainer />
+      </MuiPickersUtilsProvider>
     </MuiThemeProvider>
   );
 }

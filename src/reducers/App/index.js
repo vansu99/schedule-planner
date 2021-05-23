@@ -5,7 +5,12 @@ const initialState = {
   text: "",
   onClick: null,
   showAlert: false,
-  timeoutId: null
+  timeoutId: null,
+  dialog: {
+    type: "error",
+    isShow: false,
+    content: ""
+  }
 };
 
 export function appReducer(state = initialState, action) {
@@ -31,6 +36,16 @@ export function appReducer(state = initialState, action) {
 
     case appConstants.SET_ALERT_TIMEOUT_ID:
       return { ...state, timeoutId: action.payload };
+
+    case appConstants.SHOW_DIALOG:
+      return {
+        ...state,
+        dialog: {
+          type: action.payload.dialog.type,
+          isShow: action.payload.dialog.isShow,
+          content: action.payload.dialog.content
+        }
+      };
 
     default:
       return state;

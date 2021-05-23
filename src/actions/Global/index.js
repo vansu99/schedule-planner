@@ -79,3 +79,14 @@ export const showAlert = (text, onClick = null) => (dispatch, getState) => {
     });
   }
 };
+
+export const setDialog = (isShow, type = "error", content = "") => ({
+  type: appConstants.SHOW_DIALOG,
+  payload: {
+    dialog: {
+      type,
+      isShow,
+      content
+    }
+  }
+});

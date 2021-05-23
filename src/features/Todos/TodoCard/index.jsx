@@ -1,4 +1,4 @@
-import { Box, CardContent, Paper, TextField } from "@material-ui/core";
+import { Box, CardContent, InputAdornment, Paper, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -16,6 +16,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Typography from "@material-ui/core/Typography";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import AlarmIcon from "@material-ui/icons/AddAlarm";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
 import ChatIcon from "@material-ui/icons/Chat";
 import CreateIcon from "@material-ui/icons/Create";
@@ -30,6 +31,7 @@ import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import PublishIcon from "@material-ui/icons/Publish";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import { DateTimePicker } from "@material-ui/pickers";
 import { cardActions } from "actions/Todos/card.action";
 import { labelActions } from "actions/Todos/label.action";
 import AccordionCpt from "components/Accordion";
@@ -40,10 +42,8 @@ import showToast from "components/Toast";
 import { labelColors } from "configs/fakeLabel";
 import { useInput } from "hooks";
 import moment from "moment";
-import PropTypes from "prop-types";
 import React, { memo, useCallback, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,8 +57,7 @@ import InputComment from "./Comment/InputComment";
 import useStyles from "./theme.todoCard";
 import "./todoCard.scss";
 
-function TodoCard(props) {
-  const { title, cardId, member = [], checklist, index, listId, desc, label, date, completed, attachments } = props;
+function TodoCard({ ...card }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { boardId } = useParams();
@@ -68,12 +67,12 @@ function TodoCard(props) {
   const [showModal, setShowModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [expandedList, setExpandedList] = useState(null);
-  const [cardContent, setCardContent] = useState(title);
-  const [descCardContent, setDescCardContent] = useState(desc);
+  const [cardContent, setCardContent] = useState(card.title);
+  const [descCardContent, setDescCardContent] = useState(card.description);
   const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
-  const [completedTodo, setCompletedTodo] = useState(completed);
+  const [completedTodo, setCompletedTodo] = useState(card.completed);
   const [showAttach, setShowAttach] = useState(false);
   const [attachItem, setAttachItem] = useState(null);
   const [dataDialog, setDataDialog] = useState(null);
@@ -113,17 +112,17 @@ function TodoCard(props) {
   };
 
   const handleEditCard = () => {
-    dispatch(cardActions.asyncEditTodoCard(cardId, cardContent));
+    dispatch(cardActions.asyncEditTodoCard(card._id, cardContent));
     setIsEditing(false);
   };
 
   const handleEditDescCard = () => {
-    dispatch(cardActions.asyncEditDescTodoCard(cardId, descCardContent));
+    dispatch(cardActions.asyncEditDescTodoCard(card._id, descCardContent));
     setIsEditDescCard(false);
   };
 
   const handleAddDeadLineTodo = useCallback(() => {
-    dispatch(cardActions.asyncAddDeadlineTodoCard(cardId, startDate));
+    dispatch(cardActions.asyncAddDeadlineTodoCard(card._id, startDate));
   }, [dispatch, startDate]);
 
   const handleAddCheckList = () => {
@@ -133,7 +132,7 @@ function TodoCard(props) {
       text: todoCheckListContent,
       status: false
     };
-    dispatch(cardActions.asyncAddCheckListCard(cardId, newCheckListTodo));
+    dispatch(cardActions.asyncAddCheckListCard(card._id, newCheckListTodo));
     reset();
   };
 
@@ -143,7 +142,7 @@ function TodoCard(props) {
       ...infoLabel,
       value
     };
-    dispatch(labelActions.asyncAddLabelTodo(cardId, newLabelTodo));
+    dispatch(labelActions.asyncAddLabelTodo(card._id, newLabelTodo));
     setInfoLabel({
       name: "",
       color: ""
@@ -151,15 +150,15 @@ function TodoCard(props) {
   };
 
   const handleRemoveCard = () => {
-    dispatch(cardActions.asyncRemoveTodoCard(listId, cardId, boardId));
+    dispatch(cardActions.asyncRemoveTodoCard(card.listId, card._id, boardId));
   };
 
   const handleRemoveMember = memberId => {
-    dispatch(cardActions.asyncRemoveMemberTodoCard(cardId, memberId));
+    dispatch(cardActions.asyncRemoveMemberTodoCard(card._id, memberId));
   };
 
   const handleRemoveLabel = labelId => {
-    dispatch(labelActions.asyncRemoveLabelTodo(cardId, labelId));
+    dispatch(labelActions.asyncRemoveLabelTodo(card._id, labelId));
   };
 
   const onChange = useCallback(e => {
@@ -175,7 +174,7 @@ function TodoCard(props) {
   };
 
   const handleUpdateCompletedTodo = () => {
-    dispatch(cardActions.asyncUpdateCompletedTodoCard(cardId, completedTodo, boardId));
+    dispatch(cardActions.asyncUpdateCompletedTodoCard(card._id, completedTodo, boardId));
   };
 
   const onAddAttachTodo = event => {
@@ -184,12 +183,12 @@ function TodoCard(props) {
       value,
       item: event.target.files[0]
     };
-    dispatch(cardActions.asyncAddAttachTodoCard(cardId, newAttach));
+    dispatch(cardActions.asyncAddAttachTodoCard(card._id, newAttach));
     if (error) showToast(error, "error");
   };
 
   const handleRemoveAttachTodo = attachId => {
-    dispatch(cardActions.asyncRemoveAttachTodoCard(cardId, attachId));
+    dispatch(cardActions.asyncRemoveAttachTodoCard(card._id, attachId));
   };
 
   const renderTextarea = () => (
@@ -210,11 +209,11 @@ function TodoCard(props) {
 
   const renderCard = () => (
     <Paper elevation={0} className={classes.paper}>
-      <Card variant="outlined" className={classes.card}>
+      <Card variant="outlined" className={classes.cardContainer}>
         <CardContent>
-          {label?.length > 0 ? (
+          {card.label?.length > 0 ? (
             <Box mb={1} className={classes.box}>
-              {label?.map((value, index) => (
+              {(card.label || []).map((value, index) => (
                 <Chip
                   classes={{ root: classes.chipTags }}
                   key={index}
@@ -226,7 +225,7 @@ function TodoCard(props) {
           ) : null}
           <div className={classes.box}>
             <Typography className={classes.title} variant="body2" component="p">
-              {title}
+              {card.title}
             </Typography>
             <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleShowSubMenu}>
               <MoreVertIcon fontSize="inherit" />
@@ -262,7 +261,7 @@ function TodoCard(props) {
               </MenuItem>
             </Menu>
           </div>
-          {desc ? (
+          {card.description ? (
             <span className="todoCard__detail-icon" onClick={() => setShowModal(true)}>
               <i className="bx bx-detail"></i>
             </span>
@@ -270,7 +269,7 @@ function TodoCard(props) {
           {!showAttach ? (
             <div className={classes.cardIcon}>
               <AttachFileIcon />
-              <span>{attachments?.length}</span>
+              <span>{card.attachments?.length}</span>
             </div>
           ) : (
             <div
@@ -282,20 +281,19 @@ function TodoCard(props) {
             ></div>
           )}
           <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
-            {date ? (
+            {card.date ? (
               <div className={classes.dueDate}>
                 <AccessTimeIcon />
-                <span>{moment(date).format("MMM DD")}</span>
+                <span>{moment(card.date).format("MMM DD")}</span>
               </div>
             ) : (
               <div></div>
             )}
             <div>
               <AvatarGroup>
-                {member &&
-                  member.map((value, index) => (
-                    <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
-                  ))}
+                {(card.member || []).map((value, index) => (
+                  <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
+                ))}
               </AvatarGroup>
             </div>
           </Box>
@@ -309,7 +307,7 @@ function TodoCard(props) {
       <div className="todoCard-details">
         <Box mb={4}>
           <Typography variant="h4" component="h4">
-            <i className="bx bx-layout"></i> Nội dung: {title}
+            <i className="bx bx-layout"></i> Nội dung: {card.title}
           </Typography>
           <Typography variant="subtitle1" component="span">
             trong danh sách X
@@ -329,15 +327,15 @@ function TodoCard(props) {
             <Box className={classes.todoCardLabels}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <LabelIcon fontSize="large" /> {translate("label")}
-                {date && (
+                {card.date && (
                   <span className={classes.todoCardDeadline}>
                     <QueryBuilderIcon fontSize="large" />
-                    {moment(date).format("DD/MM/YYYY")}
+                    {moment(card.date).format("DD/MM/YYYY")}
                   </span>
                 )}
               </Typography>
               <Box display="flex" mt={2} ml={2}>
-                {label?.map((item, index) => (
+                {(card.label || []).map((item, index) => (
                   <Chip
                     key={index}
                     label={item.name}
@@ -353,7 +351,7 @@ function TodoCard(props) {
                 <GroupIcon fontSize="large" /> {translate("member")}
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
-                {member.map(value => (
+                {(card.member || []).map(value => (
                   <Chip
                     className={classes.chipEl}
                     label={value.username}
@@ -385,9 +383,9 @@ function TodoCard(props) {
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <PlaylistAddCheckIcon fontSize="large" /> {translate("checklist")}
               </Typography>
-              {checklist.length > 0 ? (
+              {card.checklist.length > 0 ? (
                 <Box mt={1.5}>
-                  <CheckListSelect checklist={checklist} cardId={cardId} />
+                  <CheckListSelect checklist={card.checklist} cardId={card._id} />
                 </Box>
               ) : (
                 <Typography variant="subtitle1" component="p" style={{ opacity: 0.6 }}>
@@ -395,12 +393,12 @@ function TodoCard(props) {
                 </Typography>
               )}
             </Box>
-            {attachments?.length > 0 && (
+            {card.attachments?.length > 0 && (
               <Box mt={3.4} className={classes.todoCardCheckList}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                   <AttachFileIcon fontSize="large" /> Attachments
                 </Typography>
-                {attachments?.map(m => (
+                {(card.attachments || []).map(m => (
                   <div key={m.id} className={classes.attachmentIem}>
                     <div
                       className={classes.attachmentImg}
@@ -453,8 +451,8 @@ function TodoCard(props) {
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <ChatIcon fontSize="large" /> {translate("comment")}
               </Typography>
-              <Comments cardId={cardId} />
-              <InputComment cardId={cardId} />
+              <Comments cardId={card._id} />
+              <InputComment cardId={card._id} />
             </Box>
             <Button
               variant="contained"
@@ -473,7 +471,7 @@ function TodoCard(props) {
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
                 <AccordionCpt title="member" icon="bx bx-user">
-                  <Search cardId={cardId} />
+                  <Search cardId={card._id} />
                 </AccordionCpt>
               </Box>
               <Box mt={1} component="li">
@@ -496,7 +494,7 @@ function TodoCard(props) {
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box mt={1} display="flex" alignItems="center" position="relative" key={index}>
+                          <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
                             {labelColors.map((label, index) => (
                               <Box position="relative">
                                 <Radio
@@ -533,12 +531,26 @@ function TodoCard(props) {
                 <AccordionCpt title="due_date" icon="bx bx-time">
                   <Box>
                     <Box mb={1.5}>
-                      <DatePicker
+                      {/* <DatePicker
                         selected={startDate}
                         onChange={date => setStartDate(date)}
                         timeInputLabel="Time:"
                         dateFormat="dd/MM/yyyy h:mm aa"
                         showTimeInput
+                      /> */}
+                      <DateTimePicker
+                        value={startDate}
+                        onChange={date => setStartDate(date)}
+                        format="dd/MM/yyyy HH:mm"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton>
+                                <AlarmIcon fontSize="large" />
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
                       />
                     </Box>
                     <Button variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
@@ -602,7 +614,7 @@ function TodoCard(props) {
       <div className="todoCard-details">
         <Box mb={4}>
           <Typography variant="h4" component="h4">
-            <i className="bx bx-layout"></i> Nội dung: {title}
+            <i className="bx bx-layout"></i> Nội dung: {card.title}
           </Typography>
           <Typography variant="subtitle1" component="span">
             trong danh sách X
@@ -622,15 +634,15 @@ function TodoCard(props) {
             <Box className={classes.todoCardLabels}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <LabelIcon fontSize="large" /> {translate("label")}
-                {date && (
+                {card.date && (
                   <span className={classes.todoCardDeadline}>
                     <QueryBuilderIcon fontSize="large" />
-                    {moment(date).format("DD/MM/YYYY")}
+                    {moment(card.date).format("DD/MM/YYYY")}
                   </span>
                 )}
               </Typography>
               <Box display="flex" mt={2} ml={2}>
-                {label?.map((item, index) => (
+                {(card.label || []).map((item, index) => (
                   <Chip
                     key={index}
                     label={item.name}
@@ -646,7 +658,7 @@ function TodoCard(props) {
                 <GroupIcon fontSize="large" /> {translate("member")}
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
-                {member.map(value => (
+                {(card.member || []).map(value => (
                   <Chip
                     className={classes.chipEl}
                     label={value.username}
@@ -683,9 +695,9 @@ function TodoCard(props) {
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <PlaylistAddCheckIcon fontSize="large" /> {translate("checklist")}
               </Typography>
-              {checklist?.length > 0 ? (
+              {card.checklist?.length > 0 ? (
                 <Box mt={1.5}>
-                  <CheckListSelect checklist={checklist} cardId={cardId} />
+                  <CheckListSelect checklist={card.checklist} cardId={card._id} />
                 </Box>
               ) : (
                 <Typography variant="subtitle1" component="p" style={{ opacity: 0.6 }}>
@@ -693,12 +705,12 @@ function TodoCard(props) {
                 </Typography>
               )}
             </Box>
-            {attachments?.length > 0 && (
+            {card.attachments?.length > 0 && (
               <Box mt={3.4} className={classes.todoCardCheckList}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                   <AttachFileIcon fontSize="large" /> Attachments
                 </Typography>
-                {attachments?.map(m => (
+                {(card.attachments || []).map(m => (
                   <div key={m.id} className={classes.attachmentIem}>
                     <div
                       className={classes.attachments}
@@ -734,8 +746,8 @@ function TodoCard(props) {
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <ChatIcon fontSize="large" /> {translate("comment")}
               </Typography>
-              <Comments cardId={cardId} />
-              <InputComment cardId={cardId} />
+              <Comments cardId={card._id} />
+              <InputComment cardId={card._id} />
             </Box>
             <Button
               variant="contained"
@@ -754,7 +766,7 @@ function TodoCard(props) {
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
                 <AccordionCpt title="member" icon="bx bx-user">
-                  <Search cardId={cardId} />
+                  <Search cardId={card._id} />
                 </AccordionCpt>
               </Box>
               <Box mt={1} component="li">
@@ -777,7 +789,7 @@ function TodoCard(props) {
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box mt={1} display="flex" alignItems="center" position="relative" key={index}>
+                          <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
                             {labelColors.map((label, index) => (
                               <Box position="relative">
                                 <Radio
@@ -814,12 +826,19 @@ function TodoCard(props) {
                 <AccordionCpt title="due_date" icon="bx bx-time">
                   <Box>
                     <Box mb={1.5}>
-                      <DatePicker
-                        selected={startDate}
+                      <DateTimePicker
+                        value={startDate}
                         onChange={date => setStartDate(date)}
-                        timeInputLabel="Time:"
-                        dateFormat="dd/MM/yyyy h:mm aa"
-                        showTimeInput
+                        format="dd/MM/yyyy HH:mm"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton>
+                                <AlarmIcon fontSize="large" />
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
                       />
                     </Box>
                     <Button variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
@@ -879,7 +898,7 @@ function TodoCard(props) {
   );
 
   return (
-    <Draggable draggableId={String(cardId)} index={index}>
+    <Draggable key={card._id} draggableId={String(card._id)} index={card.index}>
       {provided => {
         return (
           <div
@@ -889,22 +908,12 @@ function TodoCard(props) {
             onDoubleClick={() => setShowModal(true)}
           >
             {isEditing ? renderTextarea() : renderCard()}
-            {desc ? renderModalWithDescCard() : renderContentModal()}
+            {card.description ? renderModalWithDescCard() : renderContentModal()}
           </div>
         );
       }}
     </Draggable>
   );
 }
-
-TodoCard.propTypes = {
-  title: PropTypes.string,
-  member: PropTypes.array,
-  checklist: PropTypes.array,
-  attachments: PropTypes.array,
-  desc: PropTypes.string,
-  label: PropTypes.array,
-  comments: PropTypes.array
-};
 
 export default memo(TodoCard);
