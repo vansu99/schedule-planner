@@ -30,5 +30,6 @@
   "activity": "Activity",
   "change_bg": "Change Background",
   "calendar": "Calendar",
-  "attach": "Attachments"
+  "attach": "Attachments",
+  "date_format": "{{ datetime, english }}"
 }

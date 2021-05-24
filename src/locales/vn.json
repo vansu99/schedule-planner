@@ -31,5 +31,6 @@
   "activity": "Hoạt động",
   "change_bg": "Thay đổi màu nền",
   "calendar": "Thời gian biểu",
-  "attach": "Đính kèm"
+  "attach": "Đính kèm",
+  "date_format": "{{ datetime, vietnamese }}"
 }

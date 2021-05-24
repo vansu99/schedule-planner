@@ -284,7 +284,8 @@ function TodoCard({ ...card }) {
             {card.date ? (
               <div className={classes.dueDate}>
                 <AccessTimeIcon />
-                <span>{moment(card.date).format("MMM DD")}</span>
+                {/* <span>{moment(card.date).format("MMM DD")}</span> */}
+                <span>{translate("date_format", { datetime: card.date })}</span>
               </div>
             ) : (
               <div></div>
@@ -309,8 +310,8 @@ function TodoCard({ ...card }) {
           <Typography variant="h4" component="h4">
             <i className="bx bx-layout"></i> Nội dung: {card.title}
           </Typography>
-          <Typography variant="subtitle1" component="span">
-            trong danh sách X
+          <Typography variant="body2" component="span">
+            trong danh sách {card.listTitle}
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
@@ -330,7 +331,7 @@ function TodoCard({ ...card }) {
                 {card.date && (
                   <span className={classes.todoCardDeadline}>
                     <QueryBuilderIcon fontSize="large" />
-                    {moment(card.date).format("DD/MM/YYYY")}
+                    {translate("date_format", { datetime: card.date })}
                   </span>
                 )}
               </Typography>
@@ -361,7 +362,7 @@ function TodoCard({ ...card }) {
                 ))}
               </Box>
             </Box>
-            <Box className={classes.todoCardDescription}>
+            <Box>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <DescriptionIcon fontSize="large" /> {translate("description")}
               </Typography>
@@ -369,14 +370,19 @@ function TodoCard({ ...card }) {
                 <Button
                   variant="contained"
                   color="primary"
+                  size="large"
                   className={classes.margin}
                   onClick={() => setIsEditDescCard(true)}
                 >
                   Chỉnh sửa
                 </Button>
               ) : null}
-              <Box pl={2.7} pt={2.7}>
-                {isEditDescCard ? renderTextareaForDescModal() : <p>{descCardContent}</p>}
+              <Box pl={2.7}>
+                {isEditDescCard ? (
+                  renderTextareaForDescModal()
+                ) : (
+                  <p className={classes.todoCardDescription}>{descCardContent}</p>
+                )}
               </Box>
             </Box>
             <Box mt={3.4} className={classes.todoCardCheckList}>
@@ -616,8 +622,8 @@ function TodoCard({ ...card }) {
           <Typography variant="h4" component="h4">
             <i className="bx bx-layout"></i> Nội dung: {card.title}
           </Typography>
-          <Typography variant="subtitle1" component="span">
-            trong danh sách X
+          <Typography variant="body2" component="span">
+            trong danh sách {card.listTitle}
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">

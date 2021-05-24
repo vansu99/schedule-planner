@@ -70,7 +70,10 @@ const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(1)
     }
   },
-  todoCardDescription: {},
+  todoCardDescription: {
+    wordWrap: "break-word",
+    fontSize: "1.5rem"
+  },
   todoCardCheckList: {},
   todoCardComments: {},
   todoCardTextarea: {

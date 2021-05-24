@@ -62,7 +62,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
               <>
                 <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className={classes.todoListContent}>
                   {(cards || []).map((card, idx) => (
-                    <TodoCard {...card} listId={listId} index={idx} />
+                    <TodoCard {...card} listId={listId} index={idx} listTitle={title} />
                   ))}
                   {providedDrop.placeholder}
                 </div>

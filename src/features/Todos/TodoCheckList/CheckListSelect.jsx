@@ -67,7 +67,13 @@ function CheckListSelect({ checklist, cardId }) {
           handleRemoveCheckList={handleRemoveCheckList}
         />
       ))}
-      <Button variant="contained" color="primary" className={classes.btnMarginTop} onClick={handleUpdateCheckList}>
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        className={classes.btnMarginTop}
+        onClick={handleUpdateCheckList}
+      >
         Lưu công việc chi tiết
       </Button>
     </>
