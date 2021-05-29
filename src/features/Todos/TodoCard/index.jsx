@@ -643,7 +643,7 @@ function TodoCard({ ...card }) {
                 {card.date && (
                   <span className={classes.todoCardDeadline}>
                     <QueryBuilderIcon fontSize="large" />
-                    {moment(card.date).format("DD/MM/YYYY")}
+                    {translate("date_format", { datetime: card.date })}
                   </span>
                 )}
               </Typography>
@@ -758,9 +758,9 @@ function TodoCard({ ...card }) {
             <Button
               variant="contained"
               color="primary"
-              size="large"
               className={classes.btnMarginTop}
               onClick={handleUpdateCompletedTodo}
+              disableRipple
             >
               Lưu công việc
             </Button>

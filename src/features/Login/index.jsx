@@ -25,10 +25,10 @@ function Login(props) {
     return <Redirect to={pathName.TODO_LIST} />;
   } else {
     return (
-      <React.Fragment>
+      <div className="fade-in">
         <LoginForm onSubmit={handleSubmit} />
         <Footer />
-      </React.Fragment>
+      </div>
     );
   }
 }

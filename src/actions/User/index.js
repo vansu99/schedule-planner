@@ -67,7 +67,7 @@ const asyncRegister = user => {
       const userInfo = response.data?.user;
       dispatch(actLoginSuccess(token, userInfo));
       localStorage.setItem(StorageKeys.USER, JSON.stringify(userInfo));
-      history.push({ pathname: pathName.ROOT, state: 200 });
+      history.push({ pathname: `/users/${userInfo?._id}`, state: 200 });
     } catch (error) {
       console.log(error);
     }

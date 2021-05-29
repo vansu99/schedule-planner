@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Search({ onSubmit, cardId }) {
+function Search({ cardId }) {
   const classes = useStyles();
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
@@ -66,7 +66,7 @@ function Search({ onSubmit, cardId }) {
     <div className={classes.search}>
       <form>
         <FormControl size="small" variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Search</InputLabel>
+          <InputLabel htmlFor="outlined-adornment-password">Search Member</InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             type="text"
@@ -74,7 +74,7 @@ function Search({ onSubmit, cardId }) {
             onChange={handleChangeSearch}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton onClick={handleClose} edge="end">
+                <IconButton onClick={handleClose} edge="end" disableRipple>
                   <ClearIcon color="error" />
                 </IconButton>
               </InputAdornment>

@@ -25,10 +25,10 @@ function Register() {
     return <Redirect to={pathName.TODO_LIST} />;
   } else {
     return (
-      <React.Fragment>
+      <div className="fade-in">
         <RegisterForm onSubmit={handleSubmit} />
         <Footer />
-      </React.Fragment>
+      </div>
     );
   }
 }

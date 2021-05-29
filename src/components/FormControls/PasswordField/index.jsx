@@ -9,10 +9,12 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
+import useStyles from "./style";
 
 function PasswordField({ form, name, label, disabled }) {
   const { errors } = form;
   const hasError = !!errors[name];
+  const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {

@@ -2,21 +2,24 @@ import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import React from "react";
 import { Controller } from "react-hook-form";
+import useStyles from "./style";
 
 function InputField({ form, name, label, disabled }) {
   const { errors } = form;
   const hasError = errors[name];
+  const classes = useStyles();
   return (
     <Controller
       name={name}
       control={form.control}
       render={({ onChange, onBlur, value, name }) => (
         <TextField
+          className={classes.textField}
           margin="dense"
           variant="outlined"
           fullWidth
           size="small"
-          label={label}
+          label={name}
           disabled={disabled}
           error={!!hasError}
           helperText={errors[name]?.message}

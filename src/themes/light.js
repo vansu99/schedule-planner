@@ -56,7 +56,23 @@ const lightTheme = createMuiTheme({
           fontWeight: 400,
           lineHeight: "24px",
           height: "100%"
+        },
+        "@keyframes fadeIn": {
+          "0%": {
+            opacity: 0
+          },
+          "100%": {
+            opacity: 1
+          }
+        },
+        ".fade-in": {
+          animation: "$fadeIn 1s ease-out"
         }
+      }
+    },
+    MuiButton: {
+      root: {
+        fontSize: "12px"
       }
     }
   }
