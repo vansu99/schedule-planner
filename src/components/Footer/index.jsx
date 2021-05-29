@@ -62,9 +62,9 @@ export default function Footer() {
           </Typography>
         </div>
         <div className={classes.footerRight}>
-          <Typography variant="h6" component="h6">
+          {/* <Typography variant="h6" component="h6">
             Made by <span>evandev</span>
-          </Typography>
+          </Typography> */}
         </div>
       </div>
     </Container>
