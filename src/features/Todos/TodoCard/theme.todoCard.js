@@ -170,6 +170,7 @@ const useStyles = makeStyles(theme => ({
   menuItem: {
     display: "flex",
     alignItems: "center",
+    color: theme.palette.text.secondary,
     "& .MuiSvgIcon-root": {
       fontSize: "1.8rem",
       marginRight: theme.spacing(1.4)

@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     color: theme.palette.text.primary,
-    fontSize: "1.6rem",
+    fontSize: "1.4rem",
     fontWeight: "500",
     border: "1px solid #dbdbdb",
     borderRadius: "4px",
@@ -162,7 +162,7 @@ function UserProfile(props) {
             <Grid item xs={12} md={3}>
               <Avatar alt={currentUser?.username} src={currentUser?.image} className={classes.large} />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={5}>
               <Typography variant="h3" component="h3" gutterBottom>
                 {currentUser?.username}
               </Typography>
@@ -173,7 +173,7 @@ function UserProfile(props) {
                 {currentUser?.email}
               </Typography>
             </Grid>
-            <Grid item xs>
+            <Grid item xs md={4}>
               <Link to={pathName.USER_EDIT} className={classes.link}>
                 {translate("edit_profile")}
               </Link>
@@ -189,7 +189,7 @@ function UserProfile(props) {
 
           <Grid container spacing={4}>
             {boards.map(board => (
-              <Grid item xs md={4} key={board._id}>
+              <Grid item xs={12} sm={6} md={4} key={board._id}>
                 <Paper
                   elevation={4}
                   className={classes.paper}

@@ -15,7 +15,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "../../actions/User";
-import "./header.scss";
 import useStyles from "./theme.header";
 
 export default function Header({ children }) {

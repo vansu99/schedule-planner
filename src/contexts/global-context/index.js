@@ -1,7 +1,8 @@
 import React, { useReducer, useContext, createContext } from "react";
+import { appConstants } from "configs/constants/app";
 
 const initialState = {
-  modeTheme: "light",
+  modeTheme: window.localStorage.getItem(appConstants.MODE_THEME) || "light",
   language: "en",
   setModeTheme: () => {},
   setLanguage: () => {}
@@ -12,6 +13,7 @@ const GlobalContext = createContext(initialState);
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case "SET_MODE_THEME": {
+      localStorage.setItem(appConstants.MODE_THEME, payload);
       return {
         ...state,
         modeTheme: payload

@@ -1,14 +1,14 @@
-import React from "react";
-import useStyles from "./theme.loginForm";
-import ImageLogin from "assets/images/bg-1.png";
-import Typography from "@material-ui/core/Typography";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useTranslation } from "react-i18next";
-import { InputField, PasswordField } from "components/FormControls";
 import { Box, Button, Divider } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import ImageLogin from "assets/images/bg-1.png";
+import { InputField, PasswordField } from "components/FormControls";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import useStyles from "./theme.loginForm";
 
 const schemaForm = yup.object().shape({
   email: yup.string().required("Vui lòng nhập email của bạn."),
@@ -60,14 +60,7 @@ export default function LoginForm({ onSubmit }) {
             >
               {translate("login")}
             </Button>
-            {/* <Box className={classes.orLogin}>
-              <Box component="span">{translate("or")}</Box>
-            </Box> */}
             <Divider variant="middle" style={{ margin: "2rem 0" }} />
-            <Link to="/facebook" className={classes.socialLogin}>
-              <i className="bx bxl-facebook-square"></i>
-              {translate("login_fb")}
-            </Link>
             <Link to="/" className={classes.forgotLogin}>
               {translate("forgot_pw")}
             </Link>

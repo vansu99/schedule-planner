@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     minHeight: "calc(100vh - 50px)",
     overflowY: "auto",
-    paddingTop: "3rem",
+    paddingTop: "1.5rem",
     backgroundColor: theme.palette.background.default
   },
   main: {

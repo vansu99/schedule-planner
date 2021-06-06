@@ -2,12 +2,14 @@ import React, { memo, useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
 import { userActions } from "actions/User";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { pathName } from "configs";
+import { appConstants } from "configs/constants/app";
 import Footer from "components/Footer";
 
 function Login(props) {
   const dispatch = useDispatch();
+  const location = useLocation();
   const user = useSelector(state => state.user);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -16,6 +18,12 @@ function Login(props) {
       setIsAuthenticated(true);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (location.pathname) {
+      window.localStorage.setItem(appConstants.MODE_THEME, "light");
+    }
+  }, [location.pathname]);
 
   const handleSubmit = values => {
     dispatch(userActions.asyncLogin(values));

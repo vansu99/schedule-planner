@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "6px",
     overflowY: "auto",
     "&::-webkit-scrollbar": {
-      width: "11px"
+      width: "6px"
     },
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: "#eee",

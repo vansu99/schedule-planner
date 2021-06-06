@@ -8,16 +8,17 @@ const darkTheme = createMuiTheme({
       white: "#FFFFFF"
     },
     background: {
-      default: "#171717",
+      default: "#212121",
       paper: "#424242",
       card: "rgba(84, 84, 89, 0.91)",
-      list: "rgb(24, 24, 32)"
+      list: "rgb(24, 24, 32)",
+      modal: "#212121"
     },
     primary: {
       main: "#0348FF",
       dark: "#121212",
       contrastText: "#FFFFFF",
-      menu: "#171717"
+      menu: "#404040"
     },
     secondary: {
       light: "#ff4081",

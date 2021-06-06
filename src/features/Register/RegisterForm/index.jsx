@@ -63,17 +63,13 @@ export default function RegisterForm({ onSubmit }) {
             >
               {translate("logout")}
             </Button>
-            {/* <Box className={classes.orLogin}>
-              <Box component="span">{translate("or")}</Box>
-            </Box> */}
             <Divider variant="middle" style={{ margin: "2rem 0" }} />
-            <Link to="/facebook" className={classes.socialLogin}>
+            {/* <Link to="/facebook" className={classes.socialLogin}>
               <i className="bx bxl-google"></i>
               {translate("login_gg")}
-            </Link>
+            </Link> */}
             <Typography variant="caption" component="p" className={classes.term}>
-              Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và{" "}
-              <strong>Chính sách cookie</strong> của chúng tôi.
+              Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và <strong>Chính sách cookie</strong> của chúng tôi.
             </Typography>
           </form>
         </Box>
