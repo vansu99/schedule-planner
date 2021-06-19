@@ -109,14 +109,14 @@ const useStyles = makeStyles(theme => ({
   },
   forgotLogin: {
     color: theme.palette.primary.main,
-    fontSize: "1.2rem",
+    fontSize: "1.4rem",
     textDecoration: "none",
     textAlign: "center",
     display: "block",
     marginTop: "1.4rem",
     [theme.breakpoints.down("sm")]: {
       margin: "3.5rem 0",
-      fontSize: "1.5rem"
+      fontSize: "1.6rem"
     }
   },
   otherRegister: {
