@@ -97,12 +97,13 @@ function Todos() {
       // }}
     >
       <div className={classes.main}>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box display="flex" justifyContent="space-between" alignItems="center" style={{ marginTop: "8px" }}>
           <Typography variant="h4" component="h4" className={classes.titleIcon}>
             <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
           </Typography>
           <Button
-            variant="outlined"
+            variant="contained"
+            color="primary"
             classes={{
               root: classes.btn
             }}
@@ -112,13 +113,8 @@ function Todos() {
             Show Menu
           </Button>
         </Box>
-        <DrawerComponent
-          board={getCurrBoardSelector[0]}
-          isDrawer={isDrawer}
-          setBackground={setBackground}
-          handleToogleDrawer={handleToogleDrawer}
-        />
-        <Divider variant="middle" style={{ margin: "20px 0", backgroundColor: "#F0EEED" }} />
+        <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} setBackground={setBackground} handleToogleDrawer={handleToogleDrawer} />
+        <Divider variant="middle" style={{ margin: "8px 0", backgroundColor: "#F0EEED" }} />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="LIST">
             {provided => {
@@ -131,14 +127,7 @@ function Todos() {
                         if (lists) {
                           const cards = lists?.cards.map(card => getCardSelector && getCardSelector[card]);
                           return (
-                            <TodoList
-                              key={lists?._id}
-                              listId={lists?._id}
-                              columnId={column?._id}
-                              title={lists?.title}
-                              cards={cards}
-                              index={index}
-                            />
+                            <TodoList key={lists?._id} listId={lists?._id} columnId={column?._id} title={lists?.title} cards={cards} index={index} />
                           );
                         }
                       })}

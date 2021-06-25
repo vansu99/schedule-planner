@@ -17,7 +17,7 @@ const lightTheme = createMuiTheme({
     primary: {
       main: "#0348FF",
       light: "#1976d2",
-      dark: "#303f9f",
+      dark: "rgb(40 75 247)",
       contrastText: "#FFF",
       menu: "#0348FF"
     },
@@ -53,6 +53,7 @@ const lightTheme = createMuiTheme({
         },
         body: {
           fontSize: "14px",
+          fontFamily: "'Poppins', sans-serif",
           fontWeight: 400,
           lineHeight: "24px",
           height: "100%"
@@ -72,7 +73,11 @@ const lightTheme = createMuiTheme({
     },
     MuiButton: {
       root: {
-        fontSize: "12px"
+        fontSize: "12px",
+        "&:hover": {
+          opacity: 0.95
+          //backgroundColor: `#1976d2!important`
+        }
       }
     }
   }

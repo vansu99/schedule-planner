@@ -5,11 +5,10 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     minHeight: "calc(100vh - 50px)",
     overflowY: "auto",
-    paddingTop: "1.5rem",
     backgroundColor: theme.palette.background.default
   },
   main: {
-    padding: "0 16px"
+    padding: "0 10px"
   },
   titleIcon: {
     display: "flex",
@@ -20,11 +19,17 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary
   },
   btn: {
-    padding: "6px 8px",
+    width: "120px",
+    height: "32px",
+    lineHeight: "32px",
     fontWeight: 500,
     fontSize: "1.2rem",
-    backgroundColor: "hsla(0, 0%, 0%, 0.08)",
-    fontFamily: "Poppins, sans-serif"
+    backgroundColor: theme.palette.primary.main,
+    color: "#fff",
+    fontFamily: "Poppins, sans-serif",
+    textTransform: "capitalize",
+    border: "0",
+    padding: 0
   }
 }));
 

@@ -53,12 +53,11 @@ const useStyles = makeStyles(theme => ({
     padding: "0 4px",
     margin: "0 4px",
     "&::-webkit-scrollbar": {
-      width: "9px"
+      width: "7px"
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#d2d7e0",
-      borderRadius: "10px",
-      boxShadow: "inset 0 0 6px rgba(0,0,0,.3)"
+      backgroundColor: "#c9c3c3",
+      borderRadius: "10px"
     }
   },
   icon: {

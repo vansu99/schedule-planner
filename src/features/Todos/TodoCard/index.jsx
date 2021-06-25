@@ -29,19 +29,18 @@ import LinearScaleIcon from "@material-ui/icons/LinearScale";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import PublishIcon from "@material-ui/icons/Publish";
-import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import { DateTimePicker } from "@material-ui/pickers";
 import { cardActions } from "actions/Todos/card.action";
 import { labelActions } from "actions/Todos/label.action";
 import AccordionCpt from "components/Accordion";
 import DialogComponent from "components/ConfirmDialog";
+import CustomDateTimePicker from "components/CustomDatePicker";
 import ReactModal from "components/Modal";
 import Search from "components/Search";
 import showToast from "components/Toast";
 import { labelColors } from "configs/fakeLabel";
 import { useInput } from "hooks";
-import moment from "moment";
 import React, { memo, useCallback, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import "react-datepicker/dist/react-datepicker.css";
@@ -67,12 +66,12 @@ function TodoCard({ ...card }) {
   const [showModal, setShowModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [expandedList, setExpandedList] = useState(null);
-  const [cardContent, setCardContent] = useState(card.title);
-  const [descCardContent, setDescCardContent] = useState(card.description);
+  const [cardContent, setCardContent] = useState(card?.title);
+  const [descCardContent, setDescCardContent] = useState(card?.description);
   const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
-  const [completedTodo, setCompletedTodo] = useState(card.completed);
+  const [completedTodo, setCompletedTodo] = useState(card?.completed);
   const [showAttach, setShowAttach] = useState(false);
   const [attachItem, setAttachItem] = useState(null);
   const [dataDialog, setDataDialog] = useState(null);
@@ -211,9 +210,9 @@ function TodoCard({ ...card }) {
     <Paper elevation={0} className={classes.paper}>
       <Card variant="outlined" className={classes.cardContainer}>
         <CardContent>
-          {card.label?.length > 0 ? (
+          {card?.label?.length > 0 ? (
             <Box mb={1} className={classes.box}>
-              {(card.label || []).map((value, index) => (
+              {(card?.label || []).map((value, index) => (
                 <Chip
                   classes={{ root: classes.chipTags }}
                   key={index}
@@ -326,15 +325,12 @@ function TodoCard({ ...card }) {
               />
             </Box>
             <Box className={classes.todoCardLabels}>
-              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <LabelIcon fontSize="large" /> {translate("label")}
-                {card.date && (
-                  <span className={classes.todoCardDeadline}>
-                    <QueryBuilderIcon fontSize="large" />
-                    {translate("date_format", { datetime: card.date })}
-                  </span>
-                )}
-              </Typography>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                  <LabelIcon fontSize="large" /> {translate("label")}
+                </Typography>
+                {card.date && <CustomDateTimePicker dueDate={card?.date} id={card?._id} />}
+              </Box>
               <Box display="flex" mt={2} ml={2}>
                 {(card.label || []).map((item, index) => (
                   <Chip
@@ -371,6 +367,7 @@ function TodoCard({ ...card }) {
                   variant="contained"
                   color="primary"
                   size="large"
+                  disableRipple
                   className={classes.margin}
                   onClick={() => setIsEditDescCard(true)}
                 >
@@ -464,6 +461,7 @@ function TodoCard({ ...card }) {
               variant="contained"
               color="primary"
               size="large"
+              disableRipple
               className={classes.btnMarginTop}
               onClick={handleUpdateCompletedTodo}
             >
@@ -638,15 +636,12 @@ function TodoCard({ ...card }) {
               />
             </div>
             <Box className={classes.todoCardLabels}>
-              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <LabelIcon fontSize="large" /> {translate("label")}
-                {card.date && (
-                  <span className={classes.todoCardDeadline}>
-                    <QueryBuilderIcon fontSize="large" />
-                    {translate("date_format", { datetime: card.date })}
-                  </span>
-                )}
-              </Typography>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                  <LabelIcon fontSize="large" /> {translate("label")}
+                </Typography>
+                {card.date && <CustomDateTimePicker dueDate={card?.date} id={card?._id} />}
+              </Box>
               <Box display="flex" mt={2} ml={2}>
                 {(card.label || []).map((item, index) => (
                   <Chip

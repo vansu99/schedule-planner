@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+import GoogleLogin from "react-google-login";
 import useStyles from "./theme.loginForm";
 
 const schemaForm = yup.object().shape({
@@ -34,6 +35,24 @@ export default function LoginForm({ onSubmit }) {
   };
 
   const { isSubmitting } = form.formState;
+
+  const response = async data => {
+    const { accessToken, profileObj } = data;
+    const formLoginData = {
+      username: profileObj?.givenName,
+      email: profileObj?.email,
+      image: profileObj?.imageUrl,
+      type: "google"
+    };
+    if (onSubmit) {
+      await onSubmit(formLoginData);
+    }
+  };
+
+  const redirectToGoogle = async () => {
+    const googleLoginURL = "http://localhost:8080/api/auth/google";
+    const newWindow = window.open(googleLoginURL, "_blank", "width=500,height=600");
+  };
 
   return (
     <div className={classes.root}>
@@ -66,6 +85,15 @@ export default function LoginForm({ onSubmit }) {
             </Link>
           </form>
         </Box>
+        <div className={classes.socialLogin} onClick={redirectToGoogle}>
+          <img src="https://img.icons8.com/fluent/48/000000/google-logo.png" />
+          <span>{translate("login_gg")}</span>
+          {/* <GoogleLogin
+            clientId="500873698006-03npif0gtel797a3bipfvfle38klnocu.apps.googleusercontent.com"
+            onSuccess={response}
+            onFailure={response}
+          /> */}
+        </div>
         <Box className={classes.otherRegister}>
           <Typography variant="h6" component="p">
             {translate("dont_acc")}

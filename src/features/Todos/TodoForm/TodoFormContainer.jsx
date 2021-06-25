@@ -12,7 +12,7 @@ import TodoForm from "./index";
 const useStyles = makeStyles(theme => ({
   root: {
     maxHeight: "100%",
-    marginBottom: "1rem"
+    padding: "9px"
   },
   addCard: {
     width: "100%",
@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Poppins, sans-serif",
     "&.MuiButton-root:hover": {
       background: theme.palette.background.card,
-      boxShadow: "0px 1px 3px 2px rgb(73 71 71 / 17%)",
       cursor: "pointer"
     },
     "& .MuiButton-label > i": {
@@ -29,7 +28,15 @@ const useStyles = makeStyles(theme => ({
     }
   },
   btnAddCard: {
-    fontSize: "1.2rem"
+    fontSize: "1.2rem",
+    height: "32px",
+    color: "#fff",
+
+    ".MuiButton-contained:hover": {
+      boxShadow: 0,
+      backgroundColor: "#0265E5!important",
+      opacity: 0.86
+    }
   }
 }));
 
@@ -90,20 +97,8 @@ export default function TodoFormContainer({ isLists, listId }) {
   return (
     <Box component="div" className={classes.root}>
       <Collapse in={open}>
-        <TodoForm
-          handleCloseForm={handleCloseForm}
-          text={title}
-          isLists={isLists}
-          placeholder={placeholder}
-          handleChange={onChange}
-        >
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            className={classes.btnAddCard}
-            onClick={isLists ? handleAddList : handleAddCard}
-          >
+        <TodoForm handleCloseForm={handleCloseForm} text={title} isLists={isLists} placeholder={placeholder} handleChange={onChange}>
+          <Button type="submit" variant="contained" color="primary" className={classes.btnAddCard} onClick={isLists ? handleAddList : handleAddCard}>
             Save
           </Button>
         </TodoForm>

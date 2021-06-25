@@ -4,6 +4,9 @@ const userApis = {
   login: user => {
     return axiosClient.post("/api/auth/login", user);
   },
+  loginWithGoogle: user => {
+    return axiosClient.post("/api/auth/google", user);
+  },
   register: user => {
     return axiosClient.post("/api/auth/register", user);
   },

@@ -11,7 +11,7 @@ const API_URL = "https://projectfinaltodo.herokuapp.com";
 
 const axiosClient = axios.create({
   baseURL: API_URL,
-  timeout: 4000,
+  timeout: 6000,
   headers: {
     "Content-Type": "application/json"
   },
