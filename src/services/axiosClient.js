@@ -34,20 +34,11 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   response => response,
   error => {
-    const { status } = error.response;
-    if (status !== 401) {
-      return Promise.reject(error);
-    }
-
-    if (error.config.url === "/api/auth/refresh") {
-      clearTokens();
-
-      return Promise.reject(error);
-    }
-
-    if (status === 401) {
-      history.push(pathName.LOGIN);
-      forceRenewToken();
+    if (error.response) {
+      const origionalRequest = error.config;
+      if (error.response.status === 401 && origionalRequest.url === `/auth/refresh/`) {
+        // logout
+      }
     }
 
     return Promise.reject(error);

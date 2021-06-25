@@ -15,6 +15,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Typography from "@material-ui/core/Typography";
+
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import AlarmIcon from "@material-ui/icons/AddAlarm";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
@@ -25,6 +26,7 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
 import GroupIcon from "@material-ui/icons/Group";
 import LabelIcon from "@material-ui/icons/Label";
+import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
 import LinearScaleIcon from "@material-ui/icons/LinearScale";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
@@ -41,7 +43,7 @@ import Search from "components/Search";
 import showToast from "components/Toast";
 import { labelColors } from "configs/fakeLabel";
 import { useInput } from "hooks";
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useState, useEffect } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
@@ -67,7 +69,7 @@ function TodoCard({ ...card }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [expandedList, setExpandedList] = useState(null);
   const [cardContent, setCardContent] = useState(card?.title);
-  const [descCardContent, setDescCardContent] = useState(card?.description);
+  const [descCardContent, setDescCardContent] = useState("");
   const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
   const [startDate, setStartDate] = useState(new Date());
   const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
@@ -76,6 +78,10 @@ function TodoCard({ ...card }) {
   const [attachItem, setAttachItem] = useState(null);
   const [dataDialog, setDataDialog] = useState(null);
   const error = useSelector(selectorErrorTodoCard);
+
+  useEffect(() => {
+    setDescCardContent(card?.description);
+  }, []);
 
   const handleCloseForm = () => {
     setIsEditing(false);
@@ -188,6 +194,10 @@ function TodoCard({ ...card }) {
 
   const handleRemoveAttachTodo = attachId => {
     dispatch(cardActions.asyncRemoveAttachTodoCard(card._id, attachId));
+  };
+
+  const handleRemoveDueDate = () => {
+    dispatch(cardActions.asyncEditDetailTodoCard(card._id, { date: null }));
   };
 
   const renderTextarea = () => (
@@ -324,25 +334,41 @@ function TodoCard({ ...card }) {
                 className={classes.formControlLabel}
               />
             </Box>
-            <Box className={classes.todoCardLabels}>
-              <Box display="flex" justifyContent="space-between" alignItems="center">
+            {card?.label?.length > 0 ? (
+              <Box className={classes.todoCardLabels}>
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                  <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                    <LabelIcon fontSize="large" /> {translate("label")}
+                  </Typography>
+                </Box>
+                <Box display="flex" mt={2} ml={2}>
+                  {(card.label || []).map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={item.name}
+                      style={{ backgroundColor: `${item.color}` }}
+                      className={classes.label}
+                      onDelete={() => handleRemoveLabel(item.value)}
+                    />
+                  ))}
+                </Box>
+              </Box>
+            ) : null}
+            {!!card?.date ? (
+              <Box className={classes.todoCardDueDate}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                  <LabelIcon fontSize="large" /> {translate("label")}
+                  <AccessAlarmsIcon fontSize="large" /> {translate("due_date")}
                 </Typography>
-                {card.date && <CustomDateTimePicker dueDate={card?.date} id={card?._id} />}
+                <div className={classes.dueDateBox}>
+                  <CustomDateTimePicker dueDate={card?.date} id={card?._id} />
+                  <div className={classes.dueDateAction}>
+                    <IconButton disableRipple onClick={handleRemoveDueDate}>
+                      <DeleteOutlineIcon fontSize="large" />
+                    </IconButton>
+                  </div>
+                </div>
               </Box>
-              <Box display="flex" mt={2} ml={2}>
-                {(card.label || []).map((item, index) => (
-                  <Chip
-                    key={index}
-                    label={item.name}
-                    style={{ backgroundColor: `${item.color}` }}
-                    className={classes.label}
-                    onDelete={() => handleRemoveLabel(item.value)}
-                  />
-                ))}
-              </Box>
-            </Box>
+            ) : null}
             <Box className={classes.todoCardMembers}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <GroupIcon fontSize="large" /> {translate("member")}
@@ -635,25 +661,41 @@ function TodoCard({ ...card }) {
                 className={classes.formControlLabel}
               />
             </div>
-            <Box className={classes.todoCardLabels}>
-              <Box display="flex" justifyContent="space-between" alignItems="center">
+            {card?.label?.length > 0 ? (
+              <Box className={classes.todoCardLabels}>
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                  <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                    <LabelIcon fontSize="large" /> {translate("label")}
+                  </Typography>
+                </Box>
+                <Box display="flex" mt={2} ml={2}>
+                  {(card.label || []).map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={item.name}
+                      style={{ backgroundColor: `${item.color}` }}
+                      className={classes.label}
+                      onDelete={() => handleRemoveLabel(item.value)}
+                    />
+                  ))}
+                </Box>
+              </Box>
+            ) : null}
+            {!!card?.date ? (
+              <Box className={classes.todoCardDueDate}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                  <LabelIcon fontSize="large" /> {translate("label")}
+                  <AccessAlarmsIcon fontSize="large" /> {translate("due_date")}
                 </Typography>
-                {card.date && <CustomDateTimePicker dueDate={card?.date} id={card?._id} />}
+                <div className={classes.dueDateBox}>
+                  <CustomDateTimePicker dueDate={card?.date} id={card?._id} />
+                  <div className={classes.dueDateAction}>
+                    <IconButton disableRipple onClick={handleRemoveDueDate}>
+                      <DeleteOutlineIcon fontSize="large" />
+                    </IconButton>
+                  </div>
+                </div>
               </Box>
-              <Box display="flex" mt={2} ml={2}>
-                {(card.label || []).map((item, index) => (
-                  <Chip
-                    key={index}
-                    label={item.name}
-                    style={{ backgroundColor: `${item.color}` }}
-                    className={classes.label}
-                    onDelete={() => handleRemoveLabel(item.value)}
-                  />
-                ))}
-              </Box>
-            </Box>
+            ) : null}
             <Box className={classes.todoCardMembers}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
                 <GroupIcon fontSize="large" /> {translate("member")}

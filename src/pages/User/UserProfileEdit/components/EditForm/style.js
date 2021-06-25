@@ -4,6 +4,9 @@ const useStyles = makeStyles(theme => ({
   formEdit: {
     padding: "40px 60px"
   },
+  userName: {
+    fontFamily: "'Poppins', sans-serif"
+  },
   btn: {
     fontSize: "1.4rem",
     textTransform: "capitalize",

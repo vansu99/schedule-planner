@@ -255,8 +255,20 @@ const useStyles = makeStyles(theme => ({
     padding: "2px 6px",
     borderRadius: "4px",
     "& > span": {
-      marginLeft: "4px"
+      marginLeft: "4px",
+      fontSize: "1.2rem"
     }
+  },
+  todoCardDueDate: {
+    marginBottom: theme.spacing(3.2)
+  },
+  dueDateBox: {
+    marginTop: theme.spacing(1.2),
+    display: "flex",
+    alignItems: "center"
+  },
+  dueDateAction: {
+    marginLeft: theme.spacing(1)
   }
 }));
 

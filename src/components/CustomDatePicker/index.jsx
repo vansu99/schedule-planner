@@ -5,8 +5,10 @@ import { DateTimePicker } from "@material-ui/pickers";
 import React, { useState, useEffect } from "react";
 import { cardActions } from "actions/Todos/card.action";
 import { useDispatch } from "react-redux";
+import useStyles from "./CustomDatePicker.style";
 
 function CustomDateTimePicker({ dueDate, id }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [selectedDate, handleDateChange] = useState(null);
 
@@ -30,6 +32,7 @@ function CustomDateTimePicker({ dueDate, id }) {
         name="due_date"
         inputVariant="outlined"
         size="small"
+        className={classes.customDate}
         onChange={onSubmit}
         allowKeyboardControl={false}
         format="dd/MM/yyyy hh:mm"

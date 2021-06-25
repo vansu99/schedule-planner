@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import useStyles from "./style";
-import * as yup from "yup";
-import CloseIcon from "@material-ui/icons/Close";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { InputField, TextareField } from "components/FormControls";
-import { checkImage } from "helpers";
-import { useDispatch, useSelector } from "react-redux";
+import { Avatar, Box, Button, Typography } from "@material-ui/core";
 import { userActions } from "actions/User";
-import { getCurrentUser } from "selectors/auth.selector";
 import { ChangeAvatarButon } from "components/ChangeAvatarButton";
-import { Avatar, Box, Button, Container, Typography } from "@material-ui/core";
+import { InputField, TextareField } from "components/FormControls";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "selectors/auth.selector";
+import * as yup from "yup";
+import useStyles from "./style";
 
 const schemaForm = yup.object().shape({
   email: yup.string(),
@@ -50,7 +47,7 @@ function UserProfileEdit(props) {
             <Avatar src={currentUser?.image} className={classes.avatarSize} />
           </ChangeAvatarButon>
           <Box ml={2}>
-            <Typography variant="h4" component="h4">
+            <Typography variant="h4" component="h4" className={classes.userName}>
               {currentUser?.username}
             </Typography>
           </Box>

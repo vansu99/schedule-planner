@@ -11,11 +11,13 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: "block",
     color: theme.palette.text.primary,
-    fontSize: "16px"
+    fontSize: "14px",
+    fontFamily: "'Poppins', sans-serif"
   },
   linkActive: {
     fontWeight: "bold",
-    borderLeft: "4px solid #262626"
+    color: theme.palette.primary.main,
+    borderLeft: `4px solid ${theme.palette.primary.main}`
   }
 }));
 

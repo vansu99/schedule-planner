@@ -140,7 +140,7 @@ function UserProfile(props) {
     <Dialog open={showModal} fullWidth onClose={() => setShowModal(false)} aria-labelledby="form-dialog-title-board">
       <DialogTitle id="form-dialog-title">"Try to take advantage of every opportunity that comes you way"</DialogTitle>
       <DialogContent>
-        <DialogContentText>không gian làm việc của {currentUser.username}</DialogContentText>
+        <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
         <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
       </DialogContent>
       <DialogActions>
@@ -197,7 +197,7 @@ function UserProfile(props) {
                 >
                   <Box p={1} component={Link} to={`/todos/${board._id}/${board.slug}`}>
                     <Typography variant="h5" component="h5">
-                      {board.title}
+                      {board?.title}
                     </Typography>
                   </Box>
                 </Paper>
