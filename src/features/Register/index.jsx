@@ -27,7 +27,6 @@ function Register() {
     return (
       <div className="fade-in">
         <RegisterForm onSubmit={handleSubmit} />
-        <Footer />
       </div>
     );
   }

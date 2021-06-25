@@ -1,11 +1,10 @@
-import React, { memo, useEffect, useState } from "react";
-import LoginForm from "./LoginForm";
 import { userActions } from "actions/User";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useLocation } from "react-router-dom";
 import { pathName } from "configs";
 import { appConstants } from "configs/constants/app";
-import Footer from "components/Footer";
+import React, { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect, useLocation } from "react-router-dom";
+import LoginForm from "./LoginForm";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -35,7 +34,6 @@ function Login(props) {
     return (
       <div className="fade-in">
         <LoginForm onSubmit={handleSubmit} />
-        <Footer />
       </div>
     );
   }
