@@ -8,6 +8,7 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import { getBoards, getCards, getColumns, getLists } from "selectors/todos.selector";
 import TodoFormContainer from "./TodoForm/TodoFormContainer";
 import TodoList from "./TodoList";
@@ -15,6 +16,7 @@ import useStyles from "./style";
 import "./todos.scss";
 
 function Todos() {
+  const { t: translate } = useTranslation();
   const classes = useStyles();
   const { boardId } = useParams();
   const dispatch = useDispatch();
@@ -110,7 +112,7 @@ function Todos() {
             startIcon={<MoreHorizIcon />}
             onClick={handleToogleDrawer}
           >
-            Show Menu
+            {translate("show_menu")}
           </Button>
         </Box>
         <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} setBackground={setBackground} handleToogleDrawer={handleToogleDrawer} />

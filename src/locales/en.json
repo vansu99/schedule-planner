@@ -31,5 +31,6 @@
   "change_bg": "Change Background",
   "calendar": "Calendar",
   "attach": "Attachments",
-  "date_format": "{{ datetime, english }}"
+  "date_format": "{{ datetime, english }}",
+  "show_menu": "Show menu"
 }

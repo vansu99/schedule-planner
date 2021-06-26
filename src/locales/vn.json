@@ -32,5 +32,6 @@
   "change_bg": "Thay đổi màu nền",
   "calendar": "Thời gian biểu",
   "attach": "Đính kèm",
-  "date_format": "{{ datetime, vietnamese }}"
+  "date_format": "{{ datetime, vietnamese }}",
+  "show_menu": "Hiển thị menu"
 }
