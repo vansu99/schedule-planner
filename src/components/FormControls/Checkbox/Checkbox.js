@@ -33,18 +33,6 @@ function CheckBox({ name, option, selected, onChange, handleRemoveCheckList }) {
 
   return (
     <div className={classes.chkItem}>
-      {/* <label htmlFor={option.value} className={selected ? "chk__todo" : null}>
-        <input
-          type="checkbox"
-          className="green"
-          name={name}
-          id={option.value}
-          value={option.value}
-          checked={Boolean(selected)}
-          onChange={onChange}
-        />
-        {option.text}
-      </label> */}
       <FormControlLabel
         control={
           <Checkbox
@@ -59,9 +47,11 @@ function CheckBox({ name, option, selected, onChange, handleRemoveCheckList }) {
         }
         label={option.text}
       />
-      <IconButton onClick={removeCheckList}>
-        <ClearIcon fontSize="small" color="error" />
-      </IconButton>
+      {handleRemoveCheckList ? (
+        <IconButton onClick={removeCheckList}>
+          <ClearIcon fontSize="small" color="error" />
+        </IconButton>
+      ) : null}
     </div>
   );
 }

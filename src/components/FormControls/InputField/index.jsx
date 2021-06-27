@@ -19,7 +19,7 @@ function InputField({ form, name, label, disabled }) {
           variant="outlined"
           fullWidth
           size="small"
-          label={name}
+          label={label}
           disabled={disabled}
           error={!!hasError}
           helperText={errors[name]?.message}

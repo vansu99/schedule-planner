@@ -8,6 +8,7 @@
   "edit": "Sửa",
   "cancel": "Hủy",
   "remove": "Xóa",
+  "update": "Cập nhật",
   "login_fb": "Đăng nhập bằng Facebook",
   "login_gg": "Đăng nhập bằng Google",
   "forgot_pw": "Quên mật khẩu?",
@@ -33,5 +34,10 @@
   "calendar": "Thời gian biểu",
   "attach": "Đính kèm",
   "date_format": "{{ datetime, vietnamese }}",
-  "show_menu": "Hiển thị menu"
+  "show_menu": "Hiển thị menu",
+  "gender": "Giới tính",
+  "phone": "Số điện thoại",
+  "full_name": "Tên của bạn",
+  "change_pw": "Thay đổi mật khẩu",
+  "info_personal": "Thông tin cá nhân"
 }

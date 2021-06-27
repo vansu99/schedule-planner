@@ -31,7 +31,7 @@ export default function LoginForm({ onSubmit }) {
     if (onSubmit) {
       await onSubmit(values);
     }
-    form.reset();
+    //form.reset();
   };
 
   const { isSubmitting } = form.formState;

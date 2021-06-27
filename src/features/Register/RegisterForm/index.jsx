@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
-import { InputField, PasswordField } from "components/FormControls";
+import { InputField, PasswordField, SelectField } from "components/FormControls";
 import { Box, Button, Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -23,7 +23,9 @@ export default function RegisterForm({ onSubmit }) {
     defaultValues: {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      phone: "",
+      gender: ""
     },
     resolver: yupResolver(schemaForm)
   });
@@ -50,6 +52,14 @@ export default function RegisterForm({ onSubmit }) {
           <form onSubmit={form.handleSubmit(handleSubmitForm)}>
             <InputField form={form} label="Email" name="email" />
             <InputField form={form} label="Tên người dùng" name="username" />
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box width="calc(65% - 1rem)">
+                <InputField form={form} label="Số điện thoại" name="phone" />
+              </Box>
+              <Box mt="5px">
+                <SelectField form={form} label="Gender" name="gender" />
+              </Box>
+            </Box>
             <PasswordField form={form} label="Password" name="password" />
             <Button
               disabled={isSubmitting}
@@ -61,13 +71,9 @@ export default function RegisterForm({ onSubmit }) {
                 root: classes.btnLogin
               }}
             >
-              {translate("logout")}
+              {translate("register")}
             </Button>
             <Divider variant="middle" style={{ margin: "2rem 0" }} />
-            {/* <Link to="/facebook" className={classes.socialLogin}>
-              <i className="bx bxl-google"></i>
-              {translate("login_gg")}
-            </Link> */}
             <Typography variant="caption" component="p" className={classes.term}>
               Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và <strong>Chính sách cookie</strong> của chúng tôi.
             </Typography>
