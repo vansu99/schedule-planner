@@ -41,9 +41,9 @@ const asyncAddTodoCard = todo => {
     try {
       const { list } = todo;
       const result = await todosApis.createCardTodo(todo);
-      const cardId = result.data.card?._id;
-      const boardId = result.data.card?.boardId;
       if (result.status === 201) {
+        const cardId = result.data.card?._id;
+        const boardId = result.data.card?.boardId;
         dispatch(actAddTodoCard(list, result.data.card));
         await listsApis.addCardIdToList(list, cardId);
         await completedTodoApis.addFailedTodo(boardId, cardId);

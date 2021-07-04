@@ -15,7 +15,6 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Typography from "@material-ui/core/Typography";
-
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import AlarmIcon from "@material-ui/icons/AddAlarm";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
@@ -223,7 +222,12 @@ function TodoCard({ ...card }) {
           {card?.label?.length > 0 ? (
             <Box mb={1} className={classes.box}>
               {(card?.label || []).map((value, index) => (
-                <Chip classes={{ root: classes.chipTags }} key={index} label={value?.name} style={{ backgroundColor: `${value.color}` }} />
+                <Chip
+                  classes={{ root: classes.chipTags }}
+                  key={index}
+                  label={value?.name}
+                  style={{ backgroundColor: `${value.color}` }}
+                />
               ))}
             </Box>
           ) : null}
@@ -322,7 +326,9 @@ function TodoCard({ ...card }) {
           <Box className={classes.todoCardLeft}>
             <Box className={classes.chkCompletedTodo}>
               <FormControlLabel
-                control={<Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />}
+                control={
+                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
+                }
                 label="Hoàn thành công việc"
                 className={classes.formControlLabel}
               />
@@ -368,7 +374,12 @@ function TodoCard({ ...card }) {
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
                 {(card.member || []).map(value => (
-                  <Chip className={classes.chipEl} label={value.username} color="secondary" onDelete={() => handleRemoveMember(value._id)} />
+                  <Chip
+                    className={classes.chipEl}
+                    label={value.username}
+                    color="secondary"
+                    onDelete={() => handleRemoveMember(value._id)}
+                  />
                 ))}
               </Box>
             </Box>
@@ -388,7 +399,13 @@ function TodoCard({ ...card }) {
                   Chỉnh sửa
                 </Button>
               ) : null}
-              <Box pl={2.7}>{isEditDescCard ? renderTextareaForDescModal() : <p className={classes.todoCardDescription}>{descCardContent}</p>}</Box>
+              <Box pl={2.7}>
+                {isEditDescCard ? (
+                  renderTextareaForDescModal()
+                ) : (
+                  <p className={classes.todoCardDescription}>{descCardContent}</p>
+                )}
+              </Box>
             </Box>
             <Box mt={3.4} className={classes.todoCardCheckList}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
@@ -434,7 +451,12 @@ function TodoCard({ ...card }) {
                         <span>
                           <LinearScaleIcon />
                         </span>
-                        <Button aria-describedby={m.id} disableRipple classes={{ root: classes.attachmentBtn }} onClick={e => handleShowPopup(e, m)}>
+                        <Button
+                          aria-describedby={m.id}
+                          disableRipple
+                          classes={{ root: classes.attachmentBtn }}
+                          onClick={e => handleShowPopup(e, m)}
+                        >
                           {translate("remove")}
                         </Button>
                         {dataDialog?.id === m.id ? (
@@ -504,7 +526,11 @@ function TodoCard({ ...card }) {
                           <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
                             {labelColors.map((label, index) => (
                               <Box position="relative">
-                                <Radio disableRipple value={label} classes={{ root: classes.radio, checked: classes.checked }} />
+                                <Radio
+                                  disableRipple
+                                  value={label}
+                                  classes={{ root: classes.radio, checked: classes.checked }}
+                                />
                                 <span
                                   style={{
                                     position: "absolute",
@@ -627,7 +653,9 @@ function TodoCard({ ...card }) {
           <Box className={classes.todoCardLeft}>
             <div className={classes.chkCompletedTodo}>
               <FormControlLabel
-                control={<Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />}
+                control={
+                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
+                }
                 label="Hoàn thành công việc"
                 className={classes.formControlLabel}
               />
@@ -673,7 +701,12 @@ function TodoCard({ ...card }) {
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
                 {(card.member || []).map(value => (
-                  <Chip className={classes.chipEl} label={value.username} color="secondary" onDelete={() => handleRemoveMember(value._id)} />
+                  <Chip
+                    className={classes.chipEl}
+                    label={value.username}
+                    color="secondary"
+                    onDelete={() => handleRemoveMember(value._id)}
+                  />
                 ))}
               </Box>
             </Box>
@@ -689,7 +722,12 @@ function TodoCard({ ...card }) {
                   onChange={handleChangeDescCard}
                   rowsMin={4}
                 />
-                <Button variant="contained" color="primary" onClick={handleEditDescCard} className={classes.btnMarginRight}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEditDescCard}
+                  className={classes.btnMarginRight}
+                >
                   Lưu
                 </Button>
                 <Button variant="outlined">Hủy</Button>
@@ -753,7 +791,13 @@ function TodoCard({ ...card }) {
               <Comments cardId={card._id} />
               <InputComment cardId={card._id} />
             </Box>
-            <Button variant="contained" color="primary" className={classes.btnMarginTop} onClick={handleUpdateCompletedTodo} disableRipple>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.btnMarginTop}
+              onClick={handleUpdateCompletedTodo}
+              disableRipple
+            >
               Lưu công việc
             </Button>
           </Box>
@@ -790,7 +834,11 @@ function TodoCard({ ...card }) {
                           <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
                             {labelColors.map((label, index) => (
                               <Box position="relative">
-                                <Radio disableRipple value={label} classes={{ root: classes.radio, checked: classes.checked }} />
+                                <Radio
+                                  disableRipple
+                                  value={label}
+                                  classes={{ root: classes.radio, checked: classes.checked }}
+                                />
                                 <span
                                   style={{
                                     position: "absolute",
@@ -895,7 +943,12 @@ function TodoCard({ ...card }) {
     <Draggable key={card._id} draggableId={String(card._id)} index={card.index}>
       {provided => {
         return (
-          <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef} onDoubleClick={() => setShowModal(true)}>
+          <div
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+            onDoubleClick={() => setShowModal(true)}
+          >
             {isEditing ? renderTextarea() : renderCard()}
             {card.description ? renderModalWithDescCard() : renderContentModal()}
           </div>

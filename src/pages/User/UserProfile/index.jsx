@@ -1,8 +1,28 @@
-import { boardActions } from "actions/Todos/board.action";
-import { activityActions } from "actions/Activity/activity.action";
-import { useInput } from "hooks";
-import { makeStyles } from "@material-ui/core/styles";
+import { Box, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import AddIcon from "@material-ui/icons/Add";
+import AppsIcon from "@material-ui/icons/Apps";
+import ListIcon from "@material-ui/icons/List";
+import Fade from "@material-ui/core/Fade";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import { activityActions } from "actions/Activity/activity.action";
+import { boardActions } from "actions/Todos/board.action";
+import { userActions } from "actions/User";
+import { pathName } from "configs";
+import { useInput } from "hooks";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,114 +30,21 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "selectors/auth.selector";
 import { getBoards } from "selectors/todos.selector";
-import { userActions } from "actions/User";
-import UserEdit from "../UserProfileEdit/components/EditForm";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import AddIcon from "@material-ui/icons/Add";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import ButtonComponent from "components/Button";
-import "./userProfile.scss";
-import { Box, TextField } from "@material-ui/core";
-import { pathName } from "configs";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    paddingTop: theme.spacing(5),
-    flexGrow: 1,
-    "& > .MuiContainer-maxWidthLg": {
-      maxWidth: "860px"
-    }
-  },
-  large: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
-    margin: "0 auto"
-  },
-  btnMargin: {
-    marginBottom: theme.spacing(1)
-  },
-  userInfo: {
-    marginBottom: theme.spacing(14)
-  },
-  userBoard: {
-    "& .MuiGrid-container": {
-      marginTop: theme.spacing(3)
-    }
-  },
-  paper: {
-    color: "#ffffff",
-    "& > .MuiBox-root": {
-      display: "block",
-      color: "#ffffff",
-      height: "100px"
-    }
-  },
-  boxAddTodo: {
-    border: "2px dotted #d1d2d2",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100px",
-    cursor: "pointer"
-  },
-  link: {
-    color: theme.palette.text.primary,
-    fontSize: "1.4rem",
-    fontWeight: "500",
-    border: "1px solid #dbdbdb",
-    borderRadius: "4px",
-    backgroundColor: "transparent",
-    padding: "6px 20px",
-    outline: "none",
-    "&:hover": {
-      backgroundColor: "#e7e3e340"
-    }
-  },
-  lineText: {
-    textAlign: "center",
-    position: "relative",
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      width: "100%",
-      height: "1px",
-      top: "50%",
-      left: 0,
-      transform: "translateY(-50%)",
-      backgroundColor: "currentColor"
-    }
-  },
-  title: {
-    display: "inline-block",
-    backgroundColor: theme.palette.background.default,
-    position: "relative",
-    zIndex: 2,
-    padding: "1rem",
-    fontWeight: 600,
-    color: theme.palette.text.primary
-  },
-  btn: {
-    fontSize: "1.1rem"
-  }
-}));
+import TableUserAdmin from "./components/TableUserAdmin";
+import useStyles from "./UserProfile.style";
 
 function UserProfile(props) {
   const { id } = useParams();
   const { t: translate } = useTranslation();
   const dispatch = useDispatch();
-  const classes = useStyles();
   const currentUser = useSelector(getCurrentUser);
+  const role = currentUser.role;
   const boards = useSelector(getBoards);
   const [showModal, setShowModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [viewGrid, setViewGrid] = useState(JSON.parse(localStorage.getItem("grid")));
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput("");
+  const classes = useStyles();
 
   useEffect(() => {
     dispatch(userActions.asyncGetMe());
@@ -145,7 +72,7 @@ function UserProfile(props) {
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" classes={{ root: classes.btn }} onClick={() => setShowModal(false)} color="primary">
-          Hủy
+          {translate("cancel")}
         </Button>
         <Button variant="outlined" classes={{ root: classes.btn }} onClick={handleAddBoard} color="primary">
           {translate("create_board")}
@@ -153,6 +80,25 @@ function UserProfile(props) {
       </DialogActions>
     </Dialog>
   );
+
+  const showViewTiles = () => {
+    // true là view grid
+    setViewGrid(true);
+    localStorage.setItem("grid", true);
+  };
+  const showViewLists = () => {
+    // false là view list
+    setViewGrid(false);
+    localStorage.setItem("grid", false);
+  };
+
+  const handleShowSubMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleToggleSubMenu = () => {
+    setAnchorEl(prev => !prev);
+  };
 
   return (
     <div className={classes.root}>
@@ -186,30 +132,99 @@ function UserProfile(props) {
               {translate("board")} của {currentUser?.username}
             </Typography>
           </div>
-
-          <Grid container spacing={4}>
+          <Box display="flex" justifyContent="flex-end">
+            <div className={classes.viewIcon} onClick={showViewLists}>
+              <ListIcon />
+            </div>
+            <div className={classes.viewIcon} onClick={showViewTiles}>
+              <AppsIcon />
+            </div>
+          </Box>
+          <div className={classes.gallaryRow}>
             {boards.map(board => (
-              <Grid item xs={12} sm={6} md={4} key={board._id}>
-                <Paper
-                  elevation={4}
-                  className={classes.paper}
-                  style={{ backgroundColor: `${board.image?.color === "#FFFFFF" ? "#4D5465" : board.image?.color}` }}
-                >
-                  <Box p={1} component={Link} to={`/todos/${board._id}/${board.slug}`}>
-                    <Typography variant="h5" component="h5">
-                      {board?.title}
-                    </Typography>
-                  </Box>
-                </Paper>
-              </Grid>
+              <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`} key={board._id}>
+                <div className={!viewGrid ? classes.gallaryListLeft : null}>
+                  <Paper
+                    elevation={4}
+                    className={classes.paper}
+                    style={{
+                      backgroundColor: `${board.image?.color === "#FFFFFF" ? "#4D5465" : board.image?.color}`
+                    }}
+                  >
+                    <Box p={1} component={Link} to={`/todos/${board._id}/${board.slug}`}>
+                      <Typography variant="h5" component="h5">
+                        {board?.title}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </div>
+                <div className={viewGrid ? classes.gallaryTileOptions : classes.gallaryListRight}>
+                  <IconButton
+                    aria-label="more"
+                    aria-controls="long-menu"
+                    aria-haspopup="true"
+                    onClick={handleShowSubMenu}
+                  >
+                    <MoreHorizIcon />
+                  </IconButton>
+                  <Menu
+                    id="long-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleToggleSubMenu}
+                    TransitionComponent={Fade}
+                    PaperProps={{
+                      style: {
+                        width: "20rem",
+                        backgroundColor: "#FFFFFF"
+                      }
+                    }}
+                    getContentAnchorEl={null}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center"
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left"
+                    }}
+                  >
+                    <MenuItem>Set color</MenuItem>
+                    <MenuItem>Edit project details</MenuItem>
+                    <MenuItem>Delete project</MenuItem>
+                  </Menu>
+                </div>
+              </div>
             ))}
-            <Grid item xs md={4}>
-              <Box className={classes.boxAddTodo} onClick={() => setShowModal(true)}>
+            <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
+              <Box
+                className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo}
+                onClick={() => setShowModal(true)}
+              >
                 <AddIcon fontSize="large" />
               </Box>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
         </div>
+        {/* Admin PM */}
+        {role === "admin" ? (
+          <Box mt={6}>
+            <div className={classes.lineText}>
+              <Typography variant="h4" component="h4" className={classes.title}>
+                Project Management
+              </Typography>
+            </div>
+            <div>
+              <div>
+                <input type="text" />
+              </div>
+              <div className="table">
+                <TableUserAdmin />
+              </div>
+            </div>
+          </Box>
+        ) : null}
         {showModal && renderFormBoard()}
       </Container>
     </div>

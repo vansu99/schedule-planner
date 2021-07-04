@@ -30,7 +30,40 @@ const useStyles = makeStyles(theme => ({
     textTransform: "capitalize",
     border: "0",
     padding: 0
-  }
+  },
+  todoInfoTopLeft: {
+    display: "flex",
+    alignItems: "center",
+    flex: 1
+  },
+  todoTopOwner: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: "3rem",
+    "& > img": {
+      width: "3.5rem",
+      height: "3.5rem",
+      objectFit: "cover",
+      borderRadius: "3.5rem"
+    }
+  },
+  todoTopOwnerInfo: {
+    marginLeft: "0.8rem",
+    lineHeight: 1.4,
+    "& > p": {
+      fontWeight: "600",
+      fontSize: "1.4rem",
+      fontFamily: "Roboto, sans-serif"
+    },
+    "& > span": {
+      fontWeight: 400,
+      fontSize: "1.3rem",
+      fontFamily: "Roboto, sans-serif",
+      color: "#6f7782"
+    }
+  },
+  todoInfoTopRight: {}
 }));
 
 export default useStyles;

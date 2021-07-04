@@ -38,5 +38,7 @@
   "phone": "Phone",
   "full_name": "Fullname",
   "change_pw": "Change password",
-  "info_personal": "Edit Profile"
+  "info_personal": "Edit Profile",
+  "pro_owner": "Project Owner",
+  "pro_details": "Project details"
 }

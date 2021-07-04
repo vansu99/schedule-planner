@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { getBoards, getCards, getColumns, getLists } from "selectors/todos.selector";
+import { getCurrentUser } from "selectors/auth.selector";
 import TodoFormContainer from "./TodoForm/TodoFormContainer";
 import TodoList from "./TodoList";
 import useStyles from "./style";
@@ -20,42 +21,16 @@ function Todos() {
   const classes = useStyles();
   const { boardId } = useParams();
   const dispatch = useDispatch();
-  const [color, setColor] = useState("#E1E4EE");
   const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
   const getListSelector = useSelector(getLists);
   const getCurrBoardSelector = useSelector(getBoards);
+  const currentUser = useSelector(getCurrentUser);
 
   const handleToogleDrawer = useCallback(() => {
     setIsDrawer(!isDrawer);
   }, [isDrawer]);
-
-  const setBackground = background => {
-    if (background.thumb) {
-      setColor("#E1E4EE");
-      dispatch(
-        boardActions.asyncUpdateBoardById(getCurrBoardSelector[0]._id, {
-          image: {
-            full: background.full,
-            thumb: background.thumb,
-            color: "#FFFFFF"
-          }
-        })
-      );
-    } else {
-      setColor(background);
-      dispatch(
-        boardActions.asyncUpdateBoardById(getCurrBoardSelector[0]._id, {
-          image: {
-            full: "",
-            thumb: "",
-            color: background
-          }
-        })
-      );
-    }
-  };
 
   const onDragEnd = result => {
     const { type } = result;
@@ -79,43 +54,40 @@ function Todos() {
   }, [dispatch, boardId]);
 
   useEffect(() => {
-    if (getCurrBoardSelector[0]) {
-      setColor(getCurrBoardSelector[0].image.color);
-    }
-  }, [getCurrBoardSelector]);
-
-  useEffect(() => {
     document.title = `${getCurrBoardSelector[0]?.title} • Schedule Planner`;
   }, [getCurrBoardSelector]);
 
   return (
-    <div
-      className={classes.root}
-      // style={{
-      //   color: `${color === "#FFFFFF" ? "#000000" : "#FFFFFF"}`,
-      //   backgroundColor: `${color}`,
-      //   backgroundSize: "cover",
-      //   backgroundRepeat: "no-repeat"
-      // }}
-    >
+    <div className={classes.root}>
       <div className={classes.main}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" style={{ marginTop: "8px" }}>
-          <Typography variant="h4" component="h4" className={classes.titleIcon}>
-            <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            classes={{
-              root: classes.btn
-            }}
-            startIcon={<MoreHorizIcon />}
-            onClick={handleToogleDrawer}
-          >
-            {translate("show_menu")}
-          </Button>
+        <Box display="flex" justifyContent="flex-start" alignItems="center" style={{ marginTop: "8px" }}>
+          <div className={classes.todoInfoTopLeft}>
+            <Typography variant="h4" component="h4" className={classes.titleIcon}>
+              <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
+            </Typography>
+            <div className={classes.todoTopOwner}>
+              <img src={currentUser?.image} alt={currentUser?.username} />
+              <div className={classes.todoTopOwnerInfo}>
+                <p>{currentUser?.username}</p>
+                <span>{translate("pro_owner")}</span>
+              </div>
+            </div>
+          </div>
+          <div className={classes.todoInfoTopRight}>
+            <Button
+              variant="contained"
+              color="primary"
+              classes={{
+                root: classes.btn
+              }}
+              startIcon={<MoreHorizIcon />}
+              onClick={handleToogleDrawer}
+            >
+              {translate("show_menu")}
+            </Button>
+          </div>
         </Box>
-        <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} setBackground={setBackground} handleToogleDrawer={handleToogleDrawer} />
+        <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} handleToogleDrawer={handleToogleDrawer} />
         <Divider variant="middle" style={{ margin: "8px 0", backgroundColor: "#F0EEED" }} />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="LIST">
@@ -129,7 +101,14 @@ function Todos() {
                         if (lists) {
                           const cards = lists?.cards.map(card => getCardSelector && getCardSelector[card]);
                           return (
-                            <TodoList key={lists?._id} listId={lists?._id} columnId={column?._id} title={lists?.title} cards={cards} index={index} />
+                            <TodoList
+                              key={lists?._id}
+                              listId={lists?._id}
+                              columnId={column?._id}
+                              title={lists?.title}
+                              cards={cards}
+                              index={index}
+                            />
                           );
                         }
                       })}
