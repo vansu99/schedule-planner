@@ -32,6 +32,7 @@ function LoginGoogle(props) {
         // Remove the user session cookie after 24 hours, to log the user out.
         window.setTimeout(() => {
           localStorage.removeItem(StorageKeys.USER);
+          localStorage.removeItem(StorageKeys.TOKEN);
         }, tokenObj.expires_in);
         if (count === 1) {
           window.location.reload();
@@ -42,14 +43,14 @@ function LoginGoogle(props) {
     }
   };
 
-  const failureGoogleLogin = async data => {
+  const failureGoogleLogin = data => {
     console.log(data);
   };
 
   return (
     <React.Fragment>
       <GoogleLogin
-        clientId="500873698006-03npif0gtel797a3bipfvfle38klnocu.apps.googleusercontent.com"
+        clientId="500873698006-726sfiv7bhb9f8i2h4ve36qi820j2jm2.apps.googleusercontent.com"
         onSuccess={successGoogleLogin}
         onFailure={failureGoogleLogin}
         buttonText={translate("login_gg")}
