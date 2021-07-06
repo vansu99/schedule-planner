@@ -1,7 +1,7 @@
-import history from "../../helpers/history";
-import { UserActionTypes, pathName, StorageKeys } from "../../configs";
-import { userApis } from "../../apis";
+import { userApis } from "apis";
 import showToast from "components/Toast";
+import { StorageKeys, UserActionTypes } from "configs";
+import history from "helpers/history";
 
 // GET ME
 const actGetMeSuccess = user => {
@@ -133,6 +133,7 @@ export const userActions = {
   removeAvatarStart,
   changeAvatarStart,
   asyncLogin,
+  actLoginSuccess,
   asyncGetMe,
   actLogout,
   asyncUpdateUserProfile

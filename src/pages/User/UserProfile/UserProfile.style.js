@@ -150,15 +150,56 @@ const useStyles = makeStyles(theme => ({
   },
   gallaryTileOptions: {
     position: "absolute",
-    top: "0px",
+    top: "5px",
     right: "10px",
     transition: "all 0.15s linear",
     cursor: "pointer",
     borderRadius: "5px",
-    "& > button": {
+    "& > svg": {
       color: "#fff",
       verticalAlign: "middle"
     }
+  },
+  gallaryTileOptionList: {
+    position: "absolute",
+    background: "#fff",
+    minWidth: "20rem",
+    padding: "0.5rem 0",
+    zIndex: 1,
+    left: 0,
+    top: "3rem",
+    borderRadius: "5px",
+    overflow: "hidden",
+    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
+  },
+  gallaryTileOptionItem: {
+    position: "relative",
+    "&:hover": {
+      backgroundColor: "#E8ECEE"
+    }
+  },
+  optionItem: {
+    padding: "0 1.2rem",
+    height: "3.6rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  optionLabel: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    fontSize: "1.5rem",
+    fontWeight: 500,
+    fontFamily: "Poppins, sans-serif"
+  },
+  MenuItemSetColor: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    height: "100%"
   }
 }));
 

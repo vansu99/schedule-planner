@@ -93,25 +93,17 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     marginTop: "1.2rem",
     border: "1px solid #dbdbdb",
-    color: "#385185",
     fontWeight: "600",
     padding: "1rem 0",
     cursor: "pointer",
-    "& > img": {
-      width: "25px",
-      height: "25px",
-      objectFit: "cover"
-    },
-    "& > span": {
-      marginLeft: "1rem"
-    },
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1.8rem",
-      "& > i": {
-        top: "5px",
-        fontSize: "2.6rem"
-      }
+      fontSize: "1.8rem"
     }
+  },
+  loginGoogle: {
+    boxShadow: "none !important",
+    color: "#385185 !important",
+    fontSize: "1.7rem !important"
   },
   forgotLogin: {
     color: theme.palette.primary.main,

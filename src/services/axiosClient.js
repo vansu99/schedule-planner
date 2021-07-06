@@ -5,13 +5,13 @@ import { localStorageService } from "hooks/useLocalStorage";
 import history from "helpers/history";
 
 const { clearTokens, getRefreshToken } = localStorageService;
-const API_URL = "https://projectfinaltodo.herokuapp.com";
+const API_URL = "http://localhost:8080";
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
 
 const axiosClient = axios.create({
   baseURL: API_URL,
-  timeout: 6000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json"
   },

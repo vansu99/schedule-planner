@@ -2,9 +2,6 @@ import { Box, TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -15,14 +12,15 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import AppsIcon from "@material-ui/icons/Apps";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListIcon from "@material-ui/icons/List";
-import Fade from "@material-ui/core/Fade";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { activityActions } from "actions/Activity/activity.action";
 import { boardActions } from "actions/Todos/board.action";
 import { userActions } from "actions/User";
 import { pathName } from "configs";
-import { useInput } from "hooks";
+import { useInput, useToggle, useToggleMenus } from "hooks";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,8 +38,9 @@ function UserProfile(props) {
   const currentUser = useSelector(getCurrentUser);
   const role = currentUser.role;
   const boards = useSelector(getBoards);
-  const [showModal, setShowModal] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [showModal, toggleModal] = useToggle(false);
+  const [showModalEditPro, toggleEditPro] = useToggle(false);
+  const [showOptions, toggleOptions] = useToggle(false);
   const [viewGrid, setViewGrid] = useState(JSON.parse(localStorage.getItem("grid")));
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput("");
   const classes = useStyles();
@@ -60,22 +59,40 @@ function UserProfile(props) {
       })
     );
     resetDataBoard();
-    setShowModal(false);
+    toggleModal();
   };
 
   const renderFormBoard = () => (
-    <Dialog open={showModal} fullWidth onClose={() => setShowModal(false)} aria-labelledby="form-dialog-title-board">
+    <Dialog open={showModal} fullWidth onClose={toggleModal} aria-labelledby="form-dialog-title-board">
       <DialogTitle id="form-dialog-title">"Try to take advantage of every opportunity that comes you way"</DialogTitle>
       <DialogContent>
         <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
         <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={() => setShowModal(false)} color="primary">
+        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleModal} color="primary">
           {translate("cancel")}
         </Button>
         <Button variant="outlined" classes={{ root: classes.btn }} onClick={handleAddBoard} color="primary">
           {translate("create_board")}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+
+  const renderFormEditProject = () => (
+    <Dialog open={showModalEditPro} fullWidth onClose={toggleEditPro} aria-labelledby="form-dialog-edit-project">
+      <DialogTitle id="form-dialog-title">Project details</DialogTitle>
+      <DialogContent>
+        <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
+        <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
+      </DialogContent>
+      <DialogActions>
+        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditPro} color="primary">
+          {translate("cancel")}
+        </Button>
+        <Button variant="outlined" classes={{ root: classes.btn }} color="primary">
+          {translate("delete")}
         </Button>
       </DialogActions>
     </Dialog>
@@ -90,14 +107,6 @@ function UserProfile(props) {
     // false là view list
     setViewGrid(false);
     localStorage.setItem("grid", false);
-  };
-
-  const handleShowSubMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleToggleSubMenu = () => {
-    setAnchorEl(prev => !prev);
   };
 
   return (
@@ -159,49 +168,43 @@ function UserProfile(props) {
                   </Paper>
                 </div>
                 <div className={viewGrid ? classes.gallaryTileOptions : classes.gallaryListRight}>
-                  <IconButton
-                    aria-label="more"
-                    aria-controls="long-menu"
-                    aria-haspopup="true"
-                    onClick={handleShowSubMenu}
-                  >
-                    <MoreHorizIcon />
-                  </IconButton>
-                  <Menu
-                    id="long-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleToggleSubMenu}
-                    TransitionComponent={Fade}
-                    PaperProps={{
-                      style: {
-                        width: "20rem",
-                        backgroundColor: "#FFFFFF"
-                      }
-                    }}
-                    getContentAnchorEl={null}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center"
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left"
-                    }}
-                  >
-                    <MenuItem>Set color</MenuItem>
-                    <MenuItem>Edit project details</MenuItem>
-                    <MenuItem>Delete project</MenuItem>
-                  </Menu>
+                  <MoreHorizIcon fontSize="large" onClick={toggleOptions} />
+                  {showOptions && board._id ? (
+                    <ClickAwayListener onClickAway={toggleOptions}>
+                      <ul className={classes.gallaryTileOptionList}>
+                        <li className={classes.gallaryTileOptionItem}>
+                          <div className={classes.optionItem}>
+                            <Box display="flex" alignItems="center">
+                              <span
+                                style={{
+                                  marginRight: "7px",
+                                  backgroundColor: `${board?.image?.color}`,
+                                  backgroundSize: "cover",
+                                  backgroundRepeat: "no-repeat",
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "2px",
+                                  border: "2px solid rgb(184 182 182)"
+                                }}
+                              ></span>
+                              <span className={classes.optionLabel}>Set color</span>
+                            </Box>
+                            <ChevronRightIcon fontSize="large" />
+                          </div>
+                        </li>
+                        <li className={classes.gallaryTileOptionItem}>
+                          <div className={classes.optionItem}>
+                            <span className={classes.optionLabel}>Edit project detail</span>
+                          </div>
+                        </li>
+                      </ul>
+                    </ClickAwayListener>
+                  ) : null}
                 </div>
               </div>
             ))}
             <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
-              <Box
-                className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo}
-                onClick={() => setShowModal(true)}
-              >
+              <Box className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo} onClick={toggleModal}>
                 <AddIcon fontSize="large" />
               </Box>
             </div>

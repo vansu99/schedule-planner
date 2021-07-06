@@ -113,6 +113,11 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
+  loginGoogle: {
+    boxShadow: "none !important",
+    color: "#385185 !important",
+    fontSize: "1.7rem !important"
+  },
   term: {
     color: theme.palette.text.light,
     textAlign: "center",

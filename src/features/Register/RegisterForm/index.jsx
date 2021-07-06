@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { InputField, PasswordField, SelectField } from "components/FormControls";
 import { Box, Button, Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import LoginGoogle from "features/Login/LoginSocial/loginGoogle";
 
 const schemaForm = yup.object().shape({
   username: yup.string().required("Vui lòng nhập tên của bạn."),
@@ -80,13 +81,7 @@ export default function RegisterForm({ onSubmit }) {
           </form>
         </Box>
         <div className={classes.socialLogin}>
-          <img src="https://img.icons8.com/fluent/48/000000/google-logo.png" />
-          <span>{translate("login_gg")}</span>
-          {/* <GoogleLogin
-            clientId="500873698006-03npif0gtel797a3bipfvfle38klnocu.apps.googleusercontent.com"
-            onSuccess={response}
-            onFailure={response}
-          /> */}
+          <LoginGoogle />
         </div>
         <Box className={classes.otherRegister}>
           <Typography variant="h6" component="p">
