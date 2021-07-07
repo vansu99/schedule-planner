@@ -49,7 +49,7 @@ function ActivityPage(props) {
 
   return (
     <div className={classes.wrapper}>
-      {activities.map(activity => {
+      {activities.map((activity, idx) => {
         const date = new Date(activity.createdAt);
         const str = moment(date).fromNow();
         var timestampString;

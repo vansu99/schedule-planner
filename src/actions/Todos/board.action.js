@@ -198,10 +198,13 @@ const asyncGetActivity = (boardId, last, limit) => {
   };
 };
 
-const asyncUpdateBoardById = (boardId, value) => {
+const asyncUpdateTitleBoardById = data => {
   return async dispatch => {
     try {
-      const result = await boardsApis.updateBoardById(boardId, value);
+      const result = await boardsApis.updateBoardById(data.id, {
+        title: data.value,
+        slug: data.value.split(" ").join("-")
+      });
       if (result.status === 200) {
         dispatch({
           type: todoActions.UPDATE_BOARDS,
@@ -219,7 +222,7 @@ export const boardActions = {
   asyncGetActivity,
   asyncGetBoardById,
   asyncGetAllBoards,
-  asyncUpdateBoardById,
+  asyncUpdateTitleBoardById,
   asyncRemoveBoardById,
   asyncGetCardsFromBoard,
   asyncGetListsFromBoard,

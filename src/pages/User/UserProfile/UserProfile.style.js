@@ -155,9 +155,9 @@ const useStyles = makeStyles(theme => ({
     transition: "all 0.15s linear",
     cursor: "pointer",
     borderRadius: "5px",
-    "& > svg": {
-      color: "#fff",
-      verticalAlign: "middle"
+    "& > .MuiIconButton-root": {
+      padding: "5px",
+      color: "#fff"
     }
   },
   gallaryTileOptionList: {
@@ -197,9 +197,78 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    height: "100%"
+    flexWrap: "wrap",
+    justifyContent: "space-between"
+  },
+
+  customDialog: {
+    "& .MuiDialog-paperScrollPaper": {
+      minHeight: "40rem"
+    }
+  },
+
+  tooltipOptionPro: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    padding: "0.8rem",
+    borderRadius: "6px",
+    cursor: "pointer",
+    transition: "all 0.25s ease",
+    "& > span": {
+      fontWeight: 500,
+      fontSize: "1.5rem"
+    },
+    "& .MuiAvatar-root": {
+      width: "3rem",
+      height: "3rem",
+      marginRight: "1rem"
+    },
+    "&:hover": {
+      backgroundColor: "rgba(227, 227, 227, 0.39)"
+    },
+    "&:hover .tooltip-content": {
+      display: "block"
+    }
+  },
+  toolTipContent: {
+    position: "absolute",
+    backgroundColor: "#333",
+    borderRadius: "6px",
+    color: "#fff",
+    padding: "0 1.5rem",
+    minWidth: "14rem",
+    top: "6rem",
+    zIndex: 1,
+    transition: "all 0.25s ease",
+    display: "none",
+    "&:after": {
+      content: "''",
+      position: "absolute",
+      bottom: 0,
+      left: "50%",
+      transform: "translateX(-50%) translateY(-200%) rotate(45deg)",
+      width: "2.5rem",
+      height: "2.5rem",
+      borderRadius: "4px",
+      backgroundColor: "inherit",
+      zIndex: -1
+    },
+    "& span": {
+      display: "inline-block",
+      padding: "5px 0"
+    }
+  },
+  customContentTooltip: {
+    color: "#fff",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    "& span": {
+      fontSize: "1.4rem",
+      display: "inline-block",
+      padding: "1rem 0"
+    }
   }
 }));
 

@@ -8,7 +8,7 @@ const asyncCreateNewActivity = params => {
       if (result.status === 201) {
         dispatch({
           type: todoActions.ADD_ACTIVITY,
-          payload: { activity: result.data }
+          payload: { activity: result.data.respData }
         });
       }
     } catch (error) {

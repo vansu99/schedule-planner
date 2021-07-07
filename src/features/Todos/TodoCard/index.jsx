@@ -155,6 +155,7 @@ function TodoCard({ ...card }) {
 
   const handleRemoveCard = () => {
     dispatch(cardActions.asyncRemoveTodoCard(card.listId, card._id, boardId));
+    setAnchorEl(null);
   };
 
   const handleRemoveMember = memberId => {
@@ -208,7 +209,11 @@ function TodoCard({ ...card }) {
   );
 
   const renderTextareaForDescModal = () => (
-    <TodoForm text={descCardContent} handleChange={handleChangeDescCard} handleCloseForm={handleCloseFormEditDesc}>
+    <TodoForm
+      text={descCardContent}
+      handleChange={handleChangeDescCard}
+      handleCloseForm={handleCloseFormEditDesc}
+    >
       <Button type="submit" variant="contained" color="primary" onClick={handleEditDescCard}>
         Lưu
       </Button>
@@ -235,7 +240,12 @@ function TodoCard({ ...card }) {
             <Typography className={classes.title} variant="body2" component="p">
               {card.title}
             </Typography>
-            <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleShowSubMenu}>
+            <IconButton
+              aria-label="more"
+              aria-controls="long-menu"
+              aria-haspopup="true"
+              onClick={handleShowSubMenu}
+            >
               <MoreVertIcon fontSize="inherit" />
             </IconButton>
             <Menu
@@ -301,7 +311,12 @@ function TodoCard({ ...card }) {
             <div>
               <AvatarGroup>
                 {(card.member || []).map((value, index) => (
-                  <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
+                  <Avatar
+                    src={value.image}
+                    key={index}
+                    alt={value.username}
+                    className={classes.smallAvatar}
+                  />
                 ))}
               </AvatarGroup>
             </div>
@@ -327,7 +342,11 @@ function TodoCard({ ...card }) {
             <Box className={classes.chkCompletedTodo}>
               <FormControlLabel
                 control={
-                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
+                  <Checkbox
+                    size="medium"
+                    checked={Boolean(completedTodo)}
+                    onChange={handleChangeCompletedCard}
+                  />
                 }
                 label="Hoàn thành công việc"
                 className={classes.formControlLabel}
@@ -523,7 +542,13 @@ function TodoCard({ ...card }) {
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
+                          <Box
+                            mt={1}
+                            display="flex"
+                            alignItems="center"
+                            position="relative"
+                            key={card.index}
+                          >
                             {labelColors.map((label, index) => (
                               <Box position="relative">
                                 <Radio
@@ -654,7 +679,11 @@ function TodoCard({ ...card }) {
             <div className={classes.chkCompletedTodo}>
               <FormControlLabel
                 control={
-                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
+                  <Checkbox
+                    size="medium"
+                    checked={Boolean(completedTodo)}
+                    onChange={handleChangeCompletedCard}
+                  />
                 }
                 label="Hoàn thành công việc"
                 className={classes.formControlLabel}
@@ -831,7 +860,13 @@ function TodoCard({ ...card }) {
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
+                          <Box
+                            mt={1}
+                            display="flex"
+                            alignItems="center"
+                            position="relative"
+                            key={card.index}
+                          >
                             {labelColors.map((label, index) => (
                               <Box position="relative">
                                 <Radio

@@ -13,8 +13,8 @@ const boardsApis = {
   getBoardById: ids => {
     return axiosClient.post(`/api/boards/ids`, { ids });
   },
-  updateBoardById: (id, value) => {
-    return axiosClient.patch(`/api/boards/${id}`, { value });
+  updateBoardById: (id, data) => {
+    return axiosClient.patch(`/api/boards/${id}`, data);
   },
   removeBoardById: id => {
     return axiosClient.delete(`/api/boards/${id}`);
