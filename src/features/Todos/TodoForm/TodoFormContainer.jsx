@@ -97,8 +97,20 @@ export default function TodoFormContainer({ isLists, listId }) {
   return (
     <Box component="div" className={classes.root}>
       <Collapse in={open}>
-        <TodoForm handleCloseForm={handleCloseForm} text={title} isLists={isLists} placeholder={placeholder} handleChange={onChange}>
-          <Button type="submit" variant="contained" color="primary" className={classes.btnAddCard} onClick={isLists ? handleAddList : handleAddCard}>
+        <TodoForm
+          handleCloseForm={handleCloseForm}
+          text={title}
+          isLists={isLists}
+          placeholder={placeholder}
+          handleChange={onChange}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.btnAddCard}
+            onClick={isLists ? handleAddList : handleAddCard}
+          >
             Save
           </Button>
         </TodoForm>

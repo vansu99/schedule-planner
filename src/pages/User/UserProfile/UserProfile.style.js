@@ -9,8 +9,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   large: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
+    width: theme.spacing(12),
+    height: theme.spacing(12),
     margin: "0 auto"
   },
   btnMargin: {
@@ -144,7 +144,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   gallaryTiles: {
-    margin: "0 1rem",
+    margin: "0 1rem 2rem 1rem",
     width: "calc(33.33% - 2rem)",
     position: "relative"
   },
@@ -207,13 +207,23 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
+  dialogTitle: {
+    "& > h2": {
+      fontSize: "2rem"
+    }
+  },
+
   tooltipOptionPro: {
     position: "relative",
+    flex: "1 0 0",
+    display: "flex",
+    cursor: "pointer"
+  },
+  optionInfoWrapper: {
+    borderRadius: "6px",
     display: "flex",
     alignItems: "center",
     padding: "0.8rem",
-    borderRadius: "6px",
-    cursor: "pointer",
     transition: "all 0.25s ease",
     "& > span": {
       fontWeight: 500,

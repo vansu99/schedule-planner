@@ -95,7 +95,7 @@ function Background({ closeHandler, setColorBackground, backHandler }) {
               className={classes.card}
               key={color}
               style={{ backgroundColor: color }}
-              onClick={setColorBackground.bind(null, color)}
+              onClick={() => setColorBackground(color)}
             />
           ))}
         </div>

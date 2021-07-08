@@ -217,11 +217,30 @@ const asyncUpdateTitleBoardById = data => {
   };
 };
 
+const asyncUpdateColorBoardById = data => {
+  return async dispatch => {
+    try {
+      const result = await boardsApis.updateBoardById(data._id, {
+        image: data.colorBoard
+      });
+      if (result.status === 200) {
+        dispatch({
+          type: todoActions.UPDATE_BOARDS,
+          payload: { board: result.data.board }
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const boardActions = {
   asyncAddBoard,
   asyncGetActivity,
   asyncGetBoardById,
   asyncGetAllBoards,
+  asyncUpdateColorBoardById,
   asyncUpdateTitleBoardById,
   asyncRemoveBoardById,
   asyncGetCardsFromBoard,

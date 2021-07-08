@@ -5,7 +5,7 @@ import { localStorageService } from "hooks/useLocalStorage";
 import history from "helpers/history";
 
 const { clearTokens, getRefreshToken } = localStorageService;
-const API_URL = "https://projectfinaltodo.herokuapp.com";
+const API_URL = "http://localhost:8080";
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
 
@@ -36,8 +36,9 @@ axiosClient.interceptors.response.use(
   error => {
     if (error.response) {
       const origionalRequest = error.config;
-      if (error.response.status === 401 && origionalRequest.url === `/auth/refresh/`) {
+      if (error.response.status === 401 || error.response.status === 500) {
         // logout
+        history.push({ pathname: "/login" });
       }
     }
 
