@@ -1,6 +1,6 @@
-import React, { useReducer } from "react";
-import { reducer } from "./reducer";
-import { getAllBoard, getBoardById } from "./actions";
+import React, { useReducer } from 'react';
+import { reducer } from './reducer';
+import { getAllBoard, getBoardById } from './actions';
 
 export const BoardContext = React.createContext();
 

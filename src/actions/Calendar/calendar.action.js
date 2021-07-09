@@ -1,22 +1,22 @@
-import { todoActions } from "configs";
+import { todoActions } from 'configs';
 
 const editEventTodo = event => {
   return {
     type: todoActions.EDIT_EVENT_TODO,
-    payload: event
+    payload: event,
   };
 };
 
 const openEditEvent = () => ({
-  type: todoActions.OPEN_EVENT_FORM
+  type: todoActions.OPEN_EVENT_FORM,
 });
 
 const closeEditEvent = () => ({
-  type: todoActions.CLOSE_EVENT_FORM
+  type: todoActions.CLOSE_EVENT_FORM,
 });
 
 export const calendarActions = {
   editEventTodo,
   openEditEvent,
-  closeEditEvent
+  closeEditEvent,
 };

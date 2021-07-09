@@ -1,5 +1,5 @@
-import { todoActions } from "configs";
-import { activityApis } from "apis";
+import { todoActions } from 'configs';
+import { activityApis } from 'apis';
 
 const asyncCreateNewActivity = params => {
   return async dispatch => {
@@ -8,7 +8,7 @@ const asyncCreateNewActivity = params => {
       if (result.status === 201) {
         dispatch({
           type: todoActions.ADD_ACTIVITY,
-          payload: { activity: result.data.respData }
+          payload: { activity: result.data.respData },
         });
       }
     } catch (error) {
@@ -24,7 +24,7 @@ const asyncDeleteActivity = id => {
       if (result.status === 200) {
         dispatch({
           type: todoActions.DELETE_ACTIVITY,
-          payload: { activity: result.data }
+          payload: { activity: result.data },
         });
       }
     } catch (error) {
@@ -35,5 +35,5 @@ const asyncDeleteActivity = id => {
 
 export const activityActions = {
   asyncDeleteActivity,
-  asyncCreateNewActivity
+  asyncCreateNewActivity,
 };

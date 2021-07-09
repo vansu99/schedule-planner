@@ -1,12 +1,12 @@
-import axiosClient from "../services/axiosClient";
+import axiosClient from '../services/axiosClient';
 
 const notificationsApis = {
   retrieveNotifications: () => {
-    return axiosClient.get("/api/notification");
+    return axiosClient.get('/api/notification');
   },
   readNotifications: () => {
-    return axiosClient.put("/api/notification");
-  }
+    return axiosClient.put('/api/notification');
+  },
 };
 
 export default notificationsApis;

@@ -1,14 +1,14 @@
-import axiosClient from "../services/axiosClient";
+import axiosClient from '../services/axiosClient';
 
 const listsApis = {
   getAllListsTodo: () => {
-    return axiosClient.get("/api/lists");
+    return axiosClient.get('/api/lists');
   },
   getListTodoById: id => {
     return axiosClient.get(`/api/lists/${id}`);
   },
   createListTodo: list => {
-    return axiosClient.post("/api/lists", list);
+    return axiosClient.post('/api/lists', list);
   },
   changeTitleListTodo: (id, title) => {
     return axiosClient.patch(`/api/lists/${id}`, title);
@@ -21,7 +21,7 @@ const listsApis = {
   },
   removeCardIdToList: (id, cardId) => {
     return axiosClient.delete(`/api/lists/${id}/cards/${cardId}`);
-  }
+  },
 };
 
 export default listsApis;

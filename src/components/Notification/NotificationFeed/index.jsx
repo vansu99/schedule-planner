@@ -1,16 +1,16 @@
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-import PropTypes from "prop-types";
-import moment from "moment";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import useStyles from "./theme.NotificationFeed";
-import { selectNotificationState, selectNotifications } from "selectors/notification.selector";
-import { fetchNotificationsStart, readNotificationsStart, clearNotifications } from "actions/Global";
-import SkeletonCpt from "components/Skeleton";
-import { Link } from "react-router-dom";
-import { Avatar, Divider } from "@material-ui/core";
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import useStyles from './theme.NotificationFeed';
+import { selectNotificationState, selectNotifications } from 'selectors/notification.selector';
+import { fetchNotificationsStart, readNotificationsStart, clearNotifications } from 'actions/Global';
+import SkeletonCpt from 'components/Skeleton';
+import { Link } from 'react-router-dom';
+import { Avatar, Divider } from '@material-ui/core';
 
 function NotificationFeed({ open, onClose }) {
   const dispatch = useDispatch();
@@ -39,14 +39,14 @@ function NotificationFeed({ open, onClose }) {
             username: notification.sender.username,
             avatar: notification.sender.image,
             subTextDark: true,
-            date: notification.date
+            date: notification.date,
           };
           let userCardChild = null;
 
           switch (notification.notificationType) {
-            case "like":
+            case 'like':
               {
-                userCardProps.subTextDark = "liked your comment";
+                userCardProps.subTextDark = 'liked your comment';
                 userCardChild = <div></div>;
               }
               break;
@@ -96,7 +96,7 @@ function NotificationFeed({ open, onClose }) {
 NotificationFeed.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  setShowNotifications: PropTypes.func
+  setShowNotifications: PropTypes.func,
 };
 
 export default NotificationFeed;

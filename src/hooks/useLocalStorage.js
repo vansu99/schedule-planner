@@ -1,4 +1,4 @@
-import { StorageKeys } from "configs";
+import { StorageKeys } from 'configs';
 
 function setAccessToken(tokenObj) {
   localStorage.setItem(StorageKeys.TOKEN, tokenObj.accessToken);
@@ -32,7 +32,7 @@ export const localStorageService = {
   setTokens,
   getAccessToken,
   getRefreshToken,
-  clearTokens
+  clearTokens,
 };
 
 const useLocalStorage = () => {

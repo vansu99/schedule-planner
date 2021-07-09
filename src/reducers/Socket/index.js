@@ -1,7 +1,7 @@
-import { SOCKET } from "configs";
+import { SOCKET } from 'configs';
 
 const initialState = {
-  socket: null
+  socket: null,
 };
 
 export function socketReducer(state = initialState, action) {
@@ -9,7 +9,7 @@ export function socketReducer(state = initialState, action) {
     case SOCKET.CONNECT:
       return {
         ...state,
-        socket: action.payload
+        socket: action.payload,
       };
     case SOCKET.DISCONNECT:
       state.socket && state.socket.disconnect();

@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import "./Input.scss";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import './Input.scss';
 
-function InputForm({ type = "text" }) {
+function InputForm({ type = 'text' }) {
   const inputRef = useRef(null);
   return (
     <>
@@ -12,7 +12,7 @@ function InputForm({ type = "text" }) {
 }
 
 InputForm.propTypes = {
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default InputForm;

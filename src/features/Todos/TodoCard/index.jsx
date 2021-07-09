@@ -1,61 +1,61 @@
-import { Box, CardContent, InputAdornment, Paper, TextField } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import Checkbox from "@material-ui/core/Checkbox";
-import Chip from "@material-ui/core/Chip";
-import Fade from "@material-ui/core/Fade";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import Typography from "@material-ui/core/Typography";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import AlarmIcon from "@material-ui/icons/AddAlarm";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
-import ChatIcon from "@material-ui/icons/Chat";
-import CreateIcon from "@material-ui/icons/Create";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import DescriptionIcon from "@material-ui/icons/Description";
-import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
-import GroupIcon from "@material-ui/icons/Group";
-import LabelIcon from "@material-ui/icons/Label";
-import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
-import LinearScaleIcon from "@material-ui/icons/LinearScale";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
-import PublishIcon from "@material-ui/icons/Publish";
-import AvatarGroup from "@material-ui/lab/AvatarGroup";
-import { DateTimePicker } from "@material-ui/pickers";
-import { cardActions } from "actions/Todos/card.action";
-import { labelActions } from "actions/Todos/label.action";
-import AccordionCpt from "components/Accordion";
-import DialogComponent from "components/ConfirmDialog";
-import CustomDateTimePicker from "components/CustomDatePicker";
-import ReactModal from "components/Modal";
-import Search from "components/Search";
-import showToast from "components/Toast";
-import { labelColors } from "configs/fakeLabel";
-import { useInput } from "hooks";
-import React, { memo, useCallback, useState, useEffect } from "react";
-import { Draggable } from "react-beautiful-dnd";
-import "react-datepicker/dist/react-datepicker.css";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { selectorErrorTodoCard } from "selectors/todos.selector";
-import { v4 as uuidv4 } from "uuid";
-import { CheckListSelect } from "../TodoCheckList";
-import TodoForm from "../TodoForm";
-import Comments from "./Comment";
-import InputComment from "./Comment/InputComment";
-import useStyles from "./theme.todoCard";
-import "./todoCard.scss";
+import { Box, CardContent, InputAdornment, Paper, TextField } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
+import Fade from '@material-ui/core/Fade';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Typography from '@material-ui/core/Typography';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import AlarmIcon from '@material-ui/icons/AddAlarm';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+import ChatIcon from '@material-ui/icons/Chat';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import DescriptionIcon from '@material-ui/icons/Description';
+import FeaturedVideoIcon from '@material-ui/icons/FeaturedVideo';
+import GroupIcon from '@material-ui/icons/Group';
+import LabelIcon from '@material-ui/icons/Label';
+import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
+import LinearScaleIcon from '@material-ui/icons/LinearScale';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import PublishIcon from '@material-ui/icons/Publish';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import { DateTimePicker } from '@material-ui/pickers';
+import { cardActions } from 'actions/Todos/card.action';
+import { labelActions } from 'actions/Todos/label.action';
+import AccordionCpt from 'components/Accordion';
+import DialogComponent from 'components/ConfirmDialog';
+import CustomDateTimePicker from 'components/CustomDatePicker';
+import ReactModal from 'components/Modal';
+import Search from 'components/Search';
+import showToast from 'components/Toast';
+import { labelColors } from 'configs/fakeLabel';
+import { useInput } from 'hooks';
+import React, { memo, useCallback, useState, useEffect } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { selectorErrorTodoCard } from 'selectors/todos.selector';
+import { v4 as uuidv4 } from 'uuid';
+import { CheckListSelect } from '../TodoCheckList';
+import TodoForm from '../TodoForm';
+import Comments from './Comment';
+import InputComment from './Comment/InputComment';
+import useStyles from './theme.todoCard';
+import './todoCard.scss';
 
 function TodoCard({ ...card }) {
   const dispatch = useDispatch();
@@ -68,10 +68,10 @@ function TodoCard({ ...card }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [expandedList, setExpandedList] = useState(null);
   const [cardContent, setCardContent] = useState(card?.title);
-  const [descCardContent, setDescCardContent] = useState("");
-  const [todoCheckListContent, todoCheckListContentChange, reset] = useInput("");
+  const [descCardContent, setDescCardContent] = useState('');
+  const [todoCheckListContent, todoCheckListContentChange, reset] = useInput('');
   const [startDate, setStartDate] = useState(new Date());
-  const [infoLabel, setInfoLabel] = useState({ name: "", color: "" });
+  const [infoLabel, setInfoLabel] = useState({ name: '', color: '' });
   const [completedTodo, setCompletedTodo] = useState(card?.completed);
   const [showAttach, setShowAttach] = useState(false);
   const [attachItem, setAttachItem] = useState(null);
@@ -134,7 +134,7 @@ function TodoCard({ ...card }) {
     const newCheckListTodo = {
       value,
       text: todoCheckListContent,
-      status: false
+      status: false,
     };
     dispatch(cardActions.asyncAddCheckListCard(card._id, newCheckListTodo));
     reset();
@@ -144,12 +144,12 @@ function TodoCard({ ...card }) {
     const value = `label-${uuidv4()}`;
     const newLabelTodo = {
       ...infoLabel,
-      value
+      value,
     };
     dispatch(labelActions.asyncAddLabelTodo(card._id, newLabelTodo));
     setInfoLabel({
-      name: "",
-      color: ""
+      name: '',
+      color: '',
     });
   };
 
@@ -186,10 +186,10 @@ function TodoCard({ ...card }) {
     const value = `attackItem-${uuidv4()}`;
     const newAttach = {
       value,
-      item: event.target.files[0]
+      item: event.target.files[0],
     };
     dispatch(cardActions.asyncAddAttachTodoCard(card._id, newAttach));
-    if (error) showToast(error, "error");
+    if (error) showToast(error, 'error');
   };
 
   const handleRemoveAttachTodo = attachId => {
@@ -198,6 +198,10 @@ function TodoCard({ ...card }) {
 
   const handleRemoveDueDate = () => {
     dispatch(cardActions.asyncEditDetailTodoCard(card._id, { date: null }));
+  };
+
+  const handleEditDueDate = data => {
+    dispatch(cardActions.asyncEditDetailTodoCard(card._id, { date: data }));
   };
 
   const renderTextarea = () => (
@@ -209,11 +213,7 @@ function TodoCard({ ...card }) {
   );
 
   const renderTextareaForDescModal = () => (
-    <TodoForm
-      text={descCardContent}
-      handleChange={handleChangeDescCard}
-      handleCloseForm={handleCloseFormEditDesc}
-    >
+    <TodoForm text={descCardContent} handleChange={handleChangeDescCard} handleCloseForm={handleCloseFormEditDesc}>
       <Button type="submit" variant="contained" color="primary" onClick={handleEditDescCard}>
         Lưu
       </Button>
@@ -240,12 +240,7 @@ function TodoCard({ ...card }) {
             <Typography className={classes.title} variant="body2" component="p">
               {card.title}
             </Typography>
-            <IconButton
-              aria-label="more"
-              aria-controls="long-menu"
-              aria-haspopup="true"
-              onClick={handleShowSubMenu}
-            >
+            <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleShowSubMenu}>
               <MoreVertIcon fontSize="inherit" />
             </IconButton>
             <Menu
@@ -257,18 +252,18 @@ function TodoCard({ ...card }) {
               TransitionComponent={Fade}
               PaperProps={{
                 style: {
-                  width: "20rem",
-                  backgroundColor: "#FFFFFF"
-                }
+                  width: '20rem',
+                  backgroundColor: '#FFFFFF',
+                },
               }}
               getContentAnchorEl={null}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
+                vertical: 'bottom',
+                horizontal: 'center',
               }}
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left"
+                vertical: 'top',
+                horizontal: 'left',
               }}
             >
               <MenuItem className={classes.menuItem} onClick={() => setIsEditing(true)}>
@@ -294,7 +289,7 @@ function TodoCard({ ...card }) {
               className={classes.attachments}
               style={{
                 backgroundImage: `url(${attachItem})`,
-                backgroundSize: "cover"
+                backgroundSize: 'cover',
               }}
             ></div>
           )}
@@ -303,7 +298,7 @@ function TodoCard({ ...card }) {
               <div className={classes.dueDate}>
                 <AccessTimeIcon />
                 {/* <span>{moment(card.date).format("MMM DD")}</span> */}
-                <span>{translate("date_format", { datetime: card.date })}</span>
+                <span>{translate('date_format', { datetime: card.date })}</span>
               </div>
             ) : (
               <div></div>
@@ -311,12 +306,7 @@ function TodoCard({ ...card }) {
             <div>
               <AvatarGroup>
                 {(card.member || []).map((value, index) => (
-                  <Avatar
-                    src={value.image}
-                    key={index}
-                    alt={value.username}
-                    className={classes.smallAvatar}
-                  />
+                  <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
                 ))}
               </AvatarGroup>
             </div>
@@ -342,11 +332,7 @@ function TodoCard({ ...card }) {
             <Box className={classes.chkCompletedTodo}>
               <FormControlLabel
                 control={
-                  <Checkbox
-                    size="medium"
-                    checked={Boolean(completedTodo)}
-                    onChange={handleChangeCompletedCard}
-                  />
+                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
                 }
                 label="Hoàn thành công việc"
                 className={classes.formControlLabel}
@@ -356,7 +342,7 @@ function TodoCard({ ...card }) {
               <Box className={classes.todoCardLabels}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                   <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                    <LabelIcon fontSize="large" /> {translate("label")}
+                    <LabelIcon fontSize="large" /> {translate('label')}
                   </Typography>
                 </Box>
                 <Box display="flex" mt={2} ml={2}>
@@ -375,10 +361,10 @@ function TodoCard({ ...card }) {
             {!!card?.date ? (
               <Box className={classes.todoCardDueDate}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                  <AccessAlarmsIcon fontSize="large" /> {translate("due_date")}
+                  <AccessAlarmsIcon fontSize="large" /> {translate('due_date')}
                 </Typography>
                 <div className={classes.dueDateBox}>
-                  <CustomDateTimePicker dueDate={card?.date} id={card?._id} />
+                  <CustomDateTimePicker dueDate={card?.date} onSubmit={handleEditDueDate} />
                   <div className={classes.dueDateAction}>
                     <IconButton disableRipple onClick={handleRemoveDueDate}>
                       <DeleteOutlineIcon fontSize="large" />
@@ -389,7 +375,7 @@ function TodoCard({ ...card }) {
             ) : null}
             <Box className={classes.todoCardMembers}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <GroupIcon fontSize="large" /> {translate("member")}
+                <GroupIcon fontSize="large" /> {translate('member')}
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
                 {(card.member || []).map(value => (
@@ -404,7 +390,7 @@ function TodoCard({ ...card }) {
             </Box>
             <Box className="todoCardDescription">
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <DescriptionIcon fontSize="large" /> {translate("description")}
+                <DescriptionIcon fontSize="large" /> {translate('description')}
               </Typography>
               {descCardContent && !isEditDescCard ? (
                 <Button
@@ -428,7 +414,7 @@ function TodoCard({ ...card }) {
             </Box>
             <Box mt={3.4} className={classes.todoCardCheckList}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <PlaylistAddCheckIcon fontSize="large" /> {translate("checklist")}
+                <PlaylistAddCheckIcon fontSize="large" /> {translate('checklist')}
               </Typography>
               {card.checklist.length > 0 ? (
                 <Box mt={1.5}>
@@ -451,7 +437,7 @@ function TodoCard({ ...card }) {
                       className={classes.attachmentImg}
                       style={{
                         backgroundImage: `url(${m.item})`,
-                        backgroundSize: "cover"
+                        backgroundSize: 'cover',
                       }}
                     ></div>
                     <div className={classes.attachmentContent}>
@@ -476,7 +462,7 @@ function TodoCard({ ...card }) {
                           classes={{ root: classes.attachmentBtn }}
                           onClick={e => handleShowPopup(e, m)}
                         >
-                          {translate("remove")}
+                          {translate('remove')}
                         </Button>
                         {dataDialog?.id === m.id ? (
                           <DialogComponent
@@ -496,7 +482,7 @@ function TodoCard({ ...card }) {
             )}
             <Box mt={3.8} className={classes.todoCardComments}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <ChatIcon fontSize="large" /> {translate("comment")}
+                <ChatIcon fontSize="large" /> {translate('comment')}
               </Typography>
               <Comments cardId={card._id} />
               <InputComment cardId={card._id} />
@@ -542,13 +528,7 @@ function TodoCard({ ...card }) {
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box
-                            mt={1}
-                            display="flex"
-                            alignItems="center"
-                            position="relative"
-                            key={card.index}
-                          >
+                          <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
                             {labelColors.map((label, index) => (
                               <Box position="relative">
                                 <Radio
@@ -558,15 +538,15 @@ function TodoCard({ ...card }) {
                                 />
                                 <span
                                   style={{
-                                    position: "absolute",
-                                    left: "2px",
-                                    top: "3px",
+                                    position: 'absolute',
+                                    left: '2px',
+                                    top: '3px',
                                     right: 0,
-                                    width: "3rem",
-                                    height: "3rem",
+                                    width: '3rem',
+                                    height: '3rem',
                                     backgroundColor: `${label}`,
-                                    display: "inline-block",
-                                    borderRadius: "50%"
+                                    display: 'inline-block',
+                                    borderRadius: '50%',
                                   }}
                                 />
                               </Box>
@@ -603,7 +583,7 @@ function TodoCard({ ...card }) {
                                 <AlarmIcon fontSize="large" />
                               </IconButton>
                             </InputAdornment>
-                          )
+                          ),
                         }}
                       />
                     </Box>
@@ -647,7 +627,7 @@ function TodoCard({ ...card }) {
                       name="attach-computer"
                       id="attach-computer"
                       accept="image/*"
-                      style={{ display: "none" }}
+                      style={{ display: 'none' }}
                       onChange={event => onAddAttachTodo(event)}
                     />
                     {/* <div>
@@ -679,11 +659,7 @@ function TodoCard({ ...card }) {
             <div className={classes.chkCompletedTodo}>
               <FormControlLabel
                 control={
-                  <Checkbox
-                    size="medium"
-                    checked={Boolean(completedTodo)}
-                    onChange={handleChangeCompletedCard}
-                  />
+                  <Checkbox size="medium" checked={Boolean(completedTodo)} onChange={handleChangeCompletedCard} />
                 }
                 label="Hoàn thành công việc"
                 className={classes.formControlLabel}
@@ -693,7 +669,7 @@ function TodoCard({ ...card }) {
               <Box className={classes.todoCardLabels}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                   <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                    <LabelIcon fontSize="large" /> {translate("label")}
+                    <LabelIcon fontSize="large" /> {translate('label')}
                   </Typography>
                 </Box>
                 <Box display="flex" mt={2} ml={2}>
@@ -712,10 +688,10 @@ function TodoCard({ ...card }) {
             {!!card?.date ? (
               <Box className={classes.todoCardDueDate}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                  <AccessAlarmsIcon fontSize="large" /> {translate("due_date")}
+                  <AccessAlarmsIcon fontSize="large" /> {translate('due_date')}
                 </Typography>
                 <div className={classes.dueDateBox}>
-                  <CustomDateTimePicker dueDate={card?.date} id={card?._id} />
+                  <CustomDateTimePicker dueDate={card?.date} onSubmit={handleEditDueDate} />
                   <div className={classes.dueDateAction}>
                     <IconButton disableRipple onClick={handleRemoveDueDate}>
                       <DeleteOutlineIcon fontSize="large" />
@@ -726,7 +702,7 @@ function TodoCard({ ...card }) {
             ) : null}
             <Box className={classes.todoCardMembers}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <GroupIcon fontSize="large" /> {translate("member")}
+                <GroupIcon fontSize="large" /> {translate('member')}
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
                 {(card.member || []).map(value => (
@@ -741,7 +717,7 @@ function TodoCard({ ...card }) {
             </Box>
             <Box className={classes.todoCardDescription}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <DescriptionIcon fontSize="large" /> {translate("description")}
+                <DescriptionIcon fontSize="large" /> {translate('description')}
               </Typography>
               <Box pt={2.8} pl={3.5}>
                 <TextareaAutosize
@@ -764,7 +740,7 @@ function TodoCard({ ...card }) {
             </Box>
             <Box mt={3.4} className={classes.todoCardCheckList}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <PlaylistAddCheckIcon fontSize="large" /> {translate("checklist")}
+                <PlaylistAddCheckIcon fontSize="large" /> {translate('checklist')}
               </Typography>
               {card.checklist?.length > 0 ? (
                 <Box mt={1.5}>
@@ -787,7 +763,7 @@ function TodoCard({ ...card }) {
                       className={classes.attachments}
                       style={{
                         backgroundImage: `url(${m.item})`,
-                        backgroundSize: "cover"
+                        backgroundSize: 'cover',
                       }}
                     ></div>
                     <div className={classes.attachmentContent}>
@@ -815,7 +791,7 @@ function TodoCard({ ...card }) {
             )}
             <Box mt={3.8} className={classes.todoCardComments}>
               <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <ChatIcon fontSize="large" /> {translate("comment")}
+                <ChatIcon fontSize="large" /> {translate('comment')}
               </Typography>
               <Comments cardId={card._id} />
               <InputComment cardId={card._id} />
@@ -860,13 +836,7 @@ function TodoCard({ ...card }) {
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box
-                            mt={1}
-                            display="flex"
-                            alignItems="center"
-                            position="relative"
-                            key={card.index}
-                          >
+                          <Box mt={1} display="flex" alignItems="center" position="relative" key={card.index}>
                             {labelColors.map((label, index) => (
                               <Box position="relative">
                                 <Radio
@@ -876,15 +846,15 @@ function TodoCard({ ...card }) {
                                 />
                                 <span
                                   style={{
-                                    position: "absolute",
-                                    left: "2px",
-                                    top: "3px",
+                                    position: 'absolute',
+                                    left: '2px',
+                                    top: '3px',
                                     right: 0,
-                                    width: "3rem",
-                                    height: "3rem",
+                                    width: '3rem',
+                                    height: '3rem',
                                     backgroundColor: `${label}`,
-                                    display: "inline-block",
-                                    borderRadius: "50%"
+                                    display: 'inline-block',
+                                    borderRadius: '50%',
                                   }}
                                 />
                               </Box>
@@ -914,7 +884,7 @@ function TodoCard({ ...card }) {
                                 <AlarmIcon fontSize="large" />
                               </IconButton>
                             </InputAdornment>
-                          )
+                          ),
                         }}
                       />
                     </Box>
@@ -958,7 +928,7 @@ function TodoCard({ ...card }) {
                       name="attach-computer"
                       id="attach-computer"
                       accept="image/*"
-                      style={{ display: "none" }}
+                      style={{ display: 'none' }}
                       onChange={event => onAddAttachTodo(event)}
                     />
                     {/* <div>

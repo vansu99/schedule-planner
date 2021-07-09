@@ -1,19 +1,21 @@
 {
   "extends": ["react-app", "prettier"],
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "import"],
   "rules": {
     "prettier/prettier": [
       "warn",
       {
-        "arrowParens": "avoid",
-        "semi": true,
-        "trailingComma": "none",
-        "endOfLine": "lf",
-        "tabWidth": 2,
         "printWidth": 120,
-        "useTabs": false
+        "singleQuote": true,
+        "quoteProps": "as-needed",
+        "trailingComma": "all",
+        "endOfLine": "lf",
+        "arrowParens": "avoid",
+        "jsxBracketSameLine": false
       }
     ],
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-alert": "error",
+    "no-debugger": "error"
   }
 }

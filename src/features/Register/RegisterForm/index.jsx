@@ -1,20 +1,20 @@
-import React from "react";
-import useStyles from "./theme.registerForm";
-import ImageRegister from "assets/images/bg-3.jpg";
-import Typography from "@material-ui/core/Typography";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useTranslation } from "react-i18next";
-import { InputField, PasswordField, SelectField } from "components/FormControls";
-import { Box, Button, Divider } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import LoginGoogle from "features/Login/LoginSocial/loginGoogle";
+import React from 'react';
+import useStyles from './theme.registerForm';
+import ImageRegister from 'assets/images/bg-3.jpg';
+import Typography from '@material-ui/core/Typography';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
+import { InputField, PasswordField, SelectField } from 'components/FormControls';
+import { Box, Button, Divider } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import LoginGoogle from 'features/Login/LoginSocial/loginGoogle';
 
 const schemaForm = yup.object().shape({
-  username: yup.string().required("Vui lòng nhập tên của bạn."),
-  email: yup.string().required("Vui lòng nhập email của bạn."),
-  password: yup.string().required("Vui lòng nhập mật khẩu.")
+  username: yup.string().required('Vui lòng nhập tên của bạn.'),
+  email: yup.string().required('Vui lòng nhập email của bạn.'),
+  password: yup.string().required('Vui lòng nhập mật khẩu.'),
 });
 
 export default function RegisterForm({ onSubmit }) {
@@ -22,13 +22,13 @@ export default function RegisterForm({ onSubmit }) {
   const { t: translate } = useTranslation();
   const form = useForm({
     defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      phone: "",
-      gender: ""
+      username: '',
+      email: '',
+      password: '',
+      phone: '',
+      gender: '',
     },
-    resolver: yupResolver(schemaForm)
+    resolver: yupResolver(schemaForm),
   });
 
   const handleSubmitForm = async values => {
@@ -69,14 +69,15 @@ export default function RegisterForm({ onSubmit }) {
               color="primary"
               fullWidth
               classes={{
-                root: classes.btnLogin
+                root: classes.btnLogin,
               }}
             >
-              {translate("register")}
+              {translate('register')}
             </Button>
-            <Divider variant="middle" style={{ margin: "2rem 0" }} />
+            <Divider variant="middle" style={{ margin: '2rem 0' }} />
             <Typography variant="caption" component="p" className={classes.term}>
-              Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và <strong>Chính sách cookie</strong> của chúng tôi.
+              Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và{' '}
+              <strong>Chính sách cookie</strong> của chúng tôi.
             </Typography>
           </form>
         </Box>
@@ -85,8 +86,8 @@ export default function RegisterForm({ onSubmit }) {
         </div>
         <Box className={classes.otherRegister}>
           <Typography variant="h6" component="p">
-            {translate("dont_acc")}
-            <Link to="/login">{translate("login")}</Link>
+            {translate('dont_acc')}
+            <Link to="/login">{translate('login')}</Link>
           </Typography>
         </Box>
       </div>

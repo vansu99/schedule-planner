@@ -1,8 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { pathName } from "configs";
-import { useTranslation } from "react-i18next";
-import useStyles from "./style";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { pathName } from 'configs';
+import { useTranslation } from 'react-i18next';
+import useStyles from './style';
 
 const SidebarUserEdit = props => {
   const classes = useStyles();
@@ -10,10 +10,10 @@ const SidebarUserEdit = props => {
   return (
     <div className={classes.sidebar}>
       <NavLink to={pathName.USER_EDIT} className={classes.link} activeClassName={classes.linkActive}>
-        <span>{translate("info_personal")}</span>
+        <span>{translate('info_personal')}</span>
       </NavLink>
       <NavLink to={pathName.USER_CHANGE_PASSWORD} className={classes.link} activeClassName={classes.linkActive}>
-        <span>{translate("change_pw")}</span>
+        <span>{translate('change_pw')}</span>
       </NavLink>
     </div>
   );

@@ -1,10 +1,10 @@
-import { UserActionTypes, StorageKeys } from "../../configs";
+import { UserActionTypes, StorageKeys } from '../../configs';
 
 const initialState = {
   isAuthenticated: false,
   currentUser: JSON.parse(localStorage.getItem(StorageKeys.USER)) || {},
   error: null,
-  fetchingAvatar: false
+  fetchingAvatar: false,
 };
 
 export function userReducer(state = initialState, action) {
@@ -15,7 +15,7 @@ export function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: userInfo
+        currentUser: userInfo,
       };
 
     case UserActionTypes.ACTION_USER_LOGOUT:
@@ -27,7 +27,7 @@ export function userReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         currentUser: {},
-        error: null
+        error: null,
       };
 
     case UserActionTypes.SET_CURRENT_USER_SUCCESS:
@@ -35,14 +35,14 @@ export function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: user
+        currentUser: user,
       };
 
     case UserActionTypes.ACTION_UPDATE_USER_PROFILE:
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: { ...action.payload.user }
+        currentUser: { ...action.payload.user },
       };
 
     case UserActionTypes.CHANGE_AVATAR_START:
@@ -52,14 +52,14 @@ export function userReducer(state = initialState, action) {
       return {
         ...state,
         currentUser: { ...state.currentUser, image: action.payload },
-        fetchingAvatar: false
+        fetchingAvatar: false,
       };
 
     case UserActionTypes.CHANGE_AVATAR_FAILURE:
       return {
         ...state,
         fetchingAvatar: false,
-        error: action.payload
+        error: action.payload,
       };
 
     default:

@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import useStyles from "../theme.todoCard";
-import LikeButton from "./LikeButton";
-import CommentMenu from "./CommentMenu";
-import InputComment from "./InputComment";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import { useDispatch, useSelector } from "react-redux";
-import { commentActions } from "actions/Todos/comment.action";
-import { getCurrentUser } from "selectors/auth.selector";
-import { Box, Typography } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import useStyles from '../theme.todoCard';
+import LikeButton from './LikeButton';
+import CommentMenu from './CommentMenu';
+import InputComment from './InputComment';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import { useDispatch, useSelector } from 'react-redux';
+import { commentActions } from 'actions/Todos/comment.action';
+import { getCurrentUser } from 'selectors/auth.selector';
+import { Box, Typography } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 
 function CommentCard({ children, comment, cardId, commentId, replyComments = {} }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
   const socket = useSelector(state => state.socket.socket);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
   const [readMore, setReadMore] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
@@ -29,7 +29,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setContent(comment.content);
     setIsLike(false);
     setReply(false);
-    if (comment.likes.find(like => like === user._id)) {
+    if (comment.likes?.find(like => like === user?._id)) {
       setIsLike(true);
     }
   }, [comment]);
@@ -70,12 +70,12 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     <div className={classes.todoCardCommentItem}>
       <Box component={Link} to="/" display="flex" alignItems="center">
         <Avatar
-          src={comment.user.image}
-          alt={comment.user.username}
-          style={{ width: "3rem", height: "3rem", marginRight: "1.2rem" }}
+          src={comment.user?.image}
+          alt={comment.user?.username}
+          style={{ width: '3rem', height: '3rem', marginRight: '1.2rem' }}
         />
         <Typography variant="subtitle1" component="h5" className={classes.link}>
-          {comment.user.username}
+          {comment.user?.username}
         </Typography>
       </Box>
       <div className="todoCard-details__comments-content">
@@ -90,16 +90,16 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
             />
           ) : (
             <p className="todoCard-details__comments-text">
-              {content.length < 100 ? content : readMore ? content + " " : content.slice(0, 100) + "... "}
-              {content.length > 100 && (
+              {content?.length < 100 ? content : readMore ? content + ' ' : content?.slice(0, 100) + '... '}
+              {content?.length > 100 && (
                 <span className="todoCard-details__comments-readMore" onClick={() => setReadMore(!readMore)}>
-                  {readMore ? "Ẩn" : "Xem thêm"}
+                  {readMore ? 'Ẩn' : 'Xem thêm'}
                 </span>
               )}
             </p>
           )}
           <div className="todoCard-details__comments-status">
-            <span className="todoCard-details__comments-time">{moment(comment.createdAt).fromNow()}</span>
+            <span className="todoCard-details__comments-time">{moment(comment?.createdAt).fromNow()}</span>
             {onEdit ? (
               <>
                 <span onClick={handleUpdate}>Chỉnh sửa</span>
@@ -107,9 +107,9 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               </>
             ) : (
               <>
-                <span className="todoCard-details__comments-likes">{comment.likes.length} likes</span>
+                <span className="todoCard-details__comments-likes">{comment.likes?.length} likes</span>
                 <span className="todoCard-details__comments-reply-text" onClick={handleReply}>
-                  {reply ? "cancel" : "reply"}
+                  {reply ? 'cancel' : 'reply'}
                 </span>
               </>
             )}
@@ -123,7 +123,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
       </div>
       {reply && (
         <InputComment cardId={cardId} reply={reply} setReply={setReply}>
-          <Link to={`/users/${reply.user._id}`}>@{reply.user.username}: </Link>
+          <Link to={`/users/${reply.user?._id}`}>@{reply.user?.username}: </Link>
         </InputComment>
       )}
       {children}
@@ -132,9 +132,8 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
 }
 
 CommentCard.propTypes = {
-  comment: PropTypes.object,
   commentId: PropTypes.string,
-  replyComments: PropTypes.array
+  replyComments: PropTypes.array,
 };
 
 export default CommentCard;

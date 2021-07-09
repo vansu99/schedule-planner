@@ -1,28 +1,28 @@
-import React, { useReducer, useContext, createContext } from "react";
-import { appConstants } from "configs/constants/app";
+import React, { useReducer, useContext, createContext } from 'react';
+import { appConstants } from 'configs/constants/app';
 
 const initialState = {
-  modeTheme: window.localStorage.getItem(appConstants.MODE_THEME) || "light",
-  language: "en",
+  modeTheme: window.localStorage.getItem(appConstants.MODE_THEME) || 'light',
+  language: 'en',
   setModeTheme: () => {},
-  setLanguage: () => {}
+  setLanguage: () => {},
 };
 
 const GlobalContext = createContext(initialState);
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
-    case "SET_MODE_THEME": {
+    case 'SET_MODE_THEME': {
       localStorage.setItem(appConstants.MODE_THEME, payload);
       return {
         ...state,
-        modeTheme: payload
+        modeTheme: payload,
       };
     }
-    case "SET_LANGUAGE": {
+    case 'SET_LANGUAGE': {
       return {
         ...state,
-        language: payload
+        language: payload,
       };
     }
     default:
@@ -35,15 +35,15 @@ const GlobalProvider = ({ children }) => {
 
   const _handleSetModeTheme = mode => {
     dispatch({
-      type: "SET_MODE_THEME",
-      payload: mode
+      type: 'SET_MODE_THEME',
+      payload: mode,
     });
   };
 
   const _handleChangeLanguage = language => {
     dispatch({
-      type: "SET_LANGUAGE",
-      payload: language
+      type: 'SET_LANGUAGE',
+      payload: language,
     });
   };
 
@@ -52,7 +52,7 @@ const GlobalProvider = ({ children }) => {
       value={{
         ...state,
         setModeTheme: _handleSetModeTheme,
-        setLanguage: _handleChangeLanguage
+        setLanguage: _handleChangeLanguage,
       }}
     >
       {children}

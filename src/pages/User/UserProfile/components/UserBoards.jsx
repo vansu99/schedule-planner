@@ -8,33 +8,36 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
-  TextField
-} from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { boardActions } from "actions/Todos/board.action";
-import clsx from "clsx";
-import StyledRadio from "components/FormControls/Radio";
-import { colors } from "configs/fakeLabel";
-import { useToggle, useToggleMenus } from "hooks";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getCurrentUser } from "selectors/auth.selector";
-import useStyles from "../UserProfile.style";
+  TextField,
+} from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import { boardActions } from 'actions/Todos/board.action';
+import clsx from 'clsx';
+import { formatDate } from 'helpers';
+import StyledRadio from 'components/FormControls/Radio';
+import { colors } from 'configs/fakeLabel';
+import { useToggle, useToggleMenus } from 'hooks';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import CustomDateTimePicker from 'components/CustomDatePicker';
+import { getCurrentUser } from 'selectors/auth.selector';
+import useStyles from '../UserProfile.style';
 
-function UserBoards({ _id, slug, title, image, view }) {
+function UserBoards({ _id, slug, title, image, duedate, view }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const { t: translate } = useTranslation();
   const [editBoard, setEditBoard] = useState({});
-  const [colorBoard, setColorBoard] = useState("");
+  const [colorBoard, setColorBoard] = useState('');
   const [showModalEditPro, toggleEditPro] = useToggle(false);
   const [showModalEditColor, toggleEditColor] = useToggle(false);
   const [showOptions, toggleOptions, closeOptions] = useToggleMenus(null);
@@ -48,15 +51,23 @@ function UserBoards({ _id, slug, title, image, view }) {
     if (_id && title) {
       setEditBoard({
         id: _id,
-        value: title
+        value: title,
       });
     }
     toggleEditPro();
     closeOptions();
   };
 
+  const editDueDateProject = date => {
+    const newData = {
+      id: _id,
+      duedate: date,
+    };
+    dispatch(boardActions.asyncUpdateDueDateBoardById(newData));
+  };
+
   const updateEditBoard = () => {
-    //dispatch(boardActions.asyncUpdateTitleBoardById(editBoard));
+    dispatch(boardActions.asyncUpdateTitleBoardById(editBoard));
     toggleEditPro();
   };
 
@@ -68,7 +79,7 @@ function UserBoards({ _id, slug, title, image, view }) {
   const renderFormSetColorProject = () => (
     <Dialog open={showModalEditColor} fullWidth onClose={toggleEditColor} aria-labelledby="form-dialog-edit-color">
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
-        {translate("pro_details")}
+        {translate('pro_details')}
       </DialogTitle>
       <DialogContent>
         <h3 style={{ fontWeight: 500 }}>Choose a color for your project</h3>
@@ -80,10 +91,10 @@ function UserBoards({ _id, slug, title, image, view }) {
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditColor} color="primary">
-          {translate("cancel")}
+          {translate('cancel')}
         </Button>
         <Button variant="outlined" classes={{ root: classes.btn }} color="primary" onClick={editColorBoard}>
-          {translate("update")}
+          {translate('update')}
         </Button>
       </DialogActions>
     </Dialog>
@@ -98,7 +109,7 @@ function UserBoards({ _id, slug, title, image, view }) {
       className={classes.customDialog}
     >
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
-        {translate("pro_details")}
+        {translate('pro_details')}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
@@ -116,20 +127,29 @@ function UserBoards({ _id, slug, title, image, view }) {
             <div className={classes.optionInfoWrapper}>
               <Avatar src={currentUser?.image} />
               <span>{currentUser?.username}</span>
-              <div className={clsx(classes.toolTipContent, "tooltip-content")}>
-                <span>{translate("pro_owner")}</span>
-                <Divider style={{ backgroundColor: "#fff" }} />
+              <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
+                <span>{translate('pro_owner')}</span>
+                <Divider style={{ backgroundColor: '#fff' }} />
                 <span>{currentUser?.username}</span>
               </div>
             </div>
           </div>
           <div className={classes.tooltipOptionPro}>
             <div className={classes.optionInfoWrapper}>
-              <span>Due Date</span>
-              <div className={clsx(classes.toolTipContent, "tooltip-content")}>
+              {!!duedate ? (
+                <CustomDateTimePicker dueDate={duedate} onSubmit={editDueDateProject} />
+              ) : (
+                <div className={classes.noDueDate}>
+                  <div className="icon-duedate">
+                    <CalendarTodayIcon />
+                  </div>
+                  <span>No Date</span>
+                </div>
+              )}
+              <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
                 <span>Due Date</span>
-                <Divider style={{ backgroundColor: "#fff" }} />
-                <span>Let the team</span>
+                <Divider style={{ backgroundColor: '#fff' }} />
+                {!!duedate ? <span>{formatDate(duedate)}</span> : <span>Let the team</span>}
               </div>
             </div>
           </div>
@@ -137,10 +157,10 @@ function UserBoards({ _id, slug, title, image, view }) {
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditPro} color="primary">
-          {translate("cancel")}
+          {translate('cancel')}
         </Button>
         <Button variant="outlined" classes={{ root: classes.btn }} color="primary" onClick={updateEditBoard}>
-          {translate("update")}
+          {translate('update')}
         </Button>
       </DialogActions>
     </Dialog>
@@ -148,13 +168,13 @@ function UserBoards({ _id, slug, title, image, view }) {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={!view ? classes.gallaryListLeft : null}>
+      <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
+        <div className={!view ? classes.gallaryListLeft : classes.gallaryTileWrapper}>
           <Paper
             elevation={4}
             className={classes.paper}
             style={{
-              backgroundColor: `${image === "#FFFFFF" ? "#4D5465" : image}`
+              backgroundColor: `${image === '#FFFFFF' ? '#4D5465' : image}`,
             }}
           >
             <Box p={1} component={Link} to={`/todos/${_id}/${slug}`}>
@@ -176,26 +196,26 @@ function UserBoards({ _id, slug, title, image, view }) {
             onClose={closeOptions}
             getContentAnchorEl={null}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center"
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "left"
+              vertical: 'top',
+              horizontal: 'left',
             }}
           >
             <MenuItem onClick={editColorProject}>
               <Box width="100%" display="flex" justifyContent="flex-start" alignItems="center">
                 <span
                   style={{
-                    marginRight: "7px",
+                    marginRight: '7px',
                     backgroundColor: `${image}`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "2px",
-                    border: "2px solid rgb(184 182 182)"
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '2px',
+                    border: '2px solid rgb(184 182 182)',
                   }}
                 ></span>
                 <span>Set colors</span>
@@ -204,7 +224,7 @@ function UserBoards({ _id, slug, title, image, view }) {
             <MenuItem onClick={editProject}>Edit project details</MenuItem>
           </Menu>
         </div>
-      </div>
+      </Box>
       {showModalEditPro && renderFormEditProject()}
       {showModalEditColor && renderFormSetColorProject()}
     </React.Fragment>

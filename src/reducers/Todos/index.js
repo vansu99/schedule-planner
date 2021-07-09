@@ -1,11 +1,11 @@
-import { todoActions } from "configs";
+import { todoActions } from 'configs';
 
 const initialState = {
   lists: {},
   cards: {},
   columns: [],
   boards: [],
-  error: null
+  error: null,
 };
 
 export function todosReducer(state = initialState, { type, payload }) {
@@ -14,26 +14,26 @@ export function todosReducer(state = initialState, { type, payload }) {
       const { cardss } = payload;
       return {
         ...state,
-        cards: { ...cardss }
+        cards: { ...cardss },
       };
 
     case todoActions.GET_COLUMNS:
       const { columns } = payload;
       return {
         ...state,
-        columns: [...columns]
+        columns: [...columns],
       };
 
     case todoActions.GET_ALL_BOARDS:
       return {
         ...state,
-        boards: [...payload]
+        boards: [...payload],
       };
 
     case todoActions.GET_BOARD_BY_ID:
       return {
         ...state,
-        boards: [...payload]
+        boards: [...payload],
       };
 
     case todoActions.ADD_BOARDS:
@@ -41,7 +41,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newBoard.push(payload);
       return {
         ...state,
-        boards: newBoard
+        boards: newBoard,
       };
 
     case todoActions.UPDATE_BOARDS:
@@ -50,26 +50,26 @@ export function todosReducer(state = initialState, { type, payload }) {
       newUpdateBoard[targetIndex] = payload.board;
       return {
         ...state,
-        boards: newUpdateBoard
+        boards: newUpdateBoard,
       };
 
     case todoActions.REMOVE_BOARDS:
       const newRemoveBoard = [...state.boards].filter(board => board._id !== payload.boardId);
       return {
         ...state,
-        boards: newRemoveBoard
+        boards: newRemoveBoard,
       };
 
     case todoActions.ADD_COLUMNID_TODO_BOARD:
       return {
-        ...state
+        ...state,
       };
 
     case todoActions.GET_LISTS:
       const { lists } = payload;
       return {
         ...state,
-        lists: { ...lists }
+        lists: { ...lists },
       };
 
     case todoActions.ADD_LIST:
@@ -80,7 +80,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         columns: [...state.columns, newColumn],
-        lists: { ...state.lists, [_id]: newLists }
+        lists: { ...state.lists, [_id]: newLists },
       };
 
     case todoActions.CHANGE_TITLE_LIST:
@@ -89,7 +89,7 @@ export function todosReducer(state = initialState, { type, payload }) {
 
       return {
         ...state,
-        lists: { ...state.lists, [payload.listId]: newTitleList }
+        lists: { ...state.lists, [payload.listId]: newTitleList },
       };
 
     case todoActions.REMOVE_LIST:
@@ -101,7 +101,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         columns: newColumns,
-        lists: newList
+        lists: newList,
       };
 
     case todoActions.ADD_CARD:
@@ -111,13 +111,13 @@ export function todosReducer(state = initialState, { type, payload }) {
         ...state.lists,
         [listID]: {
           ...state.lists[listID],
-          cards: [...state.lists[listID].cards, card._id]
-        }
+          cards: [...state.lists[listID].cards, card._id],
+        },
       };
       return {
         ...state,
         lists: newListss,
-        cards: { ...state.cards, [card._id]: card }
+        cards: { ...state.cards, [card._id]: card },
       };
 
     case todoActions.EDIT_CARD:
@@ -126,7 +126,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCard.title = cardContent;
       return {
         ...state,
-        cards: { ...state.cards, [cardId]: newCard }
+        cards: { ...state.cards, [cardId]: newCard },
       };
 
     case todoActions.EDIT_DETAIL_CARD:
@@ -134,7 +134,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCardDueDate = { ...newCardDueDate, ...payload.cardContent };
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newCardDueDate }
+        cards: { ...state.cards, [payload.cardId]: newCardDueDate },
       };
 
     case todoActions.EDIT_DESC_CARD:
@@ -142,7 +142,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCardEdited.description = payload.desc;
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newCardEdited }
+        cards: { ...state.cards, [payload.cardId]: newCardEdited },
       };
 
     case todoActions.ADD_CHECKLIST_TODO_CARD:
@@ -150,7 +150,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCheckListCard.checklist = [...newCheckListCard.checklist, payload.checklist];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newCheckListCard }
+        cards: { ...state.cards, [payload.cardId]: newCheckListCard },
       };
 
     case todoActions.EDIT_CHECKLIST_TODO_CARD:
@@ -158,17 +158,17 @@ export function todosReducer(state = initialState, { type, payload }) {
       newEditCheckListCard.checklist = [...payload.checklist];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newEditCheckListCard }
+        cards: { ...state.cards, [payload.cardId]: newEditCheckListCard },
       };
 
     case todoActions.REMOVE_CHECKLIST_TODO_CARD:
       const newRemoveCheckListCard = state.cards[payload.cardId];
       newRemoveCheckListCard.checklist = newRemoveCheckListCard.checklist.filter(
-        item => item.value !== payload.checklistId
+        item => item.value !== payload.checklistId,
       );
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newRemoveCheckListCard }
+        cards: { ...state.cards, [payload.cardId]: newRemoveCheckListCard },
       };
 
     case todoActions.ADD_LABEL:
@@ -176,7 +176,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newLabelCard.label = [...newLabelCard.label, payload.label];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newLabelCard }
+        cards: { ...state.cards, [payload.cardId]: newLabelCard },
       };
 
     case todoActions.REMOVE_LABEL:
@@ -184,7 +184,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newRemoveLabelCard.label = newRemoveLabelCard.label.filter(item => item.value !== payload.labelId);
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newRemoveLabelCard }
+        cards: { ...state.cards, [payload.cardId]: newRemoveLabelCard },
       };
 
     case todoActions.ADD_DEADLINE_TODO_CARD:
@@ -192,7 +192,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newDeadLineCard.date = payload.deadline;
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newDeadLineCard }
+        cards: { ...state.cards, [payload.cardId]: newDeadLineCard },
       };
 
     case todoActions.ADD_MEMBER_TODO_CARD:
@@ -200,7 +200,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newMemberCard.member = [...payload.member];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newMemberCard }
+        cards: { ...state.cards, [payload.cardId]: newMemberCard },
       };
 
     case todoActions.REMOVE_MEMBER_TODO_CARD:
@@ -208,7 +208,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newRemoveMemberCard.member = newRemoveMemberCard.member.filter(item => item._id !== payload.member);
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newRemoveMemberCard }
+        cards: { ...state.cards, [payload.cardId]: newRemoveMemberCard },
       };
 
     case todoActions.REMOVE_CARD:
@@ -218,14 +218,14 @@ export function todosReducer(state = initialState, { type, payload }) {
         ...state.lists,
         [payload.listId]: {
           ...state.lists[payload.listId],
-          cards: state.lists[payload.listId].cards.filter(card => card !== payload.cardId)
-        }
+          cards: state.lists[payload.listId].cards.filter(card => card !== payload.cardId),
+        },
       };
 
       return {
         ...state,
         lists: newListsss,
-        cards: newCards
+        cards: newCards,
       };
 
     case todoActions.DRAG_END_LIST:
@@ -238,7 +238,7 @@ export function todosReducer(state = initialState, { type, payload }) {
 
       return {
         ...state,
-        columns: newColumnss
+        columns: newColumnss,
       };
 
     case todoActions.DRAG_END_CARD: {
@@ -258,9 +258,9 @@ export function todosReducer(state = initialState, { type, payload }) {
             ...state.lists,
             [droppedIdStart]: {
               ...lists,
-              cards: newCards
-            }
-          }
+              cards: newCards,
+            },
+          },
         };
       }
 
@@ -286,18 +286,18 @@ export function todosReducer(state = initialState, { type, payload }) {
             ...state.lists,
             [droppedIdStart]: {
               ...listStart,
-              cards: newCardsStart
+              cards: newCardsStart,
             },
             [droppedIdEnd]: {
               ...listEnd,
-              cards: newCardsEnd
-            }
-          }
+              cards: newCardsEnd,
+            },
+          },
         };
       }
 
       return {
-        ...state
+        ...state,
       };
     }
 
@@ -306,7 +306,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newCommentCard.comments = [...newCommentCard.comments, payload.comment];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newCommentCard }
+        cards: { ...state.cards, [payload.cardId]: newCommentCard },
       };
 
     case todoActions.UPDATE_COMMENT_TODO_CARD:
@@ -315,7 +315,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newUpdateCommentCard.comments[index].content = payload.newUpdateComment.content;
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newUpdateCommentCard }
+        cards: { ...state.cards, [payload.cardId]: newUpdateCommentCard },
       };
 
     case todoActions.LIKE_COMMENT_TODO_CARD:
@@ -324,7 +324,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newUpdateLikeCommentCard.comments[cmtIndex].likes = [...payload.comment.likes];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newUpdateLikeCommentCard }
+        cards: { ...state.cards, [payload.cardId]: newUpdateLikeCommentCard },
       };
 
     case todoActions.UNLIKE_COMMENT_TODO_CARD:
@@ -333,7 +333,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       newUpdateUnLikeCommentCard.comments[cmtIndexCmt].likes = [...payload.comment.likes];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newUpdateUnLikeCommentCard }
+        cards: { ...state.cards, [payload.cardId]: newUpdateUnLikeCommentCard },
       };
 
     case todoActions.REMOVE_COMMENT_TODO_CARD:
@@ -342,19 +342,19 @@ export function todosReducer(state = initialState, { type, payload }) {
       newRemoveCommentCard.comments = [...deleteArr];
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newRemoveCommentCard }
+        cards: { ...state.cards, [payload.cardId]: newRemoveCommentCard },
       };
 
     case todoActions.ATTACH_TODO_SUCCESS:
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: payload.cardAttached }
+        cards: { ...state.cards, [payload.cardId]: payload.cardAttached },
       };
 
     case todoActions.ATTACH_TODO_FAILURE:
       return {
         ...state,
-        error: payload
+        error: payload,
       };
 
     case todoActions.REMOVE_ATTACH_TODO_SUCCESS:
@@ -362,13 +362,13 @@ export function todosReducer(state = initialState, { type, payload }) {
       newRemoveAttachCard.attachments = newRemoveAttachCard.attachments.filter(item => item.id !== payload.attachId);
       return {
         ...state,
-        cards: { ...state.cards, [payload.cardId]: newRemoveAttachCard }
+        cards: { ...state.cards, [payload.cardId]: newRemoveAttachCard },
       };
 
     case todoActions.REMOVE_ATTACH_TODO_FAILURE:
       return {
         ...state,
-        error: payload
+        error: payload,
       };
 
     default:

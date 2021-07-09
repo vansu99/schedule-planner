@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
-import "moment/locale/vi";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { boardsApis } from "apis";
-import { actHideLoading, actShowLoading } from "actions/Global";
-import { calendarActions } from "actions/Calendar/calendar.action";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import CalendarEdit from "./CalendarEdit";
-import CustomToolbar from "./components/CustomToolbar";
-import { Container } from "@material-ui/core";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/vi';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { boardsApis } from 'apis';
+import { actHideLoading, actShowLoading } from 'actions/Global';
+import { calendarActions } from 'actions/Calendar/calendar.action';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import CalendarEdit from './CalendarEdit';
+import CustomToolbar from './components/CustomToolbar';
+import { Container } from '@material-ui/core';
 
-moment.locale("vi");
+moment.locale('vi');
 const localizer = momentLocalizer(moment);
 
 function CalendarCpt(props) {
@@ -21,9 +21,9 @@ function CalendarCpt(props) {
   const dispatch = useDispatch();
   const [events, setEvents] = useState([]);
   const [dataEvent, setDataEvent] = useState({
-    id: "",
-    title: "",
-    date: new Date()
+    id: '',
+    title: '',
+    date: new Date(),
   });
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function CalendarCpt(props) {
     setDataEvent({
       id: event?._id,
       title: event?.title,
-      date: new Date(event?.date)
+      date: new Date(event?.date),
     });
     dispatch(calendarActions.openEditEvent());
   };
@@ -58,14 +58,14 @@ function CalendarCpt(props) {
           events={events}
           startAccessor="createdAt"
           titleAccessor="title"
-          views={["month", "week"]}
+          views={['month', 'week']}
           endAccessor="date"
           popup
           selectable
-          style={{ height: "85vh", paddingTop: "40px" }}
+          style={{ height: '85vh', paddingTop: '40px' }}
           onSelectEvent={event => openEditEventTodo(event)}
           components={{
-            toolbar: CustomToolbar
+            toolbar: CustomToolbar,
           }}
         />
         {dataEvent && <CalendarEdit event={dataEvent} />}

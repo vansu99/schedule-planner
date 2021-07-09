@@ -1,12 +1,12 @@
-import { listsApis, columnsApis, boardsApis } from "apis";
-import showToast from "components/Toast";
-import { todoActions } from "configs";
-import { actShowLoading, actHideLoading } from "../Global";
+import { listsApis, columnsApis, boardsApis } from 'apis';
+import showToast from 'components/Toast';
+import { todoActions } from 'configs';
+import { actShowLoading, actHideLoading } from '../Global';
 
 const actAddList = (list, columnId) => {
   return {
     type: todoActions.ADD_LIST,
-    payload: { list, columnId }
+    payload: { list, columnId },
   };
 };
 
@@ -30,7 +30,7 @@ const asyncAddTodoList = (boardId, list) => {
 const actEditTitleList = (listId, title) => {
   return {
     type: todoActions.CHANGE_TITLE_LIST,
-    payload: { listId, title }
+    payload: { listId, title },
   };
 };
 
@@ -48,7 +48,7 @@ const asyncEditTitleTodoList = (listId, title) => {
 const actRemoveList = listId => {
   return {
     type: todoActions.REMOVE_LIST,
-    payload: { listId }
+    payload: { listId },
   };
 };
 
@@ -57,7 +57,7 @@ const asyncRemoveTodoList = (boardId, listId, columnId) => {
     try {
       const result = await listsApis.removeListById(listId);
       if (result.status === 200) {
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
         await boardsApis.removeColumnIdBoardById(boardId, columnId);
         await columnsApis.removeListIdTodo(columnId);
         dispatch(actRemoveList(listId));
@@ -71,7 +71,7 @@ const asyncRemoveTodoList = (boardId, listId, columnId) => {
 const actGetAllTodoList = lists => {
   return {
     type: todoActions.GET_LISTS,
-    payload: { lists }
+    payload: { lists },
   };
 };
 
@@ -98,5 +98,5 @@ export const listActions = {
   asyncAddTodoList,
   asyncRemoveTodoList,
   asyncGetAllTodoList,
-  asyncEditTitleTodoList
+  asyncEditTitleTodoList,
 };

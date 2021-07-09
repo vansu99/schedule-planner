@@ -1,12 +1,12 @@
-import { todosApis, listsApis, userApis, completedTodoApis } from "apis";
-import showToast from "components/Toast";
-import { todoActions } from "configs";
-import { actShowLoading, actHideLoading } from "../Global";
+import { todosApis, listsApis, userApis, completedTodoApis } from 'apis';
+import showToast from 'components/Toast';
+import { todoActions } from 'configs';
+import { actShowLoading, actHideLoading } from '../Global';
 
 const actGetALlCardTodo = cardss => {
   return {
     type: todoActions.GET_CARDS,
-    payload: { cardss }
+    payload: { cardss },
   };
 };
 
@@ -32,7 +32,7 @@ const asyncGetAllCardTodo = () => {
 const actAddTodoCard = (listID, card) => {
   return {
     type: todoActions.ADD_CARD,
-    payload: { listID, card }
+    payload: { listID, card },
   };
 };
 
@@ -49,7 +49,7 @@ const asyncAddTodoCard = todo => {
         await completedTodoApis.addFailedTodo(boardId, cardId);
       }
     } catch (error) {
-      console.log("error action: ", error);
+      console.log('error action: ', error);
     }
   };
 };
@@ -57,7 +57,7 @@ const asyncAddTodoCard = todo => {
 const actRemoveTodoCard = (listId, cardId) => {
   return {
     type: todoActions.REMOVE_CARD,
-    payload: { listId, cardId }
+    payload: { listId, cardId },
   };
 };
 
@@ -71,7 +71,7 @@ const asyncRemoveTodoCard = (listId, cardId, boardId) => {
         //await listsApis.removeCardIdToList(listId, cardId);
         // xóa luôn cardId ở cardFailed trong Reports
         //await completedTodoApis.removeFailedTodo(boardId, cardId);
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
       }
     } catch (error) {
       console.log(error);
@@ -82,7 +82,7 @@ const asyncRemoveTodoCard = (listId, cardId, boardId) => {
 const actEditTodoCard = (cardId, cardContent) => {
   return {
     type: todoActions.EDIT_CARD,
-    payload: { cardId, cardContent }
+    payload: { cardId, cardContent },
   };
 };
 
@@ -100,7 +100,7 @@ const asyncEditTodoCard = (cardId, title) => {
 const actEditDetailTodoCard = (cardId, cardContent) => {
   return {
     type: todoActions.EDIT_DETAIL_CARD,
-    payload: { cardId, cardContent }
+    payload: { cardId, cardContent },
   };
 };
 
@@ -136,7 +136,7 @@ const asyncUpdateCompletedTodoCard = (cardId, completed, boardId) => {
 const actEditDescTodoCard = (cardId, desc) => {
   return {
     type: todoActions.EDIT_DESC_CARD,
-    payload: { cardId, desc }
+    payload: { cardId, desc },
   };
 };
 
@@ -144,7 +144,7 @@ const asyncEditDescTodoCard = (cardId, description) => {
   return async dispatch => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, {
-        description
+        description,
       });
       if (result.status === 200) dispatch(actEditDescTodoCard(cardId, description));
     } catch (error) {
@@ -156,7 +156,7 @@ const asyncEditDescTodoCard = (cardId, description) => {
 const actAddCheckListCard = (cardId, checklist) => {
   return {
     type: todoActions.ADD_CHECKLIST_TODO_CARD,
-    payload: { cardId, checklist }
+    payload: { cardId, checklist },
   };
 };
 
@@ -174,7 +174,7 @@ const asyncAddCheckListCard = (cardId, checklist) => {
 const actEditCheckListTodoCard = (cardId, checklist) => {
   return {
     type: todoActions.EDIT_CHECKLIST_TODO_CARD,
-    payload: { cardId, checklist }
+    payload: { cardId, checklist },
   };
 };
 
@@ -182,7 +182,7 @@ const asyncEditCheckListTodoCard = (cardId, checklist) => {
   return async dispatch => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, {
-        checklist
+        checklist,
       });
       if (result.status === 200) dispatch(actEditCheckListTodoCard(cardId, checklist));
     } catch (error) {
@@ -194,7 +194,7 @@ const asyncEditCheckListTodoCard = (cardId, checklist) => {
 const actRemoveCheckListTodoCard = (cardId, checklistId) => {
   return {
     type: todoActions.REMOVE_CHECKLIST_TODO_CARD,
-    payload: { cardId, checklistId }
+    payload: { cardId, checklistId },
   };
 };
 
@@ -203,7 +203,7 @@ const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
     try {
       const result = await todosApis.removeCheckListTodoCard(cardId, checklistId);
       if (result.status === 200) {
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
         dispatch(actRemoveCheckListTodoCard(cardId, checklistId));
       }
     } catch (error) {
@@ -215,7 +215,7 @@ const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
 const actAddDealineTodoCard = (cardId, deadline) => {
   return {
     type: todoActions.ADD_DEADLINE_TODO_CARD,
-    payload: { cardId, deadline }
+    payload: { cardId, deadline },
   };
 };
 
@@ -235,7 +235,7 @@ const asyncAddDeadlineTodoCard = (cardId, date) => {
 const actAddMemberTodoCard = (cardId, member) => {
   return {
     type: todoActions.ADD_MEMBER_TODO_CARD,
-    payload: { cardId, member }
+    payload: { cardId, member },
   };
 };
 
@@ -259,7 +259,7 @@ const asyncAddMemberTodoCard = (cardId, value) => {
 const actRemoveMemberTodoCard = (cardId, member) => {
   return {
     type: todoActions.REMOVE_MEMBER_TODO_CARD,
-    payload: { cardId, member }
+    payload: { cardId, member },
   };
 };
 
@@ -268,7 +268,7 @@ const asyncRemoveMemberTodoCard = (cardId, value) => {
     try {
       const result = await todosApis.removeMemberTodoCard(cardId, value);
       if (result.status === 200) {
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
         dispatch(actRemoveMemberTodoCard(cardId, value));
       }
     } catch (error) {
@@ -285,14 +285,14 @@ const asyncAddAttachTodoCard = (cardId, form) => {
         const cardAttached = result.data.card;
         dispatch({
           type: todoActions.ATTACH_TODO_SUCCESS,
-          payload: { cardAttached, cardId }
+          payload: { cardAttached, cardId },
         });
-        showToast("Finished", "success");
+        showToast('Finished', 'success');
       }
     } catch (err) {
       dispatch({
         type: todoActions.ATTACH_TODO_FAILURE,
-        payload: err.response.data.error
+        payload: err.response.data.error,
       });
     }
   };
@@ -305,18 +305,18 @@ const asyncRemoveAttachTodoCard = (cardId, attachId) => {
       if (result.status === 200) {
         dispatch({
           type: todoActions.REMOVE_ATTACH_TODO_SUCCESS,
-          payload: { attachId, cardId }
+          payload: { attachId, cardId },
         });
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
       }
     } catch (err) {
       dispatch({
         type: todoActions.REMOVE_ATTACH_TODO_FAILURE,
-        payload: err.response.data.error
+        payload: err.response.data.error,
       });
     }
   };
-}
+};
 
 export const cardActions = {
   asyncGetAllCardTodo,
@@ -333,5 +333,5 @@ export const cardActions = {
   asyncEditDetailTodoCard,
   asyncRemoveTodoCard,
   asyncAddAttachTodoCard,
-  asyncRemoveAttachTodoCard
+  asyncRemoveAttachTodoCard,
 };

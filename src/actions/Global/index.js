@@ -1,21 +1,21 @@
-import { appConstants, NOTIFICATIONS } from "../../configs";
-import { notificationsApis } from "apis";
+import { appConstants, NOTIFICATIONS } from '../../configs';
+import { notificationsApis } from 'apis';
 
 export const actShowLoading = () => {
   return {
-    type: appConstants.SHOW_LOADING
+    type: appConstants.SHOW_LOADING,
   };
 };
 
 export const actHideLoading = () => {
   return {
-    type: appConstants.HIDE_LOADING
+    type: appConstants.HIDE_LOADING,
   };
 };
 
 export const addNotification = notification => ({
   type: NOTIFICATIONS.ADD_NOTIFICATION,
-  payload: notification
+  payload: notification,
 });
 
 export const fetchNotificationsStart = () => {
@@ -25,12 +25,12 @@ export const fetchNotificationsStart = () => {
       const response = await notificationsApis.retrieveNotifications();
       dispatch({
         type: NOTIFICATIONS.FETCH_NOTIFICATIONS_SUCCESS,
-        payload: response.data
+        payload: response.data,
       });
     } catch (err) {
       dispatch({
         type: NOTIFICATIONS.FETCH_NOTIFICATIONS_FAILURE,
-        payload: err.message
+        payload: err.message,
       });
     }
   };
@@ -48,11 +48,11 @@ export const readNotificationsStart = () => {
 };
 
 export const clearNotifications = () => ({
-  type: NOTIFICATIONS.CLEAR_NOTIFICATIONS
+  type: NOTIFICATIONS.CLEAR_NOTIFICATIONS,
 });
 
 export const hideAlert = () => ({
-  type: appConstants.HIDE_ALERT
+  type: appConstants.HIDE_ALERT,
 });
 
 export const showAlert = (text, onClick = null) => (dispatch, getState) => {
@@ -69,24 +69,24 @@ export const showAlert = (text, onClick = null) => (dispatch, getState) => {
     setTimeout(() => {
       dispatch({
         type: appConstants.SHOW_ALERT,
-        payload: { text, onClick }
+        payload: { text, onClick },
       });
     }, 500);
   } else {
     dispatch({
       type: appConstants.SHOW_ALERT,
-      payload: { text, onClick }
+      payload: { text, onClick },
     });
   }
 };
 
-export const setDialog = (isShow, type = "error", content = "") => ({
+export const setDialog = (isShow, type = 'error', content = '') => ({
   type: appConstants.SHOW_DIALOG,
   payload: {
     dialog: {
       type,
       isShow,
-      content
-    }
-  }
+      content,
+    },
+  },
 });

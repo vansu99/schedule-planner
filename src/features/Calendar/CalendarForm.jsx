@@ -1,42 +1,42 @@
-import { Box, Button, Divider, InputAdornment, TextField, Typography } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core/styles";
-import AlarmIcon from "@material-ui/icons/AddAlarm";
-import { DateTimePicker } from "@material-ui/pickers";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+import { Box, Button, Divider, InputAdornment, TextField, Typography } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import AlarmIcon from '@material-ui/icons/AddAlarm';
+import { DateTimePicker } from '@material-ui/pickers';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    maxWidth: "350px",
+    width: '100%',
+    maxWidth: '350px',
     padding: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: 1,
     flexShrink: 0,
-    backgroundColor: "#FFF",
-    borderRadius: "4px"
+    backgroundColor: '#FFF',
+    borderRadius: '4px',
   },
   title: {
-    paddingBottom: theme.spacing(1.5)
+    paddingBottom: theme.spacing(1.5),
   },
   datePicker: {
     marginTop: theme.spacing(1.5),
     padding: theme.spacing(1),
-    outline: "none"
+    outline: 'none',
   },
   btnSubmit: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
-    "& > .MuiButton-label": {
-      fontSize: "12px"
+    '& > .MuiButton-label': {
+      fontSize: '12px',
     },
-    "&:hover": {
-      backgroundColor: theme.palette.primary.main
-    }
-  }
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
 }));
 
 function CalendarForm({ onSubmit, event = {} }) {
@@ -58,7 +58,7 @@ function CalendarForm({ onSubmit, event = {} }) {
   const onChange = e => {
     setContent({
       ...content,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
   return (
@@ -91,7 +91,7 @@ function CalendarForm({ onSubmit, event = {} }) {
                   <AlarmIcon fontSize="large" />
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
       </Box>
@@ -106,7 +106,7 @@ function CalendarForm({ onSubmit, event = {} }) {
 
 CalendarForm.propTypes = {
   onSubmit: PropTypes.func,
-  event: PropTypes.object
+  event: PropTypes.object,
 };
 
 export default CalendarForm;

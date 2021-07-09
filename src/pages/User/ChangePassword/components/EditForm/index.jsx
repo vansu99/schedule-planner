@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import useStyles from "./style";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { PasswordField } from "components/FormControls";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser } from "selectors/auth.selector";
-import { ChangeAvatarButon } from "components/ChangeAvatarButton";
-import { Avatar, Box, Button, Container, Typography } from "@material-ui/core";
+import React from 'react';
+import PropTypes from 'prop-types';
+import useStyles from './style';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { PasswordField } from 'components/FormControls';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from 'selectors/auth.selector';
+import { ChangeAvatarButon } from 'components/ChangeAvatarButton';
+import { Avatar, Box, Button, Container, Typography } from '@material-ui/core';
 
 const schemaForm = yup.object().shape({
-  email: yup.string().required("Vui lòng nhập email của bạn."),
-  password: yup.string().required("Vui lòng nhập mật khẩu.")
+  email: yup.string().required('Vui lòng nhập email của bạn.'),
+  password: yup.string().required('Vui lòng nhập mật khẩu.'),
 });
 
 const ChangePasswordEditForms = props => {
@@ -20,11 +20,11 @@ const ChangePasswordEditForms = props => {
   const currentUser = useSelector(getCurrentUser);
   const form = useForm({
     defaultValues: {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: ""
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
     },
-    resolver: yupResolver(schemaForm)
+    resolver: yupResolver(schemaForm),
   });
 
   const handleSubmitForm = values => {};
@@ -54,7 +54,7 @@ const ChangePasswordEditForms = props => {
           variant="contained"
           color="primary"
           classes={{
-            root: classes.btn
+            root: classes.btn,
           }}
         >
           Change Password

@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 const formatDate = isoDateToDate => {
   // date = new Date(date);
@@ -8,7 +8,7 @@ const formatDate = isoDateToDate => {
 
   // return `${day}/${month}/${year}`;
 
-  const dateComponent = moment.parseZone(isoDateToDate).format("YYYY-MM-DD");
+  const dateComponent = moment.parseZone(isoDateToDate).format('DD-MM-YYYY hh:mm');
   return dateComponent;
 };
 

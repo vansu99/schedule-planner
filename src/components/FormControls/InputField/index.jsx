@@ -1,8 +1,8 @@
-import TextField from "@material-ui/core/TextField";
-import PropTypes from "prop-types";
-import React from "react";
-import { Controller } from "react-hook-form";
-import useStyles from "./style";
+import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import useStyles from './style';
 
 function InputField({ form, name, label, disabled }) {
   const { errors } = form;
@@ -38,7 +38,7 @@ InputField.propTypes = {
   name: PropTypes.string.isRequired,
 
   label: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 export default InputField;

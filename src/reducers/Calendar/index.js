@@ -1,7 +1,7 @@
-import { todoActions } from "configs";
+import { todoActions } from 'configs';
 
 const inititalState = {
-  open: false
+  open: false,
 };
 
 export function calendarReducer(state = inititalState, action) {
@@ -9,13 +9,13 @@ export function calendarReducer(state = inititalState, action) {
     case todoActions.OPEN_EVENT_FORM:
       return {
         ...state,
-        open: true
+        open: true,
       };
 
     case todoActions.CLOSE_EVENT_FORM:
       return {
         ...state,
-        open: false
+        open: false,
       };
     default:
       return state;

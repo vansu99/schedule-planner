@@ -1,86 +1,86 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme } from '@material-ui/core';
 
 const lightTheme = createMuiTheme({
   palette: {
-    type: "light",
+    type: 'light',
     common: {
-      black: "#4D5465",
-      white: "#FFFFFF"
+      black: '#4D5465',
+      white: '#FFFFFF',
     },
     background: {
-      default: "#FFFFFF",
-      paper: "#F7F8FA",
-      card: "#EBECF0",
-      list: "#dfe3e6",
-      modal: "#f4f5f7"
+      default: '#FFFFFF',
+      paper: '#F7F8FA',
+      card: '#EBECF0',
+      list: '#dfe3e6',
+      modal: '#f4f5f7',
     },
     primary: {
-      main: "#0348FF",
-      light: "#1976d2",
-      dark: "rgb(40 75 247)",
-      contrastText: "#FFF",
-      menu: "#0348FF"
+      main: '#0348FF',
+      light: '#1976d2',
+      dark: 'rgb(40 75 247)',
+      contrastText: '#FFF',
+      menu: '#0348FF',
     },
     secondary: {
-      main: "#6294E7",
-      contrastText: "#FFF"
+      main: '#6294E7',
+      contrastText: '#FFF',
     },
     error: {
-      main: "#e94848"
+      main: '#e94848',
     },
     text: {
-      primary: "#4D5465",
-      secondary: "rgba(0, 0, 0, 0.54)",
-      disabled: "rgba(0, 0, 0, 0.38)",
-      hint: "rgba(0, 0, 0, 0.38)",
-      light: "#8e8e8e"
-    }
+      primary: '#4D5465',
+      secondary: 'rgba(0, 0, 0, 0.54)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
+      hint: 'rgba(0, 0, 0, 0.38)',
+      light: '#8e8e8e',
+    },
   },
   typography: {
-    fontFamily: ["Montserrat", "'Kaushan Script'", "Arial", "sans-serif"].join(","),
+    fontFamily: ['Montserrat', "'Kaushan Script'", 'Arial', 'sans-serif'].join(','),
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
-    fontWeightMedium: 500
+    fontWeightMedium: 500,
   },
   breakpoints: {},
   overrides: {
     MuiCssBaseline: {
-      "@global": {
+      '@global': {
         html: {
-          WebkitFontSmoothing: "antialiased",
-          height: "100%"
+          WebkitFontSmoothing: 'antialiased',
+          height: '100%',
         },
         body: {
-          fontSize: "14px",
+          fontSize: '14px',
           fontFamily: "'Poppins', sans-serif",
           fontWeight: 400,
-          lineHeight: "24px",
-          height: "100%"
+          lineHeight: '24px',
+          height: '100%',
         },
-        "@keyframes fadeIn": {
-          "0%": {
-            opacity: 0
+        '@keyframes fadeIn': {
+          '0%': {
+            opacity: 0,
           },
-          "100%": {
-            opacity: 1
-          }
+          '100%': {
+            opacity: 1,
+          },
         },
-        ".fade-in": {
-          animation: "$fadeIn 1s ease-out"
-        }
-      }
+        '.fade-in': {
+          animation: '$fadeIn 1s ease-out',
+        },
+      },
     },
     MuiButton: {
       root: {
-        fontSize: "12px",
-        "&:hover": {
-          opacity: 0.95
+        fontSize: '12px',
+        '&:hover': {
+          opacity: 0.95,
           //backgroundColor: `#1976d2!important`
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });
 
 export default lightTheme;

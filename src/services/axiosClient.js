@@ -1,11 +1,11 @@
-import axios from "axios";
-import queryString from "query-string";
-import { pathName, StorageKeys } from "configs";
-import { localStorageService } from "hooks/useLocalStorage";
-import history from "helpers/history";
+import axios from 'axios';
+import queryString from 'query-string';
+import { pathName, StorageKeys } from 'configs';
+import { localStorageService } from 'hooks/useLocalStorage';
+import history from 'helpers/history';
 
 const { clearTokens, getRefreshToken } = localStorageService;
-const API_URL = "http://localhost:8080";
+const API_URL = 'https://projectfinaltodo.herokuapp.com';
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
 
@@ -13,10 +13,10 @@ const axiosClient = axios.create({
   baseURL: API_URL,
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json',
   },
 
-  paramsSerializer: params => queryString.stringify(params)
+  paramsSerializer: params => queryString.stringify(params),
 });
 
 // Request Interceptors
@@ -28,7 +28,7 @@ axiosClient.interceptors.request.use(
   },
   error => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosClient.interceptors.response.use(
@@ -38,12 +38,12 @@ axiosClient.interceptors.response.use(
       const origionalRequest = error.config;
       if (error.response.status === 401 || error.response.status === 500) {
         // logout
-        history.push({ pathname: "/login" });
+        history.push({ pathname: '/login' });
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 async function forceRenewToken() {
@@ -52,10 +52,10 @@ async function forceRenewToken() {
     history.push(pathName.LOGIN);
   }
   return axiosClient
-    .post("/api/auth/refresh", { refresh: refreshToken })
+    .post('/api/auth/refresh', { refresh: refreshToken })
     .then(res => {
       // save token new and update header
-      axiosClient.defaults.headers["Authorization"] = `Bearer ${res.data.refToken}`;
+      axiosClient.defaults.headers['Authorization'] = `Bearer ${res.data.refToken}`;
       localStorage.setItem(StorageKeys.TOKEN, res.data.refToken);
     })
     .catch(error => {

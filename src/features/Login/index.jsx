@@ -1,10 +1,10 @@
-import { userActions } from "actions/User";
-import { pathName } from "configs";
-import { appConstants } from "configs/constants/app";
-import React, { memo, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useLocation } from "react-router-dom";
-import LoginForm from "./LoginForm";
+import { userActions } from 'actions/User';
+import { pathName } from 'configs';
+import { appConstants } from 'configs/constants/app';
+import React, { memo, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useLocation } from 'react-router-dom';
+import LoginForm from './LoginForm';
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function Login(props) {
 
   useEffect(() => {
     if (location.pathname) {
-      window.localStorage.setItem(appConstants.MODE_THEME, "light");
+      window.localStorage.setItem(appConstants.MODE_THEME, 'light');
     }
   }, [location.pathname]);
 

@@ -1,19 +1,19 @@
-import { Avatar, Divider } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import NotificationButton from "components/Notification/NotificationButton";
-import SearchBoard from "components/SearchBoard";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { userActions } from "../../actions/User";
-import useStyles from "./theme.header";
+import { Avatar, Divider } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import NotificationButton from 'components/Notification/NotificationButton';
+import SearchBoard from 'components/SearchBoard';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userActions } from '../../actions/User';
+import useStyles from './theme.header';
 
 export default function Header({ children }) {
   const classes = useStyles();
@@ -38,7 +38,7 @@ export default function Header({ children }) {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
-        <Toolbar style={{ minHeight: "100%" }}>
+        <Toolbar style={{ minHeight: '100%' }}>
           <Typography variant="h4" className={classes.title} noWrap>
             <Link to="/" className={classes.link}>
               Schedule Planner
@@ -76,24 +76,24 @@ export default function Header({ children }) {
                   open={Boolean(anchorEl)}
                   onClose={handleCloseMenu}
                   anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left"
+                    vertical: 'bottom',
+                    horizontal: 'left',
                   }}
                   transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left"
+                    vertical: 'top',
+                    horizontal: 'left',
                   }}
                   getContentAnchorEl={null}
                 >
                   <MenuItem>
-                    Signed in as <span style={{ marginLeft: "5px", fontWeight: 500 }}>{loggedInUser.username}</span>
+                    Signed in as <span style={{ marginLeft: '5px', fontWeight: 500 }}>{loggedInUser.username}</span>
                   </MenuItem>
                   <Divider />
                   <MenuItem>Helps</MenuItem>
                   <MenuItem>Settings</MenuItem>
                   <MenuItem>Your profile</MenuItem>
                   <Divider />
-                  <MenuItem onClick={handleLogout}>{translate("logout")}</MenuItem>
+                  <MenuItem onClick={handleLogout}>{translate('logout')}</MenuItem>
                 </Menu>
               </>
             )}

@@ -1,9 +1,9 @@
-import React, { memo } from "react";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import useStyles from "./theme.todoForm";
-import "./todoForm.scss";
-import { Box, IconButton } from "@material-ui/core";
-import ClearIcon from "@material-ui/icons/Clear";
+import React, { memo } from 'react';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import useStyles from './theme.todoForm';
+import './todoForm.scss';
+import { Box, IconButton } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 
 function TodoForm({ handleCloseForm, text, handleChange, children, placeholder, isLists }) {
   const classes = useStyles();
@@ -15,11 +15,11 @@ function TodoForm({ handleCloseForm, text, handleChange, children, placeholder, 
         onChange={handleChange}
         placeholder={placeholder}
         className={classes.textarea}
-        rowsMin={isLists ? "2" : "4"}
+        rowsMin={isLists ? '2' : '4'}
       />
       <Box display="flex" mt={1}>
         {children}
-        <IconButton onClick={handleCloseForm} style={{ marginLeft: "8px" }}>
+        <IconButton onClick={handleCloseForm} style={{ marginLeft: '8px' }}>
           <ClearIcon fontSize="default" color="error" />
         </IconButton>
       </Box>

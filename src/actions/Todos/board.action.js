@@ -1,12 +1,12 @@
-import { boardsApis, userApis, completedTodoApis } from "apis";
-import showToast from "components/Toast";
-import { todoActions } from "configs";
-import { actShowLoading, actHideLoading } from "../Global";
+import { boardsApis, userApis, completedTodoApis } from 'apis';
+import showToast from 'components/Toast';
+import { todoActions } from 'configs';
+import { actShowLoading, actHideLoading } from '../Global';
 
 const actGetAllBoards = boards => {
   return {
     type: todoActions.GET_ALL_BOARDS,
-    payload: boards
+    payload: boards,
   };
 };
 
@@ -29,7 +29,7 @@ const asyncGetAllBoards = () => {
 const actGetColumnByBoardId = columns => {
   return {
     type: todoActions.GET_COLUMNS,
-    payload: { columns }
+    payload: { columns },
   };
 };
 
@@ -53,7 +53,7 @@ const asyncGetColumnByBoardId = id => {
 const actAddBoard = board => {
   return {
     type: todoActions.ADD_BOARDS,
-    payload: board
+    payload: board,
   };
 };
 
@@ -79,7 +79,7 @@ const asyncAddBoard = (userId, title) => {
 const actGetBoardById = board => {
   return {
     type: todoActions.GET_BOARD_BY_ID,
-    payload: board
+    payload: board,
   };
 };
 
@@ -102,7 +102,7 @@ const asyncGetBoardById = ids => {
 const actGetListsFromBoard = lists => {
   return {
     type: todoActions.GET_LISTS,
-    payload: { lists }
+    payload: { lists },
   };
 };
 
@@ -129,7 +129,7 @@ const asyncGetListsFromBoard = id => {
 const actGetCardsFromBoard = cardss => {
   return {
     type: todoActions.GET_CARDS,
-    payload: { cardss }
+    payload: { cardss },
   };
 };
 
@@ -156,7 +156,7 @@ const asyncGetCardsFromBoard = id => {
 const actRemoveBoardById = boardId => {
   return {
     type: todoActions.REMOVE_BOARDS,
-    payload: { boardId }
+    payload: { boardId },
   };
 };
 
@@ -166,7 +166,7 @@ const asyncRemoveBoardById = boardId => {
       const result = await boardsApis.removeBoardById(boardId);
       if (result.status === 200) {
         dispatch(actRemoveBoardById(boardId));
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
       }
     } catch (error) {
       console.log(error);
@@ -176,7 +176,7 @@ const asyncRemoveBoardById = boardId => {
 
 const asyncGetActivity = (boardId, last, limit) => {
   return async dispatch => {
-    let params = "";
+    let params = '';
     if (last) params += `&last=${last}`;
     // eslint-disable-next-line no-unused-vars
     if (limit) params += `&limit=${limit || 10}`;
@@ -187,9 +187,9 @@ const asyncGetActivity = (boardId, last, limit) => {
           type: todoActions.GET_ACTIVITIES,
           payload: {
             activities: result.data,
-            hasMore: result.headers["x-has-more"] === true,
-            add: !!last
-          }
+            hasMore: result.headers['x-has-more'] === true,
+            add: !!last,
+          },
         });
       }
     } catch (error) {
@@ -203,12 +203,29 @@ const asyncUpdateTitleBoardById = data => {
     try {
       const result = await boardsApis.updateBoardById(data.id, {
         title: data.value,
-        slug: data.value.split(" ").join("-")
+        slug: data.value.split(' ').join('-'),
       });
       if (result.status === 200) {
         dispatch({
           type: todoActions.UPDATE_BOARDS,
-          payload: { board: result.data.board }
+          payload: { board: result.data.board },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+const asyncUpdateDueDateBoardById = data => {
+  return async dispatch => {
+    try {
+      const result = await boardsApis.updateBoardById(data.id, {
+        duedate: data.duedate,
+      });
+      if (result.status === 200) {
+        dispatch({
+          type: todoActions.UPDATE_BOARDS,
+          payload: { board: result.data.board },
         });
       }
     } catch (error) {
@@ -221,12 +238,12 @@ const asyncUpdateColorBoardById = data => {
   return async dispatch => {
     try {
       const result = await boardsApis.updateBoardById(data._id, {
-        image: data.colorBoard
+        image: data.colorBoard,
       });
       if (result.status === 200) {
         dispatch({
           type: todoActions.UPDATE_BOARDS,
-          payload: { board: result.data.board }
+          payload: { board: result.data.board },
         });
       }
     } catch (error) {
@@ -240,10 +257,11 @@ export const boardActions = {
   asyncGetActivity,
   asyncGetBoardById,
   asyncGetAllBoards,
+  asyncUpdateDueDateBoardById,
   asyncUpdateColorBoardById,
   asyncUpdateTitleBoardById,
   asyncRemoveBoardById,
   asyncGetCardsFromBoard,
   asyncGetListsFromBoard,
-  asyncGetColumnByBoardId
+  asyncGetColumnByBoardId,
 };

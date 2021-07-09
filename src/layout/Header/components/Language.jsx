@@ -1,22 +1,22 @@
-import { Button, makeStyles } from "@material-ui/core";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import TranslateIcon from "@material-ui/icons/Translate";
-import { LANGUAGE } from "configs";
-import { useGlobalContext } from "contexts/global-context";
-import React, { useState } from "react";
+import { Button, makeStyles } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TranslateIcon from '@material-ui/icons/Translate';
+import { LANGUAGE } from 'configs';
+import { useGlobalContext } from 'contexts/global-context';
+import React, { useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
   buttonLang: {
-    color: "#FFF",
-    fontSize: "14px"
+    color: '#FFF',
+    fontSize: '14px',
   },
   menu: {
-    "& .MuiMenuItem-root": {
-      fontSize: "14px"
-    }
-  }
+    '& .MuiMenuItem-root': {
+      fontSize: '14px',
+    },
+  },
 }));
 
 export default function Language(props) {
@@ -41,7 +41,7 @@ export default function Language(props) {
     <React.Fragment>
       <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.buttonLang} onClick={handleClick}>
         <TranslateIcon />
-        <span style={{ margin: "0 4px 0 8px" }}>{language}</span>
+        <span style={{ margin: '0 4px 0 8px' }}>{language}</span>
         <ExpandMoreIcon />
       </Button>
       <Menu
@@ -52,12 +52,12 @@ export default function Language(props) {
         onClose={handleClose}
         className={classes.menu}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left"
+          vertical: 'top',
+          horizontal: 'left',
         }}
         getContentAnchorEl={null}
       >

@@ -1,20 +1,20 @@
-import { userApis } from "apis";
-import showToast from "components/Toast";
-import { StorageKeys, UserActionTypes } from "configs";
-import history from "helpers/history";
+import { userApis } from 'apis';
+import showToast from 'components/Toast';
+import { StorageKeys, UserActionTypes } from 'configs';
+import history from 'helpers/history';
 
 // GET ME
 const actGetMeSuccess = user => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_SUCCESS,
-    payload: { user }
+    payload: { user },
   };
 };
 
 const actGetMeFailure = error => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_FAILURE,
-    error
+    error,
   };
 };
 
@@ -33,14 +33,14 @@ const asyncGetMe = () => {
 const actLoginSuccess = (token, userInfo) => {
   return {
     type: UserActionTypes.ACTION_LOGIN_SUCCESS,
-    payload: { token, userInfo }
+    payload: { token, userInfo },
   };
 };
 
 const actLoginFailure = error => {
   return {
     type: UserActionTypes.ACTION_LOGIN_ERROR,
-    error
+    error,
   };
 };
 
@@ -76,7 +76,7 @@ const asyncRegister = user => {
 
 const actLogout = () => {
   return {
-    type: UserActionTypes.ACTION_USER_LOGOUT
+    type: UserActionTypes.ACTION_USER_LOGOUT,
   };
 };
 
@@ -84,7 +84,7 @@ const actLogout = () => {
 const actUpdateUserProfile = user => {
   return {
     type: UserActionTypes.ACTION_UPDATE_USER_PROFILE,
-    payload: { user }
+    payload: { user },
   };
 };
 
@@ -94,7 +94,7 @@ const asyncUpdateUserProfile = (id, user) => {
       const result = await userApis.updateUserProfile(id, user);
       if (result.status === 200) {
         dispatch(actUpdateUserProfile(result.data.user));
-        showToast("Cập nhật thành công.", "success");
+        showToast('Cập nhật thành công.', 'success');
       }
     } catch (error) {
       console.log(error);
@@ -108,12 +108,12 @@ const changeAvatarStart = formData => async dispatch => {
     const response = await userApis.changeAvatar(formData);
     dispatch({
       type: UserActionTypes.CHANGE_AVATAR_SUCCESS,
-      payload: response.data.image
+      payload: response.data.image,
     });
   } catch (err) {
     dispatch({
       type: UserActionTypes.CHANGE_AVATAR_FAILURE,
-      payload: err.message
+      payload: err.message,
     });
   }
 };
@@ -136,5 +136,5 @@ export const userActions = {
   actLoginSuccess,
   asyncGetMe,
   actLogout,
-  asyncUpdateUserProfile
+  asyncUpdateUserProfile,
 };

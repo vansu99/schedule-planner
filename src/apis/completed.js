@@ -1,4 +1,4 @@
-import axiosClient from "../services/axiosClient";
+import axiosClient from '../services/axiosClient';
 
 const completedTodoApis = {
   getAllReport: () => {
@@ -11,7 +11,7 @@ const completedTodoApis = {
     return axiosClient.get(`/api/reports/${id}`);
   },
   createReportTodo: boardId => {
-    return axiosClient.post("/api/reports", { boardId });
+    return axiosClient.post('/api/reports', { boardId });
   },
   addCompletedTodo: (boardId, value) => {
     return axiosClient.patch(`/api/reports/completed`, { boardId, value });
@@ -24,7 +24,7 @@ const completedTodoApis = {
   },
   getMemberTeamTodo: boardId => {
     return axiosClient.get(`/api/reports/completed/${boardId}`);
-  }
+  },
 };
 
 export default completedTodoApis;

@@ -1,5 +1,5 @@
-import { parseJWT } from "../helpers";
-import { StorageKeys } from "../configs";
+import { parseJWT } from '../helpers';
+import { StorageKeys } from '../configs';
 
 function useUserId(props) {
   const token = JSON.parse(localStorage.getItem(StorageKeys.TOKEN));

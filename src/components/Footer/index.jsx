@@ -1,45 +1,45 @@
-import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import React from "react";
-import { Link } from "react-router-dom";
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   footer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column"
-    }
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   footerLeft: {
-    "& > .MuiTypography-root": {
+    '& > .MuiTypography-root': {
       marginRight: theme.spacing(2),
-      textTransform: "uppercase",
-      color: "#333333"
+      textTransform: 'uppercase',
+      color: '#333333',
     },
-    [theme.breakpoints.down("sm")]: {
-      marginBottom: theme.spacing(2)
-    }
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(2),
+    },
   },
   footerRight: {
-    marginLeft: "auto",
-    "& > .MuiTypography-root": {
-      textTransform: "uppercase",
-      color: "#333333",
-      "& > span": {
-        color: "#f44336",
-        fontWeight: "bold"
-      }
+    marginLeft: 'auto',
+    '& > .MuiTypography-root': {
+      textTransform: 'uppercase',
+      color: '#333333',
+      '& > span': {
+        color: '#f44336',
+        fontWeight: 'bold',
+      },
     },
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: 0
-    }
-  }
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+    },
+  },
 }));
 
 export default function Footer() {

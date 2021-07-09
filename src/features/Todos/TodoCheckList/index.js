@@ -1,1 +1,1 @@
-export { default as CheckListSelect } from "./CheckListSelect";
+export { default as CheckListSelect } from './CheckListSelect';

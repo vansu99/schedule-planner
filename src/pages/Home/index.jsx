@@ -1,8 +1,8 @@
-import { StorageKeys } from "configs";
-import React, { memo } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import "./home.scss";
+import { StorageKeys } from 'configs';
+import React, { memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './home.scss';
 
 function Home() {
   const dispatch = useDispatch();

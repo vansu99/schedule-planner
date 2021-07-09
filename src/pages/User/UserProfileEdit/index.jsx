@@ -1,9 +1,9 @@
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import React from "react";
-import EditForm from "./components/EditForm";
-import SidebarUserEdit from "./components/Sidebar";
-import useStyles from "./style";
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import React from 'react';
+import EditForm from './components/EditForm';
+import SidebarUserEdit from './components/Sidebar';
+import useStyles from './style';
 
 const UserProfileEdit = props => {
   const classes = useStyles();

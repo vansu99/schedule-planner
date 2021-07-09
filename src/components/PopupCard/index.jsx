@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Box, Divider, Typography } from "@material-ui/core";
-import useStyles from "./theme.PopupCard";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Box, Divider, Typography } from '@material-ui/core';
+import useStyles from './theme.PopupCard';
 
 function PopupCard({ children, notifyHeading }) {
   const classes = useStyles();
@@ -22,7 +22,7 @@ function PopupCard({ children, notifyHeading }) {
 
 PopupCard.propTypes = {
   children: PropTypes.any,
-  notifyHeading: PropTypes.string
+  notifyHeading: PropTypes.string,
 };
 
 export default PopupCard;

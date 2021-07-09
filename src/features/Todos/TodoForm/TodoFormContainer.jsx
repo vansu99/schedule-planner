@@ -1,43 +1,43 @@
-import { Box, Button, Collapse, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { cardActions } from "actions/Todos/card.action";
-import { listActions } from "actions/Todos/list.action";
-import { activityActions } from "actions/Activity/activity.action";
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import TodoForm from "./index";
+import { Box, Button, Collapse, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { cardActions } from 'actions/Todos/card.action';
+import { listActions } from 'actions/Todos/list.action';
+import { activityActions } from 'actions/Activity/activity.action';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import TodoForm from './index';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxHeight: "100%",
-    padding: "9px"
+    maxHeight: '100%',
+    padding: '9px',
   },
   addCard: {
-    width: "100%",
+    width: '100%',
     backgroundColor: theme.palette.background.card,
-    fontFamily: "Poppins, sans-serif",
-    "&.MuiButton-root:hover": {
+    fontFamily: 'Poppins, sans-serif',
+    '&.MuiButton-root:hover': {
       background: theme.palette.background.card,
-      cursor: "pointer"
+      cursor: 'pointer',
     },
-    "& .MuiButton-label > i": {
+    '& .MuiButton-label > i': {
       marginRight: theme.spacing(1),
-      fontSize: theme.spacing(1.8)
-    }
+      fontSize: theme.spacing(1.8),
+    },
   },
   btnAddCard: {
-    fontSize: "1.2rem",
-    height: "32px",
-    color: "#fff",
+    fontSize: '1.2rem',
+    height: '32px',
+    color: '#fff',
 
-    ".MuiButton-contained:hover": {
+    '.MuiButton-contained:hover': {
       boxShadow: 0,
-      backgroundColor: "#0265E5!important",
-      opacity: 0.86
-    }
-  }
+      backgroundColor: '#0265E5!important',
+      opacity: 0.86,
+    },
+  },
 }));
 
 export default function TodoFormContainer({ isLists, listId }) {
@@ -46,9 +46,9 @@ export default function TodoFormContainer({ isLists, listId }) {
   const dispatch = useDispatch();
   const { boardId } = useParams();
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const label = isLists ? translate("add_list") : translate("add_card");
-  const placeholder = isLists ? "Nhập tiêu đề danh sách" : "Enter a title for this card...";
+  const [title, setTitle] = useState('');
+  const label = isLists ? translate('add_list') : translate('add_card');
+  const placeholder = isLists ? 'Nhập tiêu đề danh sách' : 'Enter a title for this card...';
   const userId = useSelector(state => state.user.currentUser);
 
   const onChange = e => {
@@ -60,37 +60,37 @@ export default function TodoFormContainer({ isLists, listId }) {
   }, []);
 
   const handleAddList = () => {
-    if (title === "") return;
+    if (title === '') return;
     const newList = { title, cards: [] };
 
     dispatch(listActions.asyncAddTodoList(boardId, newList));
     dispatch(
       activityActions.asyncCreateNewActivity({
         text: `${userId.username} added ${newList.title} to this board`,
-        boardId: boardId
-      })
+        boardId: boardId,
+      }),
     );
-    setTitle("");
+    setTitle('');
     setOpen(false);
   };
 
   const handleAddCard = () => {
-    if (title === "") return;
+    if (title === '') return;
 
     const newCards = {
       title,
       list: listId,
       userId: userId._id,
-      boardId
+      boardId,
     };
     dispatch(cardActions.asyncAddTodoCard(newCards));
     dispatch(
       activityActions.asyncCreateNewActivity({
         text: `${userId.username} added ${newCards.title} to do to this list`,
-        boardId: boardId
-      })
+        boardId: boardId,
+      }),
     );
-    setTitle("");
+    setTitle('');
     setOpen(false);
   };
 

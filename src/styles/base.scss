@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 *,
 ::after,
@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.4rem;
   font-weight: $font-medium;
   background-color: $background-color-light;
@@ -74,9 +74,9 @@ select {
 }
 
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   -webkit-appearance: button;
   cursor: pointer;
 }

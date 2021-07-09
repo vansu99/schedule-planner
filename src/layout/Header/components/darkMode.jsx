@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import { THEMES } from "configs/constants/app";
-import { StorageKeys } from "configs";
-import { useGlobalContext } from "contexts/global-context";
-import IconButton from "@material-ui/core/IconButton";
-import Brightness4Icon from "@material-ui/icons/Brightness4";
-import Brightness7Icon from "@material-ui/icons/Brightness7";
+import React, { memo } from 'react';
+import { THEMES } from 'configs/constants/app';
+import { StorageKeys } from 'configs';
+import { useGlobalContext } from 'contexts/global-context';
+import IconButton from '@material-ui/core/IconButton';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 function DarkMode() {
   const { modeTheme, setModeTheme } = useGlobalContext();

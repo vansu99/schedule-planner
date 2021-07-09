@@ -1,23 +1,23 @@
-import Box from "@material-ui/core/Box";
-import { listActions } from "actions/Todos/list.action";
-import PropTypes from "prop-types";
-import React, { memo, useState } from "react";
-import { Draggable, Droppable } from "react-beautiful-dnd";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import TodoCard from "../TodoCard";
-import TodoFormContainer from "../TodoForm/TodoFormContainer";
-import useStyles from "./theme.TodoList";
-import Title from "./titleCpt.jsx";
-import "./todoList.scss";
+import Box from '@material-ui/core/Box';
+import { listActions } from 'actions/Todos/list.action';
+import PropTypes from 'prop-types';
+import React, { memo, useState } from 'react';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import TodoCard from '../TodoCard';
+import TodoFormContainer from '../TodoForm/TodoFormContainer';
+import useStyles from './theme.TodoList';
+import Title from './titleCpt.jsx';
+import './todoList.scss';
 
 TodoList.propTypes = {
   cards: PropTypes.array,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 TodoList.defaultProps = {
-  cards: []
+  cards: [],
 };
 
 function TodoList({ listId, title, cards, index, columnId }) {

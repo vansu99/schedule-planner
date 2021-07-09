@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { selectActivityState } from "selectors/activity.selector";
-import { boardActions } from "actions/Todos/board.action";
-import ButtonComponent from "components/Button";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { selectActivityState } from 'selectors/activity.selector';
+import { boardActions } from 'actions/Todos/board.action';
+import ButtonComponent from 'components/Button';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
-    marginBottom: "90px",
+    marginBottom: '90px',
     paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(2),
-    height: "100%"
+    height: '100%',
   },
   text: {
-    fontSize: "15px"
+    fontSize: '15px',
   },
   timestamp: {
-    fontSize: "11px",
-    color: "#637187"
-  }
+    fontSize: '11px',
+    color: '#637187',
+  },
 }));
 
 function ActivityPage(props) {
@@ -32,7 +32,7 @@ function ActivityPage(props) {
   const { activities, hasMore } = useSelector(selectActivityState);
 
   useEffect(() => {
-    document.title = "Scheduler";
+    document.title = 'Scheduler';
   }, []);
 
   useEffect(() => {
@@ -53,18 +53,18 @@ function ActivityPage(props) {
         const date = new Date(activity.createdAt);
         const str = moment(date).fromNow();
         var timestampString;
-        const userName = activity.text?.split(" ").slice(0, 2).join(" ");
-        const activityText = activity.text?.replace(userName, "");
-        if (str.includes("second") || str.includes("minute") || str.includes("hour")) timestampString = str;
-        else if (str.includes("day") && (str.split(" ")[0] === "a" || str.split(" ")[0] < 7)) {
-          if (str === "a day ago") {
-            const timeString = moment().subtract(1, "days").calendar().split(" at ")[0];
-            timestampString = `${timeString} at ${moment(date).format("LT")}`;
+        const userName = activity.text?.split(' ').slice(0, 2).join(' ');
+        const activityText = activity.text?.replace(userName, '');
+        if (str.includes('second') || str.includes('minute') || str.includes('hour')) timestampString = str;
+        else if (str.includes('day') && (str.split(' ')[0] === 'a' || str.split(' ')[0] < 7)) {
+          if (str === 'a day ago') {
+            const timeString = moment().subtract(1, 'days').calendar().split(' at ')[0];
+            timestampString = `${timeString} at ${moment(date).format('LT')}`;
           } else {
-            const timeString = moment().subtract(str.split(" ")[0], "days").calendar().split(" at ")[0];
-            timestampString = `${timeString} at ${moment(date).format("LT")}`;
+            const timeString = moment().subtract(str.split(' ')[0], 'days').calendar().split(' at ')[0];
+            timestampString = `${timeString} at ${moment(date).format('LT')}`;
           }
-        } else timestampString = moment(date).format("LLL");
+        } else timestampString = moment(date).format('LLL');
         return (
           <div key={activity._id} className={classes.text}>
             <strong>{userName}</strong>

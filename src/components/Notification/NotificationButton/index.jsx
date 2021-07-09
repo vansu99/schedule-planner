@@ -1,12 +1,12 @@
-import { Box, IconButton, Badge } from "@material-ui/core";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import NotifitionFeed from "../NotificationFeed";
-import PopupCard from "components/PopupCard";
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectNotifications, selectNotificationState } from "selectors/notification.selector";
+import { Box, IconButton, Badge } from '@material-ui/core';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import NotifitionFeed from '../NotificationFeed';
+import PopupCard from 'components/PopupCard';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectNotifications, selectNotificationState } from 'selectors/notification.selector';
 
 function NotificationButton(props) {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -38,9 +38,9 @@ function NotificationButton(props) {
         <IconButton color="inherit" onClick={() => setShowNotifications(previous => !previous)}>
           <Badge badgeContent={notificationState.unreadCount} color="error">
             {showNotifications ? (
-              <NotificationsIcon fontSize="large" style={{ cursor: "pointer" }} />
+              <NotificationsIcon fontSize="large" style={{ cursor: 'pointer' }} />
             ) : (
-              <NotificationsNoneIcon fontSize="large" style={{ cursor: "pointer" }} />
+              <NotificationsNoneIcon fontSize="large" style={{ cursor: 'pointer' }} />
             )}
           </Badge>
         </IconButton>

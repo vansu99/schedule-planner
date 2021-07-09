@@ -1,19 +1,19 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Divider } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import ImageLogin from "assets/images/bg-1.png";
-import { InputField, PasswordField } from "components/FormControls";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import * as yup from "yup";
-import useStyles from "./theme.loginForm";
-import LoginGoogle from "../LoginSocial/loginGoogle";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Button, Divider } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import ImageLogin from 'assets/images/bg-1.png';
+import { InputField, PasswordField } from 'components/FormControls';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import * as yup from 'yup';
+import useStyles from './theme.loginForm';
+import LoginGoogle from '../LoginSocial/loginGoogle';
 
 const schemaForm = yup.object().shape({
-  email: yup.string().required("Vui lòng nhập email của bạn."),
-  password: yup.string().required("Vui lòng nhập mật khẩu.")
+  email: yup.string().required('Vui lòng nhập email của bạn.'),
+  password: yup.string().required('Vui lòng nhập mật khẩu.'),
 });
 
 export default function LoginForm({ onSubmit }) {
@@ -22,10 +22,10 @@ export default function LoginForm({ onSubmit }) {
   const { t: translate } = useTranslation();
   const form = useForm({
     defaultValues: {
-      email: "",
-      password: ""
+      email: '',
+      password: '',
     },
-    resolver: yupResolver(schemaForm)
+    resolver: yupResolver(schemaForm),
   });
 
   const handleSubmitForm = async values => {
@@ -57,14 +57,14 @@ export default function LoginForm({ onSubmit }) {
               color="primary"
               fullWidth
               classes={{
-                root: classes.btnLogin
+                root: classes.btnLogin,
               }}
             >
-              {translate("login")}
+              {translate('login')}
             </Button>
-            <Divider variant="middle" style={{ margin: "2rem 0" }} />
+            <Divider variant="middle" style={{ margin: '2rem 0' }} />
             <Link to="/" className={classes.forgotLogin}>
-              {translate("forgot_pw")}
+              {translate('forgot_pw')}
             </Link>
           </form>
         </Box>
@@ -73,8 +73,8 @@ export default function LoginForm({ onSubmit }) {
         </div>
         <Box className={classes.otherRegister}>
           <Typography variant="h6" component="p">
-            {translate("dont_acc")}
-            <Link to="/register">{translate("register")}</Link>
+            {translate('dont_acc')}
+            <Link to="/register">{translate('register')}</Link>
           </Typography>
         </Box>
       </div>

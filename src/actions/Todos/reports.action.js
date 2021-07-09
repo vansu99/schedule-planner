@@ -1,5 +1,5 @@
-import { actShowLoading, actHideLoading } from "../Global";
-import { completedTodoApis } from "apis";
+import { actShowLoading, actHideLoading } from '../Global';
+import { completedTodoApis } from 'apis';
 
 const asyncGetReportTodoById = id => {
   return async dispatch => {
@@ -17,5 +17,5 @@ const asyncGetReportTodoById = id => {
 };
 
 export const reportsActions = {
-  asyncGetReportTodoById
+  asyncGetReportTodoById,
 };

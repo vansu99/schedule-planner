@@ -1,23 +1,23 @@
-import { makeStyles } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Loading from "components/Loading";
-import PropTypes from "prop-types";
-import React from "react";
-import { useSelector } from "react-redux";
+import { makeStyles } from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Loading from 'components/Loading';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 GuestLayout.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 GuestLayout.defaultProps = {
-  children: null
+  children: null,
 };
 
 const useStyles = makeStyles(theme => ({
   app: {
-    position: "relative",
-    minHeight: "100vh"
-  }
+    position: 'relative',
+    minHeight: '100vh',
+  },
 }));
 
 function GuestLayout({ children }) {

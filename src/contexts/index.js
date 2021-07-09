@@ -1,6 +1,6 @@
-import React from "react";
-import { BoardProvider } from "./board-context";
-import { GlobalProvider } from "./global-context";
+import React from 'react';
+import { BoardProvider } from './board-context';
+import { GlobalProvider } from './global-context';
 
 export function StoreProviderContext(props) {
   return (

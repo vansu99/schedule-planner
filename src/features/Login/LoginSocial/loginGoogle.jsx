@@ -1,12 +1,12 @@
-import React from "react";
-import useStyles from "../LoginForm/theme.loginForm";
-import history from "helpers/history";
-import { useDispatch } from "react-redux";
-import { userActions } from "actions/User";
-import { StorageKeys } from "configs";
-import GoogleLogin from "react-google-login";
-import { userApis } from "apis";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import useStyles from '../LoginForm/theme.loginForm';
+import history from 'helpers/history';
+import { useDispatch } from 'react-redux';
+import { userActions } from 'actions/User';
+import { StorageKeys } from 'configs';
+import GoogleLogin from 'react-google-login';
+import { userApis } from 'apis';
+import { useTranslation } from 'react-i18next';
 
 function LoginGoogle(props) {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function LoginGoogle(props) {
       email: profileObj?.email,
       image: profileObj?.imageUrl,
       socialId: profileObj?.googleId,
-      type: "google"
+      type: 'google',
     };
     const response = await userApis.loginWithGoogle(formLoginData);
     if (response.status === 201 || response.status === 200) {
@@ -53,8 +53,8 @@ function LoginGoogle(props) {
         clientId="500873698006-726sfiv7bhb9f8i2h4ve36qi820j2jm2.apps.googleusercontent.com"
         onSuccess={successGoogleLogin}
         onFailure={failureGoogleLogin}
-        buttonText={translate("login_gg")}
-        cookiePolicy={"single_host_origin"}
+        buttonText={translate('login_gg')}
+        cookiePolicy={'single_host_origin'}
         scope="profile"
         className={classes.loginGoogle}
       />

@@ -1,13 +1,13 @@
 // context
-import { GlobalProvider } from "contexts/global-context";
+import { GlobalProvider } from 'contexts/global-context';
 // i18n
-import "locales/i18n";
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import store from "./store";
+import 'locales/i18n';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import store from './store';
 //import "./styles/index.scss";
 
 ReactDOM.render(
@@ -16,7 +16,7 @@ ReactDOM.render(
       <App />
     </GlobalProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

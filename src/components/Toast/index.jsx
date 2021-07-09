@@ -1,15 +1,15 @@
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const showToast = (message, type = "success") => {
+const showToast = (message, type = 'success') => {
   return toast[type](message, {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 2500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    progress: undefined
+    progress: undefined,
   });
 };
 

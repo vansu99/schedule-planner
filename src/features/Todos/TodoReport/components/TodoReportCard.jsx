@@ -1,37 +1,37 @@
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Skeleton from "@material-ui/lab/Skeleton";
-import PropTypes from "prop-types";
-import React, { memo } from "react";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
+import PropTypes from 'prop-types';
+import React, { memo } from 'react';
 
 const useStyles = makeStyles(theme => ({
   todoReportCard: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "2rem 1rem",
-    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-    position: "relative",
-    transition: "all .25s",
-    "&:hover": {
-      cursor: "pointer",
-      backgroundColor: "#FFFCF2",
-      color: "#32373B"
-    }
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2rem 1rem',
+    boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+    position: 'relative',
+    transition: 'all .25s',
+    '&:hover': {
+      cursor: 'pointer',
+      backgroundColor: '#FFFCF2',
+      color: '#32373B',
+    },
   },
   todoCardPercent: {
-    marginLeft: "0.7rem",
-    fontSize: "1.5rem",
-    fontWeight: "400"
+    marginLeft: '0.7rem',
+    fontSize: '1.5rem',
+    fontWeight: '400',
   },
   cardContent: {
-    "&:first-of-child": {
-      backgroundColor: "blue"
-    }
-  }
+    '&:first-of-child': {
+      backgroundColor: 'blue',
+    },
+  },
 }));
 
 function TodoReportCard({ title, completed, calPercent = 0, color, loading }) {
@@ -61,7 +61,7 @@ TodoReportCard.propTypes = {
   completed: PropTypes.number,
   calPercent: PropTypes.string,
   color: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 };
 
 export default memo(TodoReportCard);

@@ -1,21 +1,21 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    minWidth: "21rem",
-    marginBottom: "10px",
-    color: theme.palette.text.primary
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    minWidth: '21rem',
+    marginBottom: '10px',
+    color: theme.palette.text.primary,
   },
   textarea: {
-    outline: "none",
-    border: "1px solid #eee",
-    borderRadius: "4px",
-    resize: "none",
-    padding: "1rem"
-  }
+    outline: 'none',
+    border: '1px solid #eee',
+    borderRadius: '4px',
+    resize: 'none',
+    padding: '1rem',
+  },
 }));
 
 export default useStyles;

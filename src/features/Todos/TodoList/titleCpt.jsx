@@ -1,7 +1,7 @@
-import { InputBase, Typography } from "@material-ui/core";
-import React from "react";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import useStyles from "./theme.TodoList";
+import { InputBase, Typography } from '@material-ui/core';
+import React from 'react';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import useStyles from './theme.TodoList';
 
 export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveList, handleEditTitleList }) {
   const classes = useStyles();
@@ -26,7 +26,7 @@ export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveL
             autoFocus
             value={title}
             inputProps={{
-              className: classes.input
+              className: classes.input,
             }}
             fullWidth
             onChange={onChange}

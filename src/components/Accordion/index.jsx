@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import Typography from "@material-ui/core/Typography";
-import { useTranslation } from "react-i18next";
-import { Divider } from "@material-ui/core";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
+import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+    width: '100%',
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   },
   heading: {
     flexShrink: 0,
-    textTransform: "uppercase",
-    marginLeft: theme.spacing(1)
+    textTransform: 'uppercase',
+    marginLeft: theme.spacing(1),
   },
   icon: {
-    height: "100%",
-    lineHeight: "2.1rem"
+    height: '100%',
+    lineHeight: '2.1rem',
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 }));
 
 function AccordionCpt({ children, title, icon }) {
@@ -56,7 +56,7 @@ function AccordionCpt({ children, title, icon }) {
 AccordionCpt.propTypes = {
   children: PropTypes.any,
   title: PropTypes.string,
-  icon: PropTypes.string
+  icon: PropTypes.string,
 };
 
 export default AccordionCpt;

@@ -1,20 +1,20 @@
-import Backdrop from "@material-ui/core/Backdrop";
-import Modal from "@material-ui/core/Modal";
-import Fade from "@material-ui/core/Fade";
-import { makeStyles } from "@material-ui/core/styles";
-import { cardActions } from "actions/Todos/card.action";
-import { calendarActions } from "actions/Calendar/calendar.action";
-import PropTypes from "prop-types";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import CalendarForm from "./CalendarForm";
+import Backdrop from '@material-ui/core/Backdrop';
+import Modal from '@material-ui/core/Modal';
+import Fade from '@material-ui/core/Fade';
+import { makeStyles } from '@material-ui/core/styles';
+import { cardActions } from 'actions/Todos/card.action';
+import { calendarActions } from 'actions/Calendar/calendar.action';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import CalendarForm from './CalendarForm';
 
 const useStyles = makeStyles(theme => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  }
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 function CalendarEdit({ event }) {
@@ -42,7 +42,7 @@ function CalendarEdit({ event }) {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500
+          timeout: 500,
         }}
       >
         <Fade in={openModal}>
@@ -54,7 +54,7 @@ function CalendarEdit({ event }) {
 }
 
 CalendarEdit.propTypes = {
-  event: PropTypes.object
+  event: PropTypes.object,
 };
 
 export default CalendarEdit;

@@ -1,6 +1,6 @@
-import React from "react";
-import Modal from "react-modal";
-import useStyles from "./style";
+import React from 'react';
+import Modal from 'react-modal';
+import useStyles from './style';
 
 export default function ReactModal({ children, isOpen, handleCloseModal }) {
   const classes = useStyles();

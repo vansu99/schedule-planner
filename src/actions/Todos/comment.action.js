@@ -1,12 +1,12 @@
-import { todosApis } from "apis";
-import showToast from "components/Toast";
-import { todoActions } from "configs";
-import { actShowLoading, actHideLoading } from "../Global";
+import { todosApis } from 'apis';
+import showToast from 'components/Toast';
+import { todoActions } from 'configs';
+import { actShowLoading, actHideLoading } from '../Global';
 
 const actAddCommentTodoCard = (cardId, comment) => {
   return {
     type: todoActions.ADD_COMMENT_TODO_CARD,
-    payload: { cardId, comment }
+    payload: { cardId, comment },
   };
 };
 
@@ -31,7 +31,7 @@ const asyncAddCommentTodoCard = (cardId, newComment, user) => {
 const actUpdateCommentTodoCard = (cardId, newUpdateComment, user) => {
   return {
     type: todoActions.UPDATE_COMMENT_TODO_CARD,
-    payload: { cardId, newUpdateComment, user }
+    payload: { cardId, newUpdateComment, user },
   };
 };
 
@@ -41,7 +41,7 @@ const asyncUpdateCommentTodoCard = (cardId, comment, content, user) => {
       const result = await todosApis.updateCommentTodoCard(comment._id, { content });
       if (result.status === 200) {
         dispatch(actUpdateCommentTodoCard(cardId, result.data.comment, user));
-        showToast(result.data.msg, "success");
+        showToast(result.data.msg, 'success');
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +52,7 @@ const asyncUpdateCommentTodoCard = (cardId, comment, content, user) => {
 const actLikeCommentTodoCard = (cardId, comment) => {
   return {
     type: todoActions.LIKE_COMMENT_TODO_CARD,
-    payload: { cardId, comment }
+    payload: { cardId, comment },
   };
 };
 
@@ -62,7 +62,7 @@ const asyncLikeCommentTodoCard = (cardId, comment, user, socket) => {
       const result = await todosApis.likeCommentTodoCard(comment._id, user);
       if (result.status === 200) {
         dispatch(actLikeCommentTodoCard(cardId, result.data.likeComment));
-        socket.emit("likeComment", result.data);
+        socket.emit('likeComment', result.data);
       }
     } catch (error) {
       console.log(error);
@@ -73,7 +73,7 @@ const asyncLikeCommentTodoCard = (cardId, comment, user, socket) => {
 const actUnLikeCommentTodoCard = (cardId, comment) => {
   return {
     type: todoActions.UNLIKE_COMMENT_TODO_CARD,
-    payload: { cardId, comment }
+    payload: { cardId, comment },
   };
 };
 
@@ -93,7 +93,7 @@ const asyncUnLikeCommentTodoCard = (cardId, comment, user, socket) => {
 const actRemoveComment = (comment, cardId) => {
   return {
     type: todoActions.REMOVE_COMMENT_TODO_CARD,
-    payload: { comment, cardId }
+    payload: { comment, cardId },
   };
 };
 
@@ -103,7 +103,7 @@ const asyncRemoveComment = (commentId, cardId) => {
       const removeComment = await todosApis.removeCommentTodoCard(commentId);
       if (removeComment.status === 200) {
         dispatch(actRemoveComment(commentId, cardId));
-        showToast(removeComment.data.msg, "success");
+        showToast(removeComment.data.msg, 'success');
       }
     } catch (error) {
       console.log(error);
@@ -116,5 +116,5 @@ export const commentActions = {
   asyncAddCommentTodoCard,
   asyncLikeCommentTodoCard,
   asyncUnLikeCommentTodoCard,
-  asyncUpdateCommentTodoCard
+  asyncUpdateCommentTodoCard,
 };

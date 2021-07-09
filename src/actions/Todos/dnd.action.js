@@ -1,11 +1,11 @@
-import { listsApis, todosApis } from "apis";
-import { todoActions } from "configs";
+import { listsApis, todosApis } from 'apis';
+import { todoActions } from 'configs';
 
 // DRAG & DROP
 const actDragEndList = payload => {
   return {
     type: todoActions.DRAG_END_LIST,
-    payload
+    payload,
   };
 };
 
@@ -22,7 +22,7 @@ const asyncDragEndList = result => {
 const actDragEndCard = payload => {
   return {
     type: todoActions.DRAG_END_CARD,
-    payload
+    payload,
   };
 };
 
@@ -47,5 +47,5 @@ const asyncDragEndCard = result => {
 
 export const dndActions = {
   asyncDragEndList,
-  asyncDragEndCard
+  asyncDragEndCard,
 };

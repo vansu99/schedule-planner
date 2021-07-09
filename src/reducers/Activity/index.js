@@ -1,7 +1,7 @@
-import { todoActions } from "configs";
+import { todoActions } from 'configs';
 
 const initialState = {
-  activities: []
+  activities: [],
 };
 
 export const activityReducer = (state = initialState, action) => {
@@ -10,12 +10,12 @@ export const activityReducer = (state = initialState, action) => {
       return {
         ...state,
         activities: [...(action.payload.add ? state.activities : []), ...action.payload.activities],
-        hasMore: action.payload.hasMore
+        hasMore: action.payload.hasMore,
       };
     case todoActions.ADD_ACTIVITY:
       return {
         ...state,
-        activities: [action.payload.activity, ...state.activities]
+        activities: [action.payload.activity, ...state.activities],
       };
     case todoActions.DELETE_ACTIVITY: {
       const activitiesLog = state.activities;
@@ -23,7 +23,7 @@ export const activityReducer = (state = initialState, action) => {
       activitiesLog.splice(index, 1);
       return {
         ...state,
-        activities: [...state.activitiesLog]
+        activities: [...state.activitiesLog],
       };
     }
     case todoActions.ERROR_ACTIVITY:

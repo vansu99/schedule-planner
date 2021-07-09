@@ -1,10 +1,10 @@
-import { NOTIFICATIONS } from "../../configs";
+import { NOTIFICATIONS } from '../../configs';
 
 const initialState = {
   notifications: [],
   unreadCount: 0,
   fetching: false,
-  error: false
+  error: false,
 };
 
 export function notifyReducer(state = initialState, action) {
@@ -13,21 +13,21 @@ export function notifyReducer(state = initialState, action) {
       return {
         ...state,
         notifications: [action.payload, ...state.notifications],
-        unreadCount: state.unreadCount + 1
+        unreadCount: state.unreadCount + 1,
       };
     }
     case NOTIFICATIONS.FETCH_NOTIFICATIONS_START: {
       return {
         ...state,
         fetching: true,
-        error: false
+        error: false,
       };
     }
     case NOTIFICATIONS.FETCH_NOTIFICATIONS_FAILURE: {
       return {
         ...state,
         fetching: false,
-        error: action.payload
+        error: action.payload,
       };
     }
     case NOTIFICATIONS.FETCH_NOTIFICATIONS_SUCCESS: {
@@ -37,7 +37,7 @@ export function notifyReducer(state = initialState, action) {
         fetching: false,
         error: false,
         notifications: action.payload,
-        unreadCount
+        unreadCount,
       };
     }
     case NOTIFICATIONS.READ_NOTIFICATIONS: {
@@ -46,14 +46,14 @@ export function notifyReducer(state = initialState, action) {
       return {
         ...state,
         unreadCount: 0,
-        notifications
+        notifications,
       };
     }
     case NOTIFICATIONS.CLEAR_NOTIFICATIONS: {
       return {
         ...state,
         unreadCount: 0,
-        notifications: []
+        notifications: [],
       };
     }
 

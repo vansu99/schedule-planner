@@ -1,15 +1,15 @@
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import InputLabel from "@material-ui/core/InputLabel";
-import Paper from "@material-ui/core/Paper";
-import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
-import React, { memo, useCallback, useEffect } from "react";
-import TodoReportCard from "./components/TodoReportCard";
-import TodoReportPieChart from "./components/TodoReportPieChart";
-import TodoReportTable from "./components/TodoReportTables";
-import useStyles from "./todoReport.theme";
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import React, { memo, useCallback, useEffect } from 'react';
+import TodoReportCard from './components/TodoReportCard';
+import TodoReportPieChart from './components/TodoReportPieChart';
+import TodoReportTable from './components/TodoReportTables';
+import useStyles from './todoReport.theme';
 
 function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBoard, loading }) {
   const classes = useStyles();
@@ -18,11 +18,11 @@ function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBo
       let result = Math.round((value / totalCards) * 100).toFixed(1);
       return result || 0;
     },
-    [totalCards]
+    [totalCards],
   );
 
   useEffect(() => {
-    document.title = "Reports • Schedule Planner";
+    document.title = 'Reports • Schedule Planner';
   }, []);
 
   const onChangeBoard = e => {
@@ -44,8 +44,8 @@ function TodoReport({ reports = {}, allReports, team, totalCards, handleChangeBo
             native
             label="Board"
             inputProps={{
-              name: "board",
-              id: "outlined-board-native-simple"
+              name: 'board',
+              id: 'outlined-board-native-simple',
             }}
           >
             <option aria-label="None" value="" />
@@ -117,7 +117,7 @@ TodoReport.propTypes = {
   team: PropTypes.array,
   totalCards: PropTypes.number,
   handleChangeBoard: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 };
 
 export default memo(TodoReport);

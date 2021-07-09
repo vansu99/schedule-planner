@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
 const selectorGetColumn = state => state.todo.columns;
 const selectorGetLists = state => state.todo.lists;

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser } from "selectors/auth.selector";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from 'selectors/auth.selector';
 
 function SocketClient(props) {
   const dispatch = useDispatch();

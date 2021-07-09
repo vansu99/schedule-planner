@@ -1,19 +1,19 @@
-import { TextareaAutosize } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
-import React from "react";
-import { Controller } from "react-hook-form";
+import { TextareaAutosize } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Controller } from 'react-hook-form';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     padding: theme.spacing(2),
-    borderRadius: "4px",
-    borderColor: "#d0c7c7",
-    "&:focus": {
-      borderColor: "#0348FF"
-    }
-  }
+    borderRadius: '4px',
+    borderColor: '#d0c7c7',
+    '&:focus': {
+      borderColor: '#0348FF',
+    },
+  },
 }));
 
 function TextareaField({ form, name, label }) {
@@ -43,7 +43,7 @@ TextareaField.propTypes = {
   name: PropTypes.string.isRequired,
 
   label: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 export default TextareaField;

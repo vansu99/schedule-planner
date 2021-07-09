@@ -1,38 +1,38 @@
-import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import CheckIcon from "@material-ui/icons/Check";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import CheckIcon from '@material-ui/icons/Check';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(props => ({
   formControl: {
-    position: "relative",
-    marginRight: "0.6rem",
-    display: "flex",
-    alignItems: "center"
+    position: 'relative',
+    marginRight: '0.6rem',
+    display: 'flex',
+    alignItems: 'center',
   },
   customRadio: {
-    width: "3rem",
-    height: "3rem",
-    textAlign: "center",
-    lineHeight: "3rem",
-    borderRadius: "4px",
-    display: "inline-block"
+    width: '3rem',
+    height: '3rem',
+    textAlign: 'center',
+    lineHeight: '3rem',
+    borderRadius: '4px',
+    display: 'inline-block',
   },
   customInput: {
-    cursor: "pointer",
-    position: "absolute",
+    cursor: 'pointer',
+    position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     opacity: 0,
-    "&:checked + label": {
+    '&:checked + label': {
       background: `url(https://www.iconsdb.com/icons/preview/white/check-mark-xxl.png) no-repeat center`,
-      backgroundSize: "1.5rem"
-    }
-  }
+      backgroundSize: '1.5rem',
+    },
+  },
 }));
 
 function StyledRadio({ name, value, checked, setColorBoard }) {
@@ -63,7 +63,7 @@ function StyledRadio({ name, value, checked, setColorBoard }) {
 
 StyledRadio.propTypes = {
   name: PropTypes.string,
-  value: PropTypes.any
+  value: PropTypes.any,
 };
 
 export default StyledRadio;

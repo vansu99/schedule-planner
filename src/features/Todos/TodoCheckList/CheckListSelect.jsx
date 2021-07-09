@@ -1,16 +1,16 @@
-import { cardActions } from "actions/Todos/card.action";
-import { CheckBox } from "components/FormControls";
-import { makeStyles } from "@material-ui/core";
-import LinearWithValueLabel from "components/ProgressBar";
-import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
-import React, { memo, useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { cardActions } from 'actions/Todos/card.action';
+import { CheckBox } from 'components/FormControls';
+import { makeStyles } from '@material-ui/core';
+import LinearWithValueLabel from 'components/ProgressBar';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   btnMarginTop: {
-    marginTop: theme.spacing(1)
-  }
+    marginTop: theme.spacing(1),
+  },
 }));
 
 function CheckListSelect({ checklist, cardId }) {
@@ -34,7 +34,7 @@ function CheckListSelect({ checklist, cardId }) {
         acc.percentage = (acc.finished / acc.total) * 100;
         return acc;
       },
-      { finished: 0, total: 0, percentage: 0 }
+      { finished: 0, total: 0, percentage: 0 },
     );
     return resutlt;
   }, [checklist]);
@@ -43,7 +43,7 @@ function CheckListSelect({ checklist, cardId }) {
     item => {
       setCheckedValues(checkedValues.map(el => (el.value === item.value ? { ...el, status: !el.status } : el)));
     },
-    [checkedValues]
+    [checkedValues],
   );
 
   const handleUpdateCheckList = () => {
@@ -82,7 +82,7 @@ function CheckListSelect({ checklist, cardId }) {
 
 CheckListSelect.propTypes = {
   checklist: PropTypes.array.isRequired,
-  cardId: PropTypes.string.isRequired
+  cardId: PropTypes.string.isRequired,
 };
 
 export default memo(CheckListSelect);

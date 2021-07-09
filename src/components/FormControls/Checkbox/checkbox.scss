@@ -2,7 +2,7 @@
   &__todo {
     text-decoration: line-through;
 
-    & > input[type="checkbox"] {
+    & > input[type='checkbox'] {
       visibility: hidden;
       position: relative;
       font: inherit;
@@ -12,7 +12,7 @@
 
       &::after,
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 50%;
         left: 50%;
@@ -38,7 +38,7 @@
       }
 
       &::after {
-        content: "✓";
+        content: '✓';
         color: #fff;
         text-align: center;
         line-height: 2em;
@@ -52,7 +52,5 @@
         opacity: 1;
       }
     }
-
   }
 }
-

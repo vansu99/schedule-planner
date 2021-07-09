@@ -1,11 +1,11 @@
-import axiosClient from "../services/axiosClient";
+import axiosClient from '../services/axiosClient';
 
 const boardsApis = {
   getAllBoardsTodo: () => {
-    return axiosClient.get("/api/boards");
+    return axiosClient.get('/api/boards');
   },
   createBoardTodo: board => {
-    return axiosClient.post("/api/boards", board);
+    return axiosClient.post('/api/boards', board);
   },
   addColumnIdTodo: (id, value) => {
     return axiosClient.patch(`/api/boards/${id}/column`, { value });
@@ -36,7 +36,7 @@ const boardsApis = {
   },
   searchBoard: search => {
     return axiosClient.get(`/api/boards/search/by?title=${search}`);
-  }
+  },
 };
 
 export default boardsApis;

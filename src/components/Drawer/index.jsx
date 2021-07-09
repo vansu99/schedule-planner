@@ -1,27 +1,27 @@
-import { Box, Paper, Typography, Button, IconButton } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import DeviceHubIcon from "@material-ui/icons/DeviceHub";
-import AssessmentIcon from "@material-ui/icons/Assessment";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import PropTypes from "prop-types";
-import { useHistory, useParams } from "react-router-dom";
-import { pathName } from "configs";
-import { boardActions } from "actions/Todos/board.action";
-import { getCurrentUser } from "selectors/auth.selector";
-import useStyles from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import ButtonComponent from "components/Button";
-import LinkComponent from "components/Link";
-import ActivityPage from "components/Activity";
-import Background from "components/Background";
+import { Box, Paper, Typography, Button, IconButton } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import CloseIcon from '@material-ui/icons/Close';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
+import { useHistory, useParams } from 'react-router-dom';
+import { pathName } from 'configs';
+import { boardActions } from 'actions/Todos/board.action';
+import { getCurrentUser } from 'selectors/auth.selector';
+import useStyles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import ButtonComponent from 'components/Button';
+import LinkComponent from 'components/Link';
+import ActivityPage from 'components/Activity';
+import Background from 'components/Background';
 
 function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground }) {
   const classes = useStyles({ isDrawer });
@@ -59,24 +59,24 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
           <Divider variant="middle" />
           <Box p={2}>
             <ButtonComponent
-              text={translate("delete_board")}
+              text={translate('delete_board')}
               icon={<DeviceHubIcon />}
               handleClick={() => setDeleting(true)}
               type="select"
             />
             <ButtonComponent
-              text={translate("change_bg")}
+              text={translate('change_bg')}
               icon={
                 <span
                   style={{
-                    marginRight: "7px",
+                    marginRight: '7px',
                     backgroundColor: `${board?.image?.color}`,
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "2px",
-                    border: "2px solid rgb(184 182 182)"
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '2px',
+                    border: '2px solid rgb(184 182 182)',
                   }}
                 ></span>
               }
@@ -84,26 +84,26 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
               handleClick={handleToggleBackground}
             />
             <LinkComponent
-              text={translate("calendar")}
+              text={translate('calendar')}
               href={`/todos/${boardId}/timetable`}
               icon={<CalendarTodayIcon />}
             />
-            <LinkComponent text={translate("reports")} href={`/users/${_id}/report`} icon={<AssessmentIcon />} />
+            <LinkComponent text={translate('reports')} href={`/users/${_id}/report`} icon={<AssessmentIcon />} />
             <Dialog
               open={deleting}
               onClose={() => setDeleting(false)}
               aria-labelledby="delete-dialog-title"
               aria-describedby="delete-dialog-description"
             >
-              <DialogTitle id="delete-dialog-title">{translate("are_you_sure")}</DialogTitle>
+              <DialogTitle id="delete-dialog-title">{translate('are_you_sure')}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="delete-dialog-description">
-                  Bạn có chắc muốn xóa dự án <span style={{ color: "#3A61C8" }}>{board?.title}</span> này.
+                  Bạn có chắc muốn xóa dự án <span style={{ color: '#3A61C8' }}>{board?.title}</span> này.
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
                 <Button variant="contained" color="default" onClick={() => setDeleting(false)}>
-                  {translate("cancel")}
+                  {translate('cancel')}
                 </Button>
                 <Button
                   onClick={() => {
@@ -114,7 +114,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
                   variant="contained"
                   autoFocus
                 >
-                  {translate("remove")}
+                  {translate('remove')}
                 </Button>
               </DialogActions>
             </Dialog>
@@ -123,7 +123,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
           <Box p={2} className={classes.activities}>
             <Typography variant="h5" component="h5" className={classes.titleActivity}>
               <DeviceHubIcon />
-              {translate("activity")}
+              {translate('activity')}
             </Typography>
             <ActivityPage />
           </Box>
@@ -143,7 +143,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
 DrawerComponent.propTypes = {
   board: PropTypes.object,
   setBackground: PropTypes.func,
-  handleToogleDrawer: PropTypes.func
+  handleToogleDrawer: PropTypes.func,
 };
 
 export default DrawerComponent;

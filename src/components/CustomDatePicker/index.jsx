@@ -1,31 +1,27 @@
-import { IconButton, InputAdornment } from "@material-ui/core";
-import AlarmIcon from "@material-ui/icons/AddAlarm";
-import SnoozeIcon from "@material-ui/icons/Snooze";
-import { DateTimePicker } from "@material-ui/pickers";
-import React, { useState, useEffect } from "react";
-import { cardActions } from "actions/Todos/card.action";
-import { useDispatch } from "react-redux";
-import useStyles from "./CustomDatePicker.style";
+import { IconButton, InputAdornment } from '@material-ui/core';
+import AlarmIcon from '@material-ui/icons/AddAlarm';
+import SnoozeIcon from '@material-ui/icons/Snooze';
+import { DateTimePicker } from '@material-ui/pickers';
+import React, { useEffect, useState } from 'react';
+import useStyles from './CustomDatePicker.style';
 
-function CustomDateTimePicker({ dueDate, id }) {
+function CustomDateTimePicker({ dueDate, onSubmit }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [selectedDate, handleDateChange] = useState(null);
 
   useEffect(() => {
     handleDateChange(dueDate);
   }, [dueDate]);
 
-  const onSubmit = data => {
+  const handleSubmit = data => {
     handleDateChange(data);
-    dispatch(cardActions.asyncEditDetailTodoCard(id, { date: data }));
+    onSubmit(data);
   };
 
   return (
     <>
       <DateTimePicker
         autoOk
-        disableFuture
         hideTabs
         ampm={false}
         value={selectedDate}
@@ -33,12 +29,12 @@ function CustomDateTimePicker({ dueDate, id }) {
         inputVariant="outlined"
         size="small"
         className={classes.customDate}
-        onChange={onSubmit}
+        onChange={handleSubmit}
         allowKeyboardControl={false}
         format="dd/MM/yyyy hh:mm"
         leftArrowIcon={<AlarmIcon />}
-        leftArrowButtonProps={{ "aria-label": "Prev month" }}
-        rightArrowButtonProps={{ "aria-label": "Next month" }}
+        leftArrowButtonProps={{ 'aria-label': 'Prev month' }}
+        rightArrowButtonProps={{ 'aria-label': 'Next month' }}
         rightArrowIcon={<SnoozeIcon />}
         InputProps={{
           endAdornment: (
@@ -47,7 +43,7 @@ function CustomDateTimePicker({ dueDate, id }) {
                 <AlarmIcon />
               </IconButton>
             </InputAdornment>
-          )
+          ),
         }}
       />
     </>
