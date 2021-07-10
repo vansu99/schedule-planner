@@ -8,7 +8,7 @@ const formatDate = isoDateToDate => {
 
   // return `${day}/${month}/${year}`;
 
-  const dateComponent = moment.parseZone(isoDateToDate).format('DD-MM-YYYY hh:mm');
+  const dateComponent = moment.parseZone(isoDateToDate).format('DD/MM/YYYY HH:mm a');
   return dateComponent;
 };
 

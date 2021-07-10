@@ -9,7 +9,15 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary.menu,
   },
   title: {
-    width: '20%',
+    marginLeft: theme.spacing(1.2),
+  },
+  headerLogo: {
+    width: '24rem',
+    '& img': {
+      width: '3rem',
+      height: '3rem',
+      objectFit: 'cover',
+    },
   },
   headerRight: {
     flex: 1,
@@ -58,6 +66,8 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "'Kaushan Script', cursive",
     color: '#FFFFFF',
     textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
   },
   small: {
     width: theme.spacing(3),

@@ -22,7 +22,7 @@ export const ChangeAvatarButon = ({ children }) => {
 
   const changeAvatar = event => {
     dispatch(userActions.changeAvatarStart(event.target.files[0]));
-    if (!error) showToast('Profile picture updated.', 'error');
+    if (!error) showToast('Profile picture updated.', 'success');
   };
 
   return (

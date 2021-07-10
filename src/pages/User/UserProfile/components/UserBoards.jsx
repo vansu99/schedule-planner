@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import CancelIcon from '@material-ui/icons/Cancel';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import { boardActions } from 'actions/Todos/board.action';
 import clsx from 'clsx';
@@ -40,6 +41,7 @@ function UserBoards({ _id, slug, title, image, duedate, view }) {
   const [colorBoard, setColorBoard] = useState('');
   const [showModalEditPro, toggleEditPro] = useToggle(false);
   const [showModalEditColor, toggleEditColor] = useToggle(false);
+  const [showDueDate, toggleDueDate] = useToggle(false);
   const [showOptions, toggleOptions, closeOptions] = useToggleMenus(null);
 
   const editColorProject = () => {
@@ -125,32 +127,56 @@ function UserBoards({ _id, slug, title, image, duedate, view }) {
         <Box display="flex" alignItems="center" justifyContent="space-between" my={3} px={1}>
           <div className={classes.tooltipOptionPro}>
             <div className={classes.optionInfoWrapper}>
-              <Avatar src={currentUser?.image} />
-              <span>{currentUser?.username}</span>
-              <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
-                <span>{translate('pro_owner')}</span>
-                <Divider style={{ backgroundColor: '#fff' }} />
+              <div className={classes.infoProjectOwner}>
+                <Avatar src={currentUser?.image} />
                 <span>{currentUser?.username}</span>
+                <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
+                  <span>{translate('pro_owner')}</span>
+                  <Divider style={{ backgroundColor: '#fff' }} />
+                  <span>{currentUser?.username}</span>
+                </div>
               </div>
             </div>
           </div>
           <div className={classes.tooltipOptionPro}>
             <div className={classes.optionInfoWrapper}>
               {!!duedate ? (
-                <CustomDateTimePicker dueDate={duedate} onSubmit={editDueDateProject} />
+                <div className={classes.noDueDate}>
+                  <div className="duedate-content" onClick={toggleDueDate}>
+                    <div className="icon-duedate">
+                      <CalendarTodayIcon />
+                    </div>
+                    <span>{formatDate(duedate)}</span>
+                  </div>
+                  {showDueDate && (
+                    <div className="set-duedate">
+                      <CustomDateTimePicker dueDate={duedate || new Date()} onSubmit={editDueDateProject} />
+                      <span className={classes.optionIconDelete} onClick={() => editDueDateProject(null)}>
+                        <CancelIcon fontSize="large" />
+                      </span>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div className={classes.noDueDate}>
-                  <div className="icon-duedate">
-                    <CalendarTodayIcon />
+                  <div className="duedate-content" onClick={toggleDueDate}>
+                    <div className="icon-duedate">
+                      <CalendarTodayIcon />
+                    </div>
+                    <span>No Date</span>
                   </div>
-                  <span>No Date</span>
+                  {showDueDate && (
+                    <div className="set-duedate">
+                      <CustomDateTimePicker dueDate={duedate || new Date()} onSubmit={editDueDateProject} />
+                    </div>
+                  )}
                 </div>
               )}
-              <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
+              {/* <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
                 <span>Due Date</span>
                 <Divider style={{ backgroundColor: '#fff' }} />
                 {!!duedate ? <span>{formatDate(duedate)}</span> : <span>Let the team</span>}
-              </div>
+              </div> */}
             </div>
           </div>
         </Box>

@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { userActions } from '../../actions/User';
+import Logo from 'assets/images/logo.png';
 import useStyles from './theme.header';
 
 export default function Header({ children }) {
@@ -39,11 +40,14 @@ export default function Header({ children }) {
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar style={{ minHeight: '100%' }}>
-          <Typography variant="h4" className={classes.title} noWrap>
+          <div className={classes.headerLogo}>
             <Link to="/" className={classes.link}>
-              Schedule Planner
+              <img src={Logo} alt="" />
+              <Typography variant="h4" className={classes.title}>
+                Schedule Planner
+              </Typography>
             </Link>
-          </Typography>
+          </div>
           <SearchBoard />
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>

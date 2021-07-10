@@ -22,8 +22,9 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginTop: '2rem',
     marginBottom: '2rem',
+    fontSize: '2.5rem',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '39px',
+      fontSize: '3rem',
     },
   },
   loginLeft: {
@@ -48,6 +49,17 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid #dbdbdb',
     borderRadius: '1px',
     backgroundColor: '#FFFFFF',
+    '& .login-brand': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '& > img': {
+        width: '4rem',
+        height: '4rem',
+        objectFit: 'cover',
+        marginRight: '1rem',
+      },
+    },
     [theme.breakpoints.down('sm')]: {
       border: 0,
       padding: 0,

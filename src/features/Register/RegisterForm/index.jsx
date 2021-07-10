@@ -1,6 +1,7 @@
 import React from 'react';
 import useStyles from './theme.registerForm';
 import ImageRegister from 'assets/images/bg-3.jpg';
+import Logo from 'assets/images/logo.png';
 import Typography from '@material-ui/core/Typography';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
@@ -47,9 +48,12 @@ export default function RegisterForm({ onSubmit }) {
       </div>
       <div className={classes.loginRight}>
         <Box className={classes.loginForm}>
-          <Typography component="h2" variant="h2" className={classes.title}>
-            Schedule Planner
-          </Typography>
+          <div className="login-brand">
+            <img src={Logo} alt="logo" />
+            <Typography component="h2" variant="h2" className={classes.title}>
+              Schedule Planner
+            </Typography>
+          </div>
           <form onSubmit={form.handleSubmit(handleSubmitForm)}>
             <InputField form={form} label="Email" name="email" />
             <InputField form={form} label="Tên người dùng" name="username" />

@@ -219,13 +219,10 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     flex: '1 0 0',
     display: 'flex',
-    cursor: 'pointer',
   },
   optionInfoWrapper: {
+    cursor: 'pointer',
     borderRadius: '6px',
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0.8rem',
     transition: 'all 0.25s ease',
     '& > span': {
       fontWeight: 500,
@@ -243,9 +240,18 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
     },
   },
-  noDueDate: {
+  infoProjectOwner: {
+    padding: '0.6rem',
     display: 'flex',
     alignItems: 'center',
+  },
+  noDueDate: {
+    position: 'relative',
+    padding: '0.6rem',
+    '& .duedate-content': {
+      display: 'flex',
+      alignItems: 'center',
+    },
     '& .icon-duedate': {
       width: '3rem',
       height: '3rem',
@@ -254,6 +260,27 @@ const useStyles = makeStyles(theme => ({
       borderRadius: '3rem',
       lineHeight: '3rem',
       marginRight: '0.8rem',
+    },
+    '& .set-duedate': {
+      position: 'absolute',
+      top: '5rem',
+      left: 0,
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+      padding: '1rem',
+      minWidth: '27rem',
+      minHeight: '6rem',
+      height: '6rem',
+      borderRadius: '5px',
+      overflow: 'hidden',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+  },
+  optionIconDelete: {
+    '& > svg': {
+      verticalAlign: 'middle',
+      color: '#b9b7b7',
     },
   },
   toolTipContent: {

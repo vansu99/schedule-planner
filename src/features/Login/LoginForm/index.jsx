@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ImageLogin from 'assets/images/bg-1.png';
+import Logo from 'assets/images/logo.png';
 import { InputField, PasswordField } from 'components/FormControls';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -44,9 +45,12 @@ export default function LoginForm({ onSubmit }) {
       </div>
       <div className={classes.loginRight}>
         <Box className={classes.loginForm}>
-          <Typography component="h2" variant="h2" className={classes.title}>
-            Schedule Planner
-          </Typography>
+          <div className="login-brand">
+            <img src={Logo} alt="logo" />
+            <Typography component="h2" variant="h2" className={classes.title}>
+              Schedule Planner
+            </Typography>
+          </div>
           <form onSubmit={form.handleSubmit(handleSubmitForm)}>
             <InputField form={form} label="Email" name="email" />
             <PasswordField form={form} label="Password" name="password" />
