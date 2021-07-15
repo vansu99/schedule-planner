@@ -7,6 +7,7 @@ const appConstants = {
   HIDE_ALERT: 'HIDE_ALERT',
   SHOW_DIALOG: 'SHOW_DIALOG',
   SET_ALERT_TIMEOUT_ID: 'SET_ALERT_TIMEOUT_ID',
+  BOOKMARK: 'bookmarks',
 };
 
 const LANGUAGE = {

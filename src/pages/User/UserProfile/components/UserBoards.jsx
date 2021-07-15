@@ -21,6 +21,8 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import { boardActions } from 'actions/Todos/board.action';
 import clsx from 'clsx';
 import { formatDate } from 'helpers';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import StyledRadio from 'components/FormControls/Radio';
 import { colors } from 'configs/fakeLabel';
 import { useToggle, useToggleMenus } from 'hooks';
@@ -31,14 +33,17 @@ import { Link } from 'react-router-dom';
 import CustomDateTimePicker from 'components/CustomDatePicker';
 import { getCurrentUser } from 'selectors/auth.selector';
 import useStyles from '../UserProfile.style';
+import { appConstants } from 'configs';
+import { useEffect } from 'react';
 
-function UserBoards({ _id, slug, title, image, duedate, view }) {
+function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookmarks }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const { t: translate } = useTranslation();
   const [editBoard, setEditBoard] = useState({});
   const [colorBoard, setColorBoard] = useState('');
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const [showModalEditPro, toggleEditPro] = useToggle(false);
   const [showModalEditColor, toggleEditColor] = useToggle(false);
   const [showDueDate, toggleDueDate] = useToggle(false);
@@ -76,6 +81,40 @@ function UserBoards({ _id, slug, title, image, duedate, view }) {
   const editColorBoard = () => {
     dispatch(boardActions.asyncUpdateColorBoardById({ _id, colorBoard }));
     toggleEditColor();
+  };
+
+  const handleBookmark = () => {
+    // handle status bookmark
+    if (bookmarks) {
+      if (bookmarks.some(item => item._id === _id)) {
+        setIsBookmarked(true);
+      } else {
+        setIsBookmarked(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleBookmark();
+  }, [bookmarks]);
+
+  const bookmarkCheatsheet = () => {
+    const itemBookmarked = { _id, title, slug, image };
+    if (typeof window !== 'undefined') {
+      if (isBookmarked) {
+        // if already bookmarked remove bookmark
+        const newArr = bookmarks.filter(item => item._id !== _id);
+        onBookmark && onBookmark(newArr);
+        window.localStorage.setItem(appConstants.BOOKMARK, JSON.stringify(newArr));
+        handleBookmark();
+      } else {
+        // adding bookmark
+        const newItemBookmarked = [...bookmarks, itemBookmarked];
+        onBookmark && onBookmark(newItemBookmarked);
+        window.localStorage.setItem(appConstants.BOOKMARK, JSON.stringify(newItemBookmarked));
+        //handleBookmark();
+      }
+    }
   };
 
   const renderFormSetColorProject = () => (
@@ -195,7 +234,7 @@ function UserBoards({ _id, slug, title, image, duedate, view }) {
   return (
     <React.Fragment>
       <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
-        <div className={!view ? classes.gallaryListLeft : classes.gallaryTileWrapper}>
+        <div className={!view ? classes.gallaryListLeft : classes.gallaryTileWrapper} onClick={bookmarkCheatsheet}>
           <Paper
             elevation={4}
             className={classes.paper}
@@ -209,6 +248,17 @@ function UserBoards({ _id, slug, title, image, duedate, view }) {
               </Typography>
             </Box>
           </Paper>
+          <div className={classes.bookmarkWrapper}>
+            {isBookmarked ? (
+              <div className={classes.bookmark}>
+                <BookmarkIcon />
+              </div>
+            ) : (
+              <div className={classes.bookmark}>
+                <BookmarkBorderIcon />
+              </div>
+            )}
+          </div>
         </div>
         <div className={view ? classes.gallaryTileOptions : classes.gallaryListRight}>
           <IconButton aria-controls={_id} aria-haspopup="true" onClick={toggleOptions}>

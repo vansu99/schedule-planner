@@ -8,7 +8,7 @@ const AuthGuard = ({ children }) => {
   const user = useSelector(state => state.user.currentUser);
   const isLoggedIn = user._id;
 
-  // false -> login
+  // false -> redirect login
   if (!isLoggedIn && !localStorage.getItem(StorageKeys.TOKEN)) return <Redirect to={pathName.LOGIN} />;
 
   return <>{children}</>;

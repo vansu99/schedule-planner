@@ -15,7 +15,7 @@ import ListIcon from '@material-ui/icons/List';
 import { activityActions } from 'actions/Activity/activity.action';
 import { boardActions } from 'actions/Todos/board.action';
 import { userActions } from 'actions/User';
-import { pathName } from 'configs';
+import { appConstants, pathName } from 'configs';
 import { useInput, useToggle } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +36,7 @@ function UserProfile(props) {
   const currentUser = useSelector(getCurrentUser);
   const role = currentUser.role;
   const boards = useSelector(getBoards);
+  const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem(appConstants.BOOKMARK)) || []);
   const [showModal, toggleModal] = useToggle(false);
   const [viewGrid, setViewGrid] = useState(JSON.parse(localStorage.getItem('grid')));
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput('');
@@ -88,6 +89,10 @@ function UserProfile(props) {
     localStorage.setItem('grid', false);
   };
 
+  const chooseBookmark = data => {
+    data && setBookmarks([...data]);
+  };
+
   return (
     <div className={classes.root}>
       <Container>
@@ -128,16 +133,32 @@ function UserProfile(props) {
               <AppsIcon />
             </div>
           </Box>
-          <div className={classes.gallaryRow}>
-            {boards.map(board => (
-              <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`} key={board._id}>
-                <UserBoards {...board} view={viewGrid} />
+          {/* bookmarks */}
+          {bookmarks?.length > 0 ? (
+            <Box my={5} className="bookmark-list">
+              <h3 className={classes.titleBoard}>Favorites</h3>
+              <div className={classes.gallaryRow}>
+                {bookmarks?.map(bookmark => (
+                  <div key={bookmark?._id} className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
+                    <UserBoards {...bookmark} view={viewGrid} onBookmark={chooseBookmark} bookmarks={bookmarks} />
+                  </div>
+                ))}
               </div>
-            ))}
-            <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
-              <Box className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo} onClick={toggleModal}>
-                <AddIcon fontSize="large" />
-              </Box>
+            </Box>
+          ) : null}
+          <div>
+            <h3 className={classes.titleBoard}>Recent Projects</h3>
+            <div className={classes.gallaryRow}>
+              {boards.map(board => (
+                <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`} key={board?._id}>
+                  <UserBoards {...board} view={viewGrid} onBookmark={chooseBookmark} bookmarks={bookmarks} />
+                </div>
+              ))}
+              <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
+                <Box className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo} onClick={toggleModal}>
+                  <AddIcon fontSize="large" />
+                </Box>
+              </div>
             </div>
           </div>
         </div>

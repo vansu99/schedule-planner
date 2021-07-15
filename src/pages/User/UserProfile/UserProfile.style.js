@@ -77,6 +77,14 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     color: theme.palette.text.primary,
   },
+  titleBoard: {
+    paddingLeft: theme.spacing(1.4),
+    borderLeft: `6px solid ${theme.palette.primary.light}`,
+    fontFamily: '"Roboto", sans-serif',
+    fontWeight: 500,
+    fontSize: '2rem',
+    lineHeight: 2,
+  },
   btn: {
     fontSize: '1.1rem',
   },
@@ -113,6 +121,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   gallaryListLeft: {
+    position: 'relative',
     width: '10rem',
     minWidth: '10rem',
     overflow: 'hidden',
@@ -148,6 +157,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   gallaryTileWrapper: {
+    position: 'relative',
     width: '100%',
   },
   gallaryTileOptions: {
@@ -320,6 +330,28 @@ const useStyles = makeStyles(theme => ({
       fontSize: '1.4rem',
       display: 'inline-block',
       padding: '1rem 0',
+    },
+  },
+  bookmarkWrapper: {
+    position: 'absolute',
+    top: '4rem',
+    right: '1rem',
+  },
+  bookmark: {
+    width: '3rem',
+    height: '3rem',
+    borderRadius: '6px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    transition: 'background 0.2s ease',
+    '& > svg': {
+      color: '#fff',
+      fontSize: '1.8rem',
+    },
+    '&:hover': {
+      background: 'rgba(255,255,255, 0.25)',
     },
   },
 }));

@@ -10,6 +10,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     marginLeft: theme.spacing(1.2),
+    fontFamily: '"Kaushan Script", sans-serif',
+    fontSize: '2.4rem',
   },
   headerLogo: {
     width: '24rem',
