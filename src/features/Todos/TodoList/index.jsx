@@ -41,7 +41,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
   };
 
   return (
-    <Draggable key={columnId} draggableId={String(listId)} index={index}>
+    <Draggable key={listId} draggableId={String(listId)} index={index}>
       {provided => (
         <Box
           {...provided.draggableProps}
@@ -57,7 +57,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
             handleRemoveList={handleRemoveList}
             handleEditTitleList={handleEditTitleList}
           />
-          <Droppable key={columnId} droppableId={String(listId)} type="CARD">
+          <Droppable key={listId} droppableId={String(listId)} type="CARD">
             {providedDrop => (
               <>
                 <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className={classes.todoListContent}>

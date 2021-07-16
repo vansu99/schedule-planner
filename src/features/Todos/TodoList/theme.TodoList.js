@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
   editTitle: {
     flexGrow: 1,
     fontSize: '1.6rem',
-    fontFamily: 'Poppins, sans-serif',
     fontWeight: 600,
   },
   input: {
@@ -38,10 +37,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.list,
     maxWidth: '300px',
     minWidth: '300px',
-    maxHeight: '76vh',
+    maxHeight: '80vh',
     height: '100%',
     padding: '10px 0 0',
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1.2),
     overflow: 'auto',
   },
   todoListContent: {
@@ -53,11 +52,14 @@ const useStyles = makeStyles(theme => ({
     padding: '0 4px',
     margin: '0 4px',
     '&::-webkit-scrollbar': {
-      width: '7px',
+      width: '9px',
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: '#c9c3c3',
       borderRadius: '10px',
+      '&:hover': {
+        background: 'rgba(255,255,255,0.45)',
+      },
     },
   },
   icon: {

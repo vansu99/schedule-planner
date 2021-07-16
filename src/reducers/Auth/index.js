@@ -22,7 +22,6 @@ export function userReducer(state = initialState, action) {
       localStorage.removeItem(StorageKeys.TOKEN);
       localStorage.removeItem(StorageKeys.REFRESH_TOKEN);
       localStorage.removeItem(StorageKeys.USER);
-      localStorage.removeItem(StorageKeys.DARK_MODE);
       return {
         ...state,
         isAuthenticated: false,

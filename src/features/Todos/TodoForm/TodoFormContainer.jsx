@@ -46,39 +46,33 @@ export default function TodoFormContainer({ isLists, listId }) {
   const dispatch = useDispatch();
   const { boardId } = useParams();
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState('');
   const label = isLists ? translate('add_list') : translate('add_card');
   const placeholder = isLists ? 'Nhập tiêu đề danh sách' : 'Enter a title for this card...';
   const userId = useSelector(state => state.user.currentUser);
-
-  const onChange = e => {
-    setTitle(e.target.value);
-  };
 
   const handleCloseForm = useCallback(() => {
     setOpen(false);
   }, []);
 
-  const handleAddList = () => {
-    if (title === '') return;
-    const newList = { title, cards: [] };
+  const handleAddList = async data => {
+    if (data.title === '') return;
+    const newList = { title: data.title, cards: [] };
 
-    dispatch(listActions.asyncAddTodoList(boardId, newList));
-    dispatch(
+    await dispatch(listActions.asyncAddTodoList(boardId, newList));
+    await dispatch(
       activityActions.asyncCreateNewActivity({
         text: `${userId.username} added ${newList.title} to this board`,
         boardId: boardId,
       }),
     );
-    setTitle('');
     setOpen(false);
   };
 
-  const handleAddCard = () => {
-    if (title === '') return;
+  const handleAddCard = data => {
+    if (data.title === '') return;
 
     const newCards = {
-      title,
+      title: data.title,
       list: listId,
       userId: userId._id,
       boardId,
@@ -90,7 +84,6 @@ export default function TodoFormContainer({ isLists, listId }) {
         boardId: boardId,
       }),
     );
-    setTitle('');
     setOpen(false);
   };
 
@@ -99,21 +92,12 @@ export default function TodoFormContainer({ isLists, listId }) {
       <Collapse in={open}>
         <TodoForm
           handleCloseForm={handleCloseForm}
-          text={title}
-          isLists={isLists}
+          text=""
+          name="title"
           placeholder={placeholder}
-          handleChange={onChange}
-        >
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.btnAddCard}
-            onClick={isLists ? handleAddList : handleAddCard}
-          >
-            Save
-          </Button>
-        </TodoForm>
+          label={label}
+          submit={isLists ? handleAddList : handleAddCard}
+        />
       </Collapse>
       <Collapse in={!open}>
         <Button disableRipple className={classes.addCard} onClick={() => setOpen(!open)}>

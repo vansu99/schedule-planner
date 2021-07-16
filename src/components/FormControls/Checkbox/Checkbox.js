@@ -36,6 +36,7 @@ function CheckBox({ name, option, selected, onChange, handleRemoveCheckList }) {
       <FormControlLabel
         control={
           <Checkbox
+            disableRipple
             checked={Boolean(selected)}
             className={classes.chk}
             onChange={onChange}

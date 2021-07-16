@@ -7,6 +7,7 @@ import { StorageKeys } from 'configs';
 import GoogleLogin from 'react-google-login';
 import { userApis } from 'apis';
 import { useTranslation } from 'react-i18next';
+import showToast from 'components/Toast';
 
 function LoginGoogle(props) {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function LoginGoogle(props) {
 
   const failureGoogleLogin = data => {
     console.log(data);
+    showToast('Failed to login', 'error');
   };
 
   return (
@@ -56,6 +58,7 @@ function LoginGoogle(props) {
         buttonText={translate('login_gg')}
         cookiePolicy={'single_host_origin'}
         scope="profile"
+        isSignedIn={true}
         className={classes.loginGoogle}
       />
     </React.Fragment>

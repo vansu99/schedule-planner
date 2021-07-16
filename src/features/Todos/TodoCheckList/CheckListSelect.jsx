@@ -68,9 +68,9 @@ function CheckListSelect({ checklist, cardId }) {
         />
       ))}
       <Button
+        disableRipple
         variant="contained"
         color="primary"
-        size="large"
         className={classes.btnMarginTop}
         onClick={handleUpdateCheckList}
       >

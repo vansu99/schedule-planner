@@ -178,7 +178,6 @@ const asyncGetActivity = (boardId, last, limit) => {
   return async dispatch => {
     let params = '';
     if (last) params += `&last=${last}`;
-    // eslint-disable-next-line no-unused-vars
     if (limit) params += `&limit=${limit || 10}`;
     try {
       const result = await boardsApis.getActivityFromBoard(boardId);
@@ -212,7 +211,10 @@ const asyncUpdateTitleBoardById = data => {
         });
       }
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: todoActions.UPDATE_BOARD_FAILURE,
+        payload: error.response.data.error,
+      });
     }
   };
 };
@@ -229,7 +231,10 @@ const asyncUpdateDueDateBoardById = data => {
         });
       }
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: todoActions.UPDATE_BOARD_FAILURE,
+        payload: error.response.data.error,
+      });
     }
   };
 };
@@ -247,7 +252,10 @@ const asyncUpdateColorBoardById = data => {
         });
       }
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: todoActions.UPDATE_BOARD_FAILURE,
+        payload: error.response.data.error,
+      });
     }
   };
 };

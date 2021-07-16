@@ -58,7 +58,7 @@ function UserProfileEdit(props) {
           </Box>
         </Box>
         <Box my={3}>
-          <InputField form={form} label="E-mail" name="email" />
+          <InputField form={form} label="E-mail" name="email" disabled />
           <Box my={2}>
             <InputField form={form} label={translate('full_name')} name="username" />
           </Box>

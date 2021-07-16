@@ -67,8 +67,7 @@ const asyncRemoveTodoCard = (listId, cardId, boardId) => {
       const result = await todosApis.removeCardTodo(cardId);
       if (result.status === 200) {
         dispatch(actRemoveTodoCard(listId, cardId));
-        // xóa cardId ở trong Lists
-        //await listsApis.removeCardIdToList(listId, cardId);
+
         // xóa luôn cardId ở cardFailed trong Reports
         //await completedTodoApis.removeFailedTodo(boardId, cardId);
         showToast(result.data.msg, 'success');
@@ -86,10 +85,10 @@ const actEditTodoCard = (cardId, cardContent) => {
   };
 };
 
-const asyncEditTodoCard = (cardId, title) => {
+const asyncEditTodoCard = (cardId, data) => {
   return async dispatch => {
     try {
-      const result = await todosApis.updateSingleCardTodo(cardId, { title });
+      const result = await todosApis.updateSingleCardTodo(cardId, data);
       if (result.status === 200) dispatch(actEditTodoCard(cardId, result.data.result?.title));
     } catch (error) {
       console.log(error);
@@ -140,13 +139,12 @@ const actEditDescTodoCard = (cardId, desc) => {
   };
 };
 
-const asyncEditDescTodoCard = (cardId, description) => {
+const asyncEditDescTodoCard = (cardId, data) => {
+  console.log(data);
   return async dispatch => {
     try {
-      const result = await todosApis.updateSingleCardTodo(cardId, {
-        description,
-      });
-      if (result.status === 200) dispatch(actEditDescTodoCard(cardId, description));
+      const result = await todosApis.updateSingleCardTodo(cardId, data);
+      if (result.status === 200) dispatch(actEditDescTodoCard(cardId, data.description));
     } catch (error) {
       console.log(error);
     }

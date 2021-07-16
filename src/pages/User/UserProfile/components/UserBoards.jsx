@@ -234,7 +234,7 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
   return (
     <React.Fragment>
       <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
-        <div className={!view ? classes.gallaryListLeft : classes.gallaryTileWrapper} onClick={bookmarkCheatsheet}>
+        <div className={!view ? classes.gallaryListLeft : classes.gallaryTileWrapper}>
           <Paper
             elevation={4}
             className={classes.paper}
@@ -248,7 +248,7 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
               </Typography>
             </Box>
           </Paper>
-          <div className={classes.bookmarkWrapper}>
+          <div className={classes.bookmarkWrapper} onClick={bookmarkCheatsheet}>
             {isBookmarked ? (
               <div className={classes.bookmark}>
                 <BookmarkIcon />

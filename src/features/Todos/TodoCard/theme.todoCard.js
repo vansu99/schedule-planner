@@ -81,6 +81,11 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     padding: '1rem',
     border: '1px solid #d1d1d1',
+    fontSize: '1.5rem',
+    fontFamily: '"Roboto", sans-serif',
+    '&:focus': {
+      borderColor: theme.palette.primary.main,
+    },
   },
   todoCardCommentItem: {
     '&:not(:last-child)': {

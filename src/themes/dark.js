@@ -8,7 +8,7 @@ const darkTheme = createMuiTheme({
       white: '#FFFFFF',
     },
     background: {
-      default: '#212121',
+      default: '#171717',
       paper: '#424242',
       card: 'rgba(84, 84, 89, 0.91)',
       list: 'rgb(24, 24, 32)',

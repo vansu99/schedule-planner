@@ -31,6 +31,11 @@ const useStyles = makeStyles(theme => ({
     border: '0',
     padding: 0,
   },
+  todosWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    height: '100%',
+  },
   todoInfoTopLeft: {
     display: 'flex',
     alignItems: 'center',

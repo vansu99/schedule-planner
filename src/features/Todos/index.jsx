@@ -14,7 +14,6 @@ import { getCurrentUser } from 'selectors/auth.selector';
 import TodoFormContainer from './TodoForm/TodoFormContainer';
 import TodoList from './TodoList';
 import useStyles from './style';
-import './todos.scss';
 
 function Todos() {
   const { t: translate } = useTranslation();
@@ -93,7 +92,7 @@ function Todos() {
           <Droppable droppableId="all-columns" direction="horizontal" type="LIST">
             {provided => {
               return (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="todos__container">
+                <div ref={provided.innerRef} {...provided.droppableProps} className={classes.todosWrapper}>
                   {getColumnSelector.length > 0 ? (
                     <>
                       {getColumnSelector.map((column, index) => {

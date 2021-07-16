@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: 'block',
     color: theme.palette.text.primary,
-    fontSize: '14px',
+    fontSize: '15px',
     fontFamily: "'Poppins', sans-serif",
   },
   linkActive: {

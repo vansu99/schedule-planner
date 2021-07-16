@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -77,7 +76,5 @@ function ActivityPage(props) {
     </div>
   );
 }
-
-ActivityPage.propTypes = {};
 
 export default ActivityPage;

@@ -90,6 +90,7 @@ function UserProfile(props) {
   };
 
   const chooseBookmark = data => {
+    console.log('choose book');
     data && setBookmarks([...data]);
   };
 

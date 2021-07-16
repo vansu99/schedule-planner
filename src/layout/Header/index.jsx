@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import NotificationButton from 'components/Notification/NotificationButton';
 import SearchBoard from 'components/SearchBoard';
 import React, { useState } from 'react';
+import { useGoogleLogout } from 'react-google-login';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -28,6 +29,10 @@ export default function Header({ children }) {
     dispatch(userActions.actLogout());
   };
 
+  const onLogoutSuccess = res => {
+    dispatch(userActions.actLogout());
+  };
+
   const handleUserClick = e => {
     setAnchorEl(e.currentTarget);
   };
@@ -35,6 +40,11 @@ export default function Header({ children }) {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+
+  const { signOut } = useGoogleLogout({
+    clientId: '500873698006-726sfiv7bhb9f8i2h4ve36qi820j2jm2.apps.googleusercontent.com',
+    onLogoutSuccess,
+  });
 
   return (
     <div className={classes.root}>
@@ -49,19 +59,6 @@ export default function Header({ children }) {
             </Link>
           </div>
           <SearchBoard />
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon fontSize="large" />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div> */}
           <div className={classes.headerRight}>
             <NotificationButton />
             {children}
@@ -97,7 +94,12 @@ export default function Header({ children }) {
                   <MenuItem>Settings</MenuItem>
                   <MenuItem>Your profile</MenuItem>
                   <Divider />
-                  <MenuItem onClick={handleLogout}>{translate('logout')}</MenuItem>
+
+                  {loggedInUser?.type === 'google' ? (
+                    <MenuItem onClick={signOut}>{translate('logout')}</MenuItem>
+                  ) : (
+                    <MenuItem onClick={handleLogout}>{translate('logout')}</MenuItem>
+                  )}
                 </Menu>
               </>
             )}
