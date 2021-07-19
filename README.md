@@ -6,12 +6,15 @@
 + Context API
 + Redux
 + Redux-thunk
++ TailwindCSS
++ Material UI
 
 ### FEATURES
 
 + Dark Mode
 + i18n
 + Schedule to do list
++ Bookmark
 + ...
 
 ### Back-End
@@ -47,3 +50,5 @@ Ex: Project tạo ra 1 website bán hàng
     . Trang chi tiết sản phẩm
     . ...
 
+### DEMO
+![alt](./demo.png)
