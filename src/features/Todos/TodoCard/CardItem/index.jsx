@@ -16,6 +16,7 @@ const TodoCardItem = ({
   label,
   date,
   member,
+  completed,
   description,
   showAttach,
   attachItem,
@@ -103,15 +104,18 @@ const TodoCardItem = ({
               </div>
             )}
             <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
-              {date ? (
+              {date && !completed ? (
                 <div className={classes.dueDate}>
                   <AccessTimeIcon />
-                  {/* <span>{moment(date).format("MMM DD")}</span> */}
                   <span>{translate('date_format', { datetime: date })}</span>
                 </div>
-              ) : (
-                <div></div>
-              )}
+              ) : null}
+              {date && completed ? (
+                <div className={classes.dueDateSuccess}>
+                  <AccessTimeIcon />
+                  <span>{translate('date_format', { datetime: date })}</span>
+                </div>
+              ) : null}
               <div>
                 <AvatarGroup>
                   {(member || []).map((value, index) => (

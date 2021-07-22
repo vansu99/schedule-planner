@@ -1,6 +1,4 @@
-// context
 import { GlobalProvider } from 'contexts/global-context';
-// i18n
 import 'locales/i18n';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,7 +6,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
-//import "./styles/index.scss";
+import './styles/global.css';
 
 ReactDOM.render(
   <Provider store={store}>

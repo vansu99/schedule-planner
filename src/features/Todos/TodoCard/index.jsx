@@ -10,7 +10,7 @@ import TodoForm from '../TodoForm';
 import TodoCardItem from './CardItem';
 import RenderModalContentCard from './components/ModalContentCard';
 import RenderModalWithDescCard from './components/ModalDescCard';
-import './todoCard.scss';
+import useStyles from './theme.todoCard';
 
 const RenderFormTextarea = ({ value, name, onSubmit, oncloseForm }) => {
   return <TodoForm onCloseForm={oncloseForm} text={value} name={name} submit={onSubmit} label="Save edit card" />;
@@ -30,6 +30,7 @@ function TodoCard({
   listId,
   listTitle,
 }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { boardId } = useParams();
   const [attachItem, setAttachItem] = useState(null);
@@ -83,6 +84,7 @@ function TodoCard({
             {...provided.draggableProps}
             ref={provided.innerRef}
             onDoubleClick={toggleShowModal}
+            className={classes.todoContentItem}
           >
             {isEditing ? (
               <RenderFormTextarea value={title} name="title" onSubmit={handleEditCard} oncloseForm={closeIsEditing} />
@@ -92,6 +94,7 @@ function TodoCard({
                 label={label}
                 date={date}
                 member={member}
+                completed={completed}
                 attachItem={attachItem}
                 attachments={attachments}
                 description={description}

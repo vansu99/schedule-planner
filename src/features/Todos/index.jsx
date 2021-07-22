@@ -1,19 +1,23 @@
-import { Box, Button, Divider, Typography } from '@material-ui/core';
+import { Box, Button, Divider, Fade, IconButton, Menu, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { boardActions } from 'actions/Todos/board.action';
 import { dndActions } from 'actions/Todos/dnd.action';
 import DrawerComponent from 'components/Drawer';
-import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
+import Search from 'components/Search';
+import { useToggleMenus } from 'hooks';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { useTranslation } from 'react-i18next';
 import { getBoards, getCards, getColumns, getLists } from 'selectors/todos.selector';
-import { getCurrentUser } from 'selectors/auth.selector';
+import SubMemberTeam from './components/SubMemberTeam';
+import useStyles from './style';
 import TodoFormContainer from './TodoForm/TodoFormContainer';
 import TodoList from './TodoList';
-import useStyles from './style';
 
 function Todos() {
   const { t: translate } = useTranslation();
@@ -25,7 +29,7 @@ function Todos() {
   const getColumnSelector = useSelector(getColumns);
   const getListSelector = useSelector(getLists);
   const getCurrBoardSelector = useSelector(getBoards);
-  const currentUser = useSelector(getCurrentUser);
+  const [showSubMenus, toggleSubMenus, closeSubMenus] = useToggleMenus(null);
 
   const handleToogleDrawer = useCallback(() => {
     setIsDrawer(!isDrawer);
@@ -65,11 +69,66 @@ function Todos() {
               <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
             </Typography>
             <div className={classes.todoTopOwner}>
-              <img src={currentUser?.image} alt={currentUser?.username} />
+              <img src={getCurrBoardSelector[0]?.userId?.image} alt={getCurrBoardSelector[0]?.userId?.username} />
               <div className={classes.todoTopOwnerInfo}>
-                <p>{currentUser?.username}</p>
+                <p>{getCurrBoardSelector[0]?.userId?.username}</p>
                 <span>{translate('pro_owner')}</span>
               </div>
+            </div>
+          </div>
+          <div className={classes.todoInfoTopMembers}>
+            <div className="members">
+              <AvatarGroup max={4}>
+                {getCurrBoardSelector[0]?.member.length !== 0 &&
+                  getCurrBoardSelector[0]?.member.map(mem => <SubMemberTeam key={mem?._id} {...mem} />)}
+              </AvatarGroup>
+            </div>
+            <div className="member-invite">
+              <Button
+                disableRipple
+                variant="outlined"
+                color="primary"
+                aria-controls="long-menu-member-invite"
+                aria-haspopup="true"
+                onClick={toggleSubMenus}
+              >
+                Invite
+              </Button>
+              <Menu
+                id="long-menu-member-invite"
+                anchorEl={showSubMenus}
+                keepMounted
+                open={Boolean(showSubMenus)}
+                onClose={closeSubMenus}
+                TransitionComponent={Fade}
+                PaperProps={{
+                  style: {
+                    width: '30rem',
+                    backgroundColor: '#FFFFFF',
+                  },
+                }}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+              >
+                <div className={classes.memberInviteContent}>
+                  <div className="member-content-title">
+                    <h4>Invite to board</h4>
+                    <IconButton disableRipple onClick={closeSubMenus}>
+                      <CloseIcon />
+                    </IconButton>
+                  </div>
+                  <div className="member-content-search">
+                    <Search boardId={boardId} isProject={true} />
+                  </div>
+                </div>
+              </Menu>
             </div>
           </div>
           <div className={classes.todoInfoTopRight}>

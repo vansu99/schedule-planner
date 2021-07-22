@@ -25,7 +25,7 @@ function TodoReportTables({ team, loading }) {
           <TableRow>
             <TableCell>Tên</TableCell>
             <TableCell align="right">Cần làm</TableCell>
-            <TableCell align="right">Quá hạn</TableCell>
+            <TableCell align="right">Chưa hoàn thành</TableCell>
             <TableCell align="right">Hoàn thành</TableCell>
           </TableRow>
         </TableHead>
@@ -63,13 +63,13 @@ function TodoReportTables({ team, loading }) {
         ) : (
           <TableBody>
             {(team || []).map(row => (
-              <TableRow key={row._id}>
+              <TableRow key={row?.id}>
                 <TableCell component="th" scope="row">
-                  {row.userId.username}
+                  {row?.name}
                 </TableCell>
-                <TableCell align="right">{row.failed.length}</TableCell>
-                <TableCell align="right">{row.failed.length}</TableCell>
-                <TableCell align="right">{row.completed.length}</TableCell>
+                <TableCell align="right">{row.failed?.length}</TableCell>
+                <TableCell align="right">{row.failed?.length}</TableCell>
+                <TableCell align="right">{row.completed?.length}</TableCell>
               </TableRow>
             ))}
           </TableBody>

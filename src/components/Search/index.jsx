@@ -19,9 +19,13 @@ const useStyles = makeStyles(theme => ({
   result: {
     marginTop: theme.spacing(2),
   },
+  userItem: {
+    paddingLeft: '1.5rem',
+    paddingRight: '1.5rem',
+  },
 }));
 
-function Search({ cardId }) {
+function Search({ boardId, cardId, isProject }) {
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
@@ -83,9 +87,15 @@ function Search({ cardId }) {
           />
         </FormControl>
       </form>
-      <div className={classes.result}>
-        <List>{users && users.map(user => <UserCard user={user} key={user._id} cardId={cardId} />)}</List>
-      </div>
+      {users.length !== 0 && (
+        <div className={classes.result}>
+          <List className={classes.userItem}>
+            {users.map(user => (
+              <UserCard user={user} key={user._id} cardId={cardId} boardId={boardId} isProject={isProject} />
+            ))}
+          </List>
+        </div>
+      )}
     </div>
   );
 }

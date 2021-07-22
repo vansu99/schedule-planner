@@ -51,4 +51,4 @@ Ex: Project tạo ra 1 website bán hàng
     . ...
 
 ### DEMO
-![alt](demo.png)
+![alt](/docs/demo.png)

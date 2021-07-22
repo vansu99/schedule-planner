@@ -15,7 +15,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import themes from 'themes';
 import history from './helpers/history';
 import Routes from './routes/routes';
-import './styles/index.scss';
 
 function App() {
   const dispatch = useDispatch();

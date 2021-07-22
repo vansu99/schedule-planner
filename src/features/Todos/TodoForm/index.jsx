@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import useStyles from './theme.todoForm';
-import './todoForm.scss';
 import { Box, IconButton, Button } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import TextareaAutosize from 'react-textarea-autosize';

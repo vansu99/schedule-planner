@@ -35,6 +35,16 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     height: '100%',
+    paddingBottom: '2rem',
+    overflowX: 'auto',
+    '&::-webkit-scrollbar': {
+      width: '6px',
+      height: '12px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#dadada',
+      borderRadius: '10px',
+    },
   },
   todoInfoTopLeft: {
     display: 'flex',
@@ -66,6 +76,82 @@ const useStyles = makeStyles(theme => ({
       fontSize: '1.3rem',
       fontFamily: 'Roboto, sans-serif',
       color: '#6f7782',
+    },
+  },
+  todoInfoTopMembers: {
+    display: 'flex',
+    alignItems: 'center',
+    flex: '0 1 auto',
+    marginRight: '5rem',
+    '& .member-invite': {
+      marginLeft: '1rem',
+    },
+  },
+  memberInviteContent: {
+    minHeight: '20rem',
+    '& .member-content-title': {
+      padding: '0 1rem 0.6rem',
+      borderBottom: '1px solid #eee',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      '& > h4': {
+        fontWeight: 400,
+        fontSize: '1.6rem',
+      },
+    },
+    '& .member-content-search': {
+      padding: '1rem',
+      textAlign: 'center',
+    },
+  },
+  avatarMemberItem: {
+    position: 'relative',
+    border: 0,
+    cursor: 'pointer',
+    '& .avatar-icon': {
+      position: 'absolute',
+      right: '2px',
+      bottom: '-4px',
+      color: '#fff',
+      fontSize: '1.7rem',
+    },
+  },
+  avatarMember: {
+    width: '3.5rem',
+    height: '3.5rem',
+  },
+  subMenuMemberPermission: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& .submenu-member-textnote': {
+      fontSize: '1.5rem',
+      fontWeight: 300,
+      padding: '1rem 1.5rem 0 1.5rem',
+      color: '#9c9a9a',
+    },
+  },
+  subMenuMemberAction: {
+    fontWeight: 400,
+    '& span': {
+      paddingLeft: '1.5rem',
+      color: '#9c9a9a',
+      fontWeight: 300,
+    },
+  },
+  subMenuMemberInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 1.5rem',
+    marginBottom: '1.5rem',
+    '& .submenu-member-title': {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingLeft: '1.5rem',
+      '& .username': {
+        fontWeight: 600,
+        fontSize: '1.8rem',
+      },
     },
   },
   todoInfoTopRight: {},

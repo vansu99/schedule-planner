@@ -120,8 +120,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   smallAvatar: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
+    width: '4rem',
+    height: '4rem',
   },
   paper: {
     marginBottom: '6px',
@@ -264,6 +264,19 @@ const useStyles = makeStyles(theme => ({
       fontSize: '1.2rem',
     },
   },
+  dueDateSuccess: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#FFFFFF',
+    backgroundColor: '#30c67c',
+    padding: '2px 6px',
+    borderRadius: '4px',
+    '& > span': {
+      marginLeft: '4px',
+      fontSize: '1.2rem',
+    },
+  },
   todoCardDueDate: {
     marginBottom: theme.spacing(3.2),
   },
@@ -274,6 +287,22 @@ const useStyles = makeStyles(theme => ({
   },
   dueDateAction: {
     marginLeft: theme.spacing(1),
+  },
+  todoContentItem: {},
+  members: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    '& .member-item': {
+      marginBottom: '1rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      '& > button': {
+        width: '4rem',
+        marginLeft: 'auto',
+      },
+    },
   },
 }));
 

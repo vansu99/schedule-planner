@@ -29,22 +29,25 @@ import { DateTimePicker } from '@material-ui/pickers';
 import { cardActions } from 'actions/Todos/card.action';
 import { labelActions } from 'actions/Todos/label.action';
 import AccordionCpt from 'components/Accordion';
+import Avatar from 'components/Avatar';
 import DialogComponent from 'components/ConfirmDialog';
 import CustomDateTimePicker from 'components/CustomDatePicker';
 import ReactModal from 'components/Modal';
-import Search from 'components/Search';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { labelColors } from 'configs/fakeLabel';
-import { useInput, useToggle, useToggleMenus } from 'hooks';
+import TodoForm from 'features/Todos/TodoForm';
+import { boardActions } from 'actions/Todos/board.action';
+import { useInput, useToggleMenus } from 'hooks';
 import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBoards } from 'selectors/todos.selector';
 import { v4 as uuidv4 } from 'uuid';
-import useStyles from '../theme.todoCard';
 import { CheckListSelect } from '../../TodoCheckList';
 import Comments from '../Comment';
 import InputComment from '../Comment/InputComment';
-import TodoForm from 'features/Todos/TodoForm';
+import useStyles from '../theme.todoCard';
 
 const RenderModalWithDescCard = ({
   onToggleCoverAttack,
@@ -73,6 +76,7 @@ const RenderModalWithDescCard = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t: translate } = useTranslation();
+  const getCurrBoard = useSelector(getBoards);
   const [showDialog, toggleShowDialog, closeDialog] = useToggleMenus(null);
   const [startDate, setStartDate] = useState(new Date());
   const [completedTodo, setCompletedTodo] = useState(completed);
@@ -85,6 +89,10 @@ const RenderModalWithDescCard = ({
 
   const handleUpdateCompletedTodo = () => {
     dispatch(cardActions.asyncUpdateCompletedTodoCard(_id, completedTodo, boardId));
+  };
+
+  const handleAddMemberProject = user => {
+    dispatch(cardActions.asyncAddMemberTodoCard(_id, user));
   };
 
   const handleAddLabelTodoCard = () => {
@@ -324,7 +332,18 @@ const RenderModalWithDescCard = ({
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
                 <AccordionCpt title="member" icon="bx bx-user">
-                  <Search cardId={_id} />
+                  {/* <Search cardId={_id} /> */}
+                  <div className={classes.members}>
+                    {getCurrBoard[0]?.member?.map(mem => (
+                      <div key={mem?._id} className="member-item">
+                        <Avatar src={mem?.image} alt={mem?.username} />
+                        <span style={{ paddingLeft: '0.8rem' }}>{mem?.username}</span>
+                        <IconButton disableRipple onClick={() => handleAddMemberProject(mem?._id)}>
+                          <AddBoxIcon />
+                        </IconButton>
+                      </div>
+                    ))}
+                  </div>
                 </AccordionCpt>
               </Box>
               <Box mt={1} component="li">
@@ -374,7 +393,7 @@ const RenderModalWithDescCard = ({
                         </RadioGroup>
                       </FormControl>
                     </Box>
-                    <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
+                    <Button disableRipple variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
                       Thêm nhãn công việc
                     </Button>
                   </Box>
@@ -391,7 +410,7 @@ const RenderModalWithDescCard = ({
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <IconButton>
+                              <IconButton disableRipple>
                                 <AlarmIcon fontSize="large" />
                               </IconButton>
                             </InputAdornment>
@@ -399,7 +418,7 @@ const RenderModalWithDescCard = ({
                         }}
                       />
                     </Box>
-                    <Button variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
+                    <Button disableRipple variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
                       Thêm ngày deadline
                     </Button>
                   </Box>
@@ -417,7 +436,7 @@ const RenderModalWithDescCard = ({
                       onChange={todoCheckListContentChange}
                     />
                     <Box mt={1.5}>
-                      <Button variant="contained" color="primary" onClick={handleAddCheckList}>
+                      <Button disableRipple variant="contained" color="primary" onClick={handleAddCheckList}>
                         Thêm checklist
                       </Button>
                     </Box>

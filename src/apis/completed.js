@@ -16,14 +16,22 @@ const completedTodoApis = {
   addCompletedTodo: (boardId, value) => {
     return axiosClient.patch(`/api/reports/completed`, { boardId, value });
   },
+  removeCompletedTodo: (boardId, completedId) => {
+    return axiosClient.patch(`/api/reports/completed/${completedId}`, { boardId });
+  },
   addFailedTodo: (boardId, value) => {
     return axiosClient.patch(`/api/reports/failed`, { boardId, value });
   },
   removeFailedTodo: (boardId, failedId) => {
     return axiosClient.patch(`/api/reports/failed/${failedId}`, { boardId });
   },
+
+  // teamwork
   getMemberTeamTodo: boardId => {
-    return axiosClient.get(`/api/reports/completed/${boardId}`);
+    return axiosClient.get(`/api/teamworks/completed/${boardId}`);
+  },
+  addTeamWork: value => {
+    return axiosClient.post('/api/teamworks', value);
   },
 };
 

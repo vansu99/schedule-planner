@@ -54,7 +54,8 @@ const asyncLogin = user => {
       localStorage.setItem(StorageKeys.USER, JSON.stringify(userInfo));
       history.push({ pathname: `/users/${userInfo?._id}`, state: 200 });
     } catch (error) {
-      dispatch(actLoginFailure(error.message));
+      showToast(error.response.data?.msg, 'error');
+      dispatch(actLoginFailure(error.response.data?.msg));
     }
   };
 };

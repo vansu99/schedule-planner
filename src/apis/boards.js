@@ -37,6 +37,9 @@ const boardsApis = {
   searchBoard: search => {
     return axiosClient.get(`/api/boards/search/by?title=${search}`);
   },
+  addMemberProject: (id, member) => {
+    return axiosClient.patch(`/api/boards/${id}/member`, member);
+  },
 };
 
 export default boardsApis;

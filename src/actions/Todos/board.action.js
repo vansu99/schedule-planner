@@ -62,11 +62,8 @@ const asyncAddBoard = (userId, title) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.createBoardTodo({ userId, title });
-      const boardId = result.data.board._id;
       if (result.status === 201) {
         dispatch(actAddBoard(result.data.board));
-        await userApis.addBoardIdToUser(userId, boardId);
-        await completedTodoApis.createReportTodo(boardId);
         dispatch(actHideLoading());
       }
     } catch (error) {
@@ -260,11 +257,29 @@ const asyncUpdateColorBoardById = data => {
   };
 };
 
+const asyncAddMemberProject = (id, value, memberInfor) => {
+  return async dispatch => {
+    try {
+      const result = await boardsApis.addMemberProject(id, { value, memberInfor });
+      const newMember = result.data.board;
+      if (result.status === 200) {
+        dispatch({
+          type: todoActions.ADD_MEMBER_PROJECT,
+          payload: { id, member: newMember },
+        });
+      }
+    } catch (error) {
+      showToast(error.response.data?.msg, 'error');
+    }
+  };
+};
+
 export const boardActions = {
   asyncAddBoard,
   asyncGetActivity,
   asyncGetBoardById,
   asyncGetAllBoards,
+  asyncAddMemberProject,
   asyncUpdateDueDateBoardById,
   asyncUpdateColorBoardById,
   asyncUpdateTitleBoardById,

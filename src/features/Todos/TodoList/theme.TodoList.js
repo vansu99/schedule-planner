@@ -2,21 +2,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: '30rem',
+    maxWidth: '28rem',
     backgroundColor: '#EBECF0',
     marginLeft: theme.spacing(2),
     paddingLeft: '0.5rem',
     paddingRight: '0.5rem',
   },
   editTitleContainer: {
-    padding: '0 1.5rem 10px',
+    padding: '0 0.8rem 1rem',
     display: 'flex',
     alignItems: 'center',
   },
   editTitle: {
     flexGrow: 1,
-    fontSize: '1.6rem',
     fontWeight: 600,
+    '& > h5': {
+      fontSize: '1.5rem',
+    },
   },
   input: {
     margin: '1rem 0.5rem',
@@ -35,11 +37,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     borderRadius: '5px',
     backgroundColor: theme.palette.background.list,
-    maxWidth: '300px',
-    minWidth: '300px',
+    maxWidth: '280px',
+    minWidth: '280px',
     maxHeight: '80vh',
     height: '100%',
-    padding: '10px 0 0',
+    padding: '1rem 0.2rem',
     marginRight: theme.spacing(1.2),
     overflow: 'auto',
   },
@@ -49,17 +51,14 @@ const useStyles = makeStyles(theme => ({
     minHeight: '10px',
     overflowX: 'hidden',
     overflowY: 'auto',
-    padding: '0 4px',
     margin: '0 4px',
+    padding: '0 4px',
     '&::-webkit-scrollbar': {
       width: '9px',
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: '#c9c3c3',
       borderRadius: '10px',
-      '&:hover': {
-        background: 'rgba(255,255,255,0.45)',
-      },
     },
   },
   icon: {

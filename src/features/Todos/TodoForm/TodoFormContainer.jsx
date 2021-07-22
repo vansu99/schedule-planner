@@ -1,8 +1,8 @@
-import { Box, Button, Collapse, Typography } from '@material-ui/core';
+import { Button, Collapse, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { activityActions } from 'actions/Activity/activity.action';
 import { cardActions } from 'actions/Todos/card.action';
 import { listActions } from 'actions/Todos/list.action';
-import { activityActions } from 'actions/Activity/activity.action';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import TodoForm from './index';
 const useStyles = makeStyles(theme => ({
   root: {
     maxHeight: '100%',
-    padding: '9px',
+    padding: '0 8px',
   },
   addCard: {
     width: '100%',
@@ -88,10 +88,10 @@ export default function TodoFormContainer({ isLists, listId }) {
   };
 
   return (
-    <Box component="div" className={classes.root}>
+    <div className={classes.root}>
       <Collapse in={open}>
         <TodoForm
-          handleCloseForm={handleCloseForm}
+          onCloseForm={handleCloseForm}
           text=""
           name="title"
           placeholder={placeholder}
@@ -107,6 +107,6 @@ export default function TodoFormContainer({ isLists, listId }) {
           </Typography>
         </Button>
       </Collapse>
-    </Box>
+    </div>
   );
 }

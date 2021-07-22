@@ -39,15 +39,24 @@ const darkTheme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        html: {
-          WebkitFontSmoothing: 'antialiased',
-          height: '100%',
-        },
         body: {
           fontSize: '14px',
+          fontFamily: "'Roboto', sans-serif",
           fontWeight: 400,
           lineHeight: '24px',
           height: '100%',
+          overflowX: 'hidden',
+        },
+        '@keyframes fadeIn': {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+        '.fade-in': {
+          animation: '$fadeIn 1s ease-out',
         },
       },
     },

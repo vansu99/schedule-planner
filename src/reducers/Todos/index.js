@@ -65,6 +65,18 @@ export function todosReducer(state = initialState, { type, payload }) {
         ...state,
       };
 
+    case todoActions.ADD_MEMBER_PROJECT:
+      const newMemberBoard = [...state.boards];
+      const targetIndexBoard = newMemberBoard.findIndex(board => board._id === payload.id);
+      newMemberBoard[targetIndexBoard] = payload.member;
+
+      return {
+        ...state,
+        boards: [...newMemberBoard],
+      };
+
+    // LISTs
+
     case todoActions.GET_LISTS:
       const { lists } = payload;
       return {
@@ -369,6 +381,14 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         error: payload,
+      };
+
+    case todoActions.UPDATE_COMPLETED_TODO_SUCCESS:
+      const newUpdateCompletedTodo = state.cards[payload.cardId];
+      newUpdateCompletedTodo.completed = payload.data;
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: newUpdateCompletedTodo },
       };
 
     default:

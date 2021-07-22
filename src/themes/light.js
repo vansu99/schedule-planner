@@ -47,16 +47,13 @@ const lightTheme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        html: {
-          WebkitFontSmoothing: 'antialiased',
-          height: '100%',
-        },
         body: {
           fontSize: '14px',
-          fontFamily: "'Poppins', sans-serif",
+          fontFamily: "'Roboto', sans-serif",
           fontWeight: 400,
           lineHeight: '24px',
           height: '100%',
+          overflowX: 'hidden',
         },
         '@keyframes fadeIn': {
           '0%': {

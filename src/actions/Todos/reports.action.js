@@ -16,6 +16,9 @@ const asyncGetReportTodoById = id => {
   };
 };
 
+const asyncRemoveTodo = () => {};
+
 export const reportsActions = {
+  asyncRemoveTodo,
   asyncGetReportTodoById,
 };

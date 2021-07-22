@@ -13,10 +13,10 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import DialogComponent from 'components/ConfirmDialog';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
 import AlarmIcon from '@material-ui/icons/AddAlarm';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ChatIcon from '@material-ui/icons/Chat';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -31,20 +31,23 @@ import { DateTimePicker } from '@material-ui/pickers';
 import { cardActions } from 'actions/Todos/card.action';
 import { labelActions } from 'actions/Todos/label.action';
 import AccordionCpt from 'components/Accordion';
+import Avatar from 'components/Avatar';
+import DialogComponent from 'components/ConfirmDialog';
 import CustomDateTimePicker from 'components/CustomDatePicker';
 import ReactModal from 'components/Modal';
-import Search from 'components/Search';
 import { labelColors } from 'configs/fakeLabel';
 import { useInput, useToggleMenus } from 'hooks';
 import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import { boardActions } from 'actions/Todos/board.action';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBoards } from 'selectors/todos.selector';
 import { v4 as uuidv4 } from 'uuid';
-import useStyles from '../theme.todoCard';
 import { CheckListSelect } from '../../TodoCheckList';
 import Comments from '../Comment';
 import InputComment from '../Comment/InputComment';
+import useStyles from '../theme.todoCard';
 
 const RenderModalContentCard = ({
   onToggleCoverAttack,
@@ -72,6 +75,7 @@ const RenderModalContentCard = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t: translate } = useTranslation();
+  const getCurrBoard = useSelector(getBoards);
   const [content, setContentChange, resetContent] = useInput(descCardContent || '');
   const [showDialog, toggleShowDialog, closeDialog] = useToggleMenus(null);
   const [startDate, setStartDate] = useState(new Date());
@@ -85,6 +89,10 @@ const RenderModalContentCard = ({
 
   const handleUpdateCompletedTodo = () => {
     dispatch(cardActions.asyncUpdateCompletedTodoCard(_id, completedTodo, boardId));
+  };
+
+  const handleAddMemberProject = user => {
+    dispatch(boardActions.asyncAddMemberProject(boardId, user));
   };
 
   const handleAddLabelTodoCard = () => {
@@ -328,7 +336,18 @@ const RenderModalContentCard = ({
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
                 <AccordionCpt title="member" icon="bx bx-user">
-                  <Search cardId={_id} />
+                  {/* <Search cardId={_id} /> */}
+                  <div className={classes.members}>
+                    {getCurrBoard[0]?.member?.map(mem => (
+                      <div key={mem?._id} className="member-item">
+                        <Avatar src={mem?.image} alt={mem?.username} />
+                        <span style={{ paddingLeft: '0.8rem' }}>{mem?.username}</span>
+                        <IconButton disableRipple onClick={() => handleAddMemberProject(mem?._id)}>
+                          <AddBoxIcon />
+                        </IconButton>
+                      </div>
+                    ))}
+                  </div>
                 </AccordionCpt>
               </Box>
               <Box mt={1} component="li">
@@ -395,7 +414,7 @@ const RenderModalContentCard = ({
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <IconButton>
+                              <IconButton disableRipple>
                                 <AlarmIcon fontSize="large" />
                               </IconButton>
                             </InputAdornment>
@@ -403,7 +422,7 @@ const RenderModalContentCard = ({
                         }}
                       />
                     </Box>
-                    <Button variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
+                    <Button disableRipple variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
                       Thêm ngày deadline
                     </Button>
                   </Box>
@@ -421,7 +440,7 @@ const RenderModalContentCard = ({
                       onChange={todoCheckListContentChange}
                     />
                     <Box mt={1.5}>
-                      <Button variant="contained" color="primary" onClick={handleAddCheckList}>
+                      <Button disableRipple variant="contained" color="primary" onClick={handleAddCheckList}>
                         Thêm checklist
                       </Button>
                     </Box>

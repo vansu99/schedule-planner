@@ -17,21 +17,21 @@ function ReportPage() {
   useEffect(() => {
     (async function () {
       try {
-        //dispatch(actShowLoading());
         setLoading(true);
         const result = await completedTodoApis.getReportByBoardId(boardId);
+        console.log({ result });
         const teamTodo = await completedTodoApis.getMemberTeamTodo(boardId);
         const reportTodos = await completedTodoApis.getAllReport();
         if (result.status === 200) {
           setReports({ ...result.data.completedTodo });
           setAllReports([...reportTodos.data.reports]);
-          setTeam([...teamTodo.data.completedList]);
+          setTeam([...teamTodo.data.teamwork?.member]);
           setTotalCards(result.data.totalCards);
-          setLoading(false);
         }
       } catch (error) {
-        setLoading(false);
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [boardId, dispatch]);
