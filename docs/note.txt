@@ -1,0 +1,9 @@
+dark-bg-secondary: rgb(115, 103, 240)
+dark-bg-primary: #262c49
+dark-bg-third: rgb(16, 22, 58)
+dark-color: #c2c6dc
+shadow-primary: rgb(0 0 0 / 20%) 0px -3px 0px 0px inset
+shadow-secondary: rgb(0 0 0 / 10%) 0px 5px 25px 0px
+border-dark-color: 1px solid #414561
+
+linear-gradient(30deg, rgb(115, 103, 240), rgba(115, 103, 240, 0.5))

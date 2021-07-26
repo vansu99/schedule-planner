@@ -46,7 +46,12 @@ const TodoCardItem = ({
               </Box>
             ) : null}
             <div className={classes.box}>
-              <Typography className={classes.title} variant="body2" component="p">
+              <Typography className={classes.title} variant="h6" component="h6">
+                {completed && (
+                  <span className="icon-complete">
+                    <i className="bx bxs-check-circle"></i>
+                  </span>
+                )}{' '}
                 {title}
               </Typography>
               <IconButton aria-controls="long-menu" aria-haspopup="true" onClick={toggleSubMenus}>

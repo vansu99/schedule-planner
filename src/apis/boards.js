@@ -40,6 +40,9 @@ const boardsApis = {
   addMemberProject: (id, member) => {
     return axiosClient.patch(`/api/boards/${id}/member`, member);
   },
+  removeMemberProject: (id, memberId) => {
+    return axiosClient.delete(`/api/boards/${id}/member/${memberId}`);
+  },
 };
 
 export default boardsApis;

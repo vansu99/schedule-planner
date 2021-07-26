@@ -7,10 +7,11 @@ import { useForm, Controller } from 'react-hook-form';
 
 function TodoForm({ onCloseForm, text, submit, name = '', placeholder, label }) {
   const classes = useStyles();
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, reset } = useForm();
 
   const onSubmit = data => {
     submit && submit(data);
+    reset();
   };
 
   const closeForm = () => {

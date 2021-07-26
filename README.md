@@ -52,3 +52,5 @@ Ex: Project tạo ra 1 website bán hàng
 
 ### DEMO
 ![alt](/docs/demo.png)
+![alt](/docs/dashboard.png)
+

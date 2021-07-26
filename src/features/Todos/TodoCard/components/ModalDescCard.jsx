@@ -11,10 +11,11 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
 import AlarmIcon from '@material-ui/icons/AddAlarm';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ChatIcon from '@material-ui/icons/Chat';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -33,10 +34,8 @@ import Avatar from 'components/Avatar';
 import DialogComponent from 'components/ConfirmDialog';
 import CustomDateTimePicker from 'components/CustomDatePicker';
 import ReactModal from 'components/Modal';
-import AddBoxIcon from '@material-ui/icons/AddBox';
 import { labelColors } from 'configs/fakeLabel';
 import TodoForm from 'features/Todos/TodoForm';
-import { boardActions } from 'actions/Todos/board.action';
 import { useInput, useToggleMenus } from 'hooks';
 import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';

@@ -9,10 +9,12 @@ const lightTheme = createMuiTheme({
     },
     background: {
       default: '#FFFFFF',
-      paper: '#F7F8FA',
-      card: '#EBECF0',
+      paper: '#FFF',
+      paperDark: '#FFF',
+      card: '#F7F8FA',
       list: '#dfe3e6',
       modal: '#f4f5f7',
+      hover: '#efecec',
     },
     primary: {
       main: '#0348FF',
@@ -33,7 +35,8 @@ const lightTheme = createMuiTheme({
       secondary: 'rgba(0, 0, 0, 0.54)',
       disabled: 'rgba(0, 0, 0, 0.38)',
       hint: 'rgba(0, 0, 0, 0.38)',
-      light: '#8e8e8e',
+      light: '#c2c6dc',
+      border: '#dadada',
     },
   },
   typography: {

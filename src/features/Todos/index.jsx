@@ -7,6 +7,7 @@ import { boardActions } from 'actions/Todos/board.action';
 import { dndActions } from 'actions/Todos/dnd.action';
 import DrawerComponent from 'components/Drawer';
 import Search from 'components/Search';
+import { sortTask, taskSortingType } from 'helpers/sorting';
 import { useToggleMenus } from 'hooks';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -14,7 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getBoards, getCards, getColumns, getLists } from 'selectors/todos.selector';
-import SubMemberTeam from './components/SubMemberTeam';
+import TaskFiltering from './components/TaskFiltering';
+import SubMemberTeam from './components/Team/SubMemberTeam';
 import useStyles from './style';
 import TodoFormContainer from './TodoForm/TodoFormContainer';
 import TodoList from './TodoList';
@@ -24,6 +26,7 @@ function Todos() {
   const classes = useStyles();
   const { boardId } = useParams();
   const dispatch = useDispatch();
+  const [sortType, setSortType] = useState({ type: taskSortingType.NONE });
   const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
@@ -60,10 +63,16 @@ function Todos() {
     document.title = `${getCurrBoardSelector[0]?.title} • Schedule Planner`;
   }, [getCurrBoardSelector]);
 
+  const handleChangeSort = useCallback(data => {
+    setSortType({ type: data.type });
+  }, []);
+
+  const handleChangeFilter = useCallback(data => {}, []);
+
   return (
     <div className={classes.root}>
       <div className={classes.main}>
-        <Box display="flex" justifyContent="flex-start" alignItems="center" style={{ marginTop: '8px' }}>
+        <Box display="flex" justifyContent="flex-start" alignItems="center">
           <div className={classes.todoInfoTopLeft}>
             <Typography variant="h4" component="h4" className={classes.titleIcon}>
               <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
@@ -131,6 +140,7 @@ function Todos() {
               </Menu>
             </div>
           </div>
+          <TaskFiltering onChangeSort={handleChangeSort} onChangeFilter={handleChangeFilter} />
           <div className={classes.todoInfoTopRight}>
             <Button
               variant="contained"
@@ -157,7 +167,10 @@ function Todos() {
                       {getColumnSelector.map((column, index) => {
                         const lists = getListSelector[column.listId];
                         if (lists) {
-                          const cards = lists?.cards.map(card => getCardSelector && getCardSelector[card]);
+                          const cards = lists?.cards
+                            .map(card => getCardSelector && getCardSelector[card])
+                            .sort((a, b) => sortTask(a, b, sortType));
+
                           return (
                             <TodoList
                               key={lists?._id}

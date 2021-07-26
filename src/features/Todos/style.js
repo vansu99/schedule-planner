@@ -8,7 +8,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
   },
   main: {
-    padding: '0 10px',
+    padding: '10px 10px 0',
+    position: 'relative',
   },
   titleIcon: {
     display: 'flex',
@@ -82,7 +83,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     flex: '0 1 auto',
-    marginRight: '5rem',
+    marginRight: '3rem',
     '& .member-invite': {
       marginLeft: '1rem',
     },

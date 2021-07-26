@@ -28,6 +28,21 @@ const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(1),
     },
   },
+  title: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '1.5rem',
+    '& .icon-complete': {
+      marginRight: '0.6rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '2rem',
+      '& > i': {
+        color: '#30c67c',
+      },
+    },
+  },
   radio: {
     position: 'relative',
     marginRight: theme.spacing(1),
@@ -127,14 +142,12 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '6px',
   },
   cardContainer: {
-    // "& .MuiCardContent-root:last-child": {
-    //   paddingBottom: "16px"
-    // },
+    position: 'relative',
+    overflow: 'hidden',
+    background: theme.palette.background.card,
     '& .MuiCardContent-root': {
       padding: '8px',
     },
-    position: 'relative',
-    overflow: 'hidden',
   },
   box: {
     '& > .MuiChip-root': {

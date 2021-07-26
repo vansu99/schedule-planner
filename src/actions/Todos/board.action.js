@@ -274,12 +274,31 @@ const asyncAddMemberProject = (id, value, memberInfor) => {
   };
 };
 
+const asyncRemoveMemberProject = (id, memberId) => {
+  return async dispatch => {
+    try {
+      const result = await boardsApis.removeMemberProject(id, memberId);
+      const newMember = result.data.board;
+      if (result.status === 200) {
+        dispatch({
+          type: todoActions.REMOVE_MEMBER_PROJECT,
+          payload: { id, member: newMember },
+        });
+        showToast('Xóa thành công.', 'success');
+      }
+    } catch (error) {
+      showToast(error.response.data?.msg, 'error');
+    }
+  };
+};
+
 export const boardActions = {
   asyncAddBoard,
   asyncGetActivity,
   asyncGetBoardById,
   asyncGetAllBoards,
   asyncAddMemberProject,
+  asyncRemoveMemberProject,
   asyncUpdateDueDateBoardById,
   asyncUpdateColorBoardById,
   asyncUpdateTitleBoardById,

@@ -9,7 +9,6 @@ import TodoCard from '../TodoCard';
 import TodoFormContainer from '../TodoForm/TodoFormContainer';
 import useStyles from './theme.TodoList';
 import Title from './titleCpt.jsx';
-import './todoList.scss';
 
 TodoList.propTypes = {
   cards: PropTypes.array,

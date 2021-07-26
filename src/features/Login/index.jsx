@@ -1,4 +1,6 @@
 import { userActions } from 'actions/User';
+import clsx from 'clsx';
+import useStyles from './LoginForm/theme.loginForm';
 import { pathName } from 'configs';
 import { appConstants } from 'configs/constants/app';
 import React, { memo, useEffect, useState } from 'react';
@@ -7,6 +9,7 @@ import { Redirect, useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
 function Login(props) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector(state => state.user);
@@ -32,7 +35,7 @@ function Login(props) {
     return <Redirect to={pathName.TODO_LIST} />;
   } else {
     return (
-      <div className="fade-in">
+      <div className={clsx(classes.loginWrapper, 'fade-in')}>
         <LoginForm onSubmit={handleSubmit} />
       </div>
     );

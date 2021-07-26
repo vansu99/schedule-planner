@@ -1,6 +1,5 @@
-import { makeStyles, Popover } from '@material-ui/core';
+import { Dialog, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -15,42 +14,37 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto',
     maxWidth: '400px',
   },
+  contentDialog: {
+    color: theme.palette.text.primary,
+  },
 }));
 
-const DialogComponent = ({ content, onClick, open, anchorEl, handleClickAway, id }) => {
+const DialogComponent = ({ content, onClick, open, handleClickAway, id }) => {
   const classes = useStyles();
   const { t: translate } = useTranslation();
 
   return (
-    <Popover
+    <Dialog
       id={id}
       open={open}
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'center',
-        horizontal: 'left',
-      }}
+      onClose={() => handleClickAway(false)}
+      aria-labelledby="delete-dialog-title"
+      aria-describedby="delete-dialog-description"
     >
-      <ClickAwayListener onClickAway={handleClickAway}>
-        <Paper elevation={1} className={classes.paper}>
-          <DialogTitle>{translate('are_you_sure')}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Bạn có chắc chắn muốn xóa <span style={{ color: '#3A61C8' }}>{content}</span> này?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button size="large" color="primary" variant="contained" onClick={onClick} autoFocus>
-              {translate('remove')}
-            </Button>
-          </DialogActions>
-        </Paper>
-      </ClickAwayListener>
-    </Popover>
+      <Paper elevation={1} className={classes.paper}>
+        <DialogTitle>{translate('are_you_sure')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText className={classes.contentDialog}>
+            Bạn có chắc chắn muốn xóa <span style={{ color: '#3A61C8' }}>{content}</span> này?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button size="large" color="primary" variant="contained" onClick={onClick} autoFocus>
+            {translate('remove')}
+          </Button>
+        </DialogActions>
+      </Paper>
+    </Dialog>
   );
 };
 

@@ -310,10 +310,32 @@ const asyncRemoveAttachTodoCard = (cardId, attachId) => {
   };
 };
 
+const asyncSearchTodoCard = (boardId, option) => {
+  return async dispatch => {
+    try {
+      const response = await todosApis.searchTodoCard(boardId, { _sort: option });
+      if (response.status === 200) {
+        const result = response.data?.card.reduce((acc, cur) => {
+          acc[cur._id] = cur;
+          return acc;
+        }, {});
+
+        dispatch({
+          type: todoActions.SEARCH_TODO_CARD,
+          payload: { result },
+        });
+      }
+    } catch (error) {
+      showToast('Không có kết quả cho bạn. Vui lòng thử lại.', 'error');
+    }
+  };
+};
+
 export const cardActions = {
   asyncGetAllCardTodo,
   asyncAddCheckListCard,
   asyncAddTodoCard,
+  asyncSearchTodoCard,
   asyncAddDeadlineTodoCard,
   asyncAddMemberTodoCard,
   asyncEditCheckListTodoCard,

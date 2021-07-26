@@ -75,6 +75,16 @@ export function todosReducer(state = initialState, { type, payload }) {
         boards: [...newMemberBoard],
       };
 
+    case todoActions.REMOVE_MEMBER_PROJECT:
+      const newMemberRemoveBoard = [...state.boards];
+      const targetIndexRemoveBoard = newMemberRemoveBoard.findIndex(board => board._id === payload.id);
+      newMemberRemoveBoard[targetIndexRemoveBoard] = payload.member;
+
+      return {
+        ...state,
+        boards: [...newMemberRemoveBoard],
+      };
+
     // LISTs
 
     case todoActions.GET_LISTS:
@@ -155,6 +165,12 @@ export function todosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newCardEdited },
+      };
+
+    case todoActions.SEARCH_TODO_CARD:
+      return {
+        ...state,
+        cards: { ...payload.result },
       };
 
     case todoActions.ADD_CHECKLIST_TODO_CARD:

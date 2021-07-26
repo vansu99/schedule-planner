@@ -11,7 +11,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
@@ -39,7 +39,6 @@ import { labelColors } from 'configs/fakeLabel';
 import { useInput, useToggleMenus } from 'hooks';
 import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { boardActions } from 'actions/Todos/board.action';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBoards } from 'selectors/todos.selector';
@@ -92,7 +91,7 @@ const RenderModalContentCard = ({
   };
 
   const handleAddMemberProject = user => {
-    dispatch(boardActions.asyncAddMemberProject(boardId, user));
+    dispatch(cardActions.asyncAddMemberTodoCard(_id, user));
   };
 
   const handleAddLabelTodoCard = () => {

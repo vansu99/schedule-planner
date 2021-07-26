@@ -1,4 +1,5 @@
 import axiosClient from '../services/axiosClient';
+import queryString from 'query-string';
 
 const todosApis = {
   getAllCardTodo: () => {
@@ -68,6 +69,9 @@ const todosApis = {
   },
   removeAttachTodoCard: (id, attachId) => {
     return axiosClient.delete(`/api/cards/${id}/attachment/${attachId}`);
+  },
+  searchTodoCard: (boardId, option) => {
+    return axiosClient.get(`/api/cards/search?boardId=${boardId}&${queryString.stringify(option)}`);
   },
 };
 

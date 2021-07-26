@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
   btn: {
     display: 'flex',
     alignItems: 'center',
-    color: props => (props.type === 'form' ? '#FFF' : '#4D5465'),
+    color: props => (props.type === 'form' ? `#FFF` : `${theme.palette.text.primary}`),
     backgroundColor: props => (props.type === 'form' ? '#3A61C8' : 'transparent'),
     outline: 'none',
     cursor: 'pointer',
