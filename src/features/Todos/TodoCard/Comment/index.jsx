@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CommentCard from './CommentCard';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
-import useStyles from '../theme.todoCard';
+import useStyles from './Comment.style';
 import { getCards } from 'selectors/todos.selector';
 import { useSelector } from 'react-redux';
 
@@ -36,7 +36,7 @@ function Comments({ cardId }) {
           commentId={comment?._id}
           replyComments={replyComments.filter(item => item.reply === comment?.id)}
         >
-          <div className="todoCard-details__comments-reply">
+          <div className={classes.cmtReply}>
             {replyComments.map(
               (cmt, index) =>
                 cmt.reply === comment?.id && <CommentCard key={index} comment={cmt} commentId={comment._id} />,

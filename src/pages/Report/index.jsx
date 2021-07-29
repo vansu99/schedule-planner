@@ -10,7 +10,6 @@ function ReportPage() {
   const boardId = curUser.boardId[0];
   const [reports, setReports] = useState({});
   const [team, setTeam] = useState([]);
-  const [allReports, setAllReports] = useState([]);
   const [totalCards, setTotalCards] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -19,12 +18,10 @@ function ReportPage() {
       try {
         setLoading(true);
         const result = await completedTodoApis.getReportByBoardId(boardId);
-        console.log({ result });
         const teamTodo = await completedTodoApis.getMemberTeamTodo(boardId);
-        const reportTodos = await completedTodoApis.getAllReport();
+
         if (result.status === 200) {
           setReports({ ...result.data.completedTodo });
-          setAllReports([...reportTodos.data.reports]);
           setTeam([...teamTodo.data.teamwork?.member]);
           setTotalCards(result.data.totalCards);
         }
@@ -51,7 +48,6 @@ function ReportPage() {
   return (
     <React.Fragment>
       <TodoReport
-        allReports={allReports}
         reports={reports}
         totalCards={totalCards}
         handleChangeBoard={handleChangeBoard}

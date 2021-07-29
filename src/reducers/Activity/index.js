@@ -18,7 +18,7 @@ export const activityReducer = (state = initialState, action) => {
         activities: [action.payload.activity, ...state.activities],
       };
     case todoActions.DELETE_ACTIVITY: {
-      const activitiesLog = state.activities;
+      const activitiesLog = [...state.activities];
       const index = activitiesLog.findIndex(activity => activity._id === action.payload.activity._id);
       activitiesLog.splice(index, 1);
       return {
@@ -26,6 +26,13 @@ export const activityReducer = (state = initialState, action) => {
         activities: [...state.activitiesLog],
       };
     }
+
+    case todoActions.CLEAR_ALL_ACTIVITY:
+      return {
+        ...state,
+        activities: [...action.payload.activity],
+      };
+
     case todoActions.ERROR_ACTIVITY:
       return { ...state, activityError: action.payload.error };
 

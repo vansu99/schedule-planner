@@ -48,6 +48,7 @@ function CommentMenu({ comment, setOnEdit }) {
             aria-haspopup="true"
             onClick={handleClick}
             className={classes.menuButtonIcon}
+            disableRipple
           >
             <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '2rem' }}></i>
           </IconButton>

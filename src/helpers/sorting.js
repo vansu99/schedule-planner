@@ -15,11 +15,12 @@ export const sortingDirection = {
 };
 
 export const filteringType = {
-  TASK_TITLE: 'TASK_TITLE',
-  ALL_TASK: 'ALL_TASK',
+  ALL_TASK: 'all',
   TODAY: 'today',
   THISWEEK: 'week',
   THISMONTH: 'month',
+  COMPLETE: 'complete',
+  INCOMPLETE: 'incomplete',
 };
 
 export function sortString(a, b) {
@@ -29,6 +30,49 @@ export function sortString(a, b) {
     return 1;
   } else {
     return 0;
+  }
+}
+
+export function filterTask(item, taskFiltering) {
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let first = today.getDate() - today.getDay();
+  let last = first + 6;
+  let firstday = new Date(today.setDate(first));
+  let lastday = new Date(today.setDate(last));
+  let firstDayMonth = new Date(today.setDate(1));
+  let lastDayMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+  if (taskFiltering.type === filteringType.ALL_TASK) {
+    return item;
+  }
+  if (taskFiltering.type === filteringType.TODAY) {
+    const date = new Date(item.date);
+    if (date === today) {
+      return item;
+    } else {
+      return 0;
+    }
+  }
+  if (taskFiltering.type === filteringType.THISWEEK) {
+    if (new Date(item.date) >= firstday && new Date(item.date) <= lastday) {
+      return item;
+    } else {
+      return 0;
+    }
+  }
+  if (taskFiltering.type === filteringType.THISMONTH) {
+    if (new Date(item.date) >= firstDayMonth && new Date(item.date) <= lastDayMonth) {
+      return item;
+    } else {
+      return 0;
+    }
+  }
+  if (taskFiltering.type === filteringType.COMPLETE) {
+    return item.completed === true;
+  }
+  if (taskFiltering.type === filteringType.INCOMPLETE) {
+    return item.completed === false;
   }
 }
 

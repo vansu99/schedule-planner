@@ -80,7 +80,7 @@ export default function TodoFormContainer({ isLists, listId }) {
     dispatch(cardActions.asyncAddTodoCard(newCards));
     dispatch(
       activityActions.asyncCreateNewActivity({
-        text: `${userId.username} added ${newCards.title} to do to this list`,
+        text: `${userId.username} added ${newCards.title} task to this list`,
         boardId: boardId,
       }),
     );

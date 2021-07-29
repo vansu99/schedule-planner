@@ -7,7 +7,7 @@ import { boardActions } from 'actions/Todos/board.action';
 import { dndActions } from 'actions/Todos/dnd.action';
 import DrawerComponent from 'components/Drawer';
 import Search from 'components/Search';
-import { sortTask, taskSortingType } from 'helpers/sorting';
+import { filteringType, filterTask, sortTask, taskSortingType } from 'helpers/sorting';
 import { useToggleMenus } from 'hooks';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -27,6 +27,7 @@ function Todos() {
   const { boardId } = useParams();
   const dispatch = useDispatch();
   const [sortType, setSortType] = useState({ type: taskSortingType.NONE });
+  const [filterType, setFilterType] = useState({ type: filteringType.ALL_TASK });
   const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
@@ -67,7 +68,9 @@ function Todos() {
     setSortType({ type: data.type });
   }, []);
 
-  const handleChangeFilter = useCallback(data => {}, []);
+  const handleChangeFilter = useCallback(data => {
+    setFilterType({ type: data.type });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -169,6 +172,7 @@ function Todos() {
                         if (lists) {
                           const cards = lists?.cards
                             .map(card => getCardSelector && getCardSelector[card])
+                            .filter(item => filterTask(item, filterType))
                             .sort((a, b) => sortTask(a, b, sortType));
 
                           return (

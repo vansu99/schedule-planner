@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import useStyles from '../theme.todoCard';
+import useStyles from './Comment.style';
 import LikeButton from './LikeButton';
 import CommentMenu from './CommentMenu';
 import InputComment from './InputComment';
@@ -67,19 +67,19 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
   };
 
   return (
-    <div className={classes.todoCardCommentItem}>
+    <div className={classes.cmtWrapper}>
       <Box component={Link} to="/" display="flex" alignItems="center">
         <Avatar
           src={comment.user?.image}
           alt={comment.user?.username}
           style={{ width: '3rem', height: '3rem', marginRight: '1.2rem' }}
         />
-        <Typography variant="subtitle1" component="h5" className={classes.link}>
+        <Typography variant="subtitle1" component="h5" className={classes.cmtUserName}>
           {comment.user?.username}
         </Typography>
       </Box>
-      <div className="todoCard-details__comments-content">
-        <div className="todoCard-details__comments-detail">
+      <div className={classes.cmtContent}>
+        <div className={classes.cmtDetail}>
           {onEdit ? (
             <TextareaAutosize
               className="todoCard-details__comments-input"
@@ -89,7 +89,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               onChange={e => setContent(e.target.value)}
             />
           ) : (
-            <p className="todoCard-details__comments-text">
+            <p className={classes.cmtText}>
               {content?.length < 100 ? content : readMore ? content + ' ' : content?.slice(0, 100) + '... '}
               {content?.length > 100 && (
                 <span className="todoCard-details__comments-readMore" onClick={() => setReadMore(!readMore)}>
@@ -98,7 +98,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               )}
             </p>
           )}
-          <div className="todoCard-details__comments-status">
+          <div className={classes.cmtTimetamps}>
             <span className="todoCard-details__comments-time">{moment(comment?.createdAt).fromNow()}</span>
             {onEdit ? (
               <>
@@ -109,14 +109,14 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               <>
                 <span className="todoCard-details__comments-likes">{comment.likes?.length} likes</span>
                 <span className="todoCard-details__comments-reply-text" onClick={handleReply}>
-                  {reply ? 'cancel' : 'reply'}
+                  {reply ? 'Cancel' : 'Reply'}
                 </span>
               </>
             )}
           </div>
         </div>
 
-        <div className="todoCard-details__comments-menu">
+        <div className={classes.cmtActions}>
           <LikeButton isLike={isLike} handleLike={handleLike} handleUnLike={handleUnLike} />
           <CommentMenu comment={comment} setOnEdit={setOnEdit} cardId={cardId} />
         </div>

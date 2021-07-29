@@ -5,7 +5,8 @@ const useStyles = makeStyles(theme => ({
     padding: '40px 60px',
   },
   userName: {
-    fontFamily: "'Poppins', sans-serif",
+    fontSize: '2.4rem',
+    fontFamily: "'Roboto', sans-serif",
   },
   btn: {
     fontSize: '1.4rem',
@@ -13,8 +14,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
   },
   avatarSize: {
-    width: '8rem',
-    height: '8rem',
+    width: '5rem',
+    height: '5rem',
   },
 }));
 

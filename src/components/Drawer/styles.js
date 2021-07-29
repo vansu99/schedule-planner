@@ -94,13 +94,29 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
     userSelect: 'none',
   },
+  activityWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '1.8rem',
+    '& > svg': {
+      fontSize: '1.8rem',
+      marginRight: '0.7rem',
+    },
+  },
   titleActivity: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     color: theme.palette.text.primary,
     marginBottom: theme.spacing(1.5),
     '& > .MuiSvgIcon-root': {
       marginRight: theme.spacing(1),
+    },
+    '& .btn-clear': {
+      '&:hover': {
+        cursor: 'pointer',
+        textDecoration: 'underline',
+      },
     },
   },
   container: {
@@ -126,7 +142,7 @@ const useStyles = makeStyles(theme => ({
       width: '9px',
     },
     '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgb(115, 103, 240)',
+      backgroundColor: theme.palette.background.scroll,
       borderRadius: '10px',
       boxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
     },

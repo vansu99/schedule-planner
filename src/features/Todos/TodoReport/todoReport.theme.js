@@ -11,7 +11,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '3rem',
   },
   todoReportTitle: {
-    paddingTop: '1.5rem',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    paddingLeft: '1rem',
+    borderLeft: `5px solid ${theme.palette.primary.light}`,
     marginBottom: '2rem',
     fontWeight: 'bold',
   },

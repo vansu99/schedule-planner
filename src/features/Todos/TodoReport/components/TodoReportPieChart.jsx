@@ -13,7 +13,7 @@ const PieOptions = {
 
 function TodoReportPieChart({ completed, failed }) {
   const data = {
-    labels: ['Quá hạn', 'Hoàn thành'],
+    labels: ['Chưa hoàn thành', 'Hoàn thành'],
     datasets: [
       {
         label: 'My First Dataset',

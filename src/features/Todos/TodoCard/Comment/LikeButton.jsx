@@ -8,6 +8,8 @@ const useStyles = makeStyles(theme => ({
   likeIcon: {
     fontSize: '2rem',
     cursor: 'pointer',
+    color: '#ff5858',
+
   },
 }));
 

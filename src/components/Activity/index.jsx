@@ -17,8 +17,11 @@ const useStyles = makeStyles(theme => ({
   text: {
     fontSize: '15px',
   },
+  activityText: {
+    textDecoration: 'underline',
+  },
   timestamp: {
-    fontSize: '11px',
+    fontSize: '13px',
     color: '#637187',
   },
 }));
@@ -64,10 +67,11 @@ function ActivityPage(props) {
             timestampString = `${timeString} at ${moment(date).format('LT')}`;
           }
         } else timestampString = moment(date).format('LLL');
+
         return (
           <div key={activity._id} className={classes.text}>
             <strong>{userName}</strong>
-            {activityText}
+            <span className={classes.activityText}>{activityText}</span>
             <p className={classes.timestamp}>{timestampString}</p>
           </div>
         );

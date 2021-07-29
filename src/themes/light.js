@@ -15,6 +15,7 @@ const lightTheme = createMuiTheme({
       list: '#dfe3e6',
       modal: '#f4f5f7',
       hover: '#efecec',
+      scroll: '#4D5465',
     },
     primary: {
       main: '#0348FF',

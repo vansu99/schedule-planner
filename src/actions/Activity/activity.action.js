@@ -33,7 +33,24 @@ const asyncDeleteActivity = id => {
   };
 };
 
+const asyncClearAllActivity = boardId => {
+  return async dispatch => {
+    try {
+      const result = await activityApis.clearAllActivity(boardId);
+      if (result.status === 200) {
+        dispatch({
+          type: todoActions.CLEAR_ALL_ACTIVITY,
+          payload: { activity: result.data.activity },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const activityActions = {
   asyncDeleteActivity,
+  asyncClearAllActivity,
   asyncCreateNewActivity,
 };

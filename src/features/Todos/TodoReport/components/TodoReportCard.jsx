@@ -1,5 +1,4 @@
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -34,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TodoReportCard({ title, completed, calPercent = 0, color, loading }) {
+function TodoReportCard({ title, completed, calPercent = 100, color, loading }) {
   const classes = useStyles();
 
   return (

@@ -8,7 +8,7 @@ import useStyles from './style';
 const UserProfileEdit = props => {
   const classes = useStyles();
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className={classes.editProfileWrapper}>
       <div className={classes.editProfile}>
         <Grid container spacing={0}>
           <Grid item md={4}>

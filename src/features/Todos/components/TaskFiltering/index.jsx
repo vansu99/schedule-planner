@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { sortingDirection, taskSortingType } from 'helpers/sorting';
+import { filteringType, sortingDirection, taskSortingType } from 'helpers/sorting';
 import { useToggleMenus } from 'hooks';
 import React, { useState } from 'react';
 import FilterStatus from './FilterStatus';
@@ -45,10 +45,29 @@ const renderTaskSortingLabel = sorting => {
   return 'Sort';
 };
 
+const renderTaskFilterLabel = sorting => {
+  if (sorting.type === filteringType.COMPLETE) {
+    return 'Filter: Task Complete';
+  }
+  if (sorting.type === filteringType.INCOMPLETE) {
+    return 'Filter: Task Incomplete';
+  }
+  if (sorting.type === filteringType.THISMONTH) {
+    return 'Filter: Due this month';
+  }
+  if (sorting.type === filteringType.THISWEEK) {
+    return 'Filter: Due this week';
+  }
+  if (sorting.type === filteringType.TODAY) {
+    return 'Filter: Today';
+  }
+  return 'Filter';
+};
+
 const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
   const classes = useStyles();
   const [taskSorting, setTaskSorting] = useState({ type: taskSortingType.NONE, direction: sortingDirection.ASC });
-  const [taskStatusFilter, setTaskStatusFilter] = useState({ type: taskSortingType.INCOMPLETE });
+  const [taskStatusFilter, setTaskStatusFilter] = useState({ type: filteringType.ALL_TASK });
   const [popupFilter, togglePopupFilter, closePopupFilter] = useToggleMenus(null);
   const [popupSorting, togglePopupSorting, closePopupSorting] = useToggleMenus(null);
 
@@ -67,7 +86,7 @@ const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
       <div className={classes.filterItem}>
         <Box display="flex" alignItems="center" onClick={togglePopupFilter} aria-controls="filter" aria-haspopup="true">
           <i className="bx bx-filter icon-filter"></i>
-          <span className="title-filter">Filter</span>
+          <span className="title-filter">{renderTaskFilterLabel(taskStatusFilter)}</span>
         </Box>
         <FilterStatus
           filter={taskStatusFilter}

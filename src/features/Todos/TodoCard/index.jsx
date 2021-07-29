@@ -1,10 +1,11 @@
+import { activityActions } from 'actions/Activity/activity.action';
 import { cardActions } from 'actions/Todos/card.action';
 import { labelActions } from 'actions/Todos/label.action';
 import { useToggle, useToggleMenus } from 'hooks';
 import React, { memo, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import TodoForm from '../TodoForm';
 import TodoCardItem from './CardItem';
@@ -36,8 +37,9 @@ function TodoCard({
   const [attachItem, setAttachItem] = useState(null);
   const [showModal, toggleShowModal] = useToggle(false);
   const [showAttach, toggleShowAttach] = useToggle(false);
-  const [isEditing, toggleIsEditing, closeIsEditing] = useToggleMenus(null);
+  const userId = useSelector(state => state.user.currentUser);
   const [isEditDescCard, toggleIsEditDescCard] = useToggle(false);
+  const [isEditing, toggleIsEditing, closeIsEditing] = useToggleMenus(null);
 
   const handleToggleShowAttach = attach => {
     setAttachItem(attach);
@@ -52,6 +54,12 @@ function TodoCard({
 
   const handleRemoveCard = () => {
     dispatch(cardActions.asyncRemoveTodoCard(listId, _id, boardId));
+    dispatch(
+      activityActions.asyncCreateNewActivity({
+        text: `${userId.username} removed this task`,
+        boardId: boardId,
+      }),
+    );
   };
 
   const handleRemoveMember = memberId => {
@@ -64,6 +72,12 @@ function TodoCard({
 
   const handleRemoveDueDate = () => {
     dispatch(cardActions.asyncEditDetailTodoCard(_id, { date: null }));
+    dispatch(
+      activityActions.asyncCreateNewActivity({
+        text: `${userId.username} removed the due date from this task`,
+        boardId: boardId,
+      }),
+    );
   };
 
   const handleEditDueDate = data => {

@@ -21,8 +21,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ButtonComponent from 'components/Button';
 import LinkComponent from 'components/Link';
 import ActivityPage from 'components/Activity';
+import { activityActions } from 'actions/Activity/activity.action';
 
-function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground }) {
+function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
   const classes = useStyles({ isDrawer });
   const { t: translate } = useTranslation();
   const history = useHistory();
@@ -35,6 +36,10 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
     if (handleToogleDrawer) {
       handleToogleDrawer();
     }
+  };
+
+  const handleClearAllActivity = () => {
+    dispatch(activityActions.asyncClearAllActivity(boardId));
   };
 
   return (
@@ -93,10 +98,15 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board, setBackground })
         </Box>
         <Divider variant="middle" />
         <Box p={2} className={classes.activities}>
-          <Typography variant="h5" component="h5" className={classes.titleActivity}>
-            <DeviceHubIcon />
-            {translate('activity')}
-          </Typography>
+          <div className={classes.titleActivity}>
+            <Typography variant="h5" component="h5" className={classes.activityWrapper}>
+              <DeviceHubIcon />
+              {translate('activity')}
+            </Typography>
+            <span className="btn-clear" onClick={handleClearAllActivity}>
+              Clear all
+            </span>
+          </div>
           <ActivityPage />
         </Box>
       </Paper>

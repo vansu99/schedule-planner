@@ -15,6 +15,7 @@ const darkTheme = createMuiTheme({
       list: 'rgb(16, 22, 58)',
       modal: 'rgb(16, 22, 58)',
       hover: 'rgb(16, 22, 58)',
+      scroll: 'rgb(115, 103, 240)',
     },
     primary: {
       main: 'rgb(115, 103, 240)',

@@ -7,6 +7,9 @@ const activityApis = {
   deleteActivity: id => {
     return axiosClient.delete(`/api/activities/${id}`);
   },
+  clearAllActivity: boardId => {
+    return axiosClient.delete(`/api/activities/clear/${boardId}`);
+  },
 };
 
 export default activityApis;

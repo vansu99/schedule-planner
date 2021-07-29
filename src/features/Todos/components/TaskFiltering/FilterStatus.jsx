@@ -45,6 +45,17 @@ const FilterStatus = ({ filter, onChangeTaskStatusFilter, popupFilter, onClosePo
           <span className="action-title">All Tasks</span>
           {filter?.type === filteringType.ALL_TASK && <i className="bx bx-check action-icon"></i>}
         </div>
+        <div className={classes.filterOptionItem} onClick={() => handleFilterChange({ type: filteringType.COMPLETE })}>
+          <span className="action-title">Complete</span>
+          {filter?.type === filteringType.COMPLETE && <i className="bx bx-check action-icon"></i>}
+        </div>
+        <div
+          className={classes.filterOptionItem}
+          onClick={() => handleFilterChange({ type: filteringType.INCOMPLETE })}
+        >
+          <span className="action-title">Incomplete</span>
+          {filter?.type === filteringType.INCOMPLETE && <i className="bx bx-check action-icon"></i>}
+        </div>
         <div className={classes.filterOptionItem} onClick={() => handleFilterChange({ type: filteringType.TODAY })}>
           <span className="action-title">Today</span>
           {filter?.type === filteringType.TODAY && <i className="bx bx-check action-icon"></i>}
