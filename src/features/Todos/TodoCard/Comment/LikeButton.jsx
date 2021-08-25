@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: '2rem',
     cursor: 'pointer',
     color: '#ff5858',
-
   },
 }));
 
