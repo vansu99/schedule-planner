@@ -11,7 +11,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
@@ -241,7 +241,9 @@ const RenderModalContentCard = ({
                   >
                     Lưu
                   </Button>
-                  <Button variant="outlined">Hủy</Button>
+                  <Button disableRipple variant="outlined">
+                    Hủy
+                  </Button>
                 </Box>
               )}
             </Box>
@@ -254,7 +256,11 @@ const RenderModalContentCard = ({
                   <CheckListSelect checklist={checklist} cardId={_id} />
                 </Box>
               ) : (
-                <Typography variant="subtitle1" component="p" style={{ opacity: 0.6 }}>
+                <Typography
+                  variant="subtitle1"
+                  component="p"
+                  style={{ opacity: 0.6, padding: '10px 0 0 25px', fontSize: '15px' }}
+                >
                   Chưa có việc cần làm
                 </Typography>
               )}
@@ -362,7 +368,7 @@ const RenderModalContentCard = ({
                     />
                     <Box mt={2} mb={2.5} display="flex" alignItems="baseline">
                       <FormControl>
-                        <FormLabel>Color</FormLabel>
+                        <FormLabel className={classes.formLabel}>Color</FormLabel>
                         <RadioGroup
                           aria-label="labelcolor"
                           name="labelcolor"
@@ -435,6 +441,7 @@ const RenderModalContentCard = ({
                       size="small"
                       variant="outlined"
                       label="Nhập việc cần làm"
+                      className={classes.textFieldLabel}
                       value={todoCheckListContent}
                       onChange={todoCheckListContentChange}
                     />

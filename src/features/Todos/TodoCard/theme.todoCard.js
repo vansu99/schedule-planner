@@ -95,6 +95,7 @@ const useStyles = makeStyles(theme => ({
     resize: 'none',
     width: '100%',
     padding: '1rem',
+    color: theme.palette.text.secondary,
     border: '1px solid #d1d1d1',
     fontSize: '1.5rem',
     fontFamily: '"Roboto", sans-serif',
@@ -316,6 +317,14 @@ const useStyles = makeStyles(theme => ({
         marginLeft: 'auto',
       },
     },
+  },
+  textFieldLabel: {
+    '& .MuiFormLabel-root': {
+      color: theme.palette.text.hint,
+    },
+  },
+  formLabel: {
+    color: theme.palette.text.hint,
   },
 }));
 

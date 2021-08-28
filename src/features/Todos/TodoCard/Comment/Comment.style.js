@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   cmtContent: {
     display: 'flex',
     marginLeft: '4rem',
-    background: theme.palette.background.list,
+    background: theme.palette.background.card,
     marginTop: theme.spacing(0.8),
     borderBottomRightRadius: '1rem',
     overflow: 'hidden',

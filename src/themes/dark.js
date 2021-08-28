@@ -47,7 +47,7 @@ const darkTheme = createMuiTheme({
           fontSize: '14px',
           fontFamily: "'Roboto', sans-serif",
           fontWeight: 400,
-          lineHeight: '24px',
+          lineHeight: '1.5',
           height: '100%',
           overflowX: 'hidden',
         },
@@ -61,6 +61,17 @@ const darkTheme = createMuiTheme({
         },
         '.fade-in': {
           animation: '$fadeIn 1s ease-out',
+        },
+      },
+    },
+    MuiButton: {
+      root: {
+        fontSize: '12px',
+      },
+      containedPrimary: {
+        '&:hover': {
+          backgroundColor: 'rgb(115, 103, 240)',
+          opacity: 0.95,
         },
       },
     },
