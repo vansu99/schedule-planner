@@ -218,7 +218,6 @@ const RenderModalWithDescCard = ({
                 <Button
                   variant="contained"
                   color="primary"
-                  size="medium"
                   disableRipple
                   className={classes.margin}
                   onClick={onShowEditDescCard}
@@ -249,7 +248,11 @@ const RenderModalWithDescCard = ({
                   <CheckListSelect checklist={checklist} cardId={_id} />
                 </Box>
               ) : (
-                <Typography variant="subtitle1" component="p" style={{ opacity: 0.6 }}>
+                <Typography
+                  variant="subtitle1"
+                  component="p"
+                  style={{ opacity: 0.6, padding: '10px 0 0 25px', fontSize: '15px' }}
+                >
                   Chưa có việc cần làm
                 </Typography>
               )}
@@ -358,7 +361,7 @@ const RenderModalWithDescCard = ({
                     />
                     <Box mt={2} mb={2.5} display="flex" alignItems="baseline">
                       <FormControl>
-                        <FormLabel>Color</FormLabel>
+                        <FormLabel className={classes.formLabel}>Color</FormLabel>
                         <RadioGroup
                           aria-label="labelcolor"
                           name="labelcolor"
@@ -431,6 +434,7 @@ const RenderModalWithDescCard = ({
                       size="small"
                       variant="outlined"
                       label="Nhập việc cần làm"
+                      className={classes.textFieldLabel}
                       value={todoCheckListContent}
                       onChange={todoCheckListContentChange}
                     />

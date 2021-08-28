@@ -9,13 +9,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexGrow: 1,
-    minHeight: '90vh',
+    minHeight: '100vh',
     overflow: 'hidden',
     [theme.breakpoints.down('sm')]: {
       marginTop: 0,
       padding: '1rem 3rem',
       alignItems: 'normal',
     },
+  },
+  loginWrapper: {
+    backgroundColor: '#fff',
   },
   title: {
     fontFamily: "'Kaushan Script', cursive",

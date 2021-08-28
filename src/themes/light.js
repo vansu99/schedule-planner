@@ -55,7 +55,7 @@ const lightTheme = createMuiTheme({
           fontSize: '14px',
           fontFamily: "'Roboto', sans-serif",
           fontWeight: 400,
-          lineHeight: '24px',
+          lineHeight: '1.5',
           height: '100%',
           overflowX: 'hidden',
         },
@@ -77,7 +77,6 @@ const lightTheme = createMuiTheme({
         fontSize: '12px',
         '&:hover': {
           opacity: 0.95,
-          //backgroundColor: `#1976d2!important`
         },
       },
     },

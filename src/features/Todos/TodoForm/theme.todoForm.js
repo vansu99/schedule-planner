@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     resize: 'none',
     lineHeight: 1.6,
     padding: '1rem',
+    color: theme.palette.text.secondary,
   },
   btn: {
     padding: '0 10px',
