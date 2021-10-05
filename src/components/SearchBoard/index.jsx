@@ -93,22 +93,20 @@ function SearchBoard(props) {
 
     typingTimeoutRef.current = setTimeout(() => {
       const formValues = {
-        search: ev.target.value,
+        searchTerm: ev.target.value,
       };
       handleFilterBoard(formValues);
     }, 500);
   };
 
-  const handleFilterBoard = async board => {
-    if (search) {
-      const result = await boardsApis.searchBoard(board.search);
-      if (result.status === 200) {
-        if (result.data.msg) {
-          setMsg(result.data.msg);
-        } else {
-          setBoards([...result.data.boards]);
-        }
-      }
+  const handleFilterBoard = async ({ searchTerm }) => {
+    const result = await boardsApis.searchBoard(searchTerm);
+    if (result.data.boards) {
+      setBoards([...result.data.boards]);
+      setMsg('')
+    } else {
+      setBoards([])
+      setMsg(result.data.msg);
     }
   };
 
@@ -126,7 +124,7 @@ function SearchBoard(props) {
             <SearchIcon fontSize="large" />
           </div>
           <InputBase
-            placeholder="Search…"
+            placeholder="Search project…"
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
@@ -136,7 +134,7 @@ function SearchBoard(props) {
             autoFocus
             inputProps={{ 'aria-label': 'search' }}
           />
-          {boards.length > 0 && open ? (
+          {!!boards.length && open ? (
             <div className={classes.autocomplete}>
               <ul>
                 {boards.map(board => {
@@ -157,13 +155,11 @@ function SearchBoard(props) {
               </ul>
             </div>
           ) : null}
-          {/* {msg ? (
-            <div className={classes.autocomplete}>
-              <Typography variant="body2" component="p">
-                {msg}
-              </Typography>
-            </div>
-          ) : null} */}
+          {!!msg && <div className={classes.autocomplete}>
+            <Typography variant="body2" component="p">
+              {msg}
+            </Typography>
+          </div>}
         </div>
       </ClickAwayListener>
     </div>
