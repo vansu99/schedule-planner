@@ -51,6 +51,9 @@ Ex: Project tạo ra 1 website bán hàng
     . ...
 
 ### DEMO
+- Account: sasuke@gmail.com
+- Password: 123123
+
 ![alt](/docs/demo.png)
 ![alt](/docs/dashboard-dark.png)
 
