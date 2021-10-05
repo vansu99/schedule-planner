@@ -16,17 +16,20 @@ import { Link } from 'react-router-dom';
 import { userActions } from '../../actions/User';
 import Logo from 'assets/images/logo.png';
 import useStyles from './theme.header';
+import { useGlobalContext } from '../../contexts/global-context';
 
 export default function Header({ children }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t: translate } = useTranslation();
+  const { setModeTheme } = useGlobalContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const loggedInUser = useSelector(state => state.user.currentUser);
   const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
 
   const handleLogout = () => {
     dispatch(userActions.actLogout());
+    setModeTheme('light')
   };
 
   const onLogoutSuccess = res => {
@@ -87,7 +90,10 @@ export default function Header({ children }) {
                   getContentAnchorEl={null}
                 >
                   <MenuItem>
-                    Signed in as <span style={{ marginLeft: '5px', fontWeight: 500 }}>{loggedInUser.username}</span>
+                    Signed in as{' '}
+                    <span style={{ marginLeft: '5px', fontWeight: 500 }}>
+                      {loggedInUser.username}
+                    </span>
                   </MenuItem>
                   <Divider />
                   <MenuItem>Helps</MenuItem>

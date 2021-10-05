@@ -261,6 +261,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       if (destination === null) return state;
 
       const newColumnss = [...state.columns];
+      console.log({newColumnss})
       const listSpliced = newColumnss.splice(source.index, 1)[0];
       newColumnss.splice(destination.index, 0, listSpliced);
 

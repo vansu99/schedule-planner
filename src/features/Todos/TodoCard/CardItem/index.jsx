@@ -1,4 +1,15 @@
-import { Box, Card, CardContent, Chip, Fade, IconButton, Menu, MenuItem, Paper, Typography } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CardContent,
+  Chip,
+  Fade,
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Typography,
+} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -124,7 +135,12 @@ const TodoCardItem = ({
               <div>
                 <AvatarGroup>
                   {(member || []).map((value, index) => (
-                    <Avatar src={value.image} key={index} alt={value.username} className={classes.smallAvatar} />
+                    <Avatar
+                      src={value.image}
+                      key={index}
+                      alt={value.username}
+                      className={classes.smallAvatar}
+                    />
                   ))}
                 </AvatarGroup>
               </div>
