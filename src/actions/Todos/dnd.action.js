@@ -38,6 +38,8 @@ const asyncDragEndCard = result => {
           await listsApis.removeCardIdToList(source.droppableId, draggableId);
           dispatch(actDragEndCard(result));
         }
+      } else {
+        dispatch(actDragEndCard(result));
       }
     } catch (error) {
       console.log(error);

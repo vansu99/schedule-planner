@@ -13,7 +13,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { getBoards, getCards, getColumns, getLists } from 'selectors/todos.selector';
 import TaskFiltering from './components/TaskFiltering';
 import SubMemberTeam from './components/Team/SubMemberTeam';
@@ -35,7 +35,7 @@ function Todos() {
   const getCurrBoardSelector = useSelector(getBoards);
   const [showSubMenus, toggleSubMenus, closeSubMenus] = useToggleMenus(null);
 
-  const handleToogleDrawer = useCallback(() => {
+  const handleToggleDrawer = useCallback(() => {
     setIsDrawer(!isDrawer);
   }, [isDrawer]);
 
@@ -152,13 +152,13 @@ function Todos() {
                 root: classes.btn,
               }}
               startIcon={<MoreHorizIcon />}
-              onClick={handleToogleDrawer}
+              onClick={handleToggleDrawer}
             >
               {translate('show_menu')}
             </Button>
           </div>
         </Box>
-        <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} handleToogleDrawer={handleToogleDrawer} />
+        <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} handleToogleDrawer={handleToggleDrawer} />
         <Divider variant="middle" style={{ margin: '8px 0', backgroundColor: '#F0EEED' }} />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="LIST">

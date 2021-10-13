@@ -56,7 +56,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
             handleRemoveList={handleRemoveList}
             handleEditTitleList={handleEditTitleList}
           />
-          <Droppable key={listId} droppableId={String(listId)} type="CARD">
+          <Droppable droppableId={String(listId)} key={listId} type="CARD">
             {providedDrop => (
               <>
                 <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className={classes.todoListContent}>
