@@ -47,6 +47,7 @@ import { CheckListSelect } from '../../TodoCheckList';
 import Comments from '../Comment';
 import InputComment from '../Comment/InputComment';
 import useStyles from '../theme.todoCard';
+import Search from '../../../../components/Search';
 
 const RenderModalContentCard = ({
   onToggleCoverAttack,
@@ -57,7 +58,6 @@ const RenderModalContentCard = ({
   onRemoveLabel,
   onEditDueDate,
   onShowModal,
-  isEditDescCard,
   attachments,
   checklist,
   listTitle,
@@ -341,7 +341,7 @@ const RenderModalContentCard = ({
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
                 <AccordionCpt title="member" icon="bx bx-user">
-                  {/* <Search cardId={_id} /> */}
+                  <Search cardId={_id} />
                   <div className={classes.members}>
                     {getCurrBoard[0]?.member?.map(mem => (
                       <div key={mem?._id} className="member-item">

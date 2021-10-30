@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   },
+  detail: {
+    flexDirection: 'column'
+  },
   heading: {
     flexShrink: 0,
     textTransform: 'uppercase',
@@ -47,7 +50,7 @@ function AccordionCpt({ children, title, icon }) {
           </Typography>
         </AccordionSummary>
         <Divider variant="middle" />
-        <AccordionDetails>{children}</AccordionDetails>
+        <AccordionDetails className={classes.detail}>{children}</AccordionDetails>
       </Accordion>
     </div>
   );

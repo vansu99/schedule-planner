@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,8 +15,9 @@ const useStyles = makeStyles({
   },
 });
 
-function TodoReportTables({ team, loading }) {
+function TodoReportTables({ team = [], loading }) {
   const classes = useStyles();
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="medium" aria-label="a dense table">
@@ -65,11 +65,11 @@ function TodoReportTables({ team, loading }) {
             {(team || []).map(row => (
               <TableRow key={row?.id}>
                 <TableCell component="th" scope="row">
-                  {row?.name}
+                  {row?.username}
                 </TableCell>
-                <TableCell align="right">{row.failed?.length}</TableCell>
-                <TableCell align="right">{row.failed?.length}</TableCell>
-                <TableCell align="right">{row.completed?.length}</TableCell>
+                <TableCell align="right">{row.failed}</TableCell>
+                <TableCell align="right">{row.failed}</TableCell>
+                <TableCell align="right">{row.completed}</TableCell>
               </TableRow>
             ))}
           </TableBody>

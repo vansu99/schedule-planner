@@ -307,6 +307,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    marginTop: '15px',
     '& .member-item': {
       marginBottom: '1rem',
       display: 'flex',

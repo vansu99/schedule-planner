@@ -36,7 +36,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     height: '100%',
-    paddingBottom: '2rem',
     overflowX: 'auto',
     '&::-webkit-scrollbar': {
       width: '6px',
@@ -62,6 +61,7 @@ const useStyles = makeStyles(theme => ({
       height: '3.5rem',
       objectFit: 'cover',
       borderRadius: '3.5rem',
+      backgroundColor: '#d1d1d1'
     },
   },
   todoTopOwnerInfo: {
