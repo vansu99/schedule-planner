@@ -16,21 +16,10 @@ function NotificationButton(props) {
   const notificationState = useSelector(selectNotificationState);
 
   useEffect(() => {
-    // if (notificationPopupTimeout) {
-    //   clearTimeout(notificationPopupTimeout);
-    // }
     if (notificationState.unreadCount > 0) {
       !showNotificationPopup && setShowNotificationPopup(true);
-      //setShowNotificationPopupTimeout(setTimeout(() => setShowNotificationPopup(false), 10000));
     }
   }, [notificationState.unreadCount]);
-
-  // useEffect(() => {
-  //   if (showNotifications) {
-  //     clearTimeout(notificationPopupTimeout);
-  //     setShowNotificationPopup(false);
-  //   }
-  // }, [showNotifications, notificationPopupTimeout]);
 
   return (
     <ClickAwayListener onClickAway={() => setShowNotifications(false)}>

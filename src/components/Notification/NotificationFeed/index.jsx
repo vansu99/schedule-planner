@@ -20,7 +20,6 @@ function NotificationFeed({ open, onClose }) {
 
   useEffect(() => {
     (async function () {
-      await dispatch(fetchNotificationsStart());
       await dispatch(readNotificationsStart());
     })();
 
@@ -50,7 +49,12 @@ function NotificationFeed({ open, onClose }) {
                 userCardChild = <div></div>;
               }
               break;
-
+            case 'remind':
+              {
+                userCardProps.subTextDark = 'Công việc của bạn đã đến hạn chót';
+                userCardChild = <div></div>;
+              }
+              break;
             default:
               {
                 userCardProps.subTextDark = <Link></Link>;
@@ -63,7 +67,7 @@ function NotificationFeed({ open, onClose }) {
                 <Avatar src={userCardProps.avatar} />
                 <Box ml={1.4} className={classes.notifyItemContent}>
                   <Typography variant="h6" component="h6">
-                    {userCardProps.username}
+                    {userCardProps.username || 'System'}
                   </Typography>
                   <Typography variant="h6" component="p" style={{ fontWeight: 400 }}>
                     {userCardProps.subTextDark}

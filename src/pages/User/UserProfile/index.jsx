@@ -28,6 +28,7 @@ import TableUserAdmin from './components/TableUserAdmin';
 import useStyles from './UserProfile.style';
 
 import UserBoards from './components/UserBoards';
+import { fetchNotificationsStart } from '../../../actions/Global';
 
 function UserProfile(props) {
   const { id } = useParams();
@@ -36,15 +37,18 @@ function UserProfile(props) {
   const currentUser = useSelector(getCurrentUser);
   const role = currentUser.role;
   const boards = useSelector(getBoards);
-  const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem(appConstants.BOOKMARK)) || []);
+  const [bookmarks, setBookmarks] = useState(
+    JSON.parse(localStorage.getItem(appConstants.BOOKMARK)) || [],
+  );
   const [showModal, toggleModal] = useToggle(false);
   const [viewGrid, setViewGrid] = useState(JSON.parse(localStorage.getItem('grid')));
   const [dataBoard, changeDataBoard, resetDataBoard] = useInput('');
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(userActions.asyncGetMe());
-    dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
+  useEffect(async () => {
+    await dispatch(userActions.asyncGetMe());
+    await dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
+    await dispatch(fetchNotificationsStart());
   }, [id, dispatch]);
 
   const handleAddBoard = () => {
@@ -60,17 +64,40 @@ function UserProfile(props) {
   };
 
   const renderFormBoard = () => (
-    <Dialog open={showModal} fullWidth onClose={toggleModal} aria-labelledby="form-dialog-title-board">
-      <DialogTitle id="form-dialog-title">"Try to take advantage of every opportunity that comes you way"</DialogTitle>
+    <Dialog
+      open={showModal}
+      fullWidth
+      onClose={toggleModal}
+      aria-labelledby="form-dialog-title-board"
+    >
+      <DialogTitle id="form-dialog-title">
+        "Try to take advantage of every opportunity that comes you way"
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
-        <TextField variant="outlined" label="Tên board" size="small" onChange={changeDataBoard} value={dataBoard} />
+        <TextField
+          variant="outlined"
+          label="Tên board"
+          size="small"
+          onChange={changeDataBoard}
+          value={dataBoard}
+        />
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleModal} color="primary">
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          onClick={toggleModal}
+          color="primary"
+        >
           {translate('cancel')}
         </Button>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={handleAddBoard} color="primary">
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          onClick={handleAddBoard}
+          color="primary"
+        >
           {translate('create_board')}
         </Button>
       </DialogActions>
@@ -100,7 +127,11 @@ function UserProfile(props) {
         <div className={classes.userInfo}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={3}>
-              <Avatar alt={currentUser?.username} src={currentUser?.image} className={classes.large} />
+              <Avatar
+                alt={currentUser?.username}
+                src={currentUser?.image}
+                className={classes.large}
+              />
             </Grid>
             <Grid item xs={12} md={5}>
               <Typography variant="h3" component="h3" gutterBottom>
@@ -140,8 +171,16 @@ function UserProfile(props) {
               <h3 className={classes.titleBoard}>Favorites</h3>
               <div className={classes.gallaryRow}>
                 {bookmarks?.map(bookmark => (
-                  <div key={bookmark?._id} className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
-                    <UserBoards {...bookmark} view={viewGrid} onBookmark={chooseBookmark} bookmarks={bookmarks} />
+                  <div
+                    key={bookmark?._id}
+                    className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}
+                  >
+                    <UserBoards
+                      {...bookmark}
+                      view={viewGrid}
+                      onBookmark={chooseBookmark}
+                      bookmarks={bookmarks}
+                    />
                   </div>
                 ))}
               </div>
@@ -151,12 +190,23 @@ function UserProfile(props) {
             <h3 className={classes.titleBoard}>Recent Projects</h3>
             <div className={classes.gallaryRow}>
               {boards.map(board => (
-                <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`} key={board?._id}>
-                  <UserBoards {...board} view={viewGrid} onBookmark={chooseBookmark} bookmarks={bookmarks} />
+                <div
+                  className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}
+                  key={board?._id}
+                >
+                  <UserBoards
+                    {...board}
+                    view={viewGrid}
+                    onBookmark={chooseBookmark}
+                    bookmarks={bookmarks}
+                  />
                 </div>
               ))}
               <div className={viewGrid ? `${classes.gallaryTiles}` : `${classes.gallaryLists}`}>
-                <Box className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo} onClick={toggleModal}>
+                <Box
+                  className={viewGrid ? classes.boxAddTodo : classes.gallaryListAddTodo}
+                  onClick={toggleModal}
+                >
                   <AddIcon fontSize="large" />
                 </Box>
               </div>

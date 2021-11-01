@@ -107,8 +107,8 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               </>
             ) : (
               <>
-                <span className="todoCard-details__comments-likes">{comment.likes?.length} likes</span>
-                <span className="todoCard-details__comments-reply-text" onClick={handleReply}>
+                <span className={classes.cmtText}>{comment.likes?.length} likes</span>
+                <span className={classes.cmtReplyText} onClick={handleReply}>
                   {reply ? 'Cancel' : 'Reply'}
                 </span>
               </>

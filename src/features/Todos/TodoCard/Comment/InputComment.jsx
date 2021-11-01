@@ -11,6 +11,11 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     backgroundColor: '#f7f7f7',
     border: '1px solid #d1d1d1',
+    paddingLeft: '10px',
+    marginTop: '10px',
+    borderRadius: '5px',
+    overflow: 'hidden',
+
     '& > input': {
       backgroundColor: ' #f7f7f7',
       border: 'none',

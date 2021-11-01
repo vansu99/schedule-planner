@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   cmtContent: {
     display: 'flex',
     marginLeft: '4rem',
-    background: theme.palette.background.card,
+    background: '#d2d2d2',
     marginTop: theme.spacing(0.8),
     borderBottomRightRadius: '1rem',
     overflow: 'hidden',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   cmtTimetamps: {
     '& > *': {
       marginRight: '1rem',
-      color: theme.palette.text.light,
+      color: '#333',
     },
   },
   cmtActions: {
@@ -41,6 +41,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: '1rem',
     marginLeft: '4rem',
   },
+  cmtReplyText: {
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: 0.95
+    }
+  }
 }));
 
 export default useStyles;
