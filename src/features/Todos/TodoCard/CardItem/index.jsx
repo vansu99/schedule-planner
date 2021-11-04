@@ -136,7 +136,7 @@ const TodoCardItem = ({
                 <AvatarGroup>
                   {(member || []).map((value, index) => (
                     <Avatar
-                      src={value.image}
+                      src={value?.image}
                       key={index}
                       alt={value.username}
                       className={classes.smallAvatar}

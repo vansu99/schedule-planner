@@ -41,5 +41,7 @@
   "change_pw": "Change password",
   "info_personal": "Edit Profile",
   "pro_owner": "Project Owner",
-  "pro_details": "Project details"
+  "pro_details": "Project details",
+  "user_info": "Your profile",
+  "settings": "Settings"
 }

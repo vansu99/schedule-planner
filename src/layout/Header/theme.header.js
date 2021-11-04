@@ -81,6 +81,9 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 400,
     },
   },
+  menuLink: {
+    color: theme.palette.text.primary
+  }
 }));
 
 export default useStyles;

@@ -54,8 +54,8 @@ export default function Header({ children }) {
       <AppBar position="static" className={classes.header}>
         <Toolbar style={{ minHeight: '100%' }}>
           <div className={classes.headerLogo}>
-            <Link to="/" className={classes.link}>
-              <img src={Logo} alt="" />
+            <Link to={{ pathname: `/users/${loggedInUser?._id}` }} className={classes.link}>
+              <img src={Logo} alt="Schedule Planner" />
               <Typography variant="h4" className={classes.title}>
                 Schedule Planner
               </Typography>
@@ -97,8 +97,12 @@ export default function Header({ children }) {
                   </MenuItem>
                   <Divider />
                   <MenuItem>Helps</MenuItem>
-                  <MenuItem>Settings</MenuItem>
-                  <MenuItem>Your profile</MenuItem>
+                  <MenuItem>
+                    <Link className={classes.menuLink} to="/users/settings/edit">{translate('settings')}</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link className={classes.menuLink} to="/users/settings/edit">{translate('user_info')}</Link>
+                  </MenuItem>
                   <Divider />
 
                   {loggedInUser?.type === 'google' ? (

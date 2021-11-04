@@ -62,7 +62,12 @@ function InputComment({ children, cardId, reply = {}, setReply }) {
   return (
     <div className={classes.commentInput}>
       {children}
-      <input type="text" placeholder="Add your comment..." value={content} onChange={e => setContent(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Add your comment..."
+        value={content}
+        onChange={e => setContent(e.target.value)}
+      />
       <button onClick={handleSubmitComment}>Post</button>
     </div>
   );
