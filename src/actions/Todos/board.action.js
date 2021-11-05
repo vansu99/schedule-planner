@@ -284,6 +284,10 @@ const asyncRemoveMemberProject = (id, memberId) => {
           type: todoActions.REMOVE_MEMBER_PROJECT,
           payload: { id, member: newMember },
         });
+        dispatch({
+          type: todoActions.REMOVE_MEMBER_TODO_CARD,
+          payload: { cardId: result.data.cardId, member: memberId },
+        })
         showToast('Xóa thành công.', 'success');
       }
     } catch (error) {

@@ -9,9 +9,11 @@ const actDragEndList = payload => {
   };
 };
 
-const asyncDragEndList = result => {
+const asyncDragEndList = (result, boardId) => {
   return async dispatch => {
     try {
+      const oldIndex = result.destination.index;
+      const newIndex = result.source.index;
       dispatch(actDragEndList(result));
     } catch (error) {
       console.log(error);

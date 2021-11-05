@@ -43,5 +43,8 @@
   "pro_owner": "Project Owner",
   "pro_details": "Project details",
   "user_info": "Your profile",
-  "settings": "Settings"
+  "settings": "Settings",
+  "workspaces": "YOUR WORKSPACES",
+  "starred_boards": "Starred boards",
+  "recent_board": "Recent boards"
 }

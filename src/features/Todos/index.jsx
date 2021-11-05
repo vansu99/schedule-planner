@@ -42,7 +42,7 @@ function Todos() {
   const onDragEnd = result => {
     const { type } = result;
     if (type === 'LIST') {
-      dispatch(dndActions.asyncDragEndList(result));
+      dispatch(dndActions.asyncDragEndList(result, getCurrBoardSelector[0]?._id));
       return false;
     }
 

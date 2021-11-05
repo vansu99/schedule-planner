@@ -44,5 +44,8 @@
   "pro_owner": "Trưởng dự án",
   "pro_details": "Thông tin chi tiết dự án",
   "user_info": "Thông tin tài khoản",
-  "settings": "Cài đặt"
+  "settings": "Cài đặt",
+  "workspaces": "Các không gian làm việc của bạn",
+  "starred_boards": "Bảng đánh dấu sao",
+  "recent_board": "Các bảng gần đây"
 }

@@ -47,7 +47,7 @@ const SubMemberTeam = ({ _id, username, image, email }) => {
     <div style={{ position: 'relative' }}>
       <div className={classes.avatarMemberItem} onClick={toggleSubTeamWork} aria-controls={_id} aria-haspopup="true">
         <Avatar alt={username} src={image} className={classes.avatarMember} />
-        {_id === getCurrBoardSelector[0]?.userId?._id && <i className="bx bx-chevrons-up avatar-icon"></i>}
+        {_id === getCurrBoardSelector[0]?.userId?._id && <i className="bx bx-chevrons-up avatar-icon"/>}
       </div>
 
       {showSubPermission ? (

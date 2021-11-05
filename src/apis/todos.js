@@ -20,6 +20,9 @@ const todosApis = {
   updateSingleCardTodo: (id, data) => {
     return axiosClient.patch(`/api/cards/${id}`, data);
   },
+  updateStatusSingleCardTodo: (id, completed) => {
+    return axiosClient.post(`/api/cards/status/${id}`, { completed });
+  },
   updateCompletedCardTodo: (id, completed) => {
     return axiosClient.patch(`/api/cards/${id}`, { completed });
   },

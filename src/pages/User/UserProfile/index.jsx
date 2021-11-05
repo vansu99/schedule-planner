@@ -20,13 +20,11 @@ import { useInput, useToggle } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getCurrentUser } from 'selectors/auth.selector';
 import { getBoards } from 'selectors/todos.selector';
 import TableUserAdmin from './components/TableUserAdmin';
 import useStyles from './UserProfile.style';
-
 import UserBoards from './components/UserBoards';
 import { fetchNotificationsStart } from '../../../actions/Global';
 
@@ -77,7 +75,7 @@ function UserProfile(props) {
         <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
         <TextField
           variant="outlined"
-          label="Tên board"
+          label="Name your board"
           size="small"
           onChange={changeDataBoard}
           value={dataBoard}
@@ -117,7 +115,6 @@ function UserProfile(props) {
   };
 
   const chooseBookmark = data => {
-    console.log('choose book');
     data && setBookmarks([...data]);
   };
 
@@ -154,7 +151,7 @@ function UserProfile(props) {
         <div className={classes.userBoard}>
           <div className={classes.lineText}>
             <Typography variant="h4" component="h4" className={classes.title}>
-              {translate('board')} của {currentUser?.username}
+              {translate('workspaces')}
             </Typography>
           </div>
           <Box display="flex" justifyContent="flex-end">
@@ -168,7 +165,7 @@ function UserProfile(props) {
           {/* bookmarks */}
           {bookmarks?.length > 0 ? (
             <Box my={5} className="bookmark-list">
-              <h3 className={classes.titleBoard}>Favorites</h3>
+              <h3 className={classes.titleBoard}>{translate('starred_boards')}</h3>
               <div className={classes.gallaryRow}>
                 {bookmarks?.map(bookmark => (
                   <div
@@ -187,7 +184,7 @@ function UserProfile(props) {
             </Box>
           ) : null}
           <div>
-            <h3 className={classes.titleBoard}>Recent Projects</h3>
+            <h3 className={classes.titleBoard}>{ translate('recent_board') }</h3>
             <div className={classes.gallaryRow}>
               {boards.map(board => (
                 <div

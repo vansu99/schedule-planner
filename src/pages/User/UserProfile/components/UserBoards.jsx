@@ -156,7 +156,7 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
         <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
         <TextField
           variant="outlined"
-          label="Tên board"
+          label="Name your board"
           size="small"
           name="board"
           value={editBoard.value}

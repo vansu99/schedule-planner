@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,8 +29,26 @@ const useStyles = makeStyles(props => ({
     height: '100%',
     opacity: 0,
     '&:checked + label': {
-      background: `url(https://www.iconsdb.com/icons/preview/white/check-mark-xxl.png) no-repeat center`,
-      backgroundSize: '1.5rem',
+      position: 'relative',
+      '&::before, &::after': {
+        content: "''",
+        position: 'absolute',
+        backgroundColor: 'white',
+        height: '3px',
+        transformOrigin: 'left'
+      },
+      '&::before': {
+        width: '10px',
+        top: '12px',
+        left: '8px',
+        transform: 'rotate(45deg)'
+      },
+      '&::after': {
+        width: '15px',
+        top: '18px',
+        left: '14px',
+        transform: 'rotate(-45deg)'
+      }
     },
   },
 }));

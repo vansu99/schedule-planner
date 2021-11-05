@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import themes from 'themes';
 import history from './helpers/history';
 import Routes from './routes/routes';
+import { userActions } from './actions/User';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +28,9 @@ function App() {
     i18n.changeLanguage(language);
   }, [language, i18n]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (token) {
+      await dispatch(userActions.asyncGetMe());
       dispatch(connectSocket());
       dispatch(fetchNotificationsStart());
     }

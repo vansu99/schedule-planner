@@ -51,7 +51,7 @@ const asyncLogin = user => {
       const token = response.data?.token;
       const userInfo = response.data?.user;
       dispatch(actLoginSuccess(token, userInfo));
-      localStorage.setItem(StorageKeys.USER, JSON.stringify(userInfo));
+      //localStorage.setItem(StorageKeys.USER, JSON.stringify(userInfo));
       history.push({ pathname: `/users/${userInfo?._id}`, state: 200 });
     } catch (error) {
       showToast(error.response?.data?.msg, 'error');

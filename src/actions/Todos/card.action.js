@@ -123,6 +123,7 @@ const asyncUpdateCompletedTodoCard = (cardId, completed, boardId) => {
           type: todoActions.UPDATE_COMPLETED_TODO_SUCCESS,
           payload: { cardId, data: data?.completed },
         });
+        await todosApis.updateStatusSingleCardTodo(cardId, completed);
       }
     } catch (error) {
       console.log(error);
