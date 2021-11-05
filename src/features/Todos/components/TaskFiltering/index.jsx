@@ -5,6 +5,7 @@ import { useToggleMenus } from 'hooks';
 import React, { useState } from 'react';
 import FilterStatus from './FilterStatus';
 import SortPopup from './SortPopup';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   filterLists: {
@@ -35,37 +36,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const renderTaskSortingLabel = sorting => {
+const renderTaskSortingLabel = (sorting, translate) => {
   if (sorting.type === taskSortingType.TASK_TITLE) {
-    return 'Sort: Alphabetical';
+    return translate('sort_alpha')
   }
   if (sorting.type === taskSortingType.DUE_DATE) {
-    return 'Sort: Due Date';
+    return translate('sort_due')
   }
-  return 'Sort';
+  return translate('sort');
 };
 
-const renderTaskFilterLabel = sorting => {
+const renderTaskFilterLabel = (sorting, translate) => {
   if (sorting.type === filteringType.COMPLETE) {
-    return 'Filter: Task Complete';
+    return translate('filter_complete');
   }
   if (sorting.type === filteringType.INCOMPLETE) {
-    return 'Filter: Task Incomplete';
+    return translate('filter_incomplete');
   }
   if (sorting.type === filteringType.THISMONTH) {
-    return 'Filter: Due this month';
+    return translate('filter_month');
   }
   if (sorting.type === filteringType.THISWEEK) {
-    return 'Filter: Due this week';
+    return translate('filter_week');
   }
   if (sorting.type === filteringType.TODAY) {
-    return 'Filter: Today';
+    return translate('filter_today');
   }
-  return 'Filter';
+  return translate('filter');
 };
 
 const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
   const classes = useStyles();
+  const { t: translate } = useTranslation();
   const [taskSorting, setTaskSorting] = useState({ type: taskSortingType.NONE, direction: sortingDirection.ASC });
   const [taskStatusFilter, setTaskStatusFilter] = useState({ type: filteringType.ALL_TASK });
   const [popupFilter, togglePopupFilter, closePopupFilter] = useToggleMenus(null);
@@ -85,8 +87,8 @@ const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
     <div className={classes.filterLists}>
       <div className={classes.filterItem}>
         <Box display="flex" alignItems="center" onClick={togglePopupFilter} aria-controls="filter" aria-haspopup="true">
-          <i className="bx bx-filter icon-filter"></i>
-          <span className="title-filter">{renderTaskFilterLabel(taskStatusFilter)}</span>
+          <i className="bx bx-filter icon-filter"/>
+          <span className="title-filter">{renderTaskFilterLabel(taskStatusFilter, translate)}</span>
         </Box>
         <FilterStatus
           filter={taskStatusFilter}
@@ -103,8 +105,8 @@ const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
           aria-controls="filter"
           aria-haspopup="true"
         >
-          <i className="bx bx-sort icon-filter"></i>
-          <span className="title-filter">{renderTaskSortingLabel(taskSorting)}</span>
+          <i className="bx bx-sort icon-filter"/>
+          <span className="title-filter">{renderTaskSortingLabel(taskSorting, translate)}</span>
         </Box>
         <SortPopup
           sorting={taskSorting}

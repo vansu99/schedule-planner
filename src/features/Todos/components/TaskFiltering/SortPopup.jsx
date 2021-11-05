@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PopupMenu from 'components/PopupMenu';
 import { sortingDirection, taskSortingType } from 'helpers/sorting';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   sortOptionList: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 const SortPopup = ({ sorting, onChangeTaskSorting, popupSorting, onClosePopupSorting }) => {
   const classes = useStyles();
-
+  const { t: translate } = useTranslation();
   const handleSetSorting = sortData => {
     if (!onChangeTaskSorting) return;
     onChangeTaskSorting(sortData);
@@ -46,7 +47,7 @@ const SortPopup = ({ sorting, onChangeTaskSorting, popupSorting, onClosePopupSor
           onClick={() => handleSetSorting({ type: taskSortingType.NONE, direction: sortingDirection.ASC })}
         >
           <div className="action-title">None</div>
-          {sorting?.type === taskSortingType.NONE && <i className="bx bx-check action-icon"></i>}
+          {sorting?.type === taskSortingType.NONE && <i className="bx bx-check action-icon"/>}
         </div>
         <div
           className={classes.sortOptionItem}
@@ -58,8 +59,8 @@ const SortPopup = ({ sorting, onChangeTaskSorting, popupSorting, onClosePopupSor
             })
           }
         >
-          <div className="action-title">Alphabetical</div>
-          {sorting?.type === taskSortingType.TASK_TITLE_ALPHA && <i className="bx bx-check action-icon"></i>}
+          <div className="action-title">{translate('alphabet')}</div>
+          {sorting?.type === taskSortingType.TASK_TITLE_ALPHA && <i className="bx bx-check action-icon"/>}
         </div>
         <div
           className={classes.sortOptionItem}
@@ -67,8 +68,8 @@ const SortPopup = ({ sorting, onChangeTaskSorting, popupSorting, onClosePopupSor
             handleSetSorting({ type: taskSortingType.DUE_DATE, _sort: 'duedate', direction: sortingDirection.ASC })
           }
         >
-          <div className="action-title">Due date</div>
-          {sorting?.type === taskSortingType.DUE_DATE && <i className="bx bx-check action-icon"></i>}
+          <div className="action-title">{translate('due_date_sort')}</div>
+          {sorting?.type === taskSortingType.DUE_DATE && <i className="bx bx-check action-icon"/>}
         </div>
       </div>
     </PopupMenu>

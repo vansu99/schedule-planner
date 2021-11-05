@@ -75,7 +75,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
             <DialogTitle id="delete-dialog-title">{translate('are_you_sure')}</DialogTitle>
             <DialogContent>
               <DialogContentText id="delete-dialog-description">
-                Bạn có chắc muốn xóa dự án <span style={{ color: '#3A61C8' }}>{board?.title}</span> này.
+                {translate('leave_board')}: <span style={{ color: '#3A61C8' }}>{board?.title}</span>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -104,7 +104,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
               {translate('activity')}
             </Typography>
             <span className="btn-clear" onClick={handleClearAllActivity}>
-              Clear all
+              {translate('clear_all')}
             </span>
           </div>
           <ActivityPage />

@@ -104,7 +104,7 @@ function Todos() {
                 aria-haspopup="true"
                 onClick={toggleSubMenus}
               >
-                Invite
+                {translate('invite')}
               </Button>
               <Menu
                 id="long-menu-member-invite"

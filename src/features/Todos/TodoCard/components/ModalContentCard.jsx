@@ -142,10 +142,10 @@ const RenderModalContentCard = ({
       <div className="todoCard-details">
         <Box mb={4}>
           <Typography variant="h4" component="h4">
-            <i className="bx bx-layout"></i> Nội dung: {title}
+            <i className="bx bx-layout" /> {translate('content')}: {title}
           </Typography>
           <Typography variant="body2" component="span">
-            trong danh sách {listTitle}
+            {translate('in_list')} {listTitle}
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
@@ -159,7 +159,7 @@ const RenderModalContentCard = ({
                     onChange={e => setCompletedTodo(e.target.checked)}
                   />
                 }
-                label="Hoàn thành công việc"
+                label={translate('completed_task')}
                 className={classes.formControlLabel}
               />
             </div>
@@ -227,7 +227,7 @@ const RenderModalContentCard = ({
                   <TextareaAutosize
                     spellCheck="false"
                     className={classes.todoCardTextarea}
-                    placeholder="Thêm mô tả chi tiết"
+                    placeholder={translate('add_desc')}
                     value={content}
                     onChange={setContentChange}
                     rowsMin={4}
@@ -239,10 +239,10 @@ const RenderModalContentCard = ({
                     onClick={handleEditDescCard}
                     className={classes.btnMarginRight}
                   >
-                    Lưu
+                    {translate('update')}
                   </Button>
                   <Button disableRipple variant="outlined">
-                    Hủy
+                    {translate('cancel')}
                   </Button>
                 </Box>
               )}
@@ -268,7 +268,7 @@ const RenderModalContentCard = ({
             {attachments?.length > 0 && (
               <Box mt={3.4} className={classes.todoCardCheckList}>
                 <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                  <AttachFileIcon fontSize="large" /> Attachments
+                  <AttachFileIcon fontSize="large" /> {translate('attach')}
                 </Typography>
                 {(attachments || []).map(m => (
                   <div key={m.id} className={classes.attachmentIem}>
@@ -278,7 +278,7 @@ const RenderModalContentCard = ({
                         backgroundImage: `url(${m.item})`,
                         backgroundSize: 'cover',
                       }}
-                    ></div>
+                    />
                     <div className={classes.attachmentContent}>
                       <Typography variant="h6" component="h6" gutterBottom>
                         {m.name}
@@ -331,12 +331,12 @@ const RenderModalContentCard = ({
               onClick={handleUpdateCompletedTodo}
               disableRipple
             >
-              Lưu công việc
+              {translate('update')}
             </Button>
           </Box>
           <Box className={classes.todoCardRight}>
             <Typography variant="h4" component="h4">
-              Thêm vào thẻ
+              {translate('add_to_card')}
             </Typography>
             <Box component="ul" mt={1.6}>
               <Box mt={1} component="li">
@@ -362,7 +362,7 @@ const RenderModalContentCard = ({
                       className={classes.textFieldLabel}
                       fullWidth
                       size="small"
-                      label="Nhập tên nhãn công việc"
+                      label={translate('label_place')}
                       value={infoLabel.name}
                       onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
                     />
@@ -375,7 +375,13 @@ const RenderModalContentCard = ({
                           value={infoLabel.color}
                           onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
                         >
-                          <Box mt={1} display="flex" alignItems="center" position="relative" key={index}>
+                          <Box
+                            mt={1}
+                            display="flex"
+                            alignItems="center"
+                            position="relative"
+                            key={index}
+                          >
                             {labelColors.map((label, index) => (
                               <Box position="relative" key={index}>
                                 <Radio
@@ -402,8 +408,8 @@ const RenderModalContentCard = ({
                         </RadioGroup>
                       </FormControl>
                     </Box>
-                    <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
-                      Thêm nhãn công việc
+                    <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard} disableRipple>
+                      {translate('create_label')}
                     </Button>
                   </Box>
                 </AccordionCpt>
@@ -427,8 +433,13 @@ const RenderModalContentCard = ({
                         }}
                       />
                     </Box>
-                    <Button disableRipple variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
-                      Thêm ngày deadline
+                    <Button
+                      disableRipple
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAddDeadLineTodo}
+                    >
+                      {translate('save')}
                     </Button>
                   </Box>
                 </AccordionCpt>
@@ -440,14 +451,19 @@ const RenderModalContentCard = ({
                       fullWidth
                       size="small"
                       variant="outlined"
-                      label="Nhập việc cần làm"
+                      label={translate('checklist_place')}
                       className={classes.textFieldLabel}
                       value={todoCheckListContent}
                       onChange={todoCheckListContentChange}
                     />
                     <Box mt={1.5}>
-                      <Button disableRipple variant="contained" color="primary" onClick={handleAddCheckList}>
-                        Thêm checklist
+                      <Button
+                        disableRipple
+                        variant="contained"
+                        color="primary"
+                        onClick={handleAddCheckList}
+                      >
+                        {translate('add')}
                       </Button>
                     </Box>
                   </Box>
@@ -457,11 +473,11 @@ const RenderModalContentCard = ({
                 <AccordionCpt title="attach" icon="bx bx-link-alt">
                   <Box width="100%">
                     <Typography variant="h6" component="h6" align="center">
-                      Attach From
+                      {translate('attach_from')}
                     </Typography>
                     <label className={classes.attachmentInput} htmlFor="attach-computer">
                       <PublishIcon />
-                      <span>Computer</span>
+                      <span>{translate('computer')}</span>
                     </label>
                     <input
                       type="file"
