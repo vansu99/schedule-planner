@@ -1,9 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { commentActions } from 'actions/Todos/comment.action';
-import { StorageKeys } from 'configs';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "../../../../selectors/auth.selector";
 
 const useStyles = makeStyles(theme => ({
   commentInput: {
@@ -37,11 +36,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function InputComment({ children, cardId, reply = {}, setReply }) {
+function InputComment({ children, cardId, reply = {}, setReply, send = "" }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const socket = useSelector(state => state.socket.socket);
   const [content, setContent] = useState('');
-  const user = JSON.parse(localStorage.getItem(StorageKeys.USER));
+  const user = useSelector(getCurrentUser);
 
   const handleSubmitComment = () => {
     if (!content.trim()) {
@@ -54,8 +54,11 @@ function InputComment({ children, cardId, reply = {}, setReply }) {
       reply: reply && reply.commentId,
       user: user._id,
       tag: reply && reply.user,
+      cardId,
+      send
     };
-    dispatch(commentActions.asyncAddCommentTodoCard(cardId, newComment, user));
+    socket?.emit('createComment', newComment)
+    //dispatch(commentActions.asyncAddCommentTodoCard(cardId, newComment, user));
     if (setReply) return setReply(false);
   };
 

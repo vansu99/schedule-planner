@@ -14,6 +14,7 @@ import { Box, Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 
 function CommentCard({ children, comment, cardId, commentId, replyComments = {} }) {
+  console.log(comment)
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
@@ -122,7 +123,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
         </div>
       </div>
       {reply && (
-        <InputComment cardId={cardId} reply={reply} setReply={setReply}>
+        <InputComment cardId={cardId} reply={reply} setReply={setReply} send="replyComment">
           <Link to={`/users/${reply.user?._id}`}>@{reply.user?.username}: </Link>
         </InputComment>
       )}

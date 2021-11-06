@@ -28,9 +28,9 @@ function App() {
     i18n.changeLanguage(language);
   }, [language, i18n]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (token) {
-      await dispatch(userActions.asyncGetMe());
+      dispatch(userActions.asyncGetMe());
       dispatch(connectSocket());
       dispatch(fetchNotificationsStart());
     }

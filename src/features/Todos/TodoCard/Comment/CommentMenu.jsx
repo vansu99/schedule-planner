@@ -50,7 +50,7 @@ function CommentMenu({ comment, setOnEdit }) {
             className={classes.menuButtonIcon}
             disableRipple
           >
-            <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '2rem' }}></i>
+            <i className="bx bx-dots-vertical-rounded" style={{ fontSize: "2rem" }}/>
           </IconButton>
           <Menu
             id="long-menu"
@@ -66,11 +66,11 @@ function CommentMenu({ comment, setOnEdit }) {
             }}
           >
             <MenuItem onClick={() => setOnEdit(true)}>
-              <i className={`bx bx-pencil ${classes.menuIcon}`}></i>
+              <i className={`bx bx-pencil ${classes.menuIcon}`}/>
               <span className={classes.menuTitile}>Edit</span>
             </MenuItem>
             <MenuItem onClick={handleRemoveComment}>
-              <i className={`bx bx-trash-alt ${classes.menuIcon}`}></i>
+              <i className={`bx bx-trash-alt ${classes.menuIcon}`}/>
               <span className={classes.menuTitile}>Remove</span>
             </MenuItem>
           </Menu>

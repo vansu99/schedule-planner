@@ -44,7 +44,6 @@ function UserProfile(props) {
   const classes = useStyles();
 
   useEffect(async () => {
-    await dispatch(userActions.asyncGetMe());
     await dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
     await dispatch(fetchNotificationsStart());
   }, [id, dispatch]);

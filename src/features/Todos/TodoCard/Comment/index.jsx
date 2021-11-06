@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import useStyles from './Comment.style';
 import { getCards } from 'selectors/todos.selector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from '../../../../selectors/auth.selector';
+import { commentActions } from '../../../../actions/Todos/comment.action';
 
 function Comments({ cardId }) {
   const classes = useStyles();
@@ -14,17 +16,47 @@ function Comments({ cardId }) {
   const [next, setNext] = useState(2);
   const [replyComments, setReplyComments] = useState([]);
   const card = useSelector(getCards);
-  const commentss = card[cardId].comments;
+  const socket = useSelector(state => state.socket.socket);
+  const commentList = card[cardId].comments;
+  const user = useSelector(getCurrentUser);
+  const dispatch = useDispatch();
 
+  // comment
   useEffect(() => {
-    const newCm = commentss.filter(cm => !cm.reply);
-    setShowComment(newCm.slice(newCm.length - next));
-  }, [commentss, next]);
+    if (socket) {
+      setShowComment(commentList.slice(commentList.length - next));
+      socket.on('sendComment', msg => {
+        const newMsg = {
+          ...msg,
+          user,
+        };
+        dispatch(commentActions.actAddCommentTodoCard(msg.cardId, newMsg));
+        setShowComment([...showComment, newMsg]);
+      });
+      return () => socket.off('sendComment');
+    }
+  }, [commentList, next, socket]);
 
+  // reply comment
   useEffect(() => {
-    const newRep = commentss.filter(cmt => cmt.reply);
-    setReplyComments(newRep);
-  }, [commentss]);
+    if (socket) {
+      socket.on('sendReplyComment', msg => {
+        const newArr = [...commentList];
+        newArr.forEach(cm => {
+          if (cm._id === msg.id) {
+            cm.reply = [...msg.reply];
+          }
+        });
+        dispatch({
+          type: 'ADD_REPLY_COMMENT_TODO_CARD',
+          payload: { cardId: msg.cardId, comment: { id: msg.id, reply: msg.reply } },
+        });
+        setReplyComments(newArr);
+      });
+
+      return () => socket.off('sendReplyComment');
+    }
+  }, [commentList, socket]);
 
   return (
     <Box mt={2.7} mb={3.8}>
@@ -37,19 +69,32 @@ function Comments({ cardId }) {
           replyComments={replyComments.filter(item => item.reply === comment?.id)}
         >
           <div className={classes.cmtReply}>
-            {replyComments.map(
-              (cmt, index) =>
-                cmt.reply === comment?.id && <CommentCard key={index} comment={cmt} commentId={comment._id} />,
-            )}
+            {/*{replyComments.map(*/}
+            {/*  (cmt, index) =>*/}
+            {/*    <CommentCard key={index} comment={cmt.reply} commentId={comment._id} />,*/}
+            {/*)}*/}
+            {replyComments.map((cmt, index) => (
+              <div key={index}>
+                {cmt.reply.map(
+                  rep =>
+                    cmt._id === comment._id && (
+                      <CommentCard key={rep._id} comment={rep} commentId={comment._id} />
+                    ),
+                )}
+              </div>
+            ))}
           </div>
         </CommentCard>
       ))}
-      {commentss.length - next > 0 ? (
-        <span className="todoCard-details__comments-more" onClick={() => setNext(prev => prev + 10)}>
+      {commentList.length - next > 0 ? (
+        <span
+          className="todoCard-details__comments-more"
+          onClick={() => setNext(prev => prev + 10)}
+        >
           {translate('see_more_cmt')}
         </span>
       ) : (
-        commentss.length > 2 && (
+        commentList.length > 2 && (
           <span className="todoCard-details__comments-more" onClick={() => setNext(2)}>
             {translate('hide_more_cmt')}
           </span>

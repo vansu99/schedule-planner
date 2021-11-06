@@ -6,6 +6,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 function CalendarForm({ onSubmit, event = {} }) {
   const classes = useStyles();
+  const { t: translate } = useTranslation();
   const [content, setContent] = useState({});
 
   useEffect(() => {
@@ -97,7 +99,7 @@ function CalendarForm({ onSubmit, event = {} }) {
       </Box>
       <Box mt={2} display="flex" justifyContent="flex-end" alignItems="center">
         <Button className={classes.btnSubmit} onClick={handleSubmit}>
-          Cập nhật
+          {translate('update')}
         </Button>
       </Box>
     </Box>

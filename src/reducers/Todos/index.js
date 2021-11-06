@@ -346,6 +346,15 @@ export function todosReducer(state = initialState, { type, payload }) {
         cards: { ...state.cards, [payload.cardId]: newCommentCard },
       };
 
+    case 'ADD_REPLY_COMMENT_TODO_CARD':
+      const replyCommentCard = { ...state.cards[payload.cardId] };
+      replyCommentCard.comments.filter(cmt => cmt.id === payload.comment.id).reply = [...payload.comment.reply]
+      //console.log(replyCommentCard)
+      return {
+        ...state,
+        cards: { ...state.cards, [payload.cardId]: replyCommentCard },
+      };
+
     case todoActions.UPDATE_COMMENT_TODO_CARD:
       const newUpdateCommentCard = { ...state.cards[payload.cardId] };
       const index = newUpdateCommentCard.comments.findIndex(

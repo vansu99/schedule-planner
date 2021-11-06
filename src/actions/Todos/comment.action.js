@@ -17,6 +17,7 @@ const asyncAddCommentTodoCard = (cardId, newComment, user) => {
       const data = { ...newComment, cardId };
       const result = await todosApis.addCommentTodoCard(data);
       const newData = { ...result.data.newComment, user: user };
+
       if (result.status === 200) {
         dispatch(actAddCommentTodoCard(cardId, newData));
         dispatch(actHideLoading());
@@ -117,4 +118,5 @@ export const commentActions = {
   asyncLikeCommentTodoCard,
   asyncUnLikeCommentTodoCard,
   asyncUpdateCommentTodoCard,
+  actAddCommentTodoCard
 };
