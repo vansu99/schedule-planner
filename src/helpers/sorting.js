@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const taskSortingType = {
   NONE: 'NONE',
   ALL: 'ALL',
@@ -34,28 +36,26 @@ export function sortString(a, b) {
 }
 
 export function filterTask(item, taskFiltering) {
-  let today = new Date();
-  today.setHours(0, 0, 0, 0);
-  let first = today.getDate() - today.getDay();
-  let last = first + 6;
-  let firstday = new Date(today.setDate(first));
-  let lastday = new Date(today.setDate(last));
-  let firstDayMonth = new Date(today.setDate(1));
-  let lastDayMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  let day = moment(new Date().toISOString()).format('YYYY-MM-DD')
+  let today = moment(day);
+  let first = moment().startOf('week').format('YYYY-MM-DD') // monday
+  let last = moment().endOf('week').format('YYYY-MM-DD') // friday
+  let firstDayMonth = moment().startOf('month')
+  let lastDayMonth = moment().endOf('month')
 
   if (taskFiltering.type === filteringType.ALL_TASK) {
     return item;
   }
   if (taskFiltering.type === filteringType.TODAY) {
-    const date = new Date(item.date);
-    if (date === today) {
+    const date = moment(item.date).format('YYYY-MM-DD')
+    if (today.isSame(date)) {
       return item;
     } else {
       return 0;
     }
   }
   if (taskFiltering.type === filteringType.THISWEEK) {
-    if (new Date(item.date) >= firstday && new Date(item.date) <= lastday) {
+    if (moment(item.date).format('YYYY-MM-DD') >= first && moment(item.date).format('YYYY-MM-DD') <= last) {
       return item;
     } else {
       return 0;
