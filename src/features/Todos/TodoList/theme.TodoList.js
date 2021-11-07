@@ -40,7 +40,6 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '280px',
     minWidth: '280px',
     maxHeight: '80vh',
-    height: '100%',
     padding: '1rem 0.2rem',
     marginRight: theme.spacing(1.2),
     overflow: 'auto',

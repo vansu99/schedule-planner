@@ -80,5 +80,8 @@
   "alphabet": "A - Z",
   "invite": "Mời",
   "clear_all": "Xóa tất cả",
-  "leave_board": "Bạn có chắc muốn rời khỏi bảng này"
+  "leave_board": "Bạn có chắc muốn rời khỏi bảng này",
+  "search_board": "Tìm kiếm bảng",
+  "enter_title_list": "Nhập tên danh sách",
+  "enter_title_card": "Nhập tên thẻ"
 }

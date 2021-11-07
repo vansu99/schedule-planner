@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   todosWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
-    height: '100%',
+    height: '83vh',
     overflowX: 'auto',
     '&::-webkit-scrollbar': {
       width: '6px',

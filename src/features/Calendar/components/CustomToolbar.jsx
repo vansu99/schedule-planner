@@ -71,7 +71,7 @@ function CustomToolbar({ date, onNavigate }) {
         </IconButton>
       </div>
       <Button variant="outlined" onClick={goToCurrent}>
-        Today
+        {translate('today')}
       </Button>
     </div>
   );

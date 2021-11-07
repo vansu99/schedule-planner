@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useParams } from 'react-router-dom';
@@ -56,7 +55,7 @@ function CalendarCpt(props) {
         <Calendar
           localizer={localizer}
           events={events}
-          startAccessor="createdAt"
+          startAccessor="date"
           titleAccessor="title"
           views={['month', 'week']}
           endAccessor="date"

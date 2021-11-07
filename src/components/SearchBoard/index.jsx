@@ -5,6 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { boardsApis } from 'apis';
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   searchBoard: {
@@ -75,6 +76,7 @@ const useStyles = makeStyles(theme => ({
 
 function SearchBoard(props) {
   const classes = useStyles();
+  const { t: translate } = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [boards, setBoards] = useState([]);
@@ -124,7 +126,7 @@ function SearchBoard(props) {
             <SearchIcon fontSize="large" />
           </div>
           <InputBase
-            placeholder="Search project…"
+            placeholder={translate('search_board')}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,

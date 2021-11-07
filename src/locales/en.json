@@ -79,5 +79,8 @@
   "alphabet": "Alphabetical",
   "invite": "Invite",
   "clear_all": "Clear all",
-  "leave_board": "You will be removed from all cards on this board"
+  "leave_board": "You will be removed from all cards on this board",
+  "search_board": "Search board",
+  "enter_title_list": "Enter a title for this list...",
+  "enter_title_card": "Enter a title for this card..."
 }

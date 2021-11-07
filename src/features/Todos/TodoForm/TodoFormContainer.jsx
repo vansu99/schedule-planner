@@ -47,7 +47,7 @@ export default function TodoFormContainer({ isLists, listId }) {
   const { boardId } = useParams();
   const [open, setOpen] = useState(false);
   const label = isLists ? translate('add_list') : translate('add_card');
-  const placeholder = isLists ? 'Nhập tiêu đề danh sách' : 'Enter a title for this card...';
+  const placeholder = isLists ? translate('enter_title_list') : translate('enter_title_card');
   const userId = useSelector(state => state.user.currentUser);
 
   const handleCloseForm = useCallback(() => {
