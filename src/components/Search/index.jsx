@@ -49,6 +49,7 @@ function Search({ boardId, cardId, isProject }) {
       };
       handleFilterMemberTodo(formValues);
     }, 500);
+    setSearch('');
   };
 
   const handleClose = e => {
@@ -91,7 +92,13 @@ function Search({ boardId, cardId, isProject }) {
         <div className={classes.result}>
           <List className={classes.userItem}>
             {users.map(user => (
-              <UserCard user={user} key={user._id} cardId={cardId} boardId={boardId} isProject={isProject} />
+              <UserCard
+                user={user}
+                key={user._id}
+                cardId={cardId}
+                boardId={boardId}
+                isProject={isProject}
+              />
             ))}
           </List>
         </div>

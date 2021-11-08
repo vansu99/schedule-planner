@@ -14,7 +14,6 @@ import { Box, Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 
 function CommentCard({ children, comment, cardId, commentId, replyComments = {} }) {
-  console.log(comment)
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
@@ -49,7 +48,8 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setIsLike(true);
 
     setLoadLike(true);
-    dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user, socket));
+    socket.emit('likeComment', { cardId, comment, user })
+    //dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user, socket));
     setLoadLike(false);
   };
 

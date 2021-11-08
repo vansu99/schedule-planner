@@ -69,10 +69,6 @@ function Comments({ cardId }) {
           replyComments={replyComments.filter(item => item.reply === comment?.id)}
         >
           <div className={classes.cmtReply}>
-            {/*{replyComments.map(*/}
-            {/*  (cmt, index) =>*/}
-            {/*    <CommentCard key={index} comment={cmt.reply} commentId={comment._id} />,*/}
-            {/*)}*/}
             {replyComments.map((cmt, index) => (
               <div key={index}>
                 {cmt.reply.map(

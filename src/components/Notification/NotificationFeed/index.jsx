@@ -55,6 +55,12 @@ function NotificationFeed({ open, onClose }) {
                 userCardChild = <div></div>;
               }
               break;
+            case 'comment':
+              {
+                userCardProps.subTextDark = 'Bình luận vào task của bạn';
+                userCardChild = <div></div>;
+              }
+              break;
             default:
               {
                 userCardProps.subTextDark = <Link></Link>;
