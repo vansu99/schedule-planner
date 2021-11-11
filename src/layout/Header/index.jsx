@@ -96,7 +96,9 @@ export default function Header({ children }) {
                     </span>
                   </MenuItem>
                   <Divider />
-                  <MenuItem>Helps</MenuItem>
+                  <MenuItem>
+                    <Link className={classes.menuLink} to="/users/settings/help">{translate('help')}</Link>
+                  </MenuItem>
                   <MenuItem>
                     <Link className={classes.menuLink} to="/users/settings/edit">{translate('settings')}</Link>
                   </MenuItem>

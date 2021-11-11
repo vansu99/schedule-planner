@@ -65,7 +65,11 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
             href={`/todos/${boardId}/timetable`}
             icon={<CalendarTodayIcon />}
           />
-          <LinkComponent text={translate('reports')} href={`/users/${_id}/report`} icon={<AssessmentIcon />} />
+          <LinkComponent
+            text={translate('reports')}
+            href={`/users/${_id}/report`}
+            icon={<AssessmentIcon />}
+          />
           <Dialog
             open={deleting}
             onClose={() => setDeleting(false)}
@@ -85,7 +89,7 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
               <Button
                 onClick={() => {
                   dispatch(boardActions.asyncRemoveBoardById(boardId));
-                  history.push(pathName.ROOT);
+                  history.push(`/users/${board.userId._id}`);
                 }}
                 color="primary"
                 variant="contained"

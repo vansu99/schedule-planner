@@ -118,7 +118,12 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
   };
 
   const renderFormSetColorProject = () => (
-    <Dialog open={showModalEditColor} fullWidth onClose={toggleEditColor} aria-labelledby="form-dialog-edit-color">
+    <Dialog
+      open={showModalEditColor}
+      fullWidth
+      onClose={toggleEditColor}
+      aria-labelledby="form-dialog-edit-color"
+    >
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
         {translate('pro_details')}
       </DialogTitle>
@@ -126,15 +131,31 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
         <h3 style={{ fontWeight: 500 }}>Choose a color for your project</h3>
         <Box display="flex" alignItems="center" mt={2}>
           {colors.map((color, index) => (
-            <StyledRadio key={index} name="color" value={color} setColorBoard={setColorBoard} checked={image} />
+            <StyledRadio
+              key={index}
+              name="color"
+              value={color}
+              setColorBoard={setColorBoard}
+              checked={image}
+            />
           ))}
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditColor} color="primary">
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          onClick={toggleEditColor}
+          color="primary"
+        >
           {translate('cancel')}
         </Button>
-        <Button variant="outlined" classes={{ root: classes.btn }} color="primary" onClick={editColorBoard}>
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          color="primary"
+          onClick={editColorBoard}
+        >
           {translate('update')}
         </Button>
       </DialogActions>
@@ -189,8 +210,14 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
                   </div>
                   {showDueDate && (
                     <div className="set-duedate">
-                      <CustomDateTimePicker dueDate={duedate || new Date()} onSubmit={editDueDateProject} />
-                      <span className={classes.optionIconDelete} onClick={() => editDueDateProject(null)}>
+                      <CustomDateTimePicker
+                        dueDate={duedate || new Date()}
+                        onSubmit={editDueDateProject}
+                      />
+                      <span
+                        className={classes.optionIconDelete}
+                        onClick={() => editDueDateProject(null)}
+                      >
                         <CancelIcon fontSize="large" />
                       </span>
                     </div>
@@ -206,7 +233,10 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
                   </div>
                   {showDueDate && (
                     <div className="set-duedate">
-                      <CustomDateTimePicker dueDate={duedate || new Date()} onSubmit={editDueDateProject} />
+                      <CustomDateTimePicker
+                        dueDate={duedate || new Date()}
+                        onSubmit={editDueDateProject}
+                      />
                     </div>
                   )}
                 </div>
@@ -221,10 +251,20 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditPro} color="primary">
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          onClick={toggleEditPro}
+          color="primary"
+        >
           {translate('cancel')}
         </Button>
-        <Button variant="outlined" classes={{ root: classes.btn }} color="primary" onClick={updateEditBoard}>
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          color="primary"
+          onClick={updateEditBoard}
+        >
           {translate('update')}
         </Button>
       </DialogActions>
@@ -293,7 +333,7 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
                     borderRadius: '2px',
                     border: '2px solid rgb(184 182 182)',
                   }}
-                ></span>
+                />
                 <span>Set colors</span>
               </Box>
             </MenuItem>

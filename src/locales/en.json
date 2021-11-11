@@ -82,5 +82,14 @@
   "leave_board": "You will be removed from all cards on this board",
   "search_board": "Search board",
   "enter_title_list": "Enter a title for this list...",
-  "enter_title_card": "Enter a title for this card..."
+  "enter_title_card": "Enter a title for this card...",
+  "help": "Helps",
+  "soft_manual": "Software Manuals",
+  "basic_syntax": "Markdown basic syntax",
+  "heading_md": "Heading",
+  "bold_md": "Bold",
+  "italic_md": "Italic",
+  "list_md": "Ordered List",
+  "rule_md": "Horizontal rule",
+  "link_md": "Link"
 }

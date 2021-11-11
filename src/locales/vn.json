@@ -83,5 +83,14 @@
   "leave_board": "Bạn có chắc muốn rời khỏi bảng này",
   "search_board": "Tìm kiếm bảng",
   "enter_title_list": "Nhập tên danh sách",
-  "enter_title_card": "Nhập tên thẻ"
+  "enter_title_card": "Nhập tên thẻ",
+  "help": "Hỗ trợ",
+  "soft_manual": "Hướng dẫn sử dụng phần mềm",
+  "basic_syntax": "Cú pháp cơ bản Markdown",
+  "heading_md": "Tiêu đề",
+  "bold_md": "In đậm",
+  "italic_md": "in nghiêng",
+  "list_md": "Danh sách",
+  "rule_md": "Đường kẻ gạch ngang",
+  "link_md": "Liên kết"
 }

@@ -16,6 +16,7 @@ const UserEdit = lazy(() => import('pages/User/UserProfileEdit'));
 const UserChangePassword = lazy(() => import('pages/User/ChangePassword'));
 const TodoReport = lazy(() => import('pages/Report'));
 const TimeTable = lazy(() => import('features/Calendar'));
+const UserHelp = lazy(() => import('pages/User/UserHelps'))
 
 const routesConfig = [
   {
@@ -56,6 +57,11 @@ const routesConfig = [
         exact: true,
         path: pathName.USER_EDIT,
         component: UserEdit,
+      },
+      {
+        exact: true,
+        path: pathName.USER_HELPS,
+        component: UserHelp
       },
       {
         exact: true,
