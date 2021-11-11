@@ -161,7 +161,6 @@ function TodoCard({
                 descCardContent={description}
                 onRemoveMember={handleRemoveMember}
                 onRemoveDueDate={handleRemoveDueDate}
-                onShowEditDescCard={toggleIsEditDescCard}
                 onToggleCoverAttack={handleToggleShowAttach}
               />
             )}

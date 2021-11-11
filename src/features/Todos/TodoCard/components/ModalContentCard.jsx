@@ -51,7 +51,6 @@ import Search from '../../../../components/Search';
 
 const RenderModalContentCard = ({
   onToggleCoverAttack,
-  onShowEditDescCard,
   onRemoveDueDate,
   descCardContent,
   onRemoveMember,
@@ -134,7 +133,6 @@ const RenderModalContentCard = ({
 
   const handleEditDescCard = () => {
     dispatch(cardActions.asyncEditDescTodoCard(_id, { description: content }));
-    onShowEditDescCard();
   };
 
   return (
@@ -220,7 +218,7 @@ const RenderModalContentCard = ({
               </Typography>
               {descCardContent ? (
                 <Box pt={2.8} pl={3.5}>
-                  <p>{descCardContent}</p>
+                  <p>test {descCardContent}</p>
                 </Box>
               ) : (
                 <Box pt={2.8} pl={3.5}>
@@ -240,9 +238,6 @@ const RenderModalContentCard = ({
                     className={classes.btnMarginRight}
                   >
                     {translate('update')}
-                  </Button>
-                  <Button disableRipple variant="outlined">
-                    {translate('cancel')}
                   </Button>
                 </Box>
               )}

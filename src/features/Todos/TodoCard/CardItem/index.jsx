@@ -46,7 +46,7 @@ const TodoCardItem = ({
           <CardContent>
             {label?.length > 0 ? (
               <Box mb={1} className={classes.box}>
-                {(label || []).map((value, index) => (
+                {(label || []).map(value => (
                   <Chip
                     classes={{ root: classes.chipTags }}
                     key={value.color}
@@ -60,7 +60,7 @@ const TodoCardItem = ({
               <Typography className={classes.title} variant="h6" component="h6">
                 {completed && (
                   <span className="icon-complete">
-                    <i className="bx bxs-check-circle"></i>
+                    <i className="bx bxs-check-circle" />
                   </span>
                 )}{' '}
                 {title}
@@ -101,7 +101,7 @@ const TodoCardItem = ({
             </div>
             {description ? (
               <span className="todoCard__detail-icon">
-                <i className="bx bx-detail"></i>
+                <i className="bx bx-detail" />
               </span>
             ) : null}
             {showAttach && (
@@ -111,7 +111,7 @@ const TodoCardItem = ({
                   backgroundImage: `url(${attachItem})`,
                   backgroundSize: 'cover',
                 }}
-              ></div>
+              />
             )}
             {attachments?.length > 1 && (
               <div className={classes.cardIcon}>

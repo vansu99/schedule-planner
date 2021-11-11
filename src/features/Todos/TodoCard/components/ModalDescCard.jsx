@@ -48,6 +48,7 @@ import Comments from '../Comment';
 import InputComment from '../Comment/InputComment';
 import useStyles from '../theme.todoCard';
 import Search from '../../../../components/Search';
+import ReactMarkdown from 'react-markdown'
 
 const RenderModalWithDescCard = ({
   onToggleCoverAttack,
@@ -236,7 +237,9 @@ const RenderModalWithDescCard = ({
                     label="Save"
                   />
                 ) : (
-                  <p className={classes.todoCardDescription}>{descCardContent}</p>
+                  <ReactMarkdown>
+                    {descCardContent}
+                  </ReactMarkdown>
                 )}
               </Box>
             </Box>
