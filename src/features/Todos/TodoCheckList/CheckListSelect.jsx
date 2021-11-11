@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   btnMarginTop: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CheckListSelect({ checklist, cardId }) {
+  const { t: translate } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
   const [checkedValues, setCheckedValues] = useState([]);
@@ -74,7 +76,7 @@ function CheckListSelect({ checklist, cardId }) {
         className={classes.btnMarginTop}
         onClick={handleUpdateCheckList}
       >
-        Lưu công việc chi tiết
+        {translate('update')}
       </Button>
     </>
   );
