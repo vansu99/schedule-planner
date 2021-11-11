@@ -48,7 +48,7 @@ import Comments from '../Comment';
 import InputComment from '../Comment/InputComment';
 import useStyles from '../theme.todoCard';
 import Search from '../../../../components/Search';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 
 const RenderModalWithDescCard = ({
   onToggleCoverAttack,
@@ -102,7 +102,10 @@ const RenderModalWithDescCard = ({
       ...infoLabel,
       value,
     };
-    dispatch(labelActions.asyncAddLabelTodo(_id, newLabelTodo));
+    if (infoLabel.name !== '') {
+      dispatch(labelActions.asyncAddLabelTodo(_id, newLabelTodo));
+    }
+
     setInfoLabel({
       name: '',
       color: '',
@@ -237,9 +240,7 @@ const RenderModalWithDescCard = ({
                     label="Save"
                   />
                 ) : (
-                  <ReactMarkdown>
-                    {descCardContent}
-                  </ReactMarkdown>
+                  <ReactMarkdown>{descCardContent}</ReactMarkdown>
                 )}
               </Box>
             </Box>

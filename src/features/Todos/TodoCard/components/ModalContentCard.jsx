@@ -99,7 +99,10 @@ const RenderModalContentCard = ({
       ...infoLabel,
       value,
     };
-    dispatch(labelActions.asyncAddLabelTodo(_id, newLabelTodo));
+    if (infoLabel.name !== '') {
+      dispatch(labelActions.asyncAddLabelTodo(_id, newLabelTodo));
+    }
+
     setInfoLabel({
       name: '',
       color: '',
@@ -403,7 +406,12 @@ const RenderModalContentCard = ({
                         </RadioGroup>
                       </FormControl>
                     </Box>
-                    <Button variant="contained" color="primary" onClick={handleAddLabelTodoCard} disableRipple>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAddLabelTodoCard}
+                      disableRipple
+                    >
                       {translate('create_label')}
                     </Button>
                   </Box>

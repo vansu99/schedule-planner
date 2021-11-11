@@ -44,9 +44,11 @@ function UserProfile(props) {
   const classes = useStyles();
 
   useEffect(async () => {
-    await dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
-    await dispatch(fetchNotificationsStart());
-  }, [id, dispatch]);
+    if (currentUser.boardId) {
+      await dispatch(boardActions.asyncGetBoardById(currentUser.boardId));
+      await dispatch(fetchNotificationsStart());
+    }
+  }, [dispatch]);
 
   const handleAddBoard = () => {
     dispatch(boardActions.asyncAddBoard(currentUser._id, dataBoard));
@@ -183,7 +185,7 @@ function UserProfile(props) {
             </Box>
           ) : null}
           <div>
-            <h3 className={classes.titleBoard}>{ translate('recent_board') }</h3>
+            <h3 className={classes.titleBoard}>{translate('recent_board')}</h3>
             <div className={classes.gallaryRow}>
               {boards.map(board => (
                 <div

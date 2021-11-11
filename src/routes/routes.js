@@ -43,11 +43,11 @@ const routesConfig = [
     guard: AuthGuard,
     layout: MainLayout,
     routes: [
-      {
-        exact: true,
-        path: pathName.ROOT,
-        component: Home,
-      },
+      // {
+      //   exact: true,
+      //   path: pathName.ROOT,
+      //   component: Home,
+      // },
       {
         exact: true,
         path: pathName.USER_CHANGE_PASSWORD,

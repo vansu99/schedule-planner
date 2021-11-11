@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: '1.5rem',
     paddingRight: '1.5rem',
   },
+  notResult: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 function Search({ boardId, cardId, isProject }) {
@@ -49,7 +52,6 @@ function Search({ boardId, cardId, isProject }) {
       };
       handleFilterMemberTodo(formValues);
     }, 500);
-    setSearch('');
   };
 
   const handleClose = e => {
@@ -71,7 +73,7 @@ function Search({ boardId, cardId, isProject }) {
     <div className={classes.search}>
       <form>
         <FormControl size="small" variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Search Member</InputLabel>
+          <InputLabel htmlFor="outlined-adornment-password">Search</InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             type="text"
@@ -103,6 +105,9 @@ function Search({ boardId, cardId, isProject }) {
           </List>
         </div>
       )}
+      {users.length === 0 && search.length > 0 ? (
+        <p className={classes.notResult}>Không tìm thấy kết quả</p>
+      ) : null}
     </div>
   );
 }

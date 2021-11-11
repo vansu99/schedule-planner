@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '4px',
     borderColor: '#d0c7c7',
     fontSize: '1.5rem',
+    resize: 'none',
     '&:focus': {
       borderColor: '#0348FF',
     },
