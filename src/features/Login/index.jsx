@@ -7,6 +7,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
+import history from 'helpers/history';
 
 function Login(props) {
   const classes = useStyles();
@@ -32,7 +33,7 @@ function Login(props) {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={pathName.TODO_LIST} />;
+    history.push(pathName.TODO_LIST)
   } else {
     return (
       <div className={clsx(classes.loginWrapper, 'fade-in')}>

@@ -1,8 +1,7 @@
-import Footer from 'components/Footer';
 import React, { memo, useState, useEffect } from 'react';
 import { userActions } from 'actions/User';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import history from 'helpers/history';
 import { pathName } from 'configs';
 import RegisterForm from './RegisterForm';
 
@@ -22,7 +21,7 @@ function Register() {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={pathName.TODO_LIST} />;
+    history.push(pathName.TODO_LIST)
   } else {
     return (
       <div className="fade-in">

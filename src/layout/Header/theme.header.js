@@ -82,7 +82,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   menuLink: {
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
+    fontSize: '16px',
+    display: 'block',
+    padding: '6px 15px'
   }
 }));
 

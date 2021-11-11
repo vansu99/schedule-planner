@@ -17,6 +17,7 @@ import { userActions } from '../../actions/User';
 import Logo from 'assets/images/logo.png';
 import useStyles from './theme.header';
 import { useGlobalContext } from '../../contexts/global-context';
+import { pathName } from "../../configs";
 
 export default function Header({ children }) {
   const classes = useStyles();
@@ -75,7 +76,6 @@ export default function Header({ children }) {
                 <Menu
                   className={classes.menuSelect}
                   id="menu-appbar"
-                  keepMounted
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleCloseMenu}
@@ -96,15 +96,9 @@ export default function Header({ children }) {
                     </span>
                   </MenuItem>
                   <Divider />
-                  <MenuItem>
-                    <Link className={classes.menuLink} to="/users/settings/help">{translate('help')}</Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link className={classes.menuLink} to="/users/settings/edit">{translate('settings')}</Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link className={classes.menuLink} to="/users/settings/edit">{translate('user_info')}</Link>
-                  </MenuItem>
+                  <Link className={classes.menuLink} to={{ pathname: pathName.USER_HELPS }}>{translate('help')}</Link>
+                  <Link className={classes.menuLink} to="/users/settings/edit">{translate('settings')}</Link>
+                  <Link className={classes.menuLink} to="/users/settings/edit">{translate('user_info')}</Link>
                   <Divider />
 
                   {loggedInUser?.type === 'google' ? (

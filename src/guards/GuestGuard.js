@@ -1,13 +1,12 @@
-import { pathName } from '../configs';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import history from 'helpers/history';
 
 const GuestGuard = ({ children }) => {
   const user = useSelector(state => state.user.currentUser);
   const isLoggedIn = user._id;
 
-  if (isLoggedIn) return <Redirect to={pathName.ROOT} />;
+  if (isLoggedIn) history.push(`/users/${user._id}`)
   return <>{children}</>;
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { pathName, StorageKeys } from '../configs';
+import history from 'helpers/history';
 
 const AuthGuard = ({ children }) => {
   // check token cho các trang trong Dashboard
@@ -9,7 +9,7 @@ const AuthGuard = ({ children }) => {
   const isLoggedIn = user._id;
 
   // false -> redirect login
-  if (!isLoggedIn && !localStorage.getItem(StorageKeys.TOKEN)) return <Redirect to={pathName.LOGIN} />;
+  if (!isLoggedIn && !localStorage.getItem(StorageKeys.TOKEN)) history.push(pathName.LOGIN);
 
   return <>{children}</>;
 };
