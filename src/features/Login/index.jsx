@@ -17,6 +17,10 @@ function Login(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    document.title = `Schedule Planner`;
+  }, []);
+
+  useEffect(() => {
     if (user.isAuthenticated === true) {
       setIsAuthenticated(true);
     }
