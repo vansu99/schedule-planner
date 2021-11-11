@@ -371,7 +371,7 @@ export function todosReducer(state = initialState, { type, payload }) {
       const cmtIndex = newUpdateLikeCommentCard.comments.findIndex(
         value => value._id === payload.comment._id,
       );
-      newUpdateLikeCommentCard.comments[cmtIndex].likes = [...payload.comment.likes];
+      newUpdateLikeCommentCard.comments[cmtIndex].likes.push(payload.comment.likes);
       return {
         ...state,
         cards: { ...state.cards, [payload.cardId]: newUpdateLikeCommentCard },

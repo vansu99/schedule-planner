@@ -49,7 +49,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
 
     setLoadLike(true);
     socket.emit('likeComment', { cardId, comment, user })
-    //dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user, socket));
+    dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user));
     setLoadLike(false);
   };
 

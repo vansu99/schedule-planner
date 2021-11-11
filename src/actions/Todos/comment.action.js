@@ -57,14 +57,10 @@ const actLikeCommentTodoCard = (cardId, comment) => {
   };
 };
 
-const asyncLikeCommentTodoCard = (cardId, comment, user, socket) => {
+const asyncLikeCommentTodoCard = (cardId, comment, user) => {
   return async dispatch => {
     try {
-      const result = await todosApis.likeCommentTodoCard(comment._id, user);
-      if (result.status === 200) {
-        dispatch(actLikeCommentTodoCard(cardId, result.data.likeComment));
-        socket.emit('likeComment', result.data);
-      }
+      dispatch(actLikeCommentTodoCard(cardId, { _id: comment._id, likes: user._id }));
     } catch (error) {
       console.log(error);
     }
