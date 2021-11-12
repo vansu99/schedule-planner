@@ -6,7 +6,6 @@
 + Context API
 + Redux
 + Redux-thunk
-+ TailwindCSS
 + Material UI
 
 ### FEATURES
@@ -22,7 +21,6 @@
 + MongoDB
 + NodeJs
 + ExpressJs
-+ Passport
 
 ### Mô tả
 
