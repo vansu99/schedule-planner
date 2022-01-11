@@ -12,7 +12,7 @@ export const ChangeAvatarButon = ({ children }) => {
 
   useEffect(() => {}, []);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     if (currentUser.image) {
       event.preventDefault();
       console.log('co anh roi ne');
@@ -20,14 +20,17 @@ export const ChangeAvatarButon = ({ children }) => {
     inputRef.current.click();
   };
 
-  const changeAvatar = event => {
+  const changeAvatar = (event) => {
     dispatch(userActions.changeAvatarStart(event.target.files[0]));
     if (!error) showToast('Profile picture updated.', 'success');
   };
 
   return (
     <React.Fragment>
-      <label style={{ cursor: 'pointer' }} onClick={event => handleClick(event)}>
+      <label
+        style={{ cursor: 'pointer' }}
+        onClick={(event) => handleClick(event)}
+      >
         {children ? children : 'Change Profile Photo'}
       </label>
       <input
@@ -36,7 +39,7 @@ export const ChangeAvatarButon = ({ children }) => {
         accept="image/*"
         style={{ display: 'none' }}
         ref={inputRef}
-        onChange={event => changeAvatar(event)}
+        onChange={(event) => changeAvatar(event)}
       />
     </React.Fragment>
   );

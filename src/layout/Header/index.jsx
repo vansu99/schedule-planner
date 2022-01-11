@@ -24,19 +24,19 @@ export default function Header({ children }) {
   const { t: translate } = useTranslation();
   const { setModeTheme } = useGlobalContext();
   const [anchorEl, setAnchorEl] = useState(null);
-  const loggedInUser = useSelector(state => state.user.currentUser);
+  const loggedInUser = useSelector((state) => state.user.currentUser);
   const isLoggedIn = !!loggedInUser._id; // có id là loggedIn
 
   const handleLogout = () => {
     dispatch(userActions.actLogout());
-    setModeTheme('light')
+    setModeTheme('light');
   };
 
-  const onLogoutSuccess = res => {
+  const onLogoutSuccess = (res) => {
     dispatch(userActions.actLogout());
   };
 
-  const handleUserClick = e => {
+  const handleUserClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -45,7 +45,8 @@ export default function Header({ children }) {
   };
 
   const { signOut } = useGoogleLogout({
-    clientId: '500873698006-726sfiv7bhb9f8i2h4ve36qi820j2jm2.apps.googleusercontent.com',
+    clientId:
+      '500873698006-726sfiv7bhb9f8i2h4ve36qi820j2jm2.apps.googleusercontent.com',
     onLogoutSuccess,
   });
 
@@ -68,7 +69,11 @@ export default function Header({ children }) {
             <Divider orientation="vertical" variant="middle" />
             {isLoggedIn && (
               <>
-                <IconButton color="inherit" aria-controls="menu-appbar" onClick={handleUserClick}>
+                <IconButton
+                  color="inherit"
+                  aria-controls="menu-appbar"
+                  onClick={handleUserClick}
+                >
                   <Avatar src={loggedInUser.image} className={classes.small} />
                   <KeyboardArrowDownIcon />
                 </IconButton>
@@ -104,7 +109,9 @@ export default function Header({ children }) {
                   {loggedInUser?.type === 'google' ? (
                     <MenuItem onClick={signOut}>{translate('logout')}</MenuItem>
                   ) : (
-                    <MenuItem onClick={handleLogout}>{translate('logout')}</MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      {translate('logout')}
+                    </MenuItem>
                   )}
                 </Menu>
               </>

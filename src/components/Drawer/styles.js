@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: `280px`,
     flexShrink: 0,
@@ -124,7 +124,7 @@ const useStyles = makeStyles(theme => ({
     width: '350px',
     float: 'right',
     height: 'calc(100vh - 5rem)',
-    right: props => (props.isDrawer === false ? '-100%' : theme.spacing(0)),
+    right: (props) => (props.isDrawer === false ? '-100%' : theme.spacing(0)),
     top: '100%',
     transform: 'translateY(-100%)',
     borderRadius: theme.spacing(0),

@@ -5,7 +5,7 @@ import typography from './typography';
 
 const typeTheme = [light, dark];
 
-const themes = type =>
+const themes = (type) =>
   createMuiTheme({
     ...typeTheme[type],
     typography: { ...typography },

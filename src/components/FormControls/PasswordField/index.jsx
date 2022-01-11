@@ -18,11 +18,17 @@ function PasswordField({ form, name, label, disabled }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
-    setShowPassword(x => !x);
+    setShowPassword((x) => !x);
   };
 
   return (
-    <FormControl error={hasError} fullWidth margin="dense" variant="outlined" size="small">
+    <FormControl
+      error={hasError}
+      fullWidth
+      margin="dense"
+      variant="outlined"
+      size="small"
+    >
       <InputLabel htmlFor={name}>{label}</InputLabel>
 
       <Controller
@@ -36,7 +42,11 @@ function PasswordField({ form, name, label, disabled }) {
             label={label}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" onClick={toggleShowPassword} edge="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={toggleShowPassword}
+                  edge="end"
+                >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>

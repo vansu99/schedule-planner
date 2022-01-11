@@ -1,13 +1,13 @@
 import axiosClient from '../services/axiosClient';
 
 const activityApis = {
-  createNewActivity: params => {
+  createNewActivity: (params) => {
     return axiosClient.post('/api/activities', params);
   },
-  deleteActivity: id => {
+  deleteActivity: (id) => {
     return axiosClient.delete(`/api/activities/${id}`);
   },
-  clearAllActivity: boardId => {
+  clearAllActivity: (boardId) => {
     return axiosClient.delete(`/api/activities/clear/${boardId}`);
   },
 };

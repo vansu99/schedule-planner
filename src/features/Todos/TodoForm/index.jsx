@@ -1,15 +1,30 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import useStyles from './theme.todoForm';
 import { Box, IconButton, Button } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useForm, Controller } from 'react-hook-form';
 
-function TodoForm({ onCloseForm, text, submit, name = '', placeholder, label }) {
+TodoForm.propTypes = {
+  text: PropTypes.string,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+};
+
+TodoForm.defaultProps = {
+  text: '',
+  name: '',
+  label: '',
+  placeholder: '',
+};
+
+function TodoForm({ onCloseForm, text, submit, name, placeholder, label }) {
   const classes = useStyles();
   const { handleSubmit, control, reset } = useForm();
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     submit && submit(data);
     reset();
   };
@@ -38,10 +53,20 @@ function TodoForm({ onCloseForm, text, submit, name = '', placeholder, label }) 
         )}
       />
       <Box display="flex" mt={1} alignItems="center">
-        <Button disableRipple type="submit" variant="contained" color="primary" className={classes.btn}>
+        <Button
+          disableRipple
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.btn}
+        >
           {label}
         </Button>
-        <IconButton disableRipple onClick={closeForm} style={{ marginLeft: '8px' }}>
+        <IconButton
+          disableRipple
+          onClick={closeForm}
+          style={{ marginLeft: '8px' }}
+        >
           <ClearIcon fontSize="default" color="error" />
         </IconButton>
       </Box>

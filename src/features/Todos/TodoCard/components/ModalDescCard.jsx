@@ -81,17 +81,20 @@ const RenderModalWithDescCard = ({
   const [startDate, setStartDate] = useState(new Date());
   const [completedTodo, setCompletedTodo] = useState(completed);
   const [infoLabel, setInfoLabel] = useState({ name: '', color: '' });
-  const [todoCheckListContent, todoCheckListContentChange, reset] = useInput('');
+  const [todoCheckListContent, todoCheckListContentChange, reset] =
+    useInput('');
 
-  const handleRemoveAttachTodo = attachId => {
+  const handleRemoveAttachTodo = (attachId) => {
     dispatch(cardActions.asyncRemoveAttachTodoCard(_id, attachId));
   };
 
   const handleUpdateCompletedTodo = () => {
-    dispatch(cardActions.asyncUpdateCompletedTodoCard(_id, completedTodo, boardId));
+    dispatch(
+      cardActions.asyncUpdateCompletedTodoCard(_id, completedTodo, boardId)
+    );
   };
 
-  const handleAddMemberProject = user => {
+  const handleAddMemberProject = (user) => {
     dispatch(cardActions.asyncAddMemberTodoCard(_id, user));
   };
 
@@ -119,7 +122,7 @@ const RenderModalWithDescCard = ({
     reset();
   };
 
-  const onAddAttachTodo = event => {
+  const onAddAttachTodo = (event) => {
     const value = `attackItem-${uuidv4()}`;
     const newAttach = {
       value,
@@ -153,7 +156,7 @@ const RenderModalWithDescCard = ({
                     disableRipple
                     size="medium"
                     checked={Boolean(completedTodo)}
-                    onChange={e => setCompletedTodo(e.target.checked)}
+                    onChange={(e) => setCompletedTodo(e.target.checked)}
                   />
                 }
                 label="Hoàn thành công việc"
@@ -162,13 +165,21 @@ const RenderModalWithDescCard = ({
             </Box>
             {label?.length !== 0 ? (
               <Box className={classes.todoCardLabels}>
-                <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    className={classes.todoCardTitle}
+                  >
                     <LabelIcon fontSize="large" /> {translate('label')}
                   </Typography>
                 </Box>
                 <Box display="flex" mt={2} ml={2}>
-                  {(label || []).map(item => (
+                  {(label || []).map((item) => (
                     <Chip
                       key={item.color}
                       label={item.name}
@@ -182,11 +193,18 @@ const RenderModalWithDescCard = ({
             ) : null}
             {!!date ? (
               <Box className={classes.todoCardDueDate}>
-                <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  className={classes.todoCardTitle}
+                >
                   <AccessAlarmsIcon fontSize="large" /> {translate('due_date')}
                 </Typography>
                 <div className={classes.dueDateBox}>
-                  <CustomDateTimePicker dueDate={date} onSubmit={onEditDueDate} />
+                  <CustomDateTimePicker
+                    dueDate={date}
+                    onSubmit={onEditDueDate}
+                  />
                   <div className={classes.dueDateAction}>
                     <IconButton disableRipple onClick={onRemoveDueDate}>
                       <DeleteOutlineIcon fontSize="large" />
@@ -196,11 +214,15 @@ const RenderModalWithDescCard = ({
               </Box>
             ) : null}
             <Box className={classes.todoCardMembers}>
-              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+              <Typography
+                variant="h5"
+                component="h5"
+                className={classes.todoCardTitle}
+              >
                 <GroupIcon fontSize="large" /> {translate('member')}
               </Typography>
               <Box display="flex" flexWrap="wrap" mt={1.5}>
-                {(member || []).map(value => (
+                {(member || []).map((value) => (
                   <Chip
                     key={value._id}
                     className={classes.chipEl}
@@ -212,7 +234,11 @@ const RenderModalWithDescCard = ({
               </Box>
             </Box>
             <Box className="todoCardDescription">
-              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+              <Typography
+                variant="h5"
+                component="h5"
+                className={classes.todoCardTitle}
+              >
                 <DescriptionIcon fontSize="large" /> {translate('description')}
               </Typography>
               {descCardContent && !isEditDescCard ? (
@@ -236,13 +262,20 @@ const RenderModalWithDescCard = ({
                     label="Save"
                   />
                 ) : (
-                  <p className={classes.todoCardDescription}>{descCardContent}</p>
+                  <p className={classes.todoCardDescription}>
+                    {descCardContent}
+                  </p>
                 )}
               </Box>
             </Box>
             <Box mt={3.4} className={classes.todoCardCheckList}>
-              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
-                <PlaylistAddCheckIcon fontSize="large" /> {translate('checklist')}
+              <Typography
+                variant="h5"
+                component="h5"
+                className={classes.todoCardTitle}
+              >
+                <PlaylistAddCheckIcon fontSize="large" />{' '}
+                {translate('checklist')}
               </Typography>
               {checklist.length > 0 ? (
                 <Box mt={1.5}>
@@ -252,7 +285,11 @@ const RenderModalWithDescCard = ({
                 <Typography
                   variant="subtitle1"
                   component="p"
-                  style={{ opacity: 0.6, padding: '10px 0 0 25px', fontSize: '15px' }}
+                  style={{
+                    opacity: 0.6,
+                    padding: '10px 0 0 25px',
+                    fontSize: '15px',
+                  }}
                 >
                   Chưa có việc cần làm
                 </Typography>
@@ -260,10 +297,14 @@ const RenderModalWithDescCard = ({
             </Box>
             {attachments?.length > 0 && (
               <Box mt={3.4} className={classes.todoCardCheckList}>
-                <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  className={classes.todoCardTitle}
+                >
                   <AttachFileIcon fontSize="large" /> Attachments
                 </Typography>
-                {(attachments || []).map(m => (
+                {(attachments || []).map((m) => (
                   <div key={m.id} className={classes.attachmentIem}>
                     <div
                       className={classes.attachmentImg}
@@ -311,7 +352,11 @@ const RenderModalWithDescCard = ({
               </Box>
             )}
             <Box mt={3.8} className={classes.todoCardComments}>
-              <Typography variant="h5" component="h5" className={classes.todoCardTitle}>
+              <Typography
+                variant="h5"
+                component="h5"
+                className={classes.todoCardTitle}
+              >
                 <ChatIcon fontSize="large" /> {translate('comment')}
               </Typography>
               <Comments cardId={_id} />
@@ -337,11 +382,16 @@ const RenderModalWithDescCard = ({
                 <AccordionCpt title="member" icon="bx bx-user">
                   <Search cardId={_id} />
                   <div className={classes.members}>
-                    {getCurrBoard[0]?.member?.map(mem => (
+                    {getCurrBoard[0]?.member?.map((mem) => (
                       <div key={mem?._id} className="member-item">
                         <Avatar src={mem?.image} alt={mem?.username} />
-                        <span style={{ paddingLeft: '0.8rem' }}>{mem?.username}</span>
-                        <IconButton disableRipple onClick={() => handleAddMemberProject(mem?._id)}>
+                        <span style={{ paddingLeft: '0.8rem' }}>
+                          {mem?.username}
+                        </span>
+                        <IconButton
+                          disableRipple
+                          onClick={() => handleAddMemberProject(mem?._id)}
+                        >
                           <AddBoxIcon />
                         </IconButton>
                       </div>
@@ -358,24 +408,42 @@ const RenderModalWithDescCard = ({
                       size="small"
                       label="Nhập tên nhãn công việc"
                       value={infoLabel.name}
-                      onChange={e => setInfoLabel({ ...infoLabel, name: e.target.value })}
+                      onChange={(e) =>
+                        setInfoLabel({ ...infoLabel, name: e.target.value })
+                      }
                     />
                     <Box mt={2} mb={2.5} display="flex" alignItems="baseline">
                       <FormControl>
-                        <FormLabel className={classes.formLabel}>Color</FormLabel>
+                        <FormLabel className={classes.formLabel}>
+                          Color
+                        </FormLabel>
                         <RadioGroup
                           aria-label="labelcolor"
                           name="labelcolor"
                           value={infoLabel.color}
-                          onChange={e => setInfoLabel({ ...infoLabel, color: e.target.value })}
+                          onChange={(e) =>
+                            setInfoLabel({
+                              ...infoLabel,
+                              color: e.target.value,
+                            })
+                          }
                         >
-                          <Box mt={1} display="flex" alignItems="center" position="relative" key={index}>
+                          <Box
+                            mt={1}
+                            display="flex"
+                            alignItems="center"
+                            position="relative"
+                            key={index}
+                          >
                             {labelColors.map((label, index) => (
                               <Box position="relative" key={index}>
                                 <Radio
                                   disableRipple
                                   value={label}
-                                  classes={{ root: classes.radio, checked: classes.checked }}
+                                  classes={{
+                                    root: classes.radio,
+                                    checked: classes.checked,
+                                  }}
                                 />
                                 <span
                                   style={{
@@ -396,7 +464,12 @@ const RenderModalWithDescCard = ({
                         </RadioGroup>
                       </FormControl>
                     </Box>
-                    <Button disableRipple variant="contained" color="primary" onClick={handleAddLabelTodoCard}>
+                    <Button
+                      disableRipple
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAddLabelTodoCard}
+                    >
                       Thêm nhãn công việc
                     </Button>
                   </Box>
@@ -408,7 +481,7 @@ const RenderModalWithDescCard = ({
                     <Box mb={1.5}>
                       <DateTimePicker
                         value={startDate}
-                        onChange={date => setStartDate(date)}
+                        onChange={(date) => setStartDate(date)}
                         format="dd/MM/yyyy HH:mm"
                         InputProps={{
                           endAdornment: (
@@ -421,7 +494,12 @@ const RenderModalWithDescCard = ({
                         }}
                       />
                     </Box>
-                    <Button disableRipple variant="contained" color="primary" onClick={handleAddDeadLineTodo}>
+                    <Button
+                      disableRipple
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAddDeadLineTodo}
+                    >
                       Thêm ngày deadline
                     </Button>
                   </Box>
@@ -440,7 +518,12 @@ const RenderModalWithDescCard = ({
                       onChange={todoCheckListContentChange}
                     />
                     <Box mt={1.5}>
-                      <Button disableRipple variant="contained" color="primary" onClick={handleAddCheckList}>
+                      <Button
+                        disableRipple
+                        variant="contained"
+                        color="primary"
+                        onClick={handleAddCheckList}
+                      >
                         Thêm checklist
                       </Button>
                     </Box>
@@ -453,7 +536,10 @@ const RenderModalWithDescCard = ({
                     <Typography variant="h6" component="h6" align="center">
                       Attach From
                     </Typography>
-                    <label className={classes.attachmentInput} htmlFor="attach-computer">
+                    <label
+                      className={classes.attachmentInput}
+                      htmlFor="attach-computer"
+                    >
                       <PublishIcon />
                       <span>Computer</span>
                     </label>
@@ -463,7 +549,7 @@ const RenderModalWithDescCard = ({
                       id="attach-computer"
                       accept="image/*"
                       style={{ display: 'none' }}
-                      onChange={e => onAddAttachTodo(e)}
+                      onChange={(e) => onAddAttachTodo(e)}
                     />
                   </Box>
                 </AccordionCpt>

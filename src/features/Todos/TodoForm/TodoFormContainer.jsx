@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import TodoForm from './index';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxHeight: '100%',
     padding: '0 8px',
@@ -47,14 +47,16 @@ export default function TodoFormContainer({ isLists, listId }) {
   const { boardId } = useParams();
   const [open, setOpen] = useState(false);
   const label = isLists ? translate('add_list') : translate('add_card');
-  const placeholder = isLists ? 'Nhập tiêu đề danh sách' : 'Enter a title for this card...';
-  const userId = useSelector(state => state.user.currentUser);
+  const placeholder = isLists
+    ? 'Nhập tiêu đề danh sách'
+    : 'Enter a title for this card...';
+  const userId = useSelector((state) => state.user.currentUser);
 
   const handleCloseForm = useCallback(() => {
     setOpen(false);
   }, []);
 
-  const handleAddList = async data => {
+  const handleAddList = async (data) => {
     if (data.title === '') return;
     const newList = { title: data.title, cards: [] };
 
@@ -63,12 +65,12 @@ export default function TodoFormContainer({ isLists, listId }) {
       activityActions.asyncCreateNewActivity({
         text: `${userId.username} added ${newList.title} to this board`,
         boardId: boardId,
-      }),
+      })
     );
     setOpen(false);
   };
 
-  const handleAddCard = data => {
+  const handleAddCard = (data) => {
     if (data.title === '') return;
 
     const newCards = {
@@ -82,7 +84,7 @@ export default function TodoFormContainer({ isLists, listId }) {
       activityActions.asyncCreateNewActivity({
         text: `${userId.username} added ${newCards.title} task to this list`,
         boardId: boardId,
-      }),
+      })
     );
     setOpen(false);
   };
@@ -92,7 +94,6 @@ export default function TodoFormContainer({ isLists, listId }) {
       <Collapse in={open}>
         <TodoForm
           onCloseForm={handleCloseForm}
-          text=""
           name="title"
           placeholder={placeholder}
           label={label}
@@ -100,7 +101,11 @@ export default function TodoFormContainer({ isLists, listId }) {
         />
       </Collapse>
       <Collapse in={!open}>
-        <Button disableRipple className={classes.addCard} onClick={() => setOpen(!open)}>
+        <Button
+          disableRipple
+          className={classes.addCard}
+          onClick={() => setOpen(!open)}
+        >
           <i className="bx bx-plus"></i>
           <Typography variant="h6" component="h6" color="textPrimary">
             {label}

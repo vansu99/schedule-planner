@@ -5,7 +5,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import PropTypes from 'prop-types';
 import React, { memo } from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   todoReportCard: {
     display: 'flex',
     flexDirection: 'column',
@@ -33,11 +33,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TodoReportCard({ title, completed, calPercent = 100, color, loading }) {
+function TodoReportCard({
+  title,
+  completed,
+  calPercent = 100,
+  color,
+  loading,
+}) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.todoReportCard} style={{ borderBottom: `7px solid ${color}` }}>
+    <Card
+      className={classes.todoReportCard}
+      style={{ borderBottom: `7px solid ${color}` }}
+    >
       <Typography variant="h4" component="h4">
         {title}
       </Typography>
@@ -46,7 +55,11 @@ function TodoReportCard({ title, completed, calPercent = 100, color, loading }) 
       ) : (
         <Typography variant="h4" component="h5">
           {completed}
-          <Typography variant="subtitle2" component="span" className={classes.todoCardPercent}>
+          <Typography
+            variant="subtitle2"
+            component="span"
+            className={classes.todoCardPercent}
+          >
             ({isNaN(calPercent) ? 0 : calPercent}%)
           </Typography>
         </Typography>

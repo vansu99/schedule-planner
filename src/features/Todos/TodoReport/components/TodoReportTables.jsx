@@ -62,7 +62,7 @@ function TodoReportTables({ team = [], loading }) {
           </TableBody>
         ) : (
           <TableBody>
-            {(team || []).map(row => (
+            {(team || []).map((row) => (
               <TableRow key={row?.id}>
                 <TableCell component="th" scope="row">
                   {row?.username}

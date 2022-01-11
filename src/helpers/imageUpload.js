@@ -1,4 +1,4 @@
-const checkImage = file => {
+const checkImage = (file) => {
   let err = '';
   if (!file) return (err = 'File does not exist');
 

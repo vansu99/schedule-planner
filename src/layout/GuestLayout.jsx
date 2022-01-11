@@ -13,7 +13,7 @@ GuestLayout.defaultProps = {
   children: null,
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   app: {
     position: 'relative',
     minHeight: '100vh',
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 function GuestLayout({ children }) {
   const classes = useStyles();
-  const isLoading = useSelector(state => state.app.loading);
+  const isLoading = useSelector((state) => state.app.loading);
 
   return (
     <div className={classes.app}>

@@ -1,13 +1,13 @@
 import axiosClient from '../services/axiosClient';
 
 const userApis = {
-  login: user => {
+  login: (user) => {
     return axiosClient.post('/api/auth/login', user);
   },
-  loginWithGoogle: user => {
+  loginWithGoogle: (user) => {
     return axiosClient.post('/api/auth/google', user);
   },
-  register: user => {
+  register: (user) => {
     return axiosClient.post('/api/auth/register', user);
   },
   logout: () => {
@@ -16,7 +16,7 @@ const userApis = {
   getMe: () => {
     return axiosClient.post('/api/auth/me');
   },
-  searchUser: search => {
+  searchUser: (search) => {
     return axiosClient.get(`/api/users/search/by?username=${search}`);
   },
   updateUserProfile: (id, user) => {
@@ -25,7 +25,7 @@ const userApis = {
   addBoardIdToUser: (id, value) => {
     return axiosClient.post(`/api/users/${id}/boards`, { value });
   },
-  changeAvatar: image => {
+  changeAvatar: (image) => {
     const formData = new FormData();
     formData.append('image', image);
     return axiosClient.put('/api/users/avatar', formData, {

@@ -41,7 +41,9 @@ const lightTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ['Montserrat', "'Kaushan Script'", 'Arial', 'sans-serif'].join(','),
+    fontFamily: ['Montserrat', "'Kaushan Script'", 'Arial', 'sans-serif'].join(
+      ','
+    ),
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,

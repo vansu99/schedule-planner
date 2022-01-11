@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Fade } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  popupMenu: props => ({
+const useStyles = makeStyles((theme) => ({
+  popupMenu: (props) => ({
     '& .MuiMenu-paper': {
       //top: '102px !important',
       //left: '98rem !important',

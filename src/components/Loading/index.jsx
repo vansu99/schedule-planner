@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   loader: {
     width: '100%',
     height: '100%',
@@ -27,7 +27,12 @@ export default function Loading({ isLoading }) {
 
   return isLoading ? (
     <div className={classes.loader}>
-      <svg width="100px" height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <svg
+        width="100px"
+        height="100px"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid"
+      >
         <path
           fill="none"
           stroke="#07abcc"

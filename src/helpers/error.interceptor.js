@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function errorInterceptor() {
-  axios.interceptors.response.use(null, error => {
+  axios.interceptors.response.use(null, (error) => {
     const { response } = error;
     if (!response) {
       // network error

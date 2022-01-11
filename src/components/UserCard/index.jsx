@@ -33,11 +33,18 @@ function UserCard({ user, cardId, boardId, isProject }) {
   return (
     <ListItem divider disableGutters className={classes.userItem}>
       <ListItemAvatar style={{ minWidth: '4rem' }}>
-        <Avatar src={user.image} alt={user.username} className={classes.userAvatar} />
+        <Avatar
+          src={user.image}
+          alt={user.username}
+          className={classes.userAvatar}
+        />
       </ListItemAvatar>
       <ListItemText primary={user.username} />
       <ListItemSecondaryAction className={classes.userAction}>
-        <IconButton disableRipple onClick={isProject ? handleAddMemberProject : handleAddMemberTodo}>
+        <IconButton
+          disableRipple
+          onClick={isProject ? handleAddMemberProject : handleAddMemberTodo}
+        >
           <AddBoxIcon />
         </IconButton>
       </ListItemSecondaryAction>

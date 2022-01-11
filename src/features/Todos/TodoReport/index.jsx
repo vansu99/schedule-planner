@@ -12,11 +12,11 @@ function TodoReport({ reports = {}, team, totalCards, loading }) {
   const classes = useStyles();
 
   const calPercentCompletedTodo = useCallback(
-    value => {
+    (value) => {
       let result = Math.round((value / totalCards) * 100).toFixed(1);
       return result || 0;
     },
-    [totalCards],
+    [totalCards]
   );
 
   useEffect(() => {
@@ -35,7 +35,12 @@ function TodoReport({ reports = {}, team, totalCards, loading }) {
         <Grid container spacing={3}>
           <Grid item xs>
             <Paper elevation={3}>
-              <TodoReportCard loading={loading} title="Tổng công việc" completed={totalCards} color="#2E86AB" />
+              <TodoReportCard
+                loading={loading}
+                title="Tổng công việc"
+                completed={totalCards}
+                color="#2E86AB"
+              />
             </Paper>
           </Grid>
           <Grid item xs>
@@ -55,7 +60,9 @@ function TodoReport({ reports = {}, team, totalCards, loading }) {
                 title="Hoàn thành"
                 loading={loading}
                 completed={reports.cardCompleted?.length}
-                calPercent={calPercentCompletedTodo(reports.cardCompleted?.length)}
+                calPercent={calPercentCompletedTodo(
+                  reports.cardCompleted?.length
+                )}
                 color="#35CE8D"
               />
             </Paper>

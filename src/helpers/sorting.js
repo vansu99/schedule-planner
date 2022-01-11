@@ -62,7 +62,10 @@ export function filterTask(item, taskFiltering) {
     }
   }
   if (taskFiltering.type === filteringType.THISMONTH) {
-    if (new Date(item.date) >= firstDayMonth && new Date(item.date) <= lastDayMonth) {
+    if (
+      new Date(item.date) >= firstDayMonth &&
+      new Date(item.date) <= lastDayMonth
+    ) {
       return item;
     } else {
       return 0;

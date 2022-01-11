@@ -12,7 +12,7 @@ function Login(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Login(props) {
     }
   }, [location.pathname]);
 
-  const handleSubmit = values => {
+  const handleSubmit = (values) => {
     dispatch(userActions.asyncLogin(values));
   };
 

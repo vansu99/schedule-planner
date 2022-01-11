@@ -8,7 +8,7 @@ import RegisterForm from './RegisterForm';
 
 function Register() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function Register() {
     }
   }, [user]);
 
-  const handleSubmit = values => {
+  const handleSubmit = (values) => {
     dispatch(userActions.asyncRegister(values));
   };
 

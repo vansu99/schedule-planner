@@ -4,14 +4,14 @@ import { StorageKeys, UserActionTypes } from 'configs';
 import history from 'helpers/history';
 
 // GET ME
-const actGetMeSuccess = user => {
+const actGetMeSuccess = (user) => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_SUCCESS,
     payload: { user },
   };
 };
 
-const actGetMeFailure = error => {
+const actGetMeFailure = (error) => {
   return {
     type: UserActionTypes.SET_CURRENT_USER_FAILURE,
     error,
@@ -19,7 +19,7 @@ const actGetMeFailure = error => {
 };
 
 const asyncGetMe = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const response = await userApis.getMe();
       dispatch(actGetMeSuccess(response.data.user));
@@ -37,15 +37,15 @@ const actLoginSuccess = (token, userInfo) => {
   };
 };
 
-const actLoginFailure = error => {
+const actLoginFailure = (error) => {
   return {
     type: UserActionTypes.ACTION_LOGIN_ERROR,
     error,
   };
 };
 
-const asyncLogin = user => {
-  return async dispatch => {
+const asyncLogin = (user) => {
+  return async (dispatch) => {
     try {
       const response = await userApis.login(user);
       const token = response.data?.token;
@@ -60,8 +60,8 @@ const asyncLogin = user => {
   };
 };
 
-const asyncRegister = user => {
-  return async dispatch => {
+const asyncRegister = (user) => {
+  return async (dispatch) => {
     try {
       const response = await userApis.register(user);
       const token = response.data?.token;
@@ -82,7 +82,7 @@ const actLogout = () => {
 };
 
 // UPDATE USER PROFILE
-const actUpdateUserProfile = user => {
+const actUpdateUserProfile = (user) => {
   return {
     type: UserActionTypes.ACTION_UPDATE_USER_PROFILE,
     payload: { user },
@@ -90,7 +90,7 @@ const actUpdateUserProfile = user => {
 };
 
 const asyncUpdateUserProfile = (id, user) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await userApis.updateUserProfile(id, user);
       if (result.status === 200) {
@@ -103,7 +103,7 @@ const asyncUpdateUserProfile = (id, user) => {
   };
 };
 
-const changeAvatarStart = formData => async dispatch => {
+const changeAvatarStart = (formData) => async (dispatch) => {
   try {
     dispatch({ type: UserActionTypes.CHANGE_AVATAR_START });
     const response = await userApis.changeAvatar(formData);
@@ -119,13 +119,16 @@ const changeAvatarStart = formData => async dispatch => {
   }
 };
 
-const removeAvatarStart = () => async dispatch => {
+const removeAvatarStart = () => async (dispatch) => {
   try {
     dispatch({ type: UserActionTypes.REMOVE_AVATAR_START });
     await userApis.removeAvatar();
     dispatch({ type: UserActionTypes.REMOVE_AVATAR_SUCCESS });
   } catch (err) {
-    dispatch({ type: UserActionTypes.REMOVE_AVATAR_FAILURE, payload: err.message });
+    dispatch({
+      type: UserActionTypes.REMOVE_AVATAR_FAILURE,
+      payload: err.message,
+    });
   }
 };
 

@@ -5,16 +5,16 @@ const todosApis = {
   getAllCardTodo: () => {
     return axiosClient.get('/api/cards');
   },
-  getCardTodoBySlug: slug => {
+  getCardTodoBySlug: (slug) => {
     return axiosClient.get(`/api/cards/${slug}`);
   },
-  getCardTodoById: id => {
+  getCardTodoById: (id) => {
     return axiosClient.get(`/api/cards/${id}`);
   },
-  createCardTodo: card => {
+  createCardTodo: (card) => {
     return axiosClient.post('/api/cards', card);
   },
-  removeCardTodo: id => {
+  removeCardTodo: (id) => {
     return axiosClient.delete(`/api/cards/${id}`);
   },
   updateSingleCardTodo: (id, data) => {
@@ -41,7 +41,7 @@ const todosApis = {
   removeMemberTodoCard: (id, memberId) => {
     return axiosClient.delete(`/api/cards/${id}/member/${memberId}`);
   },
-  addCommentTodoCard: comment => {
+  addCommentTodoCard: (comment) => {
     return axiosClient.post('/api/comments', comment);
   },
   updateCommentTodoCard: (id, content) => {
@@ -53,7 +53,7 @@ const todosApis = {
   unLikeCommentTodoCard: (id, user) => {
     return axiosClient.patch(`/api/comments/${id}/unlike`, { user });
   },
-  removeCommentTodoCard: id => {
+  removeCommentTodoCard: (id) => {
     return axiosClient.delete(`/api/comments/${id}`);
   },
   addAttachmentTodoCard: (id, form) => {
@@ -71,7 +71,9 @@ const todosApis = {
     return axiosClient.delete(`/api/cards/${id}/attachment/${attachId}`);
   },
   searchTodoCard: (boardId, option) => {
-    return axiosClient.get(`/api/cards/search?boardId=${boardId}&${queryString.stringify(option)}`);
+    return axiosClient.get(
+      `/api/cards/search?boardId=${boardId}&${queryString.stringify(option)}`
+    );
   },
 };
 

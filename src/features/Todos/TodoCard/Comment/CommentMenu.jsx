@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core';
 import { commentActions } from 'actions/Todos/comment.action';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   menuTitile: {
     fontSize: '1.5rem',
   },
@@ -27,7 +27,7 @@ function CommentMenu({ comment, setOnEdit }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -50,7 +50,10 @@ function CommentMenu({ comment, setOnEdit }) {
             className={classes.menuButtonIcon}
             disableRipple
           >
-            <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '2rem' }}></i>
+            <i
+              className="bx bx-dots-vertical-rounded"
+              style={{ fontSize: '2rem' }}
+            ></i>
           </IconButton>
           <Menu
             id="long-menu"

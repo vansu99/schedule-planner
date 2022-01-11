@@ -4,10 +4,10 @@ const labelsApis = {
   getAllLabelsTodo: () => {
     return axiosClient.get('/api/labels');
   },
-  getLabelTodoById: id => {
+  getLabelTodoById: (id) => {
     return axiosClient.get(`/api/labels/${id}`);
   },
-  createLabelTodo: label => {
+  createLabelTodo: (label) => {
     return axiosClient.post('/api/labels', label);
   },
 };

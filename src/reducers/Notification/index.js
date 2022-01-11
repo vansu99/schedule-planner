@@ -31,7 +31,9 @@ export function notifyReducer(state = initialState, action) {
       };
     }
     case NOTIFICATIONS.FETCH_NOTIFICATIONS_SUCCESS: {
-      const unreadCount = action.payload.filter(notification => notification.read === false).length;
+      const unreadCount = action.payload.filter(
+        (notification) => notification.read === false
+      ).length;
       return {
         ...state,
         fetching: false,
@@ -42,7 +44,7 @@ export function notifyReducer(state = initialState, action) {
     }
     case NOTIFICATIONS.READ_NOTIFICATIONS: {
       const notifications = JSON.parse(JSON.stringify(state.notifications));
-      notifications.forEach(notification => (notification.read = true));
+      notifications.forEach((notification) => (notification.read = true));
       return {
         ...state,
         unreadCount: 0,

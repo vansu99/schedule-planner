@@ -11,7 +11,7 @@ const actAddLabelTodo = (cardId, label) => {
 };
 
 const asyncAddLabelTodo = (cardId, label) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.addLabelTodoCard(cardId, label);
       if (result.status === 201) {
@@ -31,7 +31,7 @@ const actRemoveLabelTodoCard = (cardId, labelId) => {
 };
 
 const asyncRemoveLabelTodo = (cardId, labelId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.removeLabelTodoCard(cardId, labelId);
       if (result.status === 200) {

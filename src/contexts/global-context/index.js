@@ -33,14 +33,14 @@ const reducer = (state, { type, payload }) => {
 const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const _handleSetModeTheme = mode => {
+  const _handleSetModeTheme = (mode) => {
     dispatch({
       type: 'SET_MODE_THEME',
       payload: mode,
     });
   };
 
-  const _handleChangeLanguage = language => {
+  const _handleChangeLanguage = (language) => {
     dispatch({
       type: 'SET_LANGUAGE',
       payload: language,

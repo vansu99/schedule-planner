@@ -4,20 +4,22 @@ const completedTodoApis = {
   getAllReport: () => {
     return axiosClient.get(`/api/reports`);
   },
-  getReportByBoardId: boardId => {
+  getReportByBoardId: (boardId) => {
     return axiosClient.post(`/api/reports/board`, { boardId });
   },
-  getReportById: id => {
+  getReportById: (id) => {
     return axiosClient.get(`/api/reports/${id}`);
   },
-  createReportTodo: boardId => {
+  createReportTodo: (boardId) => {
     return axiosClient.post('/api/reports', { boardId });
   },
   addCompletedTodo: (boardId, value) => {
     return axiosClient.patch(`/api/reports/completed`, { boardId, value });
   },
   removeCompletedTodo: (boardId, completedId) => {
-    return axiosClient.patch(`/api/reports/completed/${completedId}`, { boardId });
+    return axiosClient.patch(`/api/reports/completed/${completedId}`, {
+      boardId,
+    });
   },
   addFailedTodo: (boardId, value) => {
     return axiosClient.patch(`/api/reports/failed`, { boardId, value });
@@ -27,10 +29,10 @@ const completedTodoApis = {
   },
 
   // teamwork
-  getMemberTeamTodo: boardId => {
+  getMemberTeamTodo: (boardId) => {
     return axiosClient.get(`/api/teamworks/completed/${boardId}`);
   },
-  addTeamWork: value => {
+  addTeamWork: (value) => {
     return axiosClient.post('/api/teamworks', value);
   },
 };

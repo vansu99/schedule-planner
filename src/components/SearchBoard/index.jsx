@@ -6,7 +6,7 @@ import { boardsApis } from 'apis';
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   searchBoard: {
     '& .MuiFormControl-marginNormal': {
       margin: 0,
@@ -81,7 +81,7 @@ function SearchBoard(props) {
   const typingTimeoutRef = useRef(null);
   const [msg, setMsg] = useState('');
 
-  const handleChangeSearch = ev => {
+  const handleChangeSearch = (ev) => {
     setOpen(true);
     setSearch(ev.target.value);
 
@@ -103,9 +103,9 @@ function SearchBoard(props) {
     const result = await boardsApis.searchBoard(searchTerm);
     if (result.data.boards) {
       setBoards([...result.data.boards]);
-      setMsg('')
+      setMsg('');
     } else {
-      setBoards([])
+      setBoards([]);
       setMsg(result.data.msg);
     }
   };
@@ -137,7 +137,7 @@ function SearchBoard(props) {
           {!!boards.length && open ? (
             <div className={classes.autocomplete}>
               <ul>
-                {boards.map(board => {
+                {boards.map((board) => {
                   return (
                     <li key={board._id}>
                       <Link
@@ -155,11 +155,13 @@ function SearchBoard(props) {
               </ul>
             </div>
           ) : null}
-          {!!msg && <div className={classes.autocomplete}>
-            <Typography variant="body2" component="p">
-              {msg}
-            </Typography>
-          </div>}
+          {!!msg && (
+            <div className={classes.autocomplete}>
+              <Typography variant="body2" component="p">
+                {msg}
+              </Typography>
+            </div>
+          )}
         </div>
       </ClickAwayListener>
     </div>

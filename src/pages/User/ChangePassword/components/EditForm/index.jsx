@@ -15,7 +15,7 @@ const schemaForm = yup.object().shape({
   password: yup.string().required('Vui lòng nhập mật khẩu.'),
 });
 
-const ChangePasswordEditForms = props => {
+const ChangePasswordEditForms = (props) => {
   const classes = useStyles();
   const currentUser = useSelector(getCurrentUser);
   const form = useForm({
@@ -27,7 +27,7 @@ const ChangePasswordEditForms = props => {
     resolver: yupResolver(schemaForm),
   });
 
-  const handleSubmitForm = values => {};
+  const handleSubmitForm = (values) => {};
 
   const { isSubmitting } = form.formState;
 
@@ -47,7 +47,11 @@ const ChangePasswordEditForms = props => {
       <Box my={3}>
         <PasswordField form={form} label="Old Password" name="oldPassword" />
         <PasswordField form={form} label="New Password" name="newPassword" />
-        <PasswordField form={form} label="Confirm Password" name="confirmPassword" />
+        <PasswordField
+          form={form}
+          label="Confirm Password"
+          name="confirmPassword"
+        />
         <Button
           disabled={isSubmitting}
           type="submit"

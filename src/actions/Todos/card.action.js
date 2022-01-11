@@ -3,7 +3,7 @@ import showToast from 'components/Toast';
 import { todoActions } from 'configs';
 import { actShowLoading, actHideLoading } from '../Global';
 
-const actGetALlCardTodo = cardss => {
+const actGetALlCardTodo = (cardss) => {
   return {
     type: todoActions.GET_CARDS,
     payload: { cardss },
@@ -11,7 +11,7 @@ const actGetALlCardTodo = cardss => {
 };
 
 const asyncGetAllCardTodo = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await todosApis.getAllCardTodo();
@@ -36,8 +36,8 @@ const actAddTodoCard = (listID, card) => {
   };
 };
 
-const asyncAddTodoCard = todo => {
-  return async dispatch => {
+const asyncAddTodoCard = (todo) => {
+  return async (dispatch) => {
     try {
       const { list } = todo;
       const result = await todosApis.createCardTodo(todo);
@@ -60,7 +60,7 @@ const actRemoveTodoCard = (listId, cardId) => {
 };
 
 const asyncRemoveTodoCard = (listId, cardId, boardId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.removeCardTodo(cardId);
       if (result.status === 200) {
@@ -85,10 +85,11 @@ const actEditTodoCard = (cardId, cardContent) => {
 };
 
 const asyncEditTodoCard = (cardId, data) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, data);
-      if (result.status === 200) dispatch(actEditTodoCard(cardId, result.data.result?.title));
+      if (result.status === 200)
+        dispatch(actEditTodoCard(cardId, result.data.result?.title));
     } catch (error) {
       console.log(error);
     }
@@ -103,10 +104,11 @@ const actEditDetailTodoCard = (cardId, cardContent) => {
 };
 
 const asyncEditDetailTodoCard = (cardId, content) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, content);
-      if (result.status === 200) dispatch(actEditDetailTodoCard(cardId, result.data.result));
+      if (result.status === 200)
+        dispatch(actEditDetailTodoCard(cardId, result.data.result));
     } catch (error) {
       console.log(error);
     }
@@ -114,7 +116,7 @@ const asyncEditDetailTodoCard = (cardId, content) => {
 };
 
 const asyncUpdateCompletedTodoCard = (cardId, completed, boardId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.updateCompletedCardTodo(cardId, completed);
       if (result.status === 200) {
@@ -138,10 +140,11 @@ const actEditDescTodoCard = (cardId, desc) => {
 };
 
 const asyncEditDescTodoCard = (cardId, data) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, data);
-      if (result.status === 200) dispatch(actEditDescTodoCard(cardId, data.description));
+      if (result.status === 200)
+        dispatch(actEditDescTodoCard(cardId, data.description));
     } catch (error) {
       console.log(error);
     }
@@ -156,10 +159,11 @@ const actAddCheckListCard = (cardId, checklist) => {
 };
 
 const asyncAddCheckListCard = (cardId, checklist) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.addCheckListTodoCard(cardId, checklist);
-      if (result.status === 201) dispatch(actAddCheckListCard(cardId, checklist));
+      if (result.status === 201)
+        dispatch(actAddCheckListCard(cardId, checklist));
     } catch (error) {
       console.log(error);
     }
@@ -174,12 +178,13 @@ const actEditCheckListTodoCard = (cardId, checklist) => {
 };
 
 const asyncEditCheckListTodoCard = (cardId, checklist) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, {
         checklist,
       });
-      if (result.status === 200) dispatch(actEditCheckListTodoCard(cardId, checklist));
+      if (result.status === 200)
+        dispatch(actEditCheckListTodoCard(cardId, checklist));
     } catch (error) {
       console.log(error);
     }
@@ -194,9 +199,12 @@ const actRemoveCheckListTodoCard = (cardId, checklistId) => {
 };
 
 const asyncRemoveCheckListTodoCard = (cardId, checklistId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const result = await todosApis.removeCheckListTodoCard(cardId, checklistId);
+      const result = await todosApis.removeCheckListTodoCard(
+        cardId,
+        checklistId
+      );
       if (result.status === 200) {
         showToast(result.data.msg, 'success');
         dispatch(actRemoveCheckListTodoCard(cardId, checklistId));
@@ -215,7 +223,7 @@ const actAddDealineTodoCard = (cardId, deadline) => {
 };
 
 const asyncAddDeadlineTodoCard = (cardId, date) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.updateSingleCardTodo(cardId, { date });
       if (result.status === 200) {
@@ -235,7 +243,7 @@ const actAddMemberTodoCard = (cardId, member) => {
 };
 
 const asyncAddMemberTodoCard = (cardId, value) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.addMemberTodoCard(cardId, { value });
       const newMember = result.data.card.member;
@@ -256,7 +264,7 @@ const actRemoveMemberTodoCard = (cardId, member) => {
 };
 
 const asyncRemoveMemberTodoCard = (cardId, value) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.removeMemberTodoCard(cardId, value);
       if (result.status === 200) {
@@ -270,7 +278,7 @@ const asyncRemoveMemberTodoCard = (cardId, value) => {
 };
 
 const asyncAddAttachTodoCard = (cardId, form) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.addAttachmentTodoCard(cardId, form);
       if (result.status === 201) {
@@ -291,7 +299,7 @@ const asyncAddAttachTodoCard = (cardId, form) => {
 };
 
 const asyncRemoveAttachTodoCard = (cardId, attachId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.removeAttachTodoCard(cardId, attachId);
       if (result.status === 200) {
@@ -311,9 +319,11 @@ const asyncRemoveAttachTodoCard = (cardId, attachId) => {
 };
 
 const asyncSearchTodoCard = (boardId, option) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const response = await todosApis.searchTodoCard(boardId, { _sort: option });
+      const response = await todosApis.searchTodoCard(boardId, {
+        _sort: option,
+      });
       if (response.status === 200) {
         const result = response.data?.card.reduce((acc, cur) => {
           acc[cur._id] = cur;

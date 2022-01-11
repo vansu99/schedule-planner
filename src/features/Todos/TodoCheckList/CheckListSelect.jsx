@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   btnMarginTop: {
     marginTop: theme.spacing(1),
   },
@@ -34,30 +34,34 @@ function CheckListSelect({ checklist, cardId }) {
         acc.percentage = (acc.finished / acc.total) * 100;
         return acc;
       },
-      { finished: 0, total: 0, percentage: 0 },
+      { finished: 0, total: 0, percentage: 0 }
     );
     return resutlt;
   }, [checklist]);
 
   const handleChange = useCallback(
-    item => {
-      setCheckedValues(checkedValues.map(el => (el.value === item.value ? { ...el, status: !el.status } : el)));
+    (item) => {
+      setCheckedValues(
+        checkedValues.map((el) =>
+          el.value === item.value ? { ...el, status: !el.status } : el
+        )
+      );
     },
-    [checkedValues],
+    [checkedValues]
   );
 
   const handleUpdateCheckList = () => {
     dispatch(cardActions.asyncEditCheckListTodoCard(cardId, checkedValues));
   };
 
-  const handleRemoveCheckList = checklistId => {
+  const handleRemoveCheckList = (checklistId) => {
     dispatch(cardActions.asyncRemoveCheckListTodoCard(cardId, checklistId));
   };
 
   return (
     <>
       <LinearWithValueLabel completedTodo={completedPercent.percentage} />
-      {checkedValues?.map(option => (
+      {checkedValues?.map((option) => (
         <CheckBox
           key={option.value}
           name="checklist-group"

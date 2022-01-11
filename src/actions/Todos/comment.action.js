@@ -11,7 +11,7 @@ const actAddCommentTodoCard = (cardId, comment) => {
 };
 
 const asyncAddCommentTodoCard = (cardId, newComment, user) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const data = { ...newComment, cardId };
@@ -36,9 +36,11 @@ const actUpdateCommentTodoCard = (cardId, newUpdateComment, user) => {
 };
 
 const asyncUpdateCommentTodoCard = (cardId, comment, content, user) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const result = await todosApis.updateCommentTodoCard(comment._id, { content });
+      const result = await todosApis.updateCommentTodoCard(comment._id, {
+        content,
+      });
       if (result.status === 200) {
         dispatch(actUpdateCommentTodoCard(cardId, result.data.comment, user));
         showToast(result.data.msg, 'success');
@@ -57,7 +59,7 @@ const actLikeCommentTodoCard = (cardId, comment) => {
 };
 
 const asyncLikeCommentTodoCard = (cardId, comment, user, socket) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.likeCommentTodoCard(comment._id, user);
       if (result.status === 200) {
@@ -78,7 +80,7 @@ const actUnLikeCommentTodoCard = (cardId, comment) => {
 };
 
 const asyncUnLikeCommentTodoCard = (cardId, comment, user, socket) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await todosApis.unLikeCommentTodoCard(comment._id, user);
       if (result.status === 200) {
@@ -98,7 +100,7 @@ const actRemoveComment = (comment, cardId) => {
 };
 
 const asyncRemoveComment = (commentId, cardId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const removeComment = await todosApis.removeCommentTodoCard(commentId);
       if (removeComment.status === 200) {

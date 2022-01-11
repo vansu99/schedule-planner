@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   todoCardLeft: {
     width: 'calc(70% - 1rem)',
     marginRight: '1rem',

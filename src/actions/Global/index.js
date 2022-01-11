@@ -13,13 +13,13 @@ export const actHideLoading = () => {
   };
 };
 
-export const addNotification = notification => ({
+export const addNotification = (notification) => ({
   type: NOTIFICATIONS.ADD_NOTIFICATION,
   payload: notification,
 });
 
 export const fetchNotificationsStart = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch({ type: NOTIFICATIONS.FETCH_NOTIFICATIONS_START });
       const response = await notificationsApis.retrieveNotifications();
@@ -37,7 +37,7 @@ export const fetchNotificationsStart = () => {
 };
 
 export const readNotificationsStart = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch({ type: NOTIFICATIONS.READ_NOTIFICATIONS });
       await notificationsApis.readNotifications();
@@ -55,30 +55,32 @@ export const hideAlert = () => ({
   type: appConstants.HIDE_ALERT,
 });
 
-export const showAlert = (text, onClick = null) => (dispatch, getState) => {
-  const state = getState();
-  clearTimeout(state.alert.timeoutId);
-  const timeout = setTimeout(() => {
-    dispatch(hideAlert());
-    dispatch({ type: appConstants.SET_ALERT_TIMEOUT_ID, payload: null });
-  }, 5000);
-  dispatch({ type: appConstants.SET_ALERT_TIMEOUT_ID, payload: timeout });
+export const showAlert =
+  (text, onClick = null) =>
+  (dispatch, getState) => {
+    const state = getState();
+    clearTimeout(state.alert.timeoutId);
+    const timeout = setTimeout(() => {
+      dispatch(hideAlert());
+      dispatch({ type: appConstants.SET_ALERT_TIMEOUT_ID, payload: null });
+    }, 5000);
+    dispatch({ type: appConstants.SET_ALERT_TIMEOUT_ID, payload: timeout });
 
-  if (state.alert.showAlert) {
-    dispatch(hideAlert());
-    setTimeout(() => {
+    if (state.alert.showAlert) {
+      dispatch(hideAlert());
+      setTimeout(() => {
+        dispatch({
+          type: appConstants.SHOW_ALERT,
+          payload: { text, onClick },
+        });
+      }, 500);
+    } else {
       dispatch({
         type: appConstants.SHOW_ALERT,
         payload: { text, onClick },
       });
-    }, 500);
-  } else {
-    dispatch({
-      type: appConstants.SHOW_ALERT,
-      payload: { text, onClick },
-    });
-  }
-};
+    }
+  };
 
 export const setDialog = (isShow, type = 'error', content = '') => ({
   type: appConstants.SHOW_DIALOG,

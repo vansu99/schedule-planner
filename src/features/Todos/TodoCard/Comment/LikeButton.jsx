@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   likeIcon: {
     fontSize: '2rem',
     cursor: 'pointer',
@@ -29,7 +29,11 @@ function LikeButton({ isLike, handleLike, handleUnLike }) {
           style={{ filter: isLike ? 'brightness(4.5)' : 'invert(1)' }}
         />
       ) : (
-        <FavoriteIcon color="secondary" className={`${classes.likeIcon} bx bx-heart`} onClick={_onUnLike} />
+        <FavoriteIcon
+          color="secondary"
+          className={`${classes.likeIcon} bx bx-heart`}
+          onClick={_onUnLike}
+        />
       )}
     </>
   );

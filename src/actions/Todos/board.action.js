@@ -3,7 +3,7 @@ import showToast from 'components/Toast';
 import { todoActions } from 'configs';
 import { actShowLoading, actHideLoading } from '../Global';
 
-const actGetAllBoards = boards => {
+const actGetAllBoards = (boards) => {
   return {
     type: todoActions.GET_ALL_BOARDS,
     payload: boards,
@@ -11,7 +11,7 @@ const actGetAllBoards = boards => {
 };
 
 const asyncGetAllBoards = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.getAllBoardsTodo();
@@ -26,15 +26,15 @@ const asyncGetAllBoards = () => {
   };
 };
 
-const actGetColumnByBoardId = columns => {
+const actGetColumnByBoardId = (columns) => {
   return {
     type: todoActions.GET_COLUMNS,
     payload: { columns },
   };
 };
 
-const asyncGetColumnByBoardId = id => {
-  return async dispatch => {
+const asyncGetColumnByBoardId = (id) => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.getColumnsFromBoard(id);
@@ -50,7 +50,7 @@ const asyncGetColumnByBoardId = id => {
   };
 };
 
-const actAddBoard = board => {
+const actAddBoard = (board) => {
   return {
     type: todoActions.ADD_BOARDS,
     payload: board,
@@ -58,7 +58,7 @@ const actAddBoard = board => {
 };
 
 const asyncAddBoard = (userId, title) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.createBoardTodo({ userId, title });
@@ -73,15 +73,15 @@ const asyncAddBoard = (userId, title) => {
   };
 };
 
-const actGetBoardById = board => {
+const actGetBoardById = (board) => {
   return {
     type: todoActions.GET_BOARD_BY_ID,
     payload: board,
   };
 };
 
-const asyncGetBoardById = ids => {
-  return async dispatch => {
+const asyncGetBoardById = (ids) => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.getBoardById(ids);
@@ -96,15 +96,15 @@ const asyncGetBoardById = ids => {
   };
 };
 
-const actGetListsFromBoard = lists => {
+const actGetListsFromBoard = (lists) => {
   return {
     type: todoActions.GET_LISTS,
     payload: { lists },
   };
 };
 
-const asyncGetListsFromBoard = id => {
-  return async dispatch => {
+const asyncGetListsFromBoard = (id) => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.getListsFromBoard(id);
@@ -123,15 +123,15 @@ const asyncGetListsFromBoard = id => {
   };
 };
 
-const actGetCardsFromBoard = cardss => {
+const actGetCardsFromBoard = (cardss) => {
   return {
     type: todoActions.GET_CARDS,
     payload: { cardss },
   };
 };
 
-const asyncGetCardsFromBoard = id => {
-  return async dispatch => {
+const asyncGetCardsFromBoard = (id) => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await boardsApis.getCardsFromBoard(id);
@@ -150,15 +150,15 @@ const asyncGetCardsFromBoard = id => {
   };
 };
 
-const actRemoveBoardById = boardId => {
+const actRemoveBoardById = (boardId) => {
   return {
     type: todoActions.REMOVE_BOARDS,
     payload: { boardId },
   };
 };
 
-const asyncRemoveBoardById = boardId => {
-  return async dispatch => {
+const asyncRemoveBoardById = (boardId) => {
+  return async (dispatch) => {
     try {
       const result = await boardsApis.removeBoardById(boardId);
       if (result.status === 200) {
@@ -172,7 +172,7 @@ const asyncRemoveBoardById = boardId => {
 };
 
 const asyncGetActivity = (boardId, last, limit) => {
-  return async dispatch => {
+  return async (dispatch) => {
     let params = '';
     if (last) params += `&last=${last}`;
     if (limit) params += `&limit=${limit || 10}`;
@@ -194,8 +194,8 @@ const asyncGetActivity = (boardId, last, limit) => {
   };
 };
 
-const asyncUpdateTitleBoardById = data => {
-  return async dispatch => {
+const asyncUpdateTitleBoardById = (data) => {
+  return async (dispatch) => {
     try {
       const result = await boardsApis.updateBoardById(data.id, {
         title: data.value,
@@ -215,8 +215,8 @@ const asyncUpdateTitleBoardById = data => {
     }
   };
 };
-const asyncUpdateDueDateBoardById = data => {
-  return async dispatch => {
+const asyncUpdateDueDateBoardById = (data) => {
+  return async (dispatch) => {
     try {
       const result = await boardsApis.updateBoardById(data.id, {
         duedate: data.duedate,
@@ -236,8 +236,8 @@ const asyncUpdateDueDateBoardById = data => {
   };
 };
 
-const asyncUpdateColorBoardById = data => {
-  return async dispatch => {
+const asyncUpdateColorBoardById = (data) => {
+  return async (dispatch) => {
     try {
       const result = await boardsApis.updateBoardById(data._id, {
         image: data.colorBoard,
@@ -258,9 +258,12 @@ const asyncUpdateColorBoardById = data => {
 };
 
 const asyncAddMemberProject = (id, value, memberInfor) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const result = await boardsApis.addMemberProject(id, { value, memberInfor });
+      const result = await boardsApis.addMemberProject(id, {
+        value,
+        memberInfor,
+      });
       const newMember = result.data.board;
       if (result.status === 200) {
         dispatch({
@@ -275,7 +278,7 @@ const asyncAddMemberProject = (id, value, memberInfor) => {
 };
 
 const asyncRemoveMemberProject = (id, memberId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await boardsApis.removeMemberProject(id, memberId);
       const newMember = result.data.board;

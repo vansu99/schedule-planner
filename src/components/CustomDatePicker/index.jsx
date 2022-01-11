@@ -13,7 +13,7 @@ function CustomDateTimePicker({ dueDate, onSubmit }) {
     handleDateChange(dueDate);
   }, [dueDate]);
 
-  const handleSubmit = data => {
+  const handleSubmit = (data) => {
     handleDateChange(data);
     onSubmit(data);
   };

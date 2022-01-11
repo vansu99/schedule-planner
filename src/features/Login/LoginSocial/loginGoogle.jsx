@@ -13,7 +13,7 @@ function LoginGoogle(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { t: translate } = useTranslation();
-  const successGoogleLogin = async data => {
+  const successGoogleLogin = async (data) => {
     const { profileObj, tokenId } = data;
     const formLoginData = {
       socialId: profileObj?.googleId,
@@ -26,9 +26,15 @@ function LoginGoogle(props) {
       if (response.data?.user?.socialId === profileObj?.googleId) {
         //let count = 0;
         const token = response.data?.token;
-        localStorage.setItem(StorageKeys.USER, JSON.stringify(response.data?.user));
+        localStorage.setItem(
+          StorageKeys.USER,
+          JSON.stringify(response.data?.user)
+        );
         dispatch(userActions.actLoginSuccess(token, response.data?.user));
-        history.push({ pathname: `/users/${response.data.user?._id}`, state: 200 });
+        history.push({
+          pathname: `/users/${response.data.user?._id}`,
+          state: 200,
+        });
 
         // Remove the user session cookie after 24 hours, to log the user out.
         // window.setTimeout(() => {
@@ -44,7 +50,7 @@ function LoginGoogle(props) {
     }
   };
 
-  const failureGoogleLogin = data => {
+  const failureGoogleLogin = (data) => {
     console.log(data);
     showToast('Failed to login', 'error');
   };

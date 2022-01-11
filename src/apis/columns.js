@@ -4,10 +4,10 @@ const columnsApis = {
   getAllColumnListTodo: () => {
     return axiosClient.get('/api/columns');
   },
-  createColumnTodo: id => {
+  createColumnTodo: (id) => {
     return axiosClient.post('/api/columns', id);
   },
-  removeListIdTodo: id => {
+  removeListIdTodo: (id) => {
     return axiosClient.delete(`/api/columns/${id}`);
   },
 };

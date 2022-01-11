@@ -36,7 +36,16 @@ import useStyles from '../UserProfile.style';
 import { appConstants } from 'configs';
 import { useEffect } from 'react';
 
-function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookmarks }) {
+function UserBoards({
+  _id,
+  slug,
+  title,
+  image,
+  duedate,
+  view,
+  onBookmark,
+  bookmarks,
+}) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
@@ -65,7 +74,7 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
     closeOptions();
   };
 
-  const editDueDateProject = date => {
+  const editDueDateProject = (date) => {
     const newData = {
       id: _id,
       duedate: date,
@@ -86,7 +95,7 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
   const handleBookmark = () => {
     // handle status bookmark
     if (bookmarks) {
-      if (bookmarks.some(item => item._id === _id)) {
+      if (bookmarks.some((item) => item._id === _id)) {
         setIsBookmarked(true);
       } else {
         setIsBookmarked(false);
@@ -103,22 +112,33 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
     if (typeof window !== 'undefined') {
       if (isBookmarked) {
         // if already bookmarked remove bookmark
-        const newArr = bookmarks.filter(item => item._id !== _id);
+        const newArr = bookmarks.filter((item) => item._id !== _id);
         onBookmark && onBookmark(newArr);
-        window.localStorage.setItem(appConstants.BOOKMARK, JSON.stringify(newArr));
+        window.localStorage.setItem(
+          appConstants.BOOKMARK,
+          JSON.stringify(newArr)
+        );
         handleBookmark();
       } else {
         // adding bookmark
         const newItemBookmarked = [...bookmarks, itemBookmarked];
         onBookmark && onBookmark(newItemBookmarked);
-        window.localStorage.setItem(appConstants.BOOKMARK, JSON.stringify(newItemBookmarked));
+        window.localStorage.setItem(
+          appConstants.BOOKMARK,
+          JSON.stringify(newItemBookmarked)
+        );
         //handleBookmark();
       }
     }
   };
 
   const renderFormSetColorProject = () => (
-    <Dialog open={showModalEditColor} fullWidth onClose={toggleEditColor} aria-labelledby="form-dialog-edit-color">
+    <Dialog
+      open={showModalEditColor}
+      fullWidth
+      onClose={toggleEditColor}
+      aria-labelledby="form-dialog-edit-color"
+    >
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
         {translate('pro_details')}
       </DialogTitle>
@@ -126,15 +146,31 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
         <h3 style={{ fontWeight: 500 }}>Choose a color for your project</h3>
         <Box display="flex" alignItems="center" mt={2}>
           {colors.map((color, index) => (
-            <StyledRadio key={index} name="color" value={color} setColorBoard={setColorBoard} checked={image} />
+            <StyledRadio
+              key={index}
+              name="color"
+              value={color}
+              setColorBoard={setColorBoard}
+              checked={image}
+            />
           ))}
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditColor} color="primary">
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          onClick={toggleEditColor}
+          color="primary"
+        >
           {translate('cancel')}
         </Button>
-        <Button variant="outlined" classes={{ root: classes.btn }} color="primary" onClick={editColorBoard}>
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          color="primary"
+          onClick={editColorBoard}
+        >
           {translate('update')}
         </Button>
       </DialogActions>
@@ -153,23 +189,35 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
         {translate('pro_details')}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>Workspace's {currentUser.username}</DialogContentText>
+        <DialogContentText>
+          Workspace's {currentUser.username}
+        </DialogContentText>
         <TextField
           variant="outlined"
           label="Tên board"
           size="small"
           name="board"
           value={editBoard.value}
-          onChange={e => setEditBoard({ ...editBoard, value: e.target.value })}
+          onChange={(e) =>
+            setEditBoard({ ...editBoard, value: e.target.value })
+          }
           fullWidth
         />
-        <Box display="flex" alignItems="center" justifyContent="space-between" my={3} px={1}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          my={3}
+          px={1}
+        >
           <div className={classes.tooltipOptionPro}>
             <div className={classes.optionInfoWrapper}>
               <div className={classes.infoProjectOwner}>
                 <Avatar src={currentUser?.image} />
                 <span>{currentUser?.username}</span>
-                <div className={clsx(classes.toolTipContent, 'tooltip-content')}>
+                <div
+                  className={clsx(classes.toolTipContent, 'tooltip-content')}
+                >
                   <span>{translate('pro_owner')}</span>
                   <Divider style={{ backgroundColor: '#fff' }} />
                   <span>{currentUser?.username}</span>
@@ -189,8 +237,14 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
                   </div>
                   {showDueDate && (
                     <div className="set-duedate">
-                      <CustomDateTimePicker dueDate={duedate || new Date()} onSubmit={editDueDateProject} />
-                      <span className={classes.optionIconDelete} onClick={() => editDueDateProject(null)}>
+                      <CustomDateTimePicker
+                        dueDate={duedate || new Date()}
+                        onSubmit={editDueDateProject}
+                      />
+                      <span
+                        className={classes.optionIconDelete}
+                        onClick={() => editDueDateProject(null)}
+                      >
                         <CancelIcon fontSize="large" />
                       </span>
                     </div>
@@ -206,7 +260,10 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
                   </div>
                   {showDueDate && (
                     <div className="set-duedate">
-                      <CustomDateTimePicker dueDate={duedate || new Date()} onSubmit={editDueDateProject} />
+                      <CustomDateTimePicker
+                        dueDate={duedate || new Date()}
+                        onSubmit={editDueDateProject}
+                      />
                     </div>
                   )}
                 </div>
@@ -221,10 +278,20 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" classes={{ root: classes.btn }} onClick={toggleEditPro} color="primary">
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          onClick={toggleEditPro}
+          color="primary"
+        >
           {translate('cancel')}
         </Button>
-        <Button variant="outlined" classes={{ root: classes.btn }} color="primary" onClick={updateEditBoard}>
+        <Button
+          variant="outlined"
+          classes={{ root: classes.btn }}
+          color="primary"
+          onClick={updateEditBoard}
+        >
           {translate('update')}
         </Button>
       </DialogActions>
@@ -233,8 +300,17 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
 
   return (
     <React.Fragment>
-      <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
-        <div className={!view ? classes.gallaryListLeft : classes.gallaryTileWrapper}>
+      <Box
+        width="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <div
+          className={
+            !view ? classes.gallaryListLeft : classes.gallaryTileWrapper
+          }
+        >
           <Paper
             elevation={4}
             className={classes.paper}
@@ -260,8 +336,16 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
             )}
           </div>
         </div>
-        <div className={view ? classes.gallaryTileOptions : classes.gallaryListRight}>
-          <IconButton aria-controls={_id} aria-haspopup="true" onClick={toggleOptions}>
+        <div
+          className={
+            view ? classes.gallaryTileOptions : classes.gallaryListRight
+          }
+        >
+          <IconButton
+            aria-controls={_id}
+            aria-haspopup="true"
+            onClick={toggleOptions}
+          >
             <MoreHorizIcon fontSize="large" />
           </IconButton>
           <Menu
@@ -281,7 +365,12 @@ function UserBoards({ _id, slug, title, image, duedate, view, onBookmark, bookma
             }}
           >
             <MenuItem onClick={editColorProject}>
-              <Box width="100%" display="flex" justifyContent="flex-start" alignItems="center">
+              <Box
+                width="100%"
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
                 <span
                   style={{
                     marginRight: '7px',

@@ -97,7 +97,7 @@ const routesConfig = [
   },
 ];
 
-const renderRoutes = routes => {
+const renderRoutes = (routes) => {
   return (
     <>
       {routes ? (
@@ -113,9 +113,15 @@ const renderRoutes = routes => {
                   key={`routes-${idx}`}
                   path={route.path}
                   exact={route.exact}
-                  render={props => (
+                  render={(props) => (
                     <Guard>
-                      <Layout>{route.routes ? renderRoutes(route.routes) : <Component {...props} />}</Layout>
+                      <Layout>
+                        {route.routes ? (
+                          renderRoutes(route.routes)
+                        ) : (
+                          <Component {...props} />
+                        )}
+                      </Layout>
                     </Guard>
                   )}
                 />

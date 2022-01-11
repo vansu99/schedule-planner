@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   sidebar: {
     borderRight: '1px solid #dbdbdb',
     display: 'flex',

@@ -1,8 +1,8 @@
 import { todoActions } from 'configs';
 import { activityApis } from 'apis';
 
-const asyncCreateNewActivity = params => {
-  return async dispatch => {
+const asyncCreateNewActivity = (params) => {
+  return async (dispatch) => {
     try {
       const result = await activityApis.createNewActivity(params);
       if (result.status === 201) {
@@ -17,8 +17,8 @@ const asyncCreateNewActivity = params => {
   };
 };
 
-const asyncDeleteActivity = id => {
-  return async dispatch => {
+const asyncDeleteActivity = (id) => {
+  return async (dispatch) => {
     try {
       const result = await activityApis.deleteActivity(id);
       if (result.status === 200) {
@@ -33,8 +33,8 @@ const asyncDeleteActivity = id => {
   };
 };
 
-const asyncClearAllActivity = boardId => {
-  return async dispatch => {
+const asyncClearAllActivity = (boardId) => {
+  return async (dispatch) => {
     try {
       const result = await activityApis.clearAllActivity(boardId);
       if (result.status === 200) {

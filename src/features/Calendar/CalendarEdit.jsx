@@ -9,7 +9,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CalendarForm from './CalendarForm';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -20,9 +20,9 @@ const useStyles = makeStyles(theme => ({
 function CalendarEdit({ event }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const openModal = useSelector(state => state.calendar.open);
+  const openModal = useSelector((state) => state.calendar.open);
 
-  const onSubmit = content => {
+  const onSubmit = (content) => {
     dispatch(cardActions.asyncEditDetailTodoCard(event.id, content));
   };
 

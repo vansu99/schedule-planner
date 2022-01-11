@@ -12,7 +12,9 @@ function LinearProgressWithLabel(props) {
         <LinearProgress variant="determinate" {...props} />
       </Box>
       <Box minWidth={35}>
-        <Typography variant="h5" className="">{`${Math.round(props.value)}%`}</Typography>
+        <Typography variant="h5" className="">{`${Math.round(
+          props.value
+        )}%`}</Typography>
       </Box>
     </Box>
   );
@@ -22,7 +24,7 @@ LinearProgressWithLabel.propTypes = {
   value: PropTypes.number,
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     marginBottom: '1rem',

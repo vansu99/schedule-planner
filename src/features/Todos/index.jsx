@@ -1,4 +1,12 @@
-import { Box, Button, Divider, Fade, IconButton, Menu, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Divider,
+  Fade,
+  IconButton,
+  Menu,
+  Typography,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -7,14 +15,24 @@ import { boardActions } from 'actions/Todos/board.action';
 import { dndActions } from 'actions/Todos/dnd.action';
 import DrawerComponent from 'components/Drawer';
 import Search from 'components/Search';
-import { filteringType, filterTask, sortTask, taskSortingType } from 'helpers/sorting';
+import {
+  filteringType,
+  filterTask,
+  sortTask,
+  taskSortingType,
+} from 'helpers/sorting';
 import { useToggleMenus } from 'hooks';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getBoards, getCards, getColumns, getLists } from 'selectors/todos.selector';
+import {
+  getBoards,
+  getCards,
+  getColumns,
+  getLists,
+} from 'selectors/todos.selector';
 import TaskFiltering from './components/TaskFiltering';
 import SubMemberTeam from './components/Team/SubMemberTeam';
 import useStyles from './style';
@@ -27,7 +45,9 @@ function Todos() {
   const { boardId } = useParams();
   const dispatch = useDispatch();
   const [sortType, setSortType] = useState({ type: taskSortingType.NONE });
-  const [filterType, setFilterType] = useState({ type: filteringType.ALL_TASK });
+  const [filterType, setFilterType] = useState({
+    type: filteringType.ALL_TASK,
+  });
   const [isDrawer, setIsDrawer] = useState(false);
   const getCardSelector = useSelector(getCards);
   const getColumnSelector = useSelector(getColumns);
@@ -39,7 +59,7 @@ function Todos() {
     setIsDrawer(!isDrawer);
   }, [isDrawer]);
 
-  const onDragEnd = result => {
+  const onDragEnd = (result) => {
     const { type } = result;
     if (type === 'LIST') {
       dispatch(dndActions.asyncDragEndList(result));
@@ -64,11 +84,11 @@ function Todos() {
     document.title = `${getCurrBoardSelector[0]?.title} • Schedule Planner`;
   }, [getCurrBoardSelector]);
 
-  const handleChangeSort = useCallback(data => {
+  const handleChangeSort = useCallback((data) => {
     setSortType({ type: data.type });
   }, []);
 
-  const handleChangeFilter = useCallback(data => {
+  const handleChangeFilter = useCallback((data) => {
     setFilterType({ type: data.type });
   }, []);
 
@@ -77,11 +97,19 @@ function Todos() {
       <div className={classes.main}>
         <Box display="flex" justifyContent="flex-start" alignItems="center">
           <div className={classes.todoInfoTopLeft}>
-            <Typography variant="h4" component="h4" className={classes.titleIcon}>
-              <ListAltOutlinedIcon fontSize="large" /> {getCurrBoardSelector[0]?.title}
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.titleIcon}
+            >
+              <ListAltOutlinedIcon fontSize="large" />{' '}
+              {getCurrBoardSelector[0]?.title}
             </Typography>
             <div className={classes.todoTopOwner}>
-              <img src={getCurrBoardSelector[0]?.userId?.image} alt={getCurrBoardSelector[0]?.userId?.username} />
+              <img
+                src={getCurrBoardSelector[0]?.userId?.image}
+                alt={getCurrBoardSelector[0]?.userId?.username}
+              />
               <div className={classes.todoTopOwnerInfo}>
                 <p>{getCurrBoardSelector[0]?.userId?.username}</p>
                 <span>{translate('pro_owner')}</span>
@@ -92,7 +120,9 @@ function Todos() {
             <div className="members">
               <AvatarGroup max={4}>
                 {getCurrBoardSelector[0]?.member.length !== 0 &&
-                  getCurrBoardSelector[0]?.member.map(mem => <SubMemberTeam key={mem?._id} {...mem} />)}
+                  getCurrBoardSelector[0]?.member.map((mem) => (
+                    <SubMemberTeam key={mem?._id} {...mem} />
+                  ))}
               </AvatarGroup>
             </div>
             <div className="member-invite">
@@ -143,7 +173,10 @@ function Todos() {
               </Menu>
             </div>
           </div>
-          <TaskFiltering onChangeSort={handleChangeSort} onChangeFilter={handleChangeFilter} />
+          <TaskFiltering
+            onChangeSort={handleChangeSort}
+            onChangeFilter={handleChangeFilter}
+          />
           <div className={classes.todoInfoTopRight}>
             <Button
               variant="contained"
@@ -158,21 +191,38 @@ function Todos() {
             </Button>
           </div>
         </Box>
-        <DrawerComponent board={getCurrBoardSelector[0]} isDrawer={isDrawer} handleToogleDrawer={handleToggleDrawer} />
-        <Divider variant="middle" style={{ margin: '8px 0', backgroundColor: '#F0EEED' }} />
+        <DrawerComponent
+          board={getCurrBoardSelector[0]}
+          isDrawer={isDrawer}
+          handleToogleDrawer={handleToggleDrawer}
+        />
+        <Divider
+          variant="middle"
+          style={{ margin: '8px 0', backgroundColor: '#F0EEED' }}
+        />
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="all-columns" direction="horizontal" type="LIST">
-            {provided => {
+          <Droppable
+            droppableId="all-columns"
+            direction="horizontal"
+            type="LIST"
+          >
+            {(provided) => {
               return (
-                <div ref={provided.innerRef} {...provided.droppableProps} className={classes.todosWrapper}>
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className={classes.todosWrapper}
+                >
                   {getColumnSelector.length > 0 ? (
                     <>
                       {getColumnSelector.map((column, index) => {
                         const lists = getListSelector[column.listId];
                         if (lists) {
                           const cards = lists?.cards
-                            .map(card => getCardSelector && getCardSelector[card])
-                            .filter(item => filterTask(item, filterType))
+                            .map(
+                              (card) => getCardSelector && getCardSelector[card]
+                            )
+                            .filter((item) => filterTask(item, filterType))
                             .sort((a, b) => sortTask(a, b, sortType));
 
                           return (

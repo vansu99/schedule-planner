@@ -11,12 +11,15 @@ const actAddList = (list, columnId) => {
 };
 
 const asyncAddTodoList = (boardId, list) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await listsApis.createListTodo({ ...list, boardId });
       const listId = result.data?.list._id;
       if (result.status === 201) {
-        const resultColumn = await columnsApis.createColumnTodo({ listId, boardId });
+        const resultColumn = await columnsApis.createColumnTodo({
+          listId,
+          boardId,
+        });
         const columnId = resultColumn.data.column._id;
         dispatch(actAddList(result.data?.list, columnId));
         await boardsApis.addColumnIdTodo(boardId, columnId);
@@ -35,7 +38,7 @@ const actEditTitleList = (listId, title) => {
 };
 
 const asyncEditTitleTodoList = (listId, title) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await listsApis.changeTitleListTodo(listId, { title });
       if (result.status === 200) dispatch(actEditTitleList(listId, title));
@@ -45,7 +48,7 @@ const asyncEditTitleTodoList = (listId, title) => {
   };
 };
 
-const actRemoveList = listId => {
+const actRemoveList = (listId) => {
   return {
     type: todoActions.REMOVE_LIST,
     payload: { listId },
@@ -53,7 +56,7 @@ const actRemoveList = listId => {
 };
 
 const asyncRemoveTodoList = (boardId, listId, columnId) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const result = await listsApis.removeListById(listId);
       if (result.status === 200) {
@@ -68,7 +71,7 @@ const asyncRemoveTodoList = (boardId, listId, columnId) => {
   };
 };
 
-const actGetAllTodoList = lists => {
+const actGetAllTodoList = (lists) => {
   return {
     type: todoActions.GET_LISTS,
     payload: { lists },
@@ -76,7 +79,7 @@ const actGetAllTodoList = lists => {
 };
 
 const asyncGetAllTodoList = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await listsApis.getAllListsTodo();

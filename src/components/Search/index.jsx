@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import UserCard from '../UserCard';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   search: {
     display: 'flex',
     flexDirection: 'column',
@@ -31,7 +31,7 @@ function Search({ boardId, cardId, isProject }) {
   const [users, setUsers] = useState([]);
   const typingTimeoutRef = useRef(null);
 
-  const handleChangeSearch = e => {
+  const handleChangeSearch = (e) => {
     setSearch(e.target.value);
     if (!handleFilterMemberTodo) return;
 
@@ -51,13 +51,13 @@ function Search({ boardId, cardId, isProject }) {
     }, 500);
   };
 
-  const handleClose = e => {
+  const handleClose = (e) => {
     e.preventDefault();
     setSearch('');
     setUsers([]);
   };
 
-  const handleFilterMemberTodo = async member => {
+  const handleFilterMemberTodo = async (member) => {
     if (search) {
       const result = await userApis.searchUser(member.search);
       if (result.status === 200) {
@@ -70,7 +70,9 @@ function Search({ boardId, cardId, isProject }) {
     <div className={classes.search}>
       <form>
         <FormControl size="small" variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Search Member</InputLabel>
+          <InputLabel htmlFor="outlined-adornment-password">
+            Search Member
+          </InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             type="text"
@@ -90,8 +92,14 @@ function Search({ boardId, cardId, isProject }) {
       {users.length !== 0 && (
         <div className={classes.result}>
           <List className={classes.userItem}>
-            {users.map(user => (
-              <UserCard user={user} key={user._id} cardId={cardId} boardId={boardId} isProject={isProject} />
+            {users.map((user) => (
+              <UserCard
+                user={user}
+                key={user._id}
+                cardId={cardId}
+                boardId={boardId}
+                isProject={isProject}
+              />
             ))}
           </List>
         </div>

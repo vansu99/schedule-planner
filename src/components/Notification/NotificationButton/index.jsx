@@ -6,12 +6,16 @@ import NotifitionFeed from '../NotificationFeed';
 import PopupCard from 'components/PopupCard';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectNotifications, selectNotificationState } from 'selectors/notification.selector';
+import {
+  selectNotifications,
+  selectNotificationState,
+} from 'selectors/notification.selector';
 
 function NotificationButton(props) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
-  const [notificationPopupTimeout, setShowNotificationPopupTimeout] = useState(null);
+  const [notificationPopupTimeout, setShowNotificationPopupTimeout] =
+    useState(null);
   const notifications = useSelector(selectNotifications);
   const notificationState = useSelector(selectNotificationState);
 
@@ -24,18 +28,30 @@ function NotificationButton(props) {
   return (
     <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
       <Box position="relative" display="flex" alignItems="center" height="64px">
-        <IconButton color="inherit" onClick={() => setShowNotifications(previous => !previous)}>
+        <IconButton
+          color="inherit"
+          onClick={() => setShowNotifications((previous) => !previous)}
+        >
           <Badge badgeContent={notificationState.unreadCount} color="error">
             {showNotifications ? (
-              <NotificationsIcon fontSize="large" style={{ cursor: 'pointer' }} />
+              <NotificationsIcon
+                fontSize="large"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <NotificationsNoneIcon fontSize="large" style={{ cursor: 'pointer' }} />
+              <NotificationsNoneIcon
+                fontSize="large"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </Badge>
         </IconButton>
         {showNotifications && (
           <PopupCard notifyHeading="Notifications">
-            <NotifitionFeed open={showNotifications} setShowNotifications={setShowNotifications} />
+            <NotifitionFeed
+              open={showNotifications}
+              setShowNotifications={setShowNotifications}
+            />
           </PopupCard>
         )}
       </Box>

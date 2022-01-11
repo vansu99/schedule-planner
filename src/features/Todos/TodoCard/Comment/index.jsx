@@ -17,40 +17,54 @@ function Comments({ cardId }) {
   const commentss = card[cardId].comments;
 
   useEffect(() => {
-    const newCm = commentss.filter(cm => !cm.reply);
+    const newCm = commentss.filter((cm) => !cm.reply);
     setShowComment(newCm.slice(newCm.length - next));
   }, [commentss, next]);
 
   useEffect(() => {
-    const newRep = commentss.filter(cmt => cmt.reply);
+    const newRep = commentss.filter((cmt) => cmt.reply);
     setReplyComments(newRep);
   }, [commentss]);
 
   return (
     <Box mt={2.7} mb={3.8}>
-      {showComment.map(comment => (
+      {showComment.map((comment) => (
         <CommentCard
           key={comment?._id}
           comment={comment}
           cardId={cardId}
           commentId={comment?._id}
-          replyComments={replyComments.filter(item => item.reply === comment?.id)}
+          replyComments={replyComments.filter(
+            (item) => item.reply === comment?.id
+          )}
         >
           <div className={classes.cmtReply}>
             {replyComments.map(
               (cmt, index) =>
-                cmt.reply === comment?.id && <CommentCard key={index} comment={cmt} commentId={comment._id} />,
+                cmt.reply === comment?.id && (
+                  <CommentCard
+                    key={index}
+                    comment={cmt}
+                    commentId={comment._id}
+                  />
+                )
             )}
           </div>
         </CommentCard>
       ))}
       {commentss.length - next > 0 ? (
-        <span className="todoCard-details__comments-more" onClick={() => setNext(prev => prev + 10)}>
+        <span
+          className="todoCard-details__comments-more"
+          onClick={() => setNext((prev) => prev + 10)}
+        >
           {translate('see_more_cmt')}
         </span>
       ) : (
         commentss.length > 2 && (
-          <span className="todoCard-details__comments-more" onClick={() => setNext(2)}>
+          <span
+            className="todoCard-details__comments-more"
+            onClick={() => setNext(2)}
+          >
             {translate('hide_more_cmt')}
           </span>
         )

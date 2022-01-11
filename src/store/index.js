@@ -5,6 +5,9 @@ import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const loggerMiddleware = createLogger();
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, loggerMiddleware)));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk, loggerMiddleware))
+);
 
 export default store;

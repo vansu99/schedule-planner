@@ -21,7 +21,11 @@ function DarkMode() {
       title="Change Theme"
       onClick={_handleChangeTheme}
     >
-      {modeTheme === THEMES.LIGHT ? <Brightness4Icon fontSize="large" /> : <Brightness7Icon fontSize="large" />}
+      {modeTheme === THEMES.LIGHT ? (
+        <Brightness4Icon fontSize="large" />
+      ) : (
+        <Brightness7Icon fontSize="large" />
+      )}
     </IconButton>
   );
 }

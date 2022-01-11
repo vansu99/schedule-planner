@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(props => ({
+const useStyles = makeStyles((props) => ({
   formControl: {
     position: 'relative',
     marginRight: '0.6rem',
@@ -39,7 +39,7 @@ function StyledRadio({ name, value, checked, setColorBoard }) {
   const classes = useStyles();
   const radio = useRef(null);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const checked = event.currentTarget.value;
     setColorBoard(checked);
   };
@@ -56,7 +56,10 @@ function StyledRadio({ name, value, checked, setColorBoard }) {
         onChange={handleChange}
         className={classes.customInput}
       />
-      <label className={classes.customRadio} style={{ backgroundColor: `${value}` }}></label>
+      <label
+        className={classes.customRadio}
+        style={{ backgroundColor: `${value}` }}
+      ></label>
     </div>
   );
 }

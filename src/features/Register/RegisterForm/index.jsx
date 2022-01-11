@@ -7,7 +7,11 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
-import { InputField, PasswordField, SelectField } from 'components/FormControls';
+import {
+  InputField,
+  PasswordField,
+  SelectField,
+} from 'components/FormControls';
 import { Box, Button, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import LoginGoogle from 'features/Login/LoginSocial/loginGoogle';
@@ -32,7 +36,7 @@ export default function RegisterForm({ onSubmit }) {
     resolver: yupResolver(schemaForm),
   });
 
-  const handleSubmitForm = async values => {
+  const handleSubmitForm = async (values) => {
     if (onSubmit) {
       await onSubmit(values);
     }
@@ -57,7 +61,11 @@ export default function RegisterForm({ onSubmit }) {
           <form onSubmit={form.handleSubmit(handleSubmitForm)}>
             <InputField form={form} label="Email" name="email" />
             <InputField form={form} label="Tên người dùng" name="username" />
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Box width="calc(65% - 1rem)">
                 <InputField form={form} label="Số điện thoại" name="phone" />
               </Box>
@@ -79,8 +87,13 @@ export default function RegisterForm({ onSubmit }) {
               {translate('register')}
             </Button>
             <Divider variant="middle" style={{ margin: '2rem 0' }} />
-            <Typography variant="caption" component="p" className={classes.term}>
-              Bằng cách đăng ký, bạn đồng ý với <strong>Điều khoản, Chính sách dữ liệu</strong> và{' '}
+            <Typography
+              variant="caption"
+              component="p"
+              className={classes.term}
+            >
+              Bằng cách đăng ký, bạn đồng ý với{' '}
+              <strong>Điều khoản, Chính sách dữ liệu</strong> và{' '}
               <strong>Chính sách cookie</strong> của chúng tôi.
             </Typography>
           </form>

@@ -65,7 +65,11 @@ const TodoCardItem = ({
                 )}{' '}
                 {title}
               </Typography>
-              <IconButton aria-controls="long-menu" aria-haspopup="true" onClick={toggleSubMenus}>
+              <IconButton
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={toggleSubMenus}
+              >
                 <MoreVertIcon fontSize="inherit" />
               </IconButton>
               <Menu
@@ -91,7 +95,10 @@ const TodoCardItem = ({
                   horizontal: 'left',
                 }}
               >
-                <MenuItem className={classes.menuItem} onClick={onEditTitleCard}>
+                <MenuItem
+                  className={classes.menuItem}
+                  onClick={onEditTitleCard}
+                >
                   <CreateIcon /> Edit Task
                 </MenuItem>
                 <MenuItem className={classes.menuItem} onClick={onRemoveCard}>
@@ -119,7 +126,12 @@ const TodoCardItem = ({
                 <span>{attachments?.length}</span>
               </div>
             )}
-            <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
+            <Box
+              mt={2}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               {date && !completed ? (
                 <div className={classes.dueDate}>
                   <AccessTimeIcon />

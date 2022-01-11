@@ -8,7 +8,11 @@ export function BoardProvider(props) {
   const [state, dispatch] = useReducer(reducer, []);
   const value = { state, dispatch };
 
-  return <BoardContext.Provider value={value}>{props.children}</BoardContext.Provider>;
+  return (
+    <BoardContext.Provider value={value}>
+      {props.children}
+    </BoardContext.Provider>
+  );
 }
 
 export { getAllBoard, getBoardById };

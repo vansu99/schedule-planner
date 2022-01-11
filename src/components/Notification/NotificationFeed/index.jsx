@@ -6,8 +6,15 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './theme.NotificationFeed';
-import { selectNotificationState, selectNotifications } from 'selectors/notification.selector';
-import { fetchNotificationsStart, readNotificationsStart, clearNotifications } from 'actions/Global';
+import {
+  selectNotificationState,
+  selectNotifications,
+} from 'selectors/notification.selector';
+import {
+  fetchNotificationsStart,
+  readNotificationsStart,
+  clearNotifications,
+} from 'actions/Global';
 import SkeletonCpt from 'components/Skeleton';
 import { Link } from 'react-router-dom';
 import { Avatar, Divider } from '@material-ui/core';
@@ -69,10 +76,18 @@ function NotificationFeed({ open, onClose }) {
                   <Typography variant="h6" component="h6">
                     {userCardProps.username || 'System'}
                   </Typography>
-                  <Typography variant="h6" component="p" style={{ fontWeight: 400 }}>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    style={{ fontWeight: 400 }}
+                  >
                     {userCardProps.subTextDark}
                   </Typography>
-                  <Typography variant="subtitle1" component="span" color="primary">
+                  <Typography
+                    variant="subtitle1"
+                    component="span"
+                    color="primary"
+                  >
                     {moment(userCardProps.date).fromNow()}
                   </Typography>
                 </Box>

@@ -5,7 +5,7 @@ import { getCurrentUser } from 'selectors/auth.selector';
 
 function SocketClient(props) {
   const dispatch = useDispatch();
-  const socket = useSelector(state => state.socket.socket);
+  const socket = useSelector((state) => state.socket.socket);
   //const user = useSelector(getCurrentUser);
 
   // useEffect(() => {

@@ -1,6 +1,6 @@
 import { todoActions } from 'configs';
 
-const editEventTodo = event => {
+const editEventTodo = (event) => {
   return {
     type: todoActions.EDIT_EVENT_TODO,
     payload: event,

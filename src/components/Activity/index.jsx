@@ -7,7 +7,7 @@ import { selectActivityState } from 'selectors/activity.selector';
 import { boardActions } from 'actions/Todos/board.action';
 import ButtonComponent from 'components/Button';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     marginBottom: '90px',
     paddingTop: theme.spacing(1),
@@ -57,13 +57,27 @@ function ActivityPage(props) {
         var timestampString;
         const userName = activity.text?.split(' ').slice(0, 2).join(' ');
         const activityText = activity.text?.replace(userName, '');
-        if (str.includes('second') || str.includes('minute') || str.includes('hour')) timestampString = str;
-        else if (str.includes('day') && (str.split(' ')[0] === 'a' || str.split(' ')[0] < 7)) {
+        if (
+          str.includes('second') ||
+          str.includes('minute') ||
+          str.includes('hour')
+        )
+          timestampString = str;
+        else if (
+          str.includes('day') &&
+          (str.split(' ')[0] === 'a' || str.split(' ')[0] < 7)
+        ) {
           if (str === 'a day ago') {
-            const timeString = moment().subtract(1, 'days').calendar().split(' at ')[0];
+            const timeString = moment()
+              .subtract(1, 'days')
+              .calendar()
+              .split(' at ')[0];
             timestampString = `${timeString} at ${moment(date).format('LT')}`;
           } else {
-            const timeString = moment().subtract(str.split(' ')[0], 'days').calendar().split(' at ')[0];
+            const timeString = moment()
+              .subtract(str.split(' ')[0], 'days')
+              .calendar()
+              .split(' at ')[0];
             timestampString = `${timeString} at ${moment(date).format('LT')}`;
           }
         } else timestampString = moment(date).format('LLL');
@@ -76,7 +90,13 @@ function ActivityPage(props) {
           </div>
         );
       })}
-      {hasMore && <ButtonComponent text="Load more activities" type="form" handleClick={handleLoadMoreActivity} />}
+      {hasMore && (
+        <ButtonComponent
+          text="Load more activities"
+          type="form"
+          handleClick={handleLoadMoreActivity}
+        />
+      )}
     </div>
   );
 }

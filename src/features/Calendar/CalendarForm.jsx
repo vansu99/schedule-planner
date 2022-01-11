@@ -1,4 +1,11 @@
-import { Box, Button, Divider, InputAdornment, TextField, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Divider,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import AlarmIcon from '@material-ui/icons/AddAlarm';
@@ -7,7 +14,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: '350px',
@@ -55,7 +62,7 @@ function CalendarForm({ onSubmit, event = {} }) {
     }
   };
 
-  const onChange = e => {
+  const onChange = (e) => {
     setContent({
       ...content,
       [e.target.name]: e.target.value,
@@ -66,7 +73,14 @@ function CalendarForm({ onSubmit, event = {} }) {
       <Typography className={classes.title}>Event</Typography>
       <Divider />
       <Box mt={2}>
-        <TextField value={content?.title} onChange={onChange} name="title" size="small" fullWidth variant="outlined" />
+        <TextField
+          value={content?.title}
+          onChange={onChange}
+          name="title"
+          size="small"
+          fullWidth
+          variant="outlined"
+        />
         {/* <DatePicker
           className={classes.datePicker}
           showTimeSelect
@@ -82,7 +96,7 @@ function CalendarForm({ onSubmit, event = {} }) {
         <DateTimePicker
           className={classes.datePicker}
           value={content && content?.date}
-          onChange={date => setContent({ ...content, date })}
+          onChange={(date) => setContent({ ...content, date })}
           format="dd/MM/yyyy HH:mm"
           InputProps={{
             endAdornment: (

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     overflow: 'auto',
     maxWidth: '400px',
@@ -35,11 +35,18 @@ const DialogComponent = ({ content, onClick, open, handleClickAway, id }) => {
         <DialogTitle>{translate('are_you_sure')}</DialogTitle>
         <DialogContent>
           <DialogContentText className={classes.contentDialog}>
-            Bạn có chắc chắn muốn xóa <span style={{ color: '#3A61C8' }}>{content}</span> này?
+            Bạn có chắc chắn muốn xóa{' '}
+            <span style={{ color: '#3A61C8' }}>{content}</span> này?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button size="large" color="primary" variant="contained" onClick={onClick} autoFocus>
+          <Button
+            size="large"
+            color="primary"
+            variant="contained"
+            onClick={onClick}
+            autoFocus
+          >
             {translate('remove')}
           </Button>
         </DialogActions>

@@ -33,7 +33,7 @@ function ReportPage() {
     })();
   }, [boardId, dispatch]);
 
-  const handleChangeBoard = useCallback(async id => {
+  const handleChangeBoard = useCallback(async (id) => {
     try {
       const response = await completedTodoApis.getReportById(id);
       if (response.status === 200) {

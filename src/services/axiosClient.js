@@ -16,24 +16,24 @@ const axiosClient = axios.create({
     'Content-Type': 'application/json',
   },
 
-  paramsSerializer: params => queryString.stringify(params),
+  paramsSerializer: (params) => queryString.stringify(params),
 });
 
 // Request Interceptors
 axiosClient.interceptors.request.use(
-  config => {
+  (config) => {
     const token = localStorage.getItem(StorageKeys.TOKEN);
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 axiosClient.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     if (error.response) {
       const origionalRequest = error.config;
       if (error.response.status === 401 || error.response.status === 500) {
@@ -43,7 +43,7 @@ axiosClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 async function forceRenewToken() {
@@ -53,12 +53,14 @@ async function forceRenewToken() {
   }
   return axiosClient
     .post('/api/auth/refresh', { refresh: refreshToken })
-    .then(res => {
+    .then((res) => {
       // save token new and update header
-      axiosClient.defaults.headers['Authorization'] = `Bearer ${res.data.refToken}`;
+      axiosClient.defaults.headers[
+        'Authorization'
+      ] = `Bearer ${res.data.refToken}`;
       localStorage.setItem(StorageKeys.TOKEN, res.data.refToken);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 }

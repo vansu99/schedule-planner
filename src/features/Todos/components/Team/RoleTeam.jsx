@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   roleWrapper: {
     position: 'absolute',
     width: '35rem',
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 const RoleTeam = ({ role, onClose, onChangeRole }) => {
   const classes = useStyles();
 
-  const handleChangeRole = data => {
+  const handleChangeRole = (data) => {
     onChangeRole && onChangeRole(data);
   };
 
@@ -59,23 +59,48 @@ const RoleTeam = ({ role, onClose, onChangeRole }) => {
         </span>
       </div>
       <div className={classes.roleList}>
-        <div className={classes.roleItem} onClick={() => handleChangeRole({ type: 'admin' })}>
+        <div
+          className={classes.roleItem}
+          onClick={() => handleChangeRole({ type: 'admin' })}
+        >
           <h4 className="role-name">
             Admin
             {role?.type === 'admin' && (
-              <i className="bx bx-check" style={{ fontSize: '1.7rem', marginLeft: '5px', fontWeight: 600 }}></i>
+              <i
+                className="bx bx-check"
+                style={{
+                  fontSize: '1.7rem',
+                  marginLeft: '5px',
+                  fontWeight: 600,
+                }}
+              ></i>
             )}
           </h4>
-          <p className="role-desc">Can view and edit cards, remove members, and change all settings for the project.</p>
+          <p className="role-desc">
+            Can view and edit cards, remove members, and change all settings for
+            the project.
+          </p>
         </div>
-        <div className={classes.roleItem} onClick={() => handleChangeRole({ type: 'member' })}>
+        <div
+          className={classes.roleItem}
+          onClick={() => handleChangeRole({ type: 'member' })}
+        >
           <h4 className="role-name">
             Member{' '}
             {role?.type === 'member' && (
-              <i className="bx bx-check" style={{ fontSize: '1.7rem', marginLeft: '5px', fontWeight: 600 }}></i>
+              <i
+                className="bx bx-check"
+                style={{
+                  fontSize: '1.7rem',
+                  marginLeft: '5px',
+                  fontWeight: 600,
+                }}
+              ></i>
             )}
           </h4>
-          <p className="role-desc">Can view and edit cards. Can't change settings.</p>
+          <p className="role-desc">
+            Can view and edit cards. Can't change settings.
+          </p>
         </div>
       </div>
     </div>

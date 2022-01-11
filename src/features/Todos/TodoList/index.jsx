@@ -26,7 +26,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
   const dispatch = useDispatch();
   const [listTitle, setListTitle] = useState(title);
 
-  const handleChangeTitle = e => {
+  const handleChangeTitle = (e) => {
     setListTitle(e.target.value);
   };
 
@@ -41,7 +41,7 @@ function TodoList({ listId, title, cards, index, columnId }) {
 
   return (
     <Draggable key={listId} draggableId={String(listId)} index={index}>
-      {provided => (
+      {(provided) => (
         <Box
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -57,11 +57,20 @@ function TodoList({ listId, title, cards, index, columnId }) {
             handleEditTitleList={handleEditTitleList}
           />
           <Droppable droppableId={String(listId)} key={listId} type="CARD">
-            {providedDrop => (
+            {(providedDrop) => (
               <>
-                <div {...providedDrop.droppableProps} ref={providedDrop.innerRef} className={classes.todoListContent}>
+                <div
+                  {...providedDrop.droppableProps}
+                  ref={providedDrop.innerRef}
+                  className={classes.todoListContent}
+                >
                   {(cards || []).map((card, idx) => (
-                    <TodoCard {...card} listId={listId} index={idx} listTitle={title} />
+                    <TodoCard
+                      {...card}
+                      listId={listId}
+                      index={idx}
+                      listTitle={title}
+                    />
                   ))}
                   {providedDrop.placeholder}
                 </div>

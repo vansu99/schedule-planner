@@ -8,13 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { Divider } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   },
   detail: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   heading: {
     flexShrink: 0,
@@ -36,21 +36,31 @@ function AccordionCpt({ children, title, icon }) {
   const { t: translate } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
-  const handleChange = panel => (event, isExpanded) => {
+  const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   return (
     <div className={classes.root}>
-      <Accordion expanded={expanded === title} onChange={handleChange(title)} square elevation={0}>
-        <AccordionSummary aria-controls={`${title}-content`} id={`${title}-header`}>
+      <Accordion
+        expanded={expanded === title}
+        onChange={handleChange(title)}
+        square
+        elevation={0}
+      >
+        <AccordionSummary
+          aria-controls={`${title}-content`}
+          id={`${title}-header`}
+        >
           <i className={`${icon} ${classes.icon}`}></i>
           <Typography variant="h6" component="h5" className={classes.heading}>
             {translate(title)}
           </Typography>
         </AccordionSummary>
         <Divider variant="middle" />
-        <AccordionDetails className={classes.detail}>{children}</AccordionDetails>
+        <AccordionDetails className={classes.detail}>
+          {children}
+        </AccordionDetails>
       </Accordion>
     </div>
   );

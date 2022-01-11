@@ -3,7 +3,7 @@ import { useState } from 'react';
 function useToggle(value = false) {
   const [isShow, setIsShow] = useState(value);
   const handleToggle = () => {
-    setIsShow(prev => !prev);
+    setIsShow((prev) => !prev);
   };
 
   return [isShow, handleToggle];

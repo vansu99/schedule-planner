@@ -7,7 +7,7 @@ import './checkbox.scss';
 import ClearIcon from '@material-ui/icons/Clear';
 import { IconButton } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   chkItem: {
     display: 'flex',
     alignItems: 'center',

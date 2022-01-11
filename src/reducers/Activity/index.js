@@ -9,7 +9,10 @@ export const activityReducer = (state = initialState, action) => {
     case todoActions.GET_ACTIVITIES:
       return {
         ...state,
-        activities: [...(action.payload.add ? state.activities : []), ...action.payload.activities],
+        activities: [
+          ...(action.payload.add ? state.activities : []),
+          ...action.payload.activities,
+        ],
         hasMore: action.payload.hasMore,
       };
     case todoActions.ADD_ACTIVITY:
@@ -19,7 +22,9 @@ export const activityReducer = (state = initialState, action) => {
       };
     case todoActions.DELETE_ACTIVITY: {
       const activitiesLog = [...state.activities];
-      const index = activitiesLog.findIndex(activity => activity._id === action.payload.activity._id);
+      const index = activitiesLog.findIndex(
+        (activity) => activity._id === action.payload.activity._id
+      );
       activitiesLog.splice(index, 1);
       return {
         ...state,

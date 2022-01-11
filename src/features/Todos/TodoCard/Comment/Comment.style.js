@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   cmtWrapper: {
     marginBottom: '2rem',
   },
@@ -44,9 +44,9 @@ const useStyles = makeStyles(theme => ({
   cmtReplyText: {
     cursor: 'pointer',
     '&:hover': {
-      opacity: 0.95
-    }
-  }
+      opacity: 0.95,
+    },
+  },
 }));
 
 export default useStyles;

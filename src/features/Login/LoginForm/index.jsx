@@ -29,7 +29,7 @@ export default function LoginForm({ onSubmit }) {
     resolver: yupResolver(schemaForm),
   });
 
-  const handleSubmitForm = async values => {
+  const handleSubmitForm = async (values) => {
     if (onSubmit) {
       await onSubmit(values);
     }

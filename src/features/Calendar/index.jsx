@@ -41,7 +41,7 @@ function CalendarCpt(props) {
     })();
   }, [dispatch, boardId]);
 
-  const openEditEventTodo = event => {
+  const openEditEventTodo = (event) => {
     setDataEvent({
       id: event?._id,
       title: event?.title,
@@ -63,7 +63,7 @@ function CalendarCpt(props) {
           popup
           selectable
           style={{ height: '85vh', paddingTop: '40px' }}
-          onSelectEvent={event => openEditEventTodo(event)}
+          onSelectEvent={(event) => openEditEventTodo(event)}
           components={{
             toolbar: CustomToolbar,
           }}

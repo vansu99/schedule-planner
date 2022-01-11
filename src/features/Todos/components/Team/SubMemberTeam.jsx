@@ -15,7 +15,8 @@ const SubMemberTeam = ({ _id, username, image, email }) => {
   const getCurrBoardSelector = useSelector(getBoards);
   const [roleMember, setRoleMember] = useState({});
   const [showConfirmRemove, setShowConfirmRemove] = useState(false);
-  const [showSubTeamWork, toggleSubTeamWork, closeSubTeamWork] = useToggleMenus(null);
+  const [showSubTeamWork, toggleSubTeamWork, closeSubTeamWork] =
+    useToggleMenus(null);
   const [showSubPermission, toggleSubPermisstion] = useToggle(false);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const SubMemberTeam = ({ _id, username, image, email }) => {
     closeSubTeamWork();
   };
 
-  const handleChangeRoleMember = role => {
+  const handleChangeRoleMember = (role) => {
     setRoleMember({
       ...roleMember,
       type: role.type,
@@ -45,15 +46,31 @@ const SubMemberTeam = ({ _id, username, image, email }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div className={classes.avatarMemberItem} onClick={toggleSubTeamWork} aria-controls={_id} aria-haspopup="true">
+      <div
+        className={classes.avatarMemberItem}
+        onClick={toggleSubTeamWork}
+        aria-controls={_id}
+        aria-haspopup="true"
+      >
         <Avatar alt={username} src={image} className={classes.avatarMember} />
-        {_id === getCurrBoardSelector[0]?.userId?._id && <i className="bx bx-chevrons-up avatar-icon"></i>}
+        {_id === getCurrBoardSelector[0]?.userId?._id && (
+          <i className="bx bx-chevrons-up avatar-icon"></i>
+        )}
       </div>
 
       {showSubPermission ? (
-        <RoleTeam role={roleMember} onClose={toggleSubPermisstion} onChangeRole={handleChangeRoleMember} />
+        <RoleTeam
+          role={roleMember}
+          onClose={toggleSubPermisstion}
+          onChangeRole={handleChangeRoleMember}
+        />
       ) : (
-        <PopupMenu id={_id} width="35rem" showPopup={showSubTeamWork} closePopup={closeSubTeamWork}>
+        <PopupMenu
+          id={_id}
+          width="35rem"
+          showPopup={showSubTeamWork}
+          closePopup={closeSubTeamWork}
+        >
           <div className={classes.subMenuMemberPermission}>
             <div className={classes.subMenuMemberInfo}>
               <Avatar alt={username} src={image} />
@@ -63,15 +80,24 @@ const SubMemberTeam = ({ _id, username, image, email }) => {
               </div>
             </div>
             {_id === getCurrBoardSelector[0]?.userId?._id ? (
-              <MenuItem className={classes.subMenuMemberAction} onClick={handleShowPermissions}>
+              <MenuItem
+                className={classes.subMenuMemberAction}
+                onClick={handleShowPermissions}
+              >
                 Change permissions <span>({roleMember?.type})</span>
               </MenuItem>
             ) : (
               <>
-                <MenuItem className={classes.subMenuMemberAction} onClick={handleShowPermissions}>
+                <MenuItem
+                  className={classes.subMenuMemberAction}
+                  onClick={handleShowPermissions}
+                >
                   Change permissions... <span>({roleMember?.type})</span>
                 </MenuItem>
-                <MenuItem className={classes.subMenuMemberAction} onClick={() => setShowConfirmRemove(true)}>
+                <MenuItem
+                  className={classes.subMenuMemberAction}
+                  onClick={() => setShowConfirmRemove(true)}
+                >
                   Remove from board...
                 </MenuItem>
                 <DialogComponent
@@ -86,8 +112,8 @@ const SubMemberTeam = ({ _id, username, image, email }) => {
 
             <Divider variant="middle" />
             <p className="submenu-member-textnote">
-              You can't leave because you are the only admin. To make another user an admin, click thier avatar, select
-              'Change permissions'
+              You can't leave because you are the only admin. To make another
+              user an admin, click thier avatar, select 'Change permissions'
             </p>
           </div>
         </PopupMenu>

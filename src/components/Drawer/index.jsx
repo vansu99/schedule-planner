@@ -45,7 +45,12 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
   return (
     <React.Fragment>
       <Paper className={classes.container} variant="outlined" elevation={1}>
-        <Typography variant="h5" component="h5" align="center" className={classes.title}>
+        <Typography
+          variant="h5"
+          component="h5"
+          align="center"
+          className={classes.title}
+        >
           Menu
           <IconButton onClick={handleClose}>
             <CloseIcon />
@@ -65,21 +70,32 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
             href={`/todos/${boardId}/timetable`}
             icon={<CalendarTodayIcon />}
           />
-          <LinkComponent text={translate('reports')} href={`/users/${_id}/report`} icon={<AssessmentIcon />} />
+          <LinkComponent
+            text={translate('reports')}
+            href={`/users/${_id}/report`}
+            icon={<AssessmentIcon />}
+          />
           <Dialog
             open={deleting}
             onClose={() => setDeleting(false)}
             aria-labelledby="delete-dialog-title"
             aria-describedby="delete-dialog-description"
           >
-            <DialogTitle id="delete-dialog-title">{translate('are_you_sure')}</DialogTitle>
+            <DialogTitle id="delete-dialog-title">
+              {translate('are_you_sure')}
+            </DialogTitle>
             <DialogContent>
               <DialogContentText id="delete-dialog-description">
-                Bạn có chắc muốn xóa dự án <span style={{ color: '#3A61C8' }}>{board?.title}</span> này.
+                Bạn có chắc muốn xóa dự án{' '}
+                <span style={{ color: '#3A61C8' }}>{board?.title}</span> này.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button variant="contained" color="default" onClick={() => setDeleting(false)}>
+              <Button
+                variant="contained"
+                color="default"
+                onClick={() => setDeleting(false)}
+              >
                 {translate('cancel')}
               </Button>
               <Button
@@ -99,7 +115,11 @@ function DrawerComponent({ isDrawer, handleToogleDrawer, board }) {
         <Divider variant="middle" />
         <Box p={2} className={classes.activities}>
           <div className={classes.titleActivity}>
-            <Typography variant="h5" component="h5" className={classes.activityWrapper}>
+            <Typography
+              variant="h5"
+              component="h5"
+              className={classes.activityWrapper}
+            >
               <DeviceHubIcon />
               {translate('activity')}
             </Typography>

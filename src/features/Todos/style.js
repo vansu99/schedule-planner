@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     minHeight: 'calc(100vh - 50px)',
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
       height: '3.5rem',
       objectFit: 'cover',
       borderRadius: '3.5rem',
-      backgroundColor: '#d1d1d1'
+      backgroundColor: '#d1d1d1',
     },
   },
   todoTopOwnerInfo: {

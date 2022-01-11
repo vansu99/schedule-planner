@@ -1,8 +1,8 @@
 import { actShowLoading, actHideLoading } from '../Global';
 import { completedTodoApis } from 'apis';
 
-const asyncGetReportTodoById = id => {
-  return async dispatch => {
+const asyncGetReportTodoById = (id) => {
+  return async (dispatch) => {
     try {
       dispatch(actShowLoading());
       const result = await completedTodoApis.getReportById(id);

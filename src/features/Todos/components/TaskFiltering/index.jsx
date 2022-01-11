@@ -1,12 +1,16 @@
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { filteringType, sortingDirection, taskSortingType } from 'helpers/sorting';
+import {
+  filteringType,
+  sortingDirection,
+  taskSortingType,
+} from 'helpers/sorting';
 import { useToggleMenus } from 'hooks';
 import React, { useState } from 'react';
 import FilterStatus from './FilterStatus';
 import SortPopup from './SortPopup';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   filterLists: {
     display: 'flex',
     alignItems: 'center',
@@ -35,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const renderTaskSortingLabel = sorting => {
+const renderTaskSortingLabel = (sorting) => {
   if (sorting.type === taskSortingType.TASK_TITLE) {
     return 'Sort: Alphabetical';
   }
@@ -45,7 +49,7 @@ const renderTaskSortingLabel = sorting => {
   return 'Sort';
 };
 
-const renderTaskFilterLabel = sorting => {
+const renderTaskFilterLabel = (sorting) => {
   if (sorting.type === filteringType.COMPLETE) {
     return 'Filter: Task Complete';
   }
@@ -66,17 +70,24 @@ const renderTaskFilterLabel = sorting => {
 
 const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
   const classes = useStyles();
-  const [taskSorting, setTaskSorting] = useState({ type: taskSortingType.NONE, direction: sortingDirection.ASC });
-  const [taskStatusFilter, setTaskStatusFilter] = useState({ type: filteringType.ALL_TASK });
-  const [popupFilter, togglePopupFilter, closePopupFilter] = useToggleMenus(null);
-  const [popupSorting, togglePopupSorting, closePopupSorting] = useToggleMenus(null);
+  const [taskSorting, setTaskSorting] = useState({
+    type: taskSortingType.NONE,
+    direction: sortingDirection.ASC,
+  });
+  const [taskStatusFilter, setTaskStatusFilter] = useState({
+    type: filteringType.ALL_TASK,
+  });
+  const [popupFilter, togglePopupFilter, closePopupFilter] =
+    useToggleMenus(null);
+  const [popupSorting, togglePopupSorting, closePopupSorting] =
+    useToggleMenus(null);
 
-  const handleChangeSort = data => {
+  const handleChangeSort = (data) => {
     setTaskSorting({ ...data });
     onChangeSort && onChangeSort(data);
   };
 
-  const handleChangeFilter = data => {
+  const handleChangeFilter = (data) => {
     setTaskStatusFilter({ ...data });
     onChangeFilter && onChangeFilter(data);
   };
@@ -84,9 +95,17 @@ const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
   return (
     <div className={classes.filterLists}>
       <div className={classes.filterItem}>
-        <Box display="flex" alignItems="center" onClick={togglePopupFilter} aria-controls="filter" aria-haspopup="true">
+        <Box
+          display="flex"
+          alignItems="center"
+          onClick={togglePopupFilter}
+          aria-controls="filter"
+          aria-haspopup="true"
+        >
           <i className="bx bx-filter icon-filter"></i>
-          <span className="title-filter">{renderTaskFilterLabel(taskStatusFilter)}</span>
+          <span className="title-filter">
+            {renderTaskFilterLabel(taskStatusFilter)}
+          </span>
         </Box>
         <FilterStatus
           filter={taskStatusFilter}
@@ -104,7 +123,9 @@ const TaskFiltering = ({ onChangeSort, onChangeFilter }) => {
           aria-haspopup="true"
         >
           <i className="bx bx-sort icon-filter"></i>
-          <span className="title-filter">{renderTaskSortingLabel(taskSorting)}</span>
+          <span className="title-filter">
+            {renderTaskSortingLabel(taskSorting)}
+          </span>
         </Box>
         <SortPopup
           sorting={taskSorting}

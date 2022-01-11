@@ -33,8 +33,10 @@ i18n
         const convertDate = new Date(value);
         if (convertDate) {
           const locale = locales[lng];
-          if (format === 'vietnamese') return formatDate(convertDate, 'dd/MM/yyyy, HH:mm', { locale });
-          if (format === 'english') return formatDate(convertDate, 'MMM dd, HH:mm aaa', { locale });
+          if (format === 'vietnamese')
+            return formatDate(convertDate, 'dd/MM/yyyy, HH:mm', { locale });
+          if (format === 'english')
+            return formatDate(convertDate, 'MMM dd, HH:mm aaa', { locale });
 
           return formatDate(convertDate, format, { locale });
         }

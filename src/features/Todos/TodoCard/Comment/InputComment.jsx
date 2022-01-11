@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   commentInput: {
     display: 'flex',
     alignItems: 'center',
@@ -62,7 +62,12 @@ function InputComment({ children, cardId, reply = {}, setReply }) {
   return (
     <div className={classes.commentInput}>
       {children}
-      <input type="text" placeholder="Add your comment..." value={content} onChange={e => setContent(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Add your comment..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
       <button onClick={handleSubmitComment}>Post</button>
     </div>
   );

@@ -13,11 +13,17 @@ import { getCurrentUser } from 'selectors/auth.selector';
 import { Box, Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 
-function CommentCard({ children, comment, cardId, commentId, replyComments = {} }) {
+function CommentCard({
+  children,
+  comment,
+  cardId,
+  commentId,
+  replyComments = {},
+}) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
-  const socket = useSelector(state => state.socket.socket);
+  const socket = useSelector((state) => state.socket.socket);
   const [content, setContent] = useState('');
   const [readMore, setReadMore] = useState(false);
   const [isLike, setIsLike] = useState(false);
@@ -29,7 +35,7 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setContent(comment.content);
     setIsLike(false);
     setReply(false);
-    if (comment.likes?.find(like => like === user?._id)) {
+    if (comment.likes?.find((like) => like === user?._id)) {
       setIsLike(true);
     }
   }, [comment]);
@@ -39,7 +45,9 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setIsLike(false);
 
     setLoadLike(true);
-    dispatch(commentActions.asyncUnLikeCommentTodoCard(cardId, comment, user, socket));
+    dispatch(
+      commentActions.asyncUnLikeCommentTodoCard(cardId, comment, user, socket)
+    );
     setLoadLike(false);
   };
 
@@ -48,13 +56,22 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
     setIsLike(true);
 
     setLoadLike(true);
-    dispatch(commentActions.asyncLikeCommentTodoCard(cardId, comment, user, socket));
+    dispatch(
+      commentActions.asyncLikeCommentTodoCard(cardId, comment, user, socket)
+    );
     setLoadLike(false);
   };
 
   const handleUpdate = () => {
     if (comment.content !== content) {
-      dispatch(commentActions.asyncUpdateCommentTodoCard(cardId, comment, content, user));
+      dispatch(
+        commentActions.asyncUpdateCommentTodoCard(
+          cardId,
+          comment,
+          content,
+          user
+        )
+      );
       setOnEdit(false);
     } else {
       setOnEdit(false);
@@ -74,7 +91,11 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
           alt={comment.user?.username}
           style={{ width: '3rem', height: '3rem', marginRight: '1.2rem' }}
         />
-        <Typography variant="subtitle1" component="h5" className={classes.cmtUserName}>
+        <Typography
+          variant="subtitle1"
+          component="h5"
+          className={classes.cmtUserName}
+        >
           {comment.user?.username}
         </Typography>
       </Box>
@@ -86,20 +107,29 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               aria-label="minimum height"
               rowsMin={3}
               value={content}
-              onChange={e => setContent(e.target.value)}
+              onChange={(e) => setContent(e.target.value)}
             />
           ) : (
             <p className={classes.cmtText}>
-              {content?.length < 100 ? content : readMore ? content + ' ' : content?.slice(0, 100) + '... '}
+              {content?.length < 100
+                ? content
+                : readMore
+                ? content + ' '
+                : content?.slice(0, 100) + '... '}
               {content?.length > 100 && (
-                <span className="todoCard-details__comments-readMore" onClick={() => setReadMore(!readMore)}>
+                <span
+                  className="todoCard-details__comments-readMore"
+                  onClick={() => setReadMore(!readMore)}
+                >
                   {readMore ? 'Ẩn' : 'Xem thêm'}
                 </span>
               )}
             </p>
           )}
           <div className={classes.cmtTimetamps}>
-            <span className="todoCard-details__comments-time">{moment(comment?.createdAt).fromNow()}</span>
+            <span className="todoCard-details__comments-time">
+              {moment(comment?.createdAt).fromNow()}
+            </span>
             {onEdit ? (
               <>
                 <span onClick={handleUpdate}>Chỉnh sửa</span>
@@ -107,7 +137,9 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
               </>
             ) : (
               <>
-                <span className={classes.cmtText}>{comment.likes?.length} likes</span>
+                <span className={classes.cmtText}>
+                  {comment.likes?.length} likes
+                </span>
                 <span className={classes.cmtReplyText} onClick={handleReply}>
                   {reply ? 'Cancel' : 'Reply'}
                 </span>
@@ -117,13 +149,23 @@ function CommentCard({ children, comment, cardId, commentId, replyComments = {} 
         </div>
 
         <div className={classes.cmtActions}>
-          <LikeButton isLike={isLike} handleLike={handleLike} handleUnLike={handleUnLike} />
-          <CommentMenu comment={comment} setOnEdit={setOnEdit} cardId={cardId} />
+          <LikeButton
+            isLike={isLike}
+            handleLike={handleLike}
+            handleUnLike={handleUnLike}
+          />
+          <CommentMenu
+            comment={comment}
+            setOnEdit={setOnEdit}
+            cardId={cardId}
+          />
         </div>
       </div>
       {reply && (
         <InputComment cardId={cardId} reply={reply} setReply={setReply}>
-          <Link to={`/users/${reply.user?._id}`}>@{reply.user?.username}: </Link>
+          <Link to={`/users/${reply.user?._id}`}>
+            @{reply.user?.username}:{' '}
+          </Link>
         </InputComment>
       )}
       {children}

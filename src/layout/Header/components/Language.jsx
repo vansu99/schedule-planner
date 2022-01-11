@@ -7,7 +7,7 @@ import { LANGUAGE } from 'configs';
 import { useGlobalContext } from 'contexts/global-context';
 import React, { useState } from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   buttonLang: {
     color: '#FFF',
     fontSize: '14px',
@@ -24,7 +24,7 @@ export default function Language(props) {
   const { setLanguage, language } = useGlobalContext();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -32,14 +32,19 @@ export default function Language(props) {
     setAnchorEl(null);
   };
 
-  const _handleChooseLanguage = lang => {
+  const _handleChooseLanguage = (lang) => {
     setLanguage(lang);
     setAnchorEl(null);
   };
 
   return (
     <React.Fragment>
-      <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.buttonLang} onClick={handleClick}>
+      <Button
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        className={classes.buttonLang}
+        onClick={handleClick}
+      >
         <TranslateIcon />
         <span style={{ margin: '0 4px 0 8px' }}>{language}</span>
         <ExpandMoreIcon />
@@ -61,8 +66,12 @@ export default function Language(props) {
         }}
         getContentAnchorEl={null}
       >
-        <MenuItem onClick={() => _handleChooseLanguage(LANGUAGE.ENGLISH)}>ENGLISH</MenuItem>
-        <MenuItem onClick={() => _handleChooseLanguage(LANGUAGE.VIETNAMESE)}>VIETNAMESE</MenuItem>
+        <MenuItem onClick={() => _handleChooseLanguage(LANGUAGE.ENGLISH)}>
+          ENGLISH
+        </MenuItem>
+        <MenuItem onClick={() => _handleChooseLanguage(LANGUAGE.VIETNAMESE)}>
+          VIETNAMESE
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );

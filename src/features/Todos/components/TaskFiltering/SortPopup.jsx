@@ -3,7 +3,7 @@ import PopupMenu from 'components/PopupMenu';
 import { sortingDirection, taskSortingType } from 'helpers/sorting';
 import React from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   sortOptionList: {
     margin: '0 .5rem',
   },
@@ -30,23 +30,40 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SortPopup = ({ sorting, onChangeTaskSorting, popupSorting, onClosePopupSorting }) => {
+const SortPopup = ({
+  sorting,
+  onChangeTaskSorting,
+  popupSorting,
+  onClosePopupSorting,
+}) => {
   const classes = useStyles();
 
-  const handleSetSorting = sortData => {
+  const handleSetSorting = (sortData) => {
     if (!onChangeTaskSorting) return;
     onChangeTaskSorting(sortData);
   };
 
   return (
-    <PopupMenu id="sort" width="20rem" showPopup={popupSorting} closePopup={onClosePopupSorting}>
+    <PopupMenu
+      id="sort"
+      width="20rem"
+      showPopup={popupSorting}
+      closePopup={onClosePopupSorting}
+    >
       <div className={classes.sortOptionList}>
         <div
           className={classes.sortOptionItem}
-          onClick={() => handleSetSorting({ type: taskSortingType.NONE, direction: sortingDirection.ASC })}
+          onClick={() =>
+            handleSetSorting({
+              type: taskSortingType.NONE,
+              direction: sortingDirection.ASC,
+            })
+          }
         >
           <div className="action-title">None</div>
-          {sorting?.type === taskSortingType.NONE && <i className="bx bx-check action-icon"></i>}
+          {sorting?.type === taskSortingType.NONE && (
+            <i className="bx bx-check action-icon"></i>
+          )}
         </div>
         <div
           className={classes.sortOptionItem}
@@ -59,16 +76,24 @@ const SortPopup = ({ sorting, onChangeTaskSorting, popupSorting, onClosePopupSor
           }
         >
           <div className="action-title">Alphabetical</div>
-          {sorting?.type === taskSortingType.TASK_TITLE_ALPHA && <i className="bx bx-check action-icon"></i>}
+          {sorting?.type === taskSortingType.TASK_TITLE_ALPHA && (
+            <i className="bx bx-check action-icon"></i>
+          )}
         </div>
         <div
           className={classes.sortOptionItem}
           onClick={() =>
-            handleSetSorting({ type: taskSortingType.DUE_DATE, _sort: 'duedate', direction: sortingDirection.ASC })
+            handleSetSorting({
+              type: taskSortingType.DUE_DATE,
+              _sort: 'duedate',
+              direction: sortingDirection.ASC,
+            })
           }
         >
           <div className="action-title">Due date</div>
-          {sorting?.type === taskSortingType.DUE_DATE && <i className="bx bx-check action-icon"></i>}
+          {sorting?.type === taskSortingType.DUE_DATE && (
+            <i className="bx bx-check action-icon"></i>
+          )}
         </div>
       </div>
     </PopupMenu>

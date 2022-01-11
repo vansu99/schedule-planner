@@ -5,7 +5,7 @@ import EditForm from './components/EditForm';
 import SidebarUserEdit from './components/Sidebar';
 import useStyles from './style';
 
-const UserProfileEdit = props => {
+const UserProfileEdit = (props) => {
   const classes = useStyles();
   return (
     <Container maxWidth="md" className={classes.editProfileWrapper}>

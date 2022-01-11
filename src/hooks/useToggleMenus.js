@@ -3,7 +3,7 @@ import { useState } from 'react';
 function useToggleMenus(value = false) {
   const [isShow, setIsShow] = useState(value);
 
-  const handleShow = e => {
+  const handleShow = (e) => {
     setIsShow(e.currentTarget);
   };
 

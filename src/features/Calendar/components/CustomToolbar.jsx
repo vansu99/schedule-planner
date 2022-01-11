@@ -7,7 +7,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   toolbar: {
     marginBottom: theme.spacing(2),
     display: 'flex',
@@ -51,7 +51,9 @@ function CustomToolbar({ date, onNavigate }) {
         <Typography variant="h4" component="h4">
           {dateCalendar.format('MMMM')}
         </Typography>
-        <Typography variant="subtitle1">{dateCalendar.format('YYYY')}</Typography>
+        <Typography variant="subtitle1">
+          {dateCalendar.format('YYYY')}
+        </Typography>
       </>
     );
   };

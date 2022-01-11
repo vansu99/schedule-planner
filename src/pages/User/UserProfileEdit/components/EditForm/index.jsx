@@ -40,7 +40,7 @@ function UserProfileEdit(props) {
     document.title = 'Edit Profile • Schedule Planner';
   }, []);
 
-  const handleSubmit = values => {
+  const handleSubmit = (values) => {
     dispatch(userActions.asyncUpdateUserProfile(currentUser._id, values));
   };
 
@@ -52,7 +52,11 @@ function UserProfileEdit(props) {
             <Avatar src={currentUser?.image} className={classes.avatarSize} />
           </ChangeAvatarButon>
           <Box ml={2}>
-            <Typography variant="h4" component="h4" className={classes.userName}>
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.userName}
+            >
               {currentUser?.username}
             </Typography>
           </Box>
@@ -60,13 +64,21 @@ function UserProfileEdit(props) {
         <Box my={3}>
           <InputField form={form} label="E-mail" name="email" disabled />
           <Box my={2}>
-            <InputField form={form} label={translate('full_name')} name="username" />
+            <InputField
+              form={form}
+              label={translate('full_name')}
+              name="username"
+            />
           </Box>
           <Box my={2}>
             <InputField form={form} label={translate('phone')} name="phone" />
           </Box>
           <Box my={3}>
-            <SelectField form={form} name="gender" label={translate('gender')} />
+            <SelectField
+              form={form}
+              name="gender"
+              label={translate('gender')}
+            />
           </Box>
           <TextareField form={form} label="Tiểu sử" name="bio" />
         </Box>
