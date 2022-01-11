@@ -92,7 +92,6 @@ export default function TodoFormContainer({ isLists, listId }) {
       <Collapse in={open}>
         <TodoForm
           onCloseForm={handleCloseForm}
-          text=""
           name="title"
           placeholder={placeholder}
           label={label}

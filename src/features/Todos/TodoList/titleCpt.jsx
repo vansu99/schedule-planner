@@ -3,7 +3,14 @@ import React from 'react';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import useStyles from './theme.TodoList';
 
-export default function TitleCpt({ title, open, onChange, setOpen, handleRemoveList, handleEditTitleList }) {
+export default function TitleCpt({
+  title,
+  open,
+  onChange,
+  setOpen,
+  handleRemoveList,
+  handleEditTitleList,
+}) {
   const classes = useStyles();
 
   const editTitleList = e => {
