@@ -2,18 +2,6 @@
   "extends": ["react-app", "prettier"],
   "plugins": ["react", "prettier", "import"],
   "rules": {
-    "prettier/prettier": [
-      "warn",
-      {
-        "printWidth": 120,
-        "singleQuote": true,
-        "quoteProps": "as-needed",
-        "trailingComma": "all",
-        "endOfLine": "lf",
-        "arrowParens": "avoid",
-        "jsxBracketSameLine": false
-      }
-    ],
     "no-console": "warn",
     "no-alert": "error"
   }
