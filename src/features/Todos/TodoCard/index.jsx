@@ -14,23 +14,18 @@ import RenderModalWithDescCard from './components/ModalDescCard';
 import useStyles from './theme.todoCard';
 
 const RenderFormTextarea = ({ value, name, onSubmit, oncloseForm }) => {
-  return <TodoForm onCloseForm={oncloseForm} text={value} name={name} submit={onSubmit} label="Save edit card" />;
+  return (
+    <TodoForm
+      onCloseForm={oncloseForm}
+      text={value}
+      name={name}
+      submit={onSubmit}
+      label="Save edit card"
+    />
+  );
 };
 
-function TodoCard({
-  _id,
-  index,
-  title,
-  description,
-  member,
-  checklist,
-  attachments,
-  date,
-  completed,
-  label,
-  listId,
-  listTitle,
-}) {
+function TodoCard({ _id, index, listId, title, description, ...restProps }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { boardId } = useParams();
@@ -101,35 +96,29 @@ function TodoCard({
             className={classes.todoContentItem}
           >
             {isEditing ? (
-              <RenderFormTextarea value={title} name="title" onSubmit={handleEditCard} oncloseForm={closeIsEditing} />
+              <RenderFormTextarea
+                value={title}
+                name="title"
+                onSubmit={handleEditCard}
+                oncloseForm={closeIsEditing}
+              />
             ) : (
               <TodoCardItem
                 title={title}
-                label={label}
-                date={date}
-                member={member}
-                completed={completed}
                 attachItem={attachItem}
-                attachments={attachments}
                 description={description}
                 showAttach={showAttach}
                 onEditTitleCard={toggleIsEditing}
                 onRemoveCard={handleRemoveCard}
+                {...restProps}
               />
             )}
             {description ? (
               <RenderModalWithDescCard
                 _id={_id}
-                date={date}
                 title={title}
-                label={label}
-                member={member}
                 boardId={boardId}
-                checklist={checklist}
-                listTitle={listTitle}
                 showModal={showModal}
-                completed={completed}
-                attachments={attachments}
                 isEditDescCard={isEditDescCard}
                 onShowModal={toggleShowModal}
                 onRemoveLabel={handleRemoveLabel}
@@ -140,20 +129,14 @@ function TodoCard({
                 onShowEditDescCard={toggleIsEditDescCard}
                 onEditDescCard={handleEditDescCard}
                 onToggleCoverAttack={handleToggleShowAttach}
+                {...restProps}
               />
             ) : (
               <RenderModalContentCard
                 _id={_id}
-                date={date}
                 title={title}
-                label={label}
-                member={member}
                 boardId={boardId}
-                checklist={checklist}
-                listTitle={listTitle}
                 showModal={showModal}
-                completed={completed}
-                attachments={attachments}
                 isEditDescCard={isEditDescCard}
                 onShowModal={toggleShowModal}
                 onRemoveLabel={handleRemoveLabel}
@@ -162,6 +145,7 @@ function TodoCard({
                 onRemoveMember={handleRemoveMember}
                 onRemoveDueDate={handleRemoveDueDate}
                 onToggleCoverAttack={handleToggleShowAttach}
+                {...restProps}
               />
             )}
           </div>

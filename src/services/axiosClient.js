@@ -1,8 +1,9 @@
 import axios from 'axios';
 import queryString from 'query-string';
+
+import history from 'helpers/history';
 import { pathName, StorageKeys } from 'configs';
 import { localStorageService } from 'hooks/useLocalStorage';
-import history from 'helpers/history';
 
 const { clearTokens, getRefreshToken } = localStorageService;
 const API_URL = 'https://projectfinaltodo.herokuapp.com';
@@ -11,7 +12,7 @@ const API_URL = 'https://projectfinaltodo.herokuapp.com';
 
 const axiosClient = axios.create({
   baseURL: API_URL,
-  timeout: 10000,
+  timeout: 3 * 1000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -32,7 +33,26 @@ axiosClient.interceptors.request.use(
 );
 
 axiosClient.interceptors.response.use(
-  response => response,
+  async (response) => {
+    const config = response.config
+    const { code, msg } = response.data
+    if(code && code === 401) {
+      // xu ly token het han
+      if(msg && msg === 'jwt expired') {
+        // step 1: get token from refresh token
+        const { accessToken } = await forceRenewToken();
+        // step 2: update header
+        if(accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+          // step 3: set token into local storage and request again
+          localStorage.setItem(StorageKeys.TOKEN, accessToken);
+          return axiosClient(config)
+        }
+      }
+    }
+
+    return response
+  },
   error => {
     if (error.response) {
       const origionalRequest = error.config;
