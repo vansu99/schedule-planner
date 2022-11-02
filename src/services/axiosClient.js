@@ -5,7 +5,7 @@ import history from 'helpers/history';
 import { pathName, StorageKeys } from 'configs';
 import { localStorageService } from 'hooks/useLocalStorage';
 
-const { clearTokens, getRefreshToken } = localStorageService;
+const { getRefreshToken } = localStorageService;
 const API_URL = 'https://projectfinaltodo.herokuapp.com';
 // https://projectfinaltodo.herokuapp.com
 // http://localhost:8080
@@ -17,45 +17,45 @@ const axiosClient = axios.create({
     'Content-Type': 'application/json',
   },
 
-  paramsSerializer: params => queryString.stringify(params),
+  paramsSerializer: (params) => queryString.stringify(params),
 });
 
 // Request Interceptors
 axiosClient.interceptors.request.use(
-  config => {
+  (config) => {
     const token = localStorage.getItem(StorageKeys.TOKEN);
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 axiosClient.interceptors.response.use(
   async (response) => {
-    const config = response.config
-    const { code, msg } = response.data
-    if(code && code === 401) {
+    const config = response.config;
+    const { code, msg } = response.data;
+    if (code && code === 401) {
       // xu ly token het han
-      if(msg && msg === 'jwt expired') {
+      if (msg && msg === 'jwt expired') {
         // step 1: get token from refresh token
         const { accessToken } = await forceRenewToken();
         // step 2: update header
-        if(accessToken) {
+        if (accessToken) {
           config.headers.Authorization = `Bearer ${accessToken}`;
           // step 3: set token into local storage and request again
           localStorage.setItem(StorageKeys.TOKEN, accessToken);
-          return axiosClient(config)
+          return axiosClient(config);
         }
       }
     }
 
-    return response
+    return response;
   },
-  error => {
+  (error) => {
     if (error.response) {
-      const origionalRequest = error.config;
+      // const origionalRequest = error.config;
       if (error.response.status === 401 || error.response.status === 500) {
         // logout
         history.push({ pathname: '/login' });
@@ -63,7 +63,7 @@ axiosClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 async function forceRenewToken() {
@@ -73,13 +73,13 @@ async function forceRenewToken() {
   }
   return axiosClient
     .post('/api/auth/refresh', { refresh: refreshToken })
-    .then(res => {
+    .then((res) => {
       // save token new and update header
       axiosClient.defaults.headers['Authorization'] = `Bearer ${res.data.refToken}`;
       localStorage.setItem(StorageKeys.TOKEN, res.data.refToken);
     })
-    .catch(error => {
-      console.log(error);
+    .catch((error) => {
+      throw new Error(error);
     });
 }
 

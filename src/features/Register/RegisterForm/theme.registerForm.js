@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: '1000px',
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     flexShrink: 0,
     border: '1px solid #dbdbdb',
-    borderRadius: '1px',
+    borderRadius: '0.6rem',
     backgroundColor: '#FFFFFF',
     '& .login-brand': {
       display: 'flex',
@@ -104,6 +104,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '1.2rem',
+    borderRadius: '.6rem',
     border: '1px solid #dbdbdb',
     color: '#385185',
     fontWeight: '600',
@@ -141,11 +142,11 @@ const useStyles = makeStyles(theme => ({
   },
   otherRegister: {
     border: '1px solid #dbdbdb',
-    borderRadius: '1px',
     backgroundColor: theme.palette.background.default,
     marginTop: theme.spacing(1.5),
     padding: '2rem 0',
     display: 'flex',
+    borderRadius: '.6rem',
     justifyContent: 'center',
     alignItems: 'center',
     '& > p > a': {

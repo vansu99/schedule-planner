@@ -1,8 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { pathName, StorageKeys } from '../configs';
-import history from 'helpers/history';
 import { Redirect } from 'react-router-dom'
+import { pathName, StorageKeys } from '../configs';
 
 const AuthGuard = ({ children }) => {
   // check token cho các trang trong Dashboard
