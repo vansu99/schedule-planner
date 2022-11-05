@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser } from "../../../../selectors/auth.selector";
+import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { getCurrentUser } from '../../../../selectors/auth.selector';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   commentInput: {
     display: 'flex',
     alignItems: 'center',
@@ -36,10 +36,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function InputComment({ children, cardId, reply = {}, setReply, send = "" }) {
+function InputComment({ children, cardId, reply = {}, setReply, send = '' }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const socket = useSelector(state => state.socket.socket);
+  const socket = useSelector((state) => state.socket.socket);
   const [content, setContent] = useState('');
   const user = useSelector(getCurrentUser);
 
@@ -55,9 +54,9 @@ function InputComment({ children, cardId, reply = {}, setReply, send = "" }) {
       user: user._id,
       tag: reply && reply.user,
       cardId,
-      send
+      send,
     };
-    socket?.emit('createComment', newComment)
+    socket?.emit('createComment', newComment);
     //dispatch(commentActions.asyncAddCommentTodoCard(cardId, newComment, user));
     if (setReply) return setReply(false);
   };
@@ -69,7 +68,7 @@ function InputComment({ children, cardId, reply = {}, setReply, send = "" }) {
         type="text"
         placeholder="Add your comment..."
         value={content}
-        onChange={e => setContent(e.target.value)}
+        onChange={(e) => setContent(e.target.value)}
       />
       <button onClick={handleSubmitComment}>Post</button>
     </div>
